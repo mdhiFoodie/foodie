@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "start": "nodemon rest-server/src/index.js"
+    "start:rest-server": "cd rest-server && npm start",
+    "start:socket-server": "cd socket-server && npm start", 
+    "buildEnv": "node bin/builEnv.js"
   },
   "repository": {
     "type": "git",
