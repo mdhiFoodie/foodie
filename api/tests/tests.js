@@ -10,3 +10,4 @@ test('adds user to db', () => {
   // addUser(bob);
   // expect(db user query (bob)).toBe({a chunk of the data from the db})
 });
+

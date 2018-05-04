@@ -1,0 +1,24 @@
+{
+  "name": "foodie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon rest-server/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdhiFoodie/foodie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdhiFoodie/foodie/issues"
+  },
+  "homepage": "https://github.com/mdhiFoodie/foodie#readme",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
+}
