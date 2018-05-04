@@ -1,7 +1,7 @@
 // const addUser = require( *file path to addUser* )
 // const query for user = require(file path to query)
 
-//run npm test to run this test
+//yarn test to run this test
 //test that query actually grabs data from db
 // write test that adds data hardcoded
 

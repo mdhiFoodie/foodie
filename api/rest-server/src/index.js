@@ -1,5 +1,5 @@
-import http from 'http'; 
-import App from './config/express'; 
+const App = require('./config/express'); 
+const http = require('http'); 
 
 const app = App.express; 
 
@@ -15,9 +15,9 @@ app.listen(PORT, (err) => {
 
 
 //WHAT IS THIS FOR? 
-// server.on('error', () => {
-//   server.close(
-//     setTimeout(server.listen((PORT, () => success('successfully rebooted server!'))), 1000)
-//   );
-// });
+server.on('error', () => {
+  server.close(
+    setTimeout(server.listen((PORT, () => success('successfully rebooted server!'))), 1000)
+  );
+});
 
