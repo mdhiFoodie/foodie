@@ -1,6 +1,23 @@
-const express = require('express')
-const app = express()
+const App = require('./config/express'); 
+const http = require('http'); 
 
-app.get('/', (req, res) => res.send('Hello World!'))
+const app = App.express; 
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+const server = http.createServer(app); 
+const PORT = process.env.PORT; 
+
+app.listen(PORT, (err) => {
+  if (err) {
+    throw err; 
+  }
+  console.log(`Successfully connected to port ${PORT}`); 
+});
+
+
+//WHAT IS THIS FOR? 
+server.on('error', () => {
+  server.close(
+    setTimeout(server.listen((PORT, () => success('successfully rebooted server!'))), 1000)
+  );
+});
+
