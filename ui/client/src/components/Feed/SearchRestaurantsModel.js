@@ -2,7 +2,7 @@
 
 // const SearchRestaurantsModel = (payload, callback) => {
 //      console.log('this is the Search Restaurants Model payload', payload)
-//     connection.query(`SELECT * FROM businesses WHERE businessName = "${reqbody.businessName}"`, (err, result, field) => {
+//     connection.query(`SELECT  FROM businesses WHERE businessName = "${reqbody.businessName}"`, (err, result, field) => {
 //         console.log('this is the Search Restaurants Model results',result);
 //         if(err){
 //             throw err;
