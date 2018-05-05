@@ -55,7 +55,7 @@ CREATE TABLE Reviews_Users (
   FOREIGN KEY(id_Users) REFERENCES Users(id),
   FOREIGN KEY(id_Reviews) REFERENCES Reviews(id),
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE Menus (
   id int NOT NULL auto_increment,
@@ -82,7 +82,7 @@ CREATE TABLE Orders (
   id_Users int NOT NULL,
   id_Businesses int NOT NULL,
   FOREIGN KEY (id_Users) REFERENCES Users(id),
-  FOREIGN KEY (id_Business) REFERENCES Businesses (id),
+  FOREIGN KEY (id_Businesses) REFERENCES Businesses (id),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   cart varchar (255),
   total int NOT NULL,
@@ -102,8 +102,8 @@ CREATE TABLE Users_Orders (
 
 CREATE TABLE Messages (
   id int NOT NULL auto_increment,
-  id_friendSent int NOT NULL,
-  id_friendReceived int NOT NULL,
+  id_userSending int NOT NULL,
+  id_userReceiving int NOT NULL,
   id_Orders int NOT NULL,
   FOREIGN KEY (id_userSending) REFERENCES Users(id),
   FOREIGN KEY (id_userReceiving) REFERENCES Users(id),
