@@ -11180,13 +11180,23 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouterDom = __webpack_require__(372);
 
+var _index = __webpack_require__(401);
+
+var _index2 = _interopRequireDefault(_index);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(
-  'h1',
-  null,
-  'HELLO UNIVERSE'
-), document.getElementById('root'));
+// import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import { allReducers } from 'whateverthepathfileis';
+
+// const store = createStore(allReducers);
+
+_reactDom2.default.render(
+// <h1>HELLO UNIVERSE</h1>
+_react2.default.createElement(_index2.default, null), document.getElementById('root'));
+
+// ReactDOM.render(<Provider store={store}><WHATEVER PARENT COMPONENT IS/></Provider>, document.getElementById("root"));
 
 /***/ }),
 /* 361 */
@@ -33522,6 +33532,257 @@ var withRouter = function withRouter(Component) {
     };
 })));
 
+
+/***/ }),
+/* 401 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _SearchFilter = __webpack_require__(403);
+
+var _SearchFilter2 = _interopRequireDefault(_SearchFilter);
+
+var _NearByRestaurants = __webpack_require__(404);
+
+var _NearByRestaurants2 = _interopRequireDefault(_NearByRestaurants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Feed = function (_Component) {
+  _inherits(Feed, _Component);
+
+  function Feed() {
+    _classCallCheck(this, Feed);
+
+    var _this = _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).call(this));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(Feed, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'FeedContainer' },
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_SearchFilter2.default, null)
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_NearByRestaurants2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return Feed;
+}(_react.Component);
+
+exports.default = Feed;
+
+/***/ }),
+/* 402 */,
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import axios from 'axios';
+
+var SearchFilter = function (_Component) {
+    _inherits(SearchFilter, _Component);
+
+    function SearchFilter() {
+        _classCallCheck(this, SearchFilter);
+
+        var _this = _possibleConstructorReturn(this, (SearchFilter.__proto__ || Object.getPrototypeOf(SearchFilter)).call(this));
+
+        _this.state = {
+            search: '',
+            restaurants: [],
+            getInitialState: function getInitialState() {
+                return {
+                    value: 'Popularity'
+                };
+            }
+        };
+        return _this;
+    }
+
+    _createClass(SearchFilter, [{
+        key: 'onTextHandler',
+        value: function onTextHandler(e) {
+            console.log('this is the state for search', this.state);
+            this.setState(_defineProperty({}, e.target.name, e.target.value));
+        }
+    }, {
+        key: 'filterClickHandler',
+        value: function filterClickHandler(e) {
+            console.log('clicked on different filters');
+            this.setState({
+                value: e.target.value
+            });
+        }
+    }, {
+        key: 'handleKeyPress',
+        value: function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                console.log('enter pressed');
+                // axios.get(`/api/users/feed/searchRestaurants/${this.state.search}`)
+                //     .then(response => {
+                //         console.log('hello this is the response for searching restaurants', response)
+                //push to this.state.restaurants of all the names
+                //SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
+                //RESTAURANTS WITH THAT NAME
+                //     })
+                //     .catch(err => {
+                //         console.log('hello this is the error handler for searching restaurants', err)
+                //     })
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'SearchFeedContainer' },
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('input', { onChange: this.onTextHandler.bind(this), name: 'search', placeholder: 'search', onKeyPress: this.handleKeyPress.bind(this) })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'select',
+                        { value: this.state.value, onChange: this.filterClickHandler.bind(this) },
+                        _react2.default.createElement(
+                            'option',
+                            { value: 'Popularity' },
+                            'Popularity'
+                        ),
+                        _react2.default.createElement(
+                            'option',
+                            { value: 'Reviews' },
+                            'Reviews'
+                        ),
+                        _react2.default.createElement(
+                            'option',
+                            { value: '$$$' },
+                            '$$$'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return SearchFilter;
+}(_react.Component);
+
+exports.default = SearchFilter;
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import NearByRestaurantsEntries from './NearByRestaurantsEntries.jsx';
+
+var NearByRestaurants = function (_Component) {
+    _inherits(NearByRestaurants, _Component);
+
+    function NearByRestaurants() {
+        _classCallCheck(this, NearByRestaurants);
+
+        var _this = _possibleConstructorReturn(this, (NearByRestaurants.__proto__ || Object.getPrototypeOf(NearByRestaurants)).call(this));
+
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(NearByRestaurants, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'NearByRestaurantsContainer' },
+                'this is the nearby restaurants where you map through WITH THE RESPONSE THAT I SENT UP TO REDUX STORE FROM THE SEARCH FILTER'
+            );
+        }
+    }]);
+
+    return NearByRestaurants;
+}(_react.Component);
+
+;
+
+exports.default = NearByRestaurants;
 
 /***/ })
 /******/ ]);

@@ -3,7 +3,7 @@
 #Get Started
 
 #Setup environment 
-yarn 
+yarn
 yarn buildEnv 
 yarn setup:server
 yarn setup:client
