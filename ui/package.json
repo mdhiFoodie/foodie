@@ -7,8 +7,22 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup:server": "cd server && yarn",
+    "setup:client": "cd client && yarn",
+    "start:server": "cd server && yarn start",
+    "build": "cd client && yarn build", 
+    "buildEnv": "node bin/buildEnv.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bin": {
+    "api": "buildEnv.js"
+  },
+  "keywords": [],
+  "dependencies": {
+    "eslint-plugin-react": "^7.7.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.10"
+  }
 }
