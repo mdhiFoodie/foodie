@@ -5,7 +5,9 @@
 
   const envBuild = {
     'rest-server': [
-      'PORT=3000'
+      'PORT=3000',
+      'SALT_ROUNDS=10',
+      'TOKEN_SECRET=foodiepop',
     ], 
     'socket-server': [
       'PORT=4000'

@@ -1,9 +1,9 @@
-const express = require('express');
-const parser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
+import express from 'express';
+import parser from 'body-parser';
+import cors from 'cors';
+import helmet from 'helmet';
 
-const router = require('../../routes/index');
+import router from '../../routes/index';
 
 const middleWare = [
   helmet(),  
@@ -31,5 +31,5 @@ class App {
   }
 }
 
-module.exports = new App();
+export default new App();
 

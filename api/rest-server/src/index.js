@@ -1,12 +1,15 @@
-const App = require('./config/express'); 
-const http = require('http'); 
+import http from 'http';
+
+import App from './config/express';
+import { success } from '../../lib/log';
+// import './config/database';
 
 const app = App.express; 
 
 const server = http.createServer(app); 
 const PORT = process.env.PORT; 
 
-app.listen(PORT, (err) => {
+server.listen(PORT, (err) => {
   if (err) {
     throw err; 
   }
@@ -18,4 +21,3 @@ server.on('error', () => {
     setTimeout(server.listen((PORT, () => success('successfully rebooted server!'))), 1000)
   );
 });
-
