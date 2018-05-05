@@ -16,17 +16,17 @@ CREATE TABLE Users (
 CREATE TABLE Businesses (
   id int NOT NULL auto_increment,
   businessPicture varchar(255),
-  address varchar (255),
-  rating int NOT NULL,
+  businessAddress varchar (255),
+  rating int,
   foodCategory varchar (50),
-  totalOrder int NOT NULL,
-  dailyOrders int NOT NULL,
-  gross int NOT NULL,
-  cuisineType varchar (50),
+  totalOrder int,
+  dailyOrders int,
+  gross int,
   email varchar (50),
   phone int NOT NULL,
   businessName varchar (100),
   contactName varchar (50),
+  businessPassword varchar (50),
   PRIMARY KEY (id)
 );
 

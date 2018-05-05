@@ -2,8 +2,8 @@
 
 // const SearchRestaurantsModel = (payload, callback) => {
 //      console.log('this is the Search Restaurants Model payload', payload)
-//     connection.query(`SELECT * FROM users WHERE username = "${reqbody.username}"`, (err, result, field) => {
-//         console.log('this is the Search Restaurants Model results',result[0]);
+//     connection.query(`SELECT * FROM businesses WHERE businessName = "${reqbody.businessName}"`, (err, result, field) => {
+//         console.log('this is the Search Restaurants Model results',result);
 //         if(err){
 //             throw err;
 //         }
