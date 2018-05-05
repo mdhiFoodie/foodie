@@ -1,8 +1,4 @@
 node_modules/
 .env
-<<<<<<< HEAD
 .DS_store 
 bundle.js
-=======
-.DS_store 
->>>>>>> git ignore

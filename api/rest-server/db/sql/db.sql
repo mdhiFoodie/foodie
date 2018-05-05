@@ -32,8 +32,10 @@ CREATE TABLE Businesses (
 
 CREATE TABLE Delivery_Users (
   id int NOT NULL auto_increment,
+  id_Users int NOT NULL,
+  id_Businesses int NOT NULL,
   FOREIGN KEY(id_Users) REFERENCES Users(id),
-  FOREIGN KEY(id_Business) REFERENCES Businesses(id),
+  FOREIGN KEY(id_Businesses) REFERENCES Businesses(id),
   PRIMARY KEY (id)
 );
 
@@ -41,12 +43,15 @@ CREATE TABLE Reviews (
   id int NOT NULL auto_increment,
   rating int NOT NULL,
   comment varchar (255),
-  FOREIGN KEY(id_Business) REFERENCES Businesses(id),
+  id_Businesses int NOT NULL,
+  FOREIGN KEY(id_Businesses) REFERENCES Businesses(id),
   PRIMARY KEY (id)
 );
 
 CREATE TABLE Reviews_Users (
   id int NOT NULL auto_increment,
+  id_Users int NOT NULL,
+  id_Reviews int NOT NULL,
   FOREIGN KEY(id_Users) REFERENCES Users(id),
   FOREIGN KEY(id_Reviews) REFERENCES Reviews(id),
   PRIMARY KEY (id)
@@ -57,12 +62,15 @@ CREATE TABLE Menus (
   foodItem varchar (255),
   price int NOT NULL,
   foodType int NOT NULL,
-  FOREIGN KEY(id_Business) REFERENCES Businesses(id),
+  id_Businesses int NOT NULL,
+  FOREIGN KEY(id_Businesses) REFERENCES Businesses(id),
   PRIMARY KEY (id)
 );
 
 CREATE TABLE Friends (
   id int NOT NULL auto_increment,
+  id_friendSent int NOT NULL,
+  id_friendReceived int NOT NULL,
   FOREIGN KEY (id_friendSent) REFERENCES Users(id),
   FOREIGN KEY (id_friendReceived) REFERENCES Users(id),
   accepted boolean NOT NULL,
@@ -71,7 +79,9 @@ CREATE TABLE Friends (
 
 CREATE TABLE Orders (
   id int NOT NULL auto_increment,
-  FOREIGN KEY (id_Users) REFERENCES Users (id),
+  id_Users int NOT NULL,
+  id_Businesses int NOT NULL,
+  FOREIGN KEY (id_Users) REFERENCES Users(id),
   FOREIGN KEY (id_Business) REFERENCES Businesses (id),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   cart varchar (255),
@@ -83,6 +93,8 @@ CREATE TABLE Orders (
 
 CREATE TABLE Users_Orders (
   id int NOT NULL auto_increment,
+  id_Users int NOT NULL,
+  id_Orders int NOT NULL,
   FOREIGN KEY (id_Users) REFERENCES Users(id),
   FOREIGN KEY (id_Orders) REFERENCES Orders (id),
   PRIMARY KEY (id)
@@ -90,6 +102,9 @@ CREATE TABLE Users_Orders (
 
 CREATE TABLE Messages (
   id int NOT NULL auto_increment,
+  id_friendSent int NOT NULL,
+  id_friendReceived int NOT NULL,
+  id_Orders int NOT NULL,
   FOREIGN KEY (id_userSending) REFERENCES Users(id),
   FOREIGN KEY (id_userReceiving) REFERENCES Users(id),
   messageBody varchar (255),
