@@ -23,6 +23,14 @@
   "homepage": "https://github.com/mdhiFoodie/foodie#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "chalk": "^2.4.1",
+    "env": "^0.0.2",
     "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
   }
 }
