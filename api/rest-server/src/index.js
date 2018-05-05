@@ -13,8 +13,6 @@ app.listen(PORT, (err) => {
   console.log(`Successfully connected to port ${PORT}`); 
 });
 
-
-//WHAT IS THIS FOR? 
 server.on('error', () => {
   server.close(
     setTimeout(server.listen((PORT, () => success('successfully rebooted server!'))), 1000)

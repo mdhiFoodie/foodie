@@ -4,8 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <h1>HELLO UNIVERSE</h1>
   ,document.getElementById('root'),
 );
