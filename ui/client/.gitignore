@@ -1,4 +1,4 @@
 node_modules/
-.env
-.DS_store 
 bundle.js
+.env
+.DS_stores

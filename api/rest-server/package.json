@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon bin/entry.js"
+    "start": "nodemon bin/entry.js",
+    "sql": "mysql -u root -p < db/sql/db.sql",
+    "runsql": "node db/sql/index.js"
   },
   "keywords": [
     "[]"
@@ -21,6 +23,7 @@
     "express": "^4.16.3",
     "express-validation": "^1.0.2",
     "helmet": "^3.12.0",
+    "mysql": "^2.15.0",
     "nodemon": "^1.17.3"
   },
   "bin": {
