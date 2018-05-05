@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Feed from './components/Feed';
+import Feed from './components/Feed/index.jsx';
 
 // import { createStore } from 'redux';
 // import { Provider } from 'react-redux';
@@ -14,3 +14,5 @@ ReactDOM.render(
   <Feed/>
   ,document.getElementById('root'),
 );
+
+// ReactDOM.render(<Provider store={store}><WHATEVER PARENT COMPONENT IS/></Provider>, document.getElementById("root")); 
