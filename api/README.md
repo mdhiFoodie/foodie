@@ -13,3 +13,12 @@ yarn setup:socket-server
 
 yarn start:rest-server 
 yarn start:socket-server
+
+# Install && Setup postgresql
+
+brew install postgresql
+brew services start postgresql
+createuser root
+
+createdb foodie
+psql foodie
