@@ -1,9 +1,9 @@
-import db from '../../config/database';
+import db from '../../config/databases/pg';
 import { queryPayloadOrganizer } from './util';
 import {
   success,
   error
-} from '../log';
+} from '../../../../lib/log';
 
 /**
  * These functions are for basic CRUD operations only.

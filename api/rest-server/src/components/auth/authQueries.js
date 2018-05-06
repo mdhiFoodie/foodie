@@ -1,4 +1,4 @@
-import db from '../../config/database';
+import db from '../../config/databases/pg';
 import { queryPayloadOrganizer } from '../../lib/components/util';
 import {
   signUpHelper,
@@ -7,7 +7,7 @@ import {
 import {
   success,
   error
-} from '../../lib/log';
+} from '../../../../lib/log';
 
 export const signUpQuery = async (payload) => {
   try {

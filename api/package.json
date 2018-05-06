@@ -8,7 +8,7 @@
     "start:socket-server": "cd socket-server && yarn start",
     "setup:rest-server": "cd rest-server && yarn",
     "setup:socket-server": "cd socket-server && yarn",
-    "db:setup:rest-server": "cd rest-server && babel-node src/config/database/setup.js",
+    "db:setup:rest-server": "cd rest-server && babel-node src/config/databases/pg/setup.js",
     "buildEnv": "node bin/buildEnv.js"
   },
   "repository": {

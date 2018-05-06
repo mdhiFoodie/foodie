@@ -2,7 +2,7 @@ export const userSignUpHelper = `
     INSERT INTO
       users (name, phone, email, password)
     VALUES
-      ($1, $2, $3)
+      ($1, $2, $3, $4)
     RETURNING
       id, email
 `;
@@ -18,7 +18,7 @@ export const userLoginHelper = `
 
 export const businessSignUpHelper = `
     INSERT INTO
-      users (name, address, contactName, email, phone, foodCategory, password)
+      users (businessName, businessAddress, contactName, email, phone, foodCategory, password)
     VALUES
       ($1, $2, $3, $4, $5, $6, $7)
     RETURNING
