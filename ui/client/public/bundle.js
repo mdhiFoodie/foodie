@@ -33578,6 +33578,10 @@ var Feed = function (_Component) {
     return _this;
   }
 
+  // componentWillMount() {
+
+  // }
+
   _createClass(Feed, [{
     key: 'render',
     value: function render() {
@@ -33631,6 +33635,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // import axios from 'axios';
+// import { geolocated } from 'react-geolocation';
 
 var SearchFilter = function (_Component) {
     _inherits(SearchFilter, _Component);
@@ -33670,7 +33675,19 @@ var SearchFilter = function (_Component) {
         key: 'handleKeyPress',
         value: function handleKeyPress(e) {
             if (e.key === 'Enter') {
-                console.log('enter pressed');
+                console.log('enter pressed for search');
+                var onPositionReceived = function onPositionReceived(position) {
+                    console.log(position);
+                };
+                var locationNotReceived = function locationNotReceived(positionError) {
+                    console.log(positionError);
+                };
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
+                    var watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
+                    console.log(watch);
+                    navigator.geolocation.clearWatch(watch);
+                }
                 // axios.get(`/api/users/feed/searchRestaurants/${this.state.search}`)
                 //     .then(response => {
                 //         console.log('hello this is the response for searching restaurants', response)
