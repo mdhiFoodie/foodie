@@ -72,6 +72,7 @@ export const createUsersTable = async () => {
         password varchar (255),
         type int NOT NULL,
         phone int NOT NULL,
+        CONSTRAINT users_pk
           PRIMARY KEY (id)
       )
       `
@@ -114,6 +115,7 @@ export const createBusinessesTable = async () => {
         businessname varchar (100),
         contactname varchar (50),
         businesspassword varchar (50),
+        CONSTRAINT businesses_pk
           PRIMARY KEY (id)
       )
       `
@@ -146,8 +148,11 @@ export const createDelivery_UsersTable = async () => {
         id SERIAL,
         id_users int NOT NULL,
         id_businesses int NOT NULL,
+        CONSTRAINT fk_delivery_users_id_users
           FOREIGN KEY(id_users) REFERENCES users(id),
+        CONSTRAINT fk_delivery_users_id_businesses  
           FOREIGN KEY(id_businesses) REFERENCES businesses(id),
+        CONSTRAINT delivery_users_pk  
           PRIMARY KEY (id)
       )
       `
@@ -180,7 +185,9 @@ export const createReviewsTable = async () => {
         rating int NOT NULL,
         comment varchar (255),
         id_businesses int NOT NULL,
+        CONSTRAINT fk_reviews_id_businesses
           FOREIGN KEY(id_businesses) REFERENCES businesses(id),
+        CONSTRAINT reviews_pk  
           PRIMARY KEY (id)
       )
       `
@@ -213,8 +220,11 @@ export const createReviews_UsersTable = async () => {
         id SERIAL,
         id_users int NOT NULL,
         id_reviews int NOT NULL,
+        CONSTRAINT fk_reviews_users_id_users
           FOREIGN KEY(id_users) REFERENCES users(id),
+        CONSTRAINT fk_reviews_users_id_reviews  
           FOREIGN KEY(id_reviews) REFERENCES reviews(id),
+        CONSTRAINT reviews_users_pk  
           PRIMARY KEY (id)
       )
       `
@@ -249,7 +259,9 @@ export const createMenusTable = async () => {
         price int NOT NULL,
         foodtype int NOT NULL,
         id_businesses int NOT NULL,
+        CONSTRAINT fk_menus_id_businesses
           FOREIGN KEY(id_businesses) REFERENCES businesses(id),
+        CONSTRAINT menus_pk  
           PRIMARY KEY (id)
       )
       `
@@ -282,9 +294,12 @@ export const createFriendsTable = async () => {
         id SERIAL,
         id_friendsent int NOT NULL,
         id_friendreceived int NOT NULL,
+        CONSTRAINT fk_friends_id_friendsent
           FOREIGN KEY (id_friendsent) REFERENCES users(id),
+        CONSTRAINT fk_friends_id_friendreceived
           FOREIGN KEY (id_friendreceived) REFERENCES users(id),
         accepted boolean NOT NULL,
+        CONSTRAINT friends_pk
           PRIMARY KEY (id)
       )
       `
@@ -317,14 +332,17 @@ export const createOrdersTable = async () => {
         id SERIAL,
         id_users int NOT NULL,
         id_businesses int NOT NULL,
-        FOREIGN KEY (id_users) REFERENCES users(id),
-        FOREIGN KEY (id_businesses) REFERENCES businesses (id),
         createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         cart varchar (255),
         total int NOT NULL,
         location int NOT NULL,
         totalusersineachorder int NOT NULL,
-        PRIMARY KEY (id)
+        CONSTRAINT fk_orders_id_users
+          FOREIGN KEY (id_users) REFERENCES users(id),
+        CONSTRAINT fk_orders_id_businesses
+          FOREIGN KEY (id_businesses) REFERENCES businesses (id),
+        CONSTRAINT orders_pk
+          PRIMARY KEY (id)
       )
       `
     )
@@ -354,9 +372,12 @@ export const createUsers_OrdersTable = async () => {
         id SERIAL,
         id_users int NOT NULL,
         id_orders int NOT NULL,
-        FOREIGN KEY (id_users) REFERENCES users(id),
-        FOREIGN KEY (id_orders) REFERENCES orders (id),
-        PRIMARY KEY (id)
+        CONSTRAINT fk_users_orders_id_users
+          FOREIGN KEY (id_users) REFERENCES users(id),
+        CONSTRAINT fk_users_orders_id_orders
+          FOREIGN KEY (id_orders) REFERENCES orders (id),
+        CONSTRAINT users_orders_pk
+          PRIMARY KEY (id)
       )
       `
     )
@@ -387,11 +408,15 @@ export const createMessagesTable = async () => {
         id_usersending int NOT NULL,
         id_userreceiving int NOT NULL,
         id_orders int NOT NULL,
-        FOREIGN KEY (id_usersending) REFERENCES users(id),
-        FOREIGN KEY (id_userreceiving) REFERENCES users(id),
+        CONSTRAINT fk_messages_id_usersending
+          FOREIGN KEY (id_usersending) REFERENCES users(id),
+        CONSTRAINT fk_messages_id_userreceiving
+          FOREIGN KEY (id_userreceiving) REFERENCES users(id),
         messagebody varchar (255),
-        FOREIGN KEY (id_orders) REFERENCES orders(id),
-        PRIMARY KEY (id)
+        CONSTRAINT fk_messages_id_orders
+          FOREIGN KEY (id_orders) REFERENCES orders(id),
+        CONSTRAINT messages_pk
+          PRIMARY KEY (id)
       )
       `
     )
