@@ -37,8 +37,8 @@ const setup = async () => {
   await dropBusinessesTable();
   await dropUsersTable();
   await createDatabase();
-  await createBusinessesTable();
   await createUsersTable();
+  await createBusinessesTable();
   await createDelivery_UsersTable();
   await createFriendsTable();
   await createMenusTable();

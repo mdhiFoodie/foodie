@@ -9,7 +9,7 @@ export const userSignUpHelper = `
 
 export const userLoginHelper = `
     SELECT
-      id, email, username, password
+      id, email, password
     FROM
       users
     WHERE
@@ -27,7 +27,7 @@ export const businessSignUpHelper = `
 
 export const businessLoginHelper = `
     SELECT
-      id, email, username, password
+      id, email, password
     FROM
       users
     WHERE

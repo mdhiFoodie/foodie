@@ -1,7 +1,7 @@
 import db from '../../config/databases/pg';
 import {
   signUpQuery,
-  loginQuery
+  userLoginQuery
 } from './authQueries';
 import {
   success,
@@ -31,7 +31,8 @@ export const signUpController = async (req, res) => {
 
 export const loginController = async (req, res) => {
   try {
-    const { rows } = await loginQuery(req.body);
+    const { rows } = await userLoginQuery(req.body);
+    console.log('this is our req.body after submitting login: ', rows)
     delete rows[0].password;
     const { id, email } = rows[0];
     success('loginController - successfully retrieved data ', rows[0]);
