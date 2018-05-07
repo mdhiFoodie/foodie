@@ -57,7 +57,7 @@ export const useDatabase = async () => {
   }
 };
 
-// user table - creation and deletion
+// user table - creation and deletion (0 is a user, 1 is a business, 2 is a delivery user)
 
 export const createUsersTable = async () => {
   try {
@@ -71,7 +71,7 @@ export const createUsersTable = async () => {
         email varchar (50),
         password varchar (255),
         type int NOT NULL,
-        phone int NOT NULL,
+        phone int NOT NULL,  
         CONSTRAINT users_pk
           PRIMARY KEY (id)
       )
@@ -110,11 +110,9 @@ export const createBusinessesTable = async () => {
         totalorder int,
         dailyorders int,
         gross int,
-        email varchar (50),
         phone int NOT NULL,
         businessname varchar (100),
         contactname varchar (50),
-        businesspassword varchar (50),
         CONSTRAINT businesses_pk
           PRIMARY KEY (id)
       )
@@ -149,9 +147,11 @@ export const createDelivery_UsersTable = async () => {
         id_users int NOT NULL,
         id_businesses int NOT NULL,
         CONSTRAINT fk_delivery_users_id_users
-          FOREIGN KEY(id_users) REFERENCES users(id),
+          FOREIGN KEY(id_users) REFERENCES users(id)
+          ON DELETE CASCADE,
         CONSTRAINT fk_delivery_users_id_businesses  
-          FOREIGN KEY(id_businesses) REFERENCES businesses(id),
+          FOREIGN KEY(id_businesses) REFERENCES businesses(id)
+          ON DELETE CASCADE,
         CONSTRAINT delivery_users_pk  
           PRIMARY KEY (id)
       )
@@ -186,7 +186,8 @@ export const createReviewsTable = async () => {
         comment varchar (255),
         id_businesses int NOT NULL,
         CONSTRAINT fk_reviews_id_businesses
-          FOREIGN KEY(id_businesses) REFERENCES businesses(id),
+          FOREIGN KEY(id_businesses) REFERENCES businesses(id)
+          ON DELETE CASCADE,
         CONSTRAINT reviews_pk  
           PRIMARY KEY (id)
       )
@@ -221,9 +222,11 @@ export const createReviews_UsersTable = async () => {
         id_users int NOT NULL,
         id_reviews int NOT NULL,
         CONSTRAINT fk_reviews_users_id_users
-          FOREIGN KEY(id_users) REFERENCES users(id),
+          FOREIGN KEY(id_users) REFERENCES users(id)
+          ON DELETE CASCADE,
         CONSTRAINT fk_reviews_users_id_reviews  
-          FOREIGN KEY(id_reviews) REFERENCES reviews(id),
+          FOREIGN KEY(id_reviews) REFERENCES reviews(id)
+          ON DELETE CASCADE,
         CONSTRAINT reviews_users_pk  
           PRIMARY KEY (id)
       )
@@ -260,7 +263,8 @@ export const createMenusTable = async () => {
         foodtype int NOT NULL,
         id_businesses int NOT NULL,
         CONSTRAINT fk_menus_id_businesses
-          FOREIGN KEY(id_businesses) REFERENCES businesses(id),
+          FOREIGN KEY(id_businesses) REFERENCES businesses(id)
+          ON DELETE CASCADE,
         CONSTRAINT menus_pk  
           PRIMARY KEY (id)
       )
@@ -295,9 +299,11 @@ export const createFriendsTable = async () => {
         id_friendsent int NOT NULL,
         id_friendreceived int NOT NULL,
         CONSTRAINT fk_friends_id_friendsent
-          FOREIGN KEY (id_friendsent) REFERENCES users(id),
+          FOREIGN KEY (id_friendsent) REFERENCES users(id)
+          ON DELETE CASCADE,
         CONSTRAINT fk_friends_id_friendreceived
-          FOREIGN KEY (id_friendreceived) REFERENCES users(id),
+          FOREIGN KEY (id_friendreceived) REFERENCES users(id)
+          ON DELETE CASCADE,
         accepted boolean NOT NULL,
         CONSTRAINT friends_pk
           PRIMARY KEY (id)
@@ -338,9 +344,11 @@ export const createOrdersTable = async () => {
         location int NOT NULL,
         totalusersineachorder int NOT NULL,
         CONSTRAINT fk_orders_id_users
-          FOREIGN KEY (id_users) REFERENCES users(id),
+          FOREIGN KEY (id_users) REFERENCES users(id)
+          ON DELETE CASCADE,
         CONSTRAINT fk_orders_id_businesses
-          FOREIGN KEY (id_businesses) REFERENCES businesses (id),
+          FOREIGN KEY (id_businesses) REFERENCES businesses (id)
+          ON DELETE CASCADE,
         CONSTRAINT orders_pk
           PRIMARY KEY (id)
       )
@@ -373,9 +381,11 @@ export const createUsers_OrdersTable = async () => {
         id_users int NOT NULL,
         id_orders int NOT NULL,
         CONSTRAINT fk_users_orders_id_users
-          FOREIGN KEY (id_users) REFERENCES users(id),
+          FOREIGN KEY (id_users) REFERENCES users(id)
+          ON DELETE CASCADE,
         CONSTRAINT fk_users_orders_id_orders
-          FOREIGN KEY (id_orders) REFERENCES orders (id),
+          FOREIGN KEY (id_orders) REFERENCES orders (id)
+          ON DELETE CASCADE,
         CONSTRAINT users_orders_pk
           PRIMARY KEY (id)
       )
@@ -409,12 +419,15 @@ export const createMessagesTable = async () => {
         id_userreceiving int NOT NULL,
         id_orders int NOT NULL,
         CONSTRAINT fk_messages_id_usersending
-          FOREIGN KEY (id_usersending) REFERENCES users(id),
+          FOREIGN KEY (id_usersending) REFERENCES users(id)
+          ON DELETE CASCADE,
         CONSTRAINT fk_messages_id_userreceiving
-          FOREIGN KEY (id_userreceiving) REFERENCES users(id),
+          FOREIGN KEY (id_userreceiving) REFERENCES users(id)
+          ON DELETE CASCADE,
         messagebody varchar (255),
         CONSTRAINT fk_messages_id_orders
-          FOREIGN KEY (id_orders) REFERENCES orders(id),
+          FOREIGN KEY (id_orders) REFERENCES orders(id)
+          ON DELETE CASCADE,
         CONSTRAINT messages_pk
           PRIMARY KEY (id)
       )

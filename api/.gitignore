@@ -1,5 +1,7 @@
 node_modules/
 bundle.js
 .env
-.DS_stores
 bundle.js.map
+.DS_store 
+env.data.js
+
