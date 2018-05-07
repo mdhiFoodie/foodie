@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-mongoose.connect('mongodb://localhost/reactmongo');
+mongoose.connect('mongodb://localhost/foodie');
 
 const sampleSchema = new Schema({
   name: String,

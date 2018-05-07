@@ -22,3 +22,9 @@ createuser root
 
 createdb foodie
 psql foodie
+
+# Setup Mongo
+
+1. mongod
+2. mongo
+3. yarn setup:db:mongodb
