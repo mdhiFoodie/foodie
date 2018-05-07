@@ -11,6 +11,10 @@ class Feed extends Component {
     }
   }
 
+  // componentWillMount() {
+
+  // }
+
   render() {
     return(
       <div className='FeedContainer'>

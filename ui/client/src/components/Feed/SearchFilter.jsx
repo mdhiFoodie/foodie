@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
+// import { geolocated } from 'react-geolocation';
 
 class SearchFilter extends Component {
     constructor() {
@@ -32,7 +33,19 @@ class SearchFilter extends Component {
 
     handleKeyPress(e) {
         if(e.key === 'Enter'){
-            console.log('enter pressed')
+            console.log('enter pressed for search')
+            let onPositionReceived = (position) => {
+                console.log(position);
+            };
+            let locationNotReceived = (positionError) => {
+                console.log(positionError);
+            };
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
+                let watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
+                console.log(watch);
+                navigator.geolocation.clearWatch(watch);
+            }
             // axios.get(`/api/users/feed/searchRestaurants/${this.state.search}`)
             //     .then(response => {
             //         console.log('hello this is the response for searching restaurants', response)
