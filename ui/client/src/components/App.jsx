@@ -6,18 +6,30 @@ import Signup from './Auth/Signup.jsx';
 import Logout from './Auth/Logout.jsx'; 
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: '', 
+      isLoggedIn: false
+    }
   }
 
   render() {
     return (
       <Router>
-      <Route exact path="/" render={
+      <div>
+      <Route exact path="/" exact strict render={
+        () => (
+          this.state.isLoggedIn ? 
+          (<Feed />) : 
+        (<Redirect to="/" />))
+      }/>      
+      <Route exact path="/signup" exact strict render={
         () => {
-          return (<Login />); 
+          return (<Signup />); 
         }
-      }/>       
+      }/>  
+      </div>
       </Router> 
     )
   }
