@@ -452,3 +452,17 @@ export const dropMessagesTable = async () => {
     error('error dropping Messages table ', err);
   }
 };
+
+export const dummyData = async () => {
+  try{
+    await db.query(
+      `INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress)
+      VALUES ('Cheese', 'picture', 'Michael', '6060 Center Dr Culver City CA');
+      INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress)
+      VALUES ('Bread', 'picture', 'Daniel', '327 S Western Los Angeles CA')`
+    )
+  }
+  catch(err) {
+    console.log(err)
+  }
+}

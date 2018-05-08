@@ -37863,10 +37863,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NearByRestaurants = function (_Component) {
     _inherits(NearByRestaurants, _Component);
 
-    function NearByRestaurants() {
+    function NearByRestaurants(props) {
         _classCallCheck(this, NearByRestaurants);
 
-        var _this = _possibleConstructorReturn(this, (NearByRestaurants.__proto__ || Object.getPrototypeOf(NearByRestaurants)).call(this));
+        var _this = _possibleConstructorReturn(this, (NearByRestaurants.__proto__ || Object.getPrototypeOf(NearByRestaurants)).call(this, props));
 
         _this.state = {};
         return _this;

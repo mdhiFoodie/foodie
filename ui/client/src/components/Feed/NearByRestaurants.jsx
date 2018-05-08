@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // import NearByRestaurantsEntries from './NearByRestaurantsEntries.jsx';
 
 class NearByRestaurants extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
 
