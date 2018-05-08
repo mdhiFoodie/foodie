@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Feed from './components/Feed/index.jsx';
+import App from './components/App.jsx';
+
 
 // import { createStore } from 'redux';
 // import { Provider } from 'react-redux';
@@ -11,7 +11,7 @@ import Feed from './components/Feed/index.jsx';
 
 ReactDOM.render(
   // <h1>HELLO UNIVERSE</h1>
-  <Feed/>
+  <App/>
   ,document.getElementById('root'),
 );
 

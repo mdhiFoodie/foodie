@@ -70,8 +70,8 @@ export const createUsersTable = async () => {
         profilepicture varchar (255),
         email varchar (50),
         password varchar (255),
-        type int NOT NULL,
-        phone int NOT NULL,  
+        type int,
+        phone int,  
         CONSTRAINT users_pk
           PRIMARY KEY (id)
       )
