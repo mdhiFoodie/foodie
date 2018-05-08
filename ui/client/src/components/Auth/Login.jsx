@@ -18,18 +18,21 @@ class Login extends Component {
 
   handleLoginClick = async (e) => {
     e.preventDefault();
-
+    console.log('HELLO')
     const {email, password} = this.state;
     const body = {
       email, password
     };
     try {
-    const verifyLogin = await axios.post('http://localhost:3000/api/auth/login', body);
+    const { data } = await axios.post('http://localhost:3000/api/auth/login', body);
+    localStorage.setItem('email', data.email)
+    localStorage.setItem('id', data.id)
+    localStorage.setItem('token', data.token.accessToken)
+    console.log('data.data', data)
     }
     catch(err) {
       console.log(err);
     }
-
   }
 
   render() {

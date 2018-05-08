@@ -12,11 +12,13 @@ export const queryPayloadOrganizer = (payload, columns) => {
    * 
    * @return {Array} values from request body loaded into an array with a set order
    */
+  console.log('FROM QUERYPAYLOAD', payload, columns)
   if (columns.length) {
     const values = [];
     columns.forEach(column => {
       values.push(payload[column]);
     });
+    console.log('VALUES FROM QP',values)
     return values;
   } else {
     return columns;
