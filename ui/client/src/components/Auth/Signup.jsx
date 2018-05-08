@@ -29,7 +29,12 @@ class Signup extends Component {
       password
     };
     try {
-    const verifyLogin = await axios.post('http://localhost:3000/api/auth/signup', body);
+    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
+    // localStorage.setItem('email', data.email);
+    // localStorage.setItem('id', data.id);
+    // localStorage.setItem('name', data.name);
+    data ? this.props.history.push('/homepage') : alert('Request failed try again');
+    console.log('localStorage =>', data)
     }
     catch(err) {
       console.log(err);
