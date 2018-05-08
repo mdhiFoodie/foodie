@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchFilter from './SearchFilter.jsx';
 import NearByRestaurants from './NearByRestaurants.jsx';
+import Logout from '../Auth/Logout.jsx';
 
 class Feed extends Component {
   constructor() {
@@ -26,7 +27,7 @@ class Feed extends Component {
         <div>
           <NearByRestaurants/>
         </div>
-
+        <Logout history={this.props.history}/>
       </div>
     )
   }
