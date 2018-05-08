@@ -16,6 +16,7 @@ import {
 
 export const signUpController = async (req, res) => {
   try {
+    console.log('this is the req.body on signup ', req.body)
     req.body.password = await hashPassword(req.body.password)
     const { rows } = await signUpQuery(req.body);
     const { id, email } = rows[0];

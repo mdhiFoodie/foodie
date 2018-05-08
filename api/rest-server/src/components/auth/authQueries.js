@@ -34,7 +34,7 @@ export const loginQuery = async (payload) => {
     console.log('query.text', query.text);
     console.log('payload', queryPayloadOrganizer(payload, ['email']));
     const data = await db.query(query);
-    console.log('DATA BACK FROM DB', data.rows); 
+    // console.log('DATA BACK FROM DB', data.rows); 
       success('loginQuery - successfully retrieved data ', data);
     return data;
   } catch (err) {

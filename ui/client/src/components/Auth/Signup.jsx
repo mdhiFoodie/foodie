@@ -5,10 +5,15 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
+      type: 'user',
       email: '',
       password: '',
       name: '', 
-      phone: ''
+      phone: '',
+      businessName: '',
+      address: '',
+      contactName: '',
+      agree: false,
     }
   }
 
@@ -18,7 +23,7 @@ class Signup extends Component {
     console.log(this.state);
   }
 
-  handleLoginClick = async (e) => {
+  handleSignUpClick = async (e) => {
     e.preventDefault();
 
     const {name, phone, email, password} = this.state;
@@ -37,16 +42,62 @@ class Signup extends Component {
 
   }
 
+  changeSignUpView() {
+    this.setState({
+      type: this.state.type === 'user' ? 'business' : 'user',
+    })
+  }
+
+  agreeToTerms() {
+    this.setState ({
+      agree: !this.state.agree
+    }, () => {
+      console.log('I agree with the terms and conditions: ', this.state.agree)
+    })
+  }
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleLoginClick.bind(this)}>
-        <input name='name' placeholder='name' onChange={this.handleForm.bind(this)}/>
-        <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>
-          <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>
-          <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
-          <input type='submit' value='login'/>
-        </form>
+      {
+
+        this.state.type === 'user' ?
+        <div>
+          <form onSubmit={this.handleSignUpClick.bind(this)}>
+            <input name='name' placeholder='name' onChange={this.handleForm.bind(this)}/>
+            <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>
+            <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>
+            <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
+            <label>
+              <input type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
+              I agree to the terms and conditions
+            </label>
+            <input type='submit' value='signup'/>
+          </form>
+          <div>
+            Are you a business? <a href='#' onClick={this.changeSignUpView.bind(this)}>Sign up</a> here.
+          </div>  
+        </div> 
+        :
+        <div>
+          <form onSubmit={this.handleSignUpClick.bind(this)}>
+            <input name='businessName' placeholder='business name' onChange={this.handleForm.bind(this)}/>
+            <input name='address' placeholder='address' onChange={this.handleForm.bind(this)}/>
+            <input name='contactName' placeholder='contact name' onChange={this.handleForm.bind(this)}/>
+            <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>
+            <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>
+            <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
+            <label>
+              <input type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
+              I agree to the terms and conditions
+            </label>
+            <input type='submit' value='signup'/>
+          </form>
+          <div>
+            Are you a user? <a href='#' onClick={this.changeSignUpView.bind(this)}>Sign up</a> here.
+          </div> 
+        </div> 
+      }
       </div> 
     )
   }
