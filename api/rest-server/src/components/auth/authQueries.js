@@ -2,7 +2,7 @@ import db from '../../config/databases/pg';
 import { queryPayloadOrganizer } from '../../lib/components/util';
 import {
   signUpHelper,
-  userLoginHelper
+  loginHelper
 } from './authSQLHelpers';
 import {
   success,
@@ -13,7 +13,7 @@ export const signUpQuery = async (payload) => {
   try {
     const query = {
       text: signUpHelper,
-      values: queryPayloadOrganizer(payload, ['email', 'username', 'password'])
+      values: queryPayloadOrganizer(payload, ['name', 'phone', 'email', 'password'])
     }
     const data = await db.query(query);
     success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
@@ -25,15 +25,18 @@ export const signUpQuery = async (payload) => {
 };
 
 export const loginQuery = async (payload) => {
+  console.log('HERE IS PAYLOAD',payload)
   try {
     const query = {
-      text: userLoginHelper,
+      text: loginHelper,
       values: queryPayloadOrganizer(payload, ['email'])
     }
-    console.log('query', query);
+    console.log('query.text', query.text);
+    console.log('payload', queryPayloadOrganizer(payload, ['email']));
     const data = await db.query(query);
+    console.log('DATA BACK FROM DB', data.rows); 
       success('loginQuery - successfully retrieved data ', data);
-    // return data;
+    return data;
   } catch (err) {
     error('loginQuery - error= ', err);
     throw new Error(err);
