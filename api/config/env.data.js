@@ -10,7 +10,7 @@
       'PORT=3000',
       'SALT_ROUNDS=10',
       'TOKEN_SECRET=foodiepop',
-      'LOCAL_USER=root',
+      'LOCAL_USER=poursh',
       'LOCAL_HOST=localhost',
       'LOCAL_DATABASE=foodie',
       'LOCAL_PASSWORD=',
