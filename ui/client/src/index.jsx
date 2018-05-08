@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from "react-router-dom";
 import App from './components/App.jsx';
 
 
@@ -10,8 +11,9 @@ import App from './components/App.jsx';
 // const store = createStore(allReducers);
 
 ReactDOM.render(
-  // <h1>HELLO UNIVERSE</h1>
+  <BrowserRouter>
   <App/>
+  </BrowserRouter>
   ,document.getElementById('root'),
 );
 
