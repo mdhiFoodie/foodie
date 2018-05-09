@@ -28,7 +28,7 @@ class Menu extends Component {
   renderFoodItems(foodThing) {
     const foodItems = [];
     for (var i = 0; i < this.state.currentMenu[foodThing].length; i++) {
-      foodItems.push(<div><li >{this.state.currentMenu[foodThing][i].name}</li>, <li >{this.state.currentMenu[foodThing][i].price}</li></div>);
+      foodItems.push(<div><li >{this.state.currentMenu[foodThing][i].name}</li><li >{this.state.currentMenu[foodThing][i].price}</li></div>);
       }
       this.setState({
          foods: foodItems

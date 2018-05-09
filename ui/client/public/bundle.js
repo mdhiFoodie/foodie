@@ -34581,7 +34581,6 @@ var Menu = function (_Component) {
             null,
             this.state.currentMenu[foodThing][i].name
           ),
-          ', ',
           _react2.default.createElement(
             'li',
             null,
