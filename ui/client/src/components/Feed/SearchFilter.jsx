@@ -52,6 +52,9 @@ class SearchFilter extends Component {
                         let calculation = Math.sqrt(latitude*latitude + longitude*longitude) * 100;
                         let miles = calculation/1.609344;
                         console.log('this is the calculation', miles);
+                        console.log('this is the restaurants name', restaurants.businessname);
+                        console.log('this is the restaurants picture', restaurants.businesspicture);
+
                         
                         return miles;
                     })
