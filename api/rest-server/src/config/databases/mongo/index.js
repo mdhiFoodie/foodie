@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
+
 mongoose.connect('mongodb://localhost/foodie');
 
 const sampleSchema = new Schema({
@@ -19,5 +20,7 @@ samplemodelInstance.save()
   .catch( () => {
     console.log('error mongo queries');
   });
+
+
 
   module.exports = mongoose;

@@ -1,5 +1,5 @@
-var losBurritosMenu = { 'biz_id': 1,
-  'Los Burritos': { 
+
+const losBurritosMenu = { 
     'Breakfast Burritos': [
       {name: 'Burrito a La Mexicana', price: 6.95},
       {name: 'Bacon & Eggs Burrito', price: 6.95},
@@ -32,5 +32,7 @@ var losBurritosMenu = { 'biz_id': 1,
       {name: 'Combination Burrito', price: 8.95},
       {name: 'Grilled Fish Burrito', price: 8.95},
       {name: 'Shrimp & Scallop Burrito', price: 9.95},
-      {name: 'California Burrito', price: 9.75}, ] }
-};
+      {name: 'California Burrito', price: 9.75}, ] 
+    };
+
+module.exports = losBurritosMenu;

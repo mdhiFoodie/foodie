@@ -3,7 +3,7 @@
 
 #Get Started: 
 
-#Setup environment 
+#Setup environment (must be in api directory)
 yarn 
 yarn buildEnv 
 yarn setup:rest-server
