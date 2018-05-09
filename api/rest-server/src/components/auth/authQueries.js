@@ -42,6 +42,21 @@ export const signUpBusinessQuery = async (payload) => {
   }
 };
 
+export const signUpBusinessQuery = async (payload) => {
+  try {
+    const query = {
+      text: businessSignUpHelper,
+      values: queryPayloadOrganizer(payload, ['businessName', 'address', 'contactName', 'phone', 'email', 'password', 'foodCategory'])
+    }
+    const data = await db.query(query);
+    success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
+    return data;
+  } catch (err) {
+    error('signUpQuery - error= ', err);
+    throw new Error(err);
+  }
+};
+
 export const loginQuery = async (payload) => {
   try {
     const query = {
