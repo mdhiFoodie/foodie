@@ -64,7 +64,6 @@ class SearchFilter extends Component {
                 catch(err) {
                     console.log(err)
                 }
-
             };
             let locationNotReceived = (positionError) => {
                 console.log(positionError);
