@@ -41,7 +41,7 @@ class SignupBusiness extends Component {
     // localStorage.setItem('email', data.email);
     // localStorage.setItem('id', data.id);
     // localStorage.setItem('name', data.name);
-    data ? this.props.history.push('/home') : alert('Request failed try again');
+    data ? this.props.history.push('/dashboard') : alert('Request failed try again');
     console.log('localStorage =>', data)
     }
     catch(err) {

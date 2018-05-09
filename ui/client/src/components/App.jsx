@@ -5,6 +5,7 @@ import Login from './Auth/Login.jsx';
 import SignupUser from './Auth/SignupUser.jsx'; 
 import SignupBusiness from './Auth/BusinessSignup/SignupBusiness.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
+import BusinessDashboard from './Businesses/BusinessDashboard.jsx'; 
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
         <Route exact path='/home' component={Feed}/>
         <Route exact path='/signupUser' component={SignupUser}/>
         <Route exact path='/signupBusiness' component={SignupBusiness}/>
+        <Route exact path='/dashboard' component={BusinessDashboard}/>
       </Switch>
       </div>
     )
