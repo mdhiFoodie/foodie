@@ -14,9 +14,6 @@ const router = express.Router();
 router.route('/signup')
   .post(validate(formValidation.signUp), signUpController);
 
-  // router.route('/signupBusiness')
-  // .post(validate(formValidation.signUp), signUpController);
-
 router.route('/login')
   .post(validate(formValidation.login), passport.authenticate('local', { session: false }), loginController);
 

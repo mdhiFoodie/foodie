@@ -12,7 +12,7 @@ class SignupBusiness extends Component {
       phone: '',
       email: '', 
       password: '', 
-      typeOfCuisine: '', 
+      foodCategory: '', 
       type: 'business',
       agree: false,
     }
@@ -21,12 +21,11 @@ class SignupBusiness extends Component {
   handleForm(e) {
     const {name, value} = e.target;
     this.setState({[name]: value})
-    console.log(this.state);
   }
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-    const {businessName, address, contactName, phone, email, password, typeOfCuisine} = this.state;
+    const {businessName, address, contactName, phone, email, password, foodCategory, type} = this.state;
     const body = {
       businessName,
       address,
@@ -34,7 +33,8 @@ class SignupBusiness extends Component {
       phone,
       email,
       password,
-      typeOfCuisine
+      foodCategory, 
+      type
     };
     try {
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
@@ -75,9 +75,9 @@ class SignupBusiness extends Component {
           <br/><br/>
           <div className="typeOfCuisine">
           <select>
-            <option value='mexican'>Maxican</option>
+            <option value='mexican'>Mexican</option>
             <option value='indian'>Indian</option>
-            <option value='chinnese'>Chinnese</option>
+            <option value='chinnese'>Chinese</option>
           </select>
           </div>
           <label>

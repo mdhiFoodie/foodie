@@ -7,23 +7,14 @@ export const signUpHelper = `
       id, email
 `;
 
-// export const userLoginHelper = `
-//     SELECT
-//       id, email, password
-//     FROM
-//       users
-//     WHERE
-//       email=$1
-// `;
-
-// export const businessSignUpHelper = `
-//     INSERT INTO
-//       users (businessName, businessAddress, contactName, email, phone, foodCategory, password)
-//     VALUES
-//       ($1, $2, $3, $4, $5, $6, $7)
-//     RETURNING
-//       id, email
-// `;
+export const businessSignUpHelper = `
+    INSERT INTO
+      businesses (businessName, address, contactName, phone, email, password, foodCategory)
+    VALUES
+      ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING
+      id, businessName, address, contactName, phone, email, password, foodCategory
+`;
 
 export const loginHelper = `
     SELECT
