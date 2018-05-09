@@ -41,11 +41,20 @@ class SearchFilter extends Component {
         if(e.key === 'Enter'){
             console.log('enter pressed for search')
             let onPositionReceived = async (position) => {
-                console.log('this is position', position)
                 try {
-                const businessname = this.state.search;  
-                const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${businessname}`)
-                console.log('HERE =>', searchRestaurants.data)
+                    const businessname = this.state.search;  
+                    const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${businessname}`)
+                    console.log('HERE =>', searchRestaurants.data)
+                    console.log('this is position', position.coords)
+                    let locations = searchRestaurants.data.map ( (restaurants) => {
+                        let latitude = (restaurants.latitude - position.coords.latitude);
+                        let longitude = (restaurants.longitude - position.coords.longitude);
+                        let calculation = Math.sqrt(latitude*latitude + longitude*longitude) * 100;
+                        let miles = calculation/1.609344;
+                        console.log('this is the calculation', miles);
+                        
+                        return miles;
+                    })
                 }
                 catch(err) {
                     console.log(err)
@@ -62,6 +71,7 @@ class SearchFilter extends Component {
                 navigator.geolocation.clearWatch(watch);
                 //this gets me my current location, changes based on where i move to ^
                 // console.log('this is current position', position)
+                
             }
 
 

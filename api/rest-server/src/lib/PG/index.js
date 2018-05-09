@@ -461,7 +461,10 @@ export const dummyData = async () => {
       `INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress, latitude, longitude)
       VALUES ('Cheese', 'picture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877);
       INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress, latitude, longitude)
-      VALUES ('Bread', 'picture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459)`
+      VALUES ('Bread', 'picture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459);
+      INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress, latitude, longitude)
+      VALUES ('Bread', 'picture', 'Hunter', '8600 Melrose Los Angeles CA', 34.052235, -118.243683);
+      `
     )
   }
   catch(err) {

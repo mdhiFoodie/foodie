@@ -35905,36 +35905,45 @@ var SearchFilter = function (_Component) {
 
                                     onPositionReceived = function () {
                                         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(position) {
-                                            var businessname, searchRestaurants;
+                                            var businessname, searchRestaurants, locations;
                                             return regeneratorRuntime.wrap(function _callee$(_context) {
                                                 while (1) {
                                                     switch (_context.prev = _context.next) {
                                                         case 0:
-                                                            console.log('this is position', position);
-                                                            _context.prev = 1;
+                                                            _context.prev = 0;
                                                             businessname = _this.state.search;
-                                                            _context.next = 5;
+                                                            _context.next = 4;
                                                             return axios.get('http://localhost:3000/api/users/feed/searchRestaurants/' + businessname);
 
-                                                        case 5:
+                                                        case 4:
                                                             searchRestaurants = _context.sent;
 
                                                             console.log('HERE =>', searchRestaurants.data);
-                                                            _context.next = 12;
+                                                            console.log('this is position', position.coords);
+                                                            locations = searchRestaurants.data.map(function (restaurants) {
+                                                                var latitude = restaurants.latitude - position.coords.latitude;
+                                                                var longitude = restaurants.longitude - position.coords.longitude;
+                                                                var calculation = Math.sqrt(latitude * latitude + longitude * longitude) * 100;
+                                                                var miles = calculation / 1.609344;
+                                                                console.log('this is the calculation', miles);
+
+                                                                return miles;
+                                                            });
+                                                            _context.next = 13;
                                                             break;
 
-                                                        case 9:
-                                                            _context.prev = 9;
-                                                            _context.t0 = _context['catch'](1);
+                                                        case 10:
+                                                            _context.prev = 10;
+                                                            _context.t0 = _context['catch'](0);
 
                                                             console.log(_context.t0);
 
-                                                        case 12:
+                                                        case 13:
                                                         case 'end':
                                                             return _context.stop();
                                                     }
                                                 }
-                                            }, _callee, _this2, [[1, 9]]);
+                                            }, _callee, _this2, [[0, 10]]);
                                         }));
 
                                         return function onPositionReceived(_x2) {
