@@ -35901,8 +35901,6 @@ var SearchFilter = function (_Component) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
                                 if (e.key === 'Enter') {
-                                    console.log('enter pressed for search');
-
                                     onPositionReceived = function () {
                                         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(position) {
                                             var businessname, searchRestaurants, locations;
@@ -35925,27 +35923,37 @@ var SearchFilter = function (_Component) {
                                                                 var longitude = restaurants.longitude - position.coords.longitude;
                                                                 var calculation = Math.sqrt(latitude * latitude + longitude * longitude) * 100;
                                                                 var miles = calculation / 1.609344;
-                                                                console.log('this is the calculation', miles);
-                                                                console.log('this is the restaurants name', restaurants.businessname);
-                                                                console.log('this is the restaurants picture', restaurants.businesspicture);
-
-                                                                return miles;
+                                                                if (miles <= 50) {
+                                                                    // console.log('this is the restaurants', restaurants);
+                                                                    // console.log('this is the calculation in miles', miles);
+                                                                    // console.log('this is the restaurants name', restaurants.businessname);
+                                                                    // console.log('this is the restaurants picture', restaurants.businesspicture);
+                                                                    _this.state.restaurantSearches.push([restaurants.businessname, restaurants.businesspicture, miles]);
+                                                                }
                                                             });
-                                                            _context.next = 13;
+
+                                                            console.log('this is the state', _this.state.restaurantSearches);
+                                                            _this.setState({
+                                                                restaurantSearchesSorted: _this.state.restaurantSearches.sort(function (a, b) {
+                                                                    return a[2] - b[2];
+                                                                })
+                                                            });
+                                                            console.log('this is the new state for sort', _this.state.restaurantSearchesSorted);
+                                                            _context.next = 16;
                                                             break;
 
-                                                        case 10:
-                                                            _context.prev = 10;
+                                                        case 13:
+                                                            _context.prev = 13;
                                                             _context.t0 = _context['catch'](0);
 
                                                             console.log(_context.t0);
 
-                                                        case 13:
+                                                        case 16:
                                                         case 'end':
                                                             return _context.stop();
                                                     }
                                                 }
-                                            }, _callee, _this2, [[0, 10]]);
+                                            }, _callee, _this2, [[0, 13]]);
                                         }));
 
                                         return function onPositionReceived(_x2) {
@@ -35963,8 +35971,6 @@ var SearchFilter = function (_Component) {
 
                                         console.log('this is watch', watch);
                                         navigator.geolocation.clearWatch(watch);
-                                        //this gets me my current location, changes based on where i move to ^
-                                        // console.log('this is current position', position)
                                     }
 
                                     // let locations = searchRestaurants.data.map( (restaurants) => {
@@ -36037,7 +36043,8 @@ var SearchFilter = function (_Component) {
 
         _this.state = {
             search: '',
-            restaurants: [],
+            restaurantSearches: [],
+            restaurantSearchesSorted: [],
             getInitialState: function getInitialState() {
                 return {
                     value: 'Popularity'
@@ -36061,13 +36068,6 @@ var SearchFilter = function (_Component) {
                 value: e.target.value
             });
         }
-
-        //on handleKeyPress, i need to get my position
-        //on business sign up im going to have it so that i have a coordinates inserted into the db
-        //do a query to the db and insert the coordinates.
-        //next im going to make do a fn where my coordinates compare with the search restaurants
-        //if they're 20 miles within, then i would populate it.
-
     }, {
         key: 'render',
         value: function render() {

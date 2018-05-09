@@ -8,7 +8,8 @@ class SearchFilter extends Component {
 
         this.state = {
             search : '',
-            restaurants : [],
+            restaurantSearches : [],
+            restaurantSearchesSorted : [],
             getInitialState : () => {
                 return{
                     value: 'Popularity'
@@ -31,15 +32,8 @@ class SearchFilter extends Component {
         })
     }
 
-    //on handleKeyPress, i need to get my position
-        //on business sign up im going to have it so that i have a coordinates inserted into the db
-            //do a query to the db and insert the coordinates.
-                //next im going to make do a fn where my coordinates compare with the search restaurants
-                    //if they're 20 miles within, then i would populate it.
-
     handleKeyPress = async (e) => {
         if(e.key === 'Enter'){
-            console.log('enter pressed for search')
             let onPositionReceived = async (position) => {
                 try {
                     const businessname = this.state.search;  
@@ -51,13 +45,21 @@ class SearchFilter extends Component {
                         let longitude = (restaurants.longitude - position.coords.longitude);
                         let calculation = Math.sqrt(latitude*latitude + longitude*longitude) * 100;
                         let miles = calculation/1.609344;
-                        console.log('this is the calculation', miles);
-                        console.log('this is the restaurants name', restaurants.businessname);
-                        console.log('this is the restaurants picture', restaurants.businesspicture);
-
-                        
-                        return miles;
+                        if(miles <= 50) {
+                            // console.log('this is the restaurants', restaurants);
+                            // console.log('this is the calculation in miles', miles);
+                            // console.log('this is the restaurants name', restaurants.businessname);
+                            // console.log('this is the restaurants picture', restaurants.businesspicture);
+                            this.state.restaurantSearches.push([restaurants.businessname, restaurants.businesspicture, miles])
+                        }
                     })
+                    console.log('this is the state', this.state.restaurantSearches)
+                    this.setState({
+                        restaurantSearchesSorted : this.state.restaurantSearches.sort( (a,b) => {
+                            return a[2]-b[2];
+                        })
+                    })
+                    console.log('this is the new state for sort', this.state.restaurantSearchesSorted)
                 }
                 catch(err) {
                     console.log(err)
@@ -72,9 +74,6 @@ class SearchFilter extends Component {
                 let watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
                 console.log('this is watch', watch);
                 navigator.geolocation.clearWatch(watch);
-                //this gets me my current location, changes based on where i move to ^
-                // console.log('this is current position', position)
-                
             }
 
 
