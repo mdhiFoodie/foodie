@@ -35872,6 +35872,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -35885,9 +35887,142 @@ var SearchFilter = function (_Component) {
     _inherits(SearchFilter, _Component);
 
     function SearchFilter() {
+        var _this2 = this;
+
         _classCallCheck(this, SearchFilter);
 
         var _this = _possibleConstructorReturn(this, (SearchFilter.__proto__ || Object.getPrototypeOf(SearchFilter)).call(this));
+
+        _this.handleKeyPress = function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+                var onPositionReceived, locationNotReceived, position, watch;
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                if (e.key === 'Enter') {
+                                    console.log('enter pressed for search');
+
+                                    onPositionReceived = function () {
+                                        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(position) {
+                                            var businessname, searchRestaurants;
+                                            return regeneratorRuntime.wrap(function _callee$(_context) {
+                                                while (1) {
+                                                    switch (_context.prev = _context.next) {
+                                                        case 0:
+                                                            console.log('this is position', position);
+                                                            _context.prev = 1;
+                                                            businessname = _this.state.search;
+                                                            _context.next = 5;
+                                                            return axios.get('http://localhost:3000/api/users/feed/searchRestaurants/' + businessname);
+
+                                                        case 5:
+                                                            searchRestaurants = _context.sent;
+
+                                                            console.log('HERE =>', searchRestaurants.data);
+                                                            _context.next = 12;
+                                                            break;
+
+                                                        case 9:
+                                                            _context.prev = 9;
+                                                            _context.t0 = _context['catch'](1);
+
+                                                            console.log(_context.t0);
+
+                                                        case 12:
+                                                        case 'end':
+                                                            return _context.stop();
+                                                    }
+                                                }
+                                            }, _callee, _this2, [[1, 9]]);
+                                        }));
+
+                                        return function onPositionReceived(_x2) {
+                                            return _ref2.apply(this, arguments);
+                                        };
+                                    }();
+
+                                    locationNotReceived = function locationNotReceived(positionError) {
+                                        console.log(positionError);
+                                    };
+
+                                    if (navigator.geolocation) {
+                                        position = navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
+                                        watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
+
+                                        console.log('this is watch', watch);
+                                        navigator.geolocation.clearWatch(watch);
+                                        //this gets me my current location, changes based on where i move to ^
+                                        // console.log('this is current position', position)
+                                    }
+
+                                    // let locations = searchRestaurants.data.map( (restaurants) => {
+                                    //     return restaurants.distance = restaurants.latitude
+                                    //     return restaurants.distance = Math.hypot()
+                                    // })
+
+                                    // console.log('this is the map address', locations)
+
+                                    // let locations = searchRestaurants.data.map ( (restaurant) => {
+                                    //     const findGeoCode = axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                                    //         params: {
+                                    //             address: restaurant.businessaddress,
+                                    //             key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                                    //         }
+                                    //     })
+                                    //     return findGeoCode
+                                    // })
+
+
+                                    // console.log('this is the geocode for restaurants/businesses', locations)
+
+                                    // .then(response => {
+                                    //     console.log('hello this is the response for searching restaurants', response)
+                                    //get the response.address and set it to a variable [array of all restaurants with keyword] = array of
+                                    //example: let location = '22 Main st Boston MA' (response.address or something)
+
+                                    // const findGeoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                                    //     params: {
+                                    //         address: locations[0],
+                                    //         key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                                    //     }
+                                    // })
+                                    // console.log('this is geocode',findGeoCode)
+
+                                    // const findDistanceBtwnLocations = await axios.get
+                                    // .then(response => {
+                                    //     console.log('this is the response from the geocode', response)
+                                    //with this response i'm going to use a function to compare my current location
+                                    //to the response.address coordinates.
+                                    //then i want to grab distances all within 20 miles or something
+                                    //push them up to the restaurants array
+                                    // })
+                                    // .catch(err => {
+                                    //     console.log('this is the error from the geocode', err)
+                                    // })
+
+                                    //get the response.address/location then i should want to get the positions
+                                    // push to this.state.restaurants of all the names
+                                    // SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
+                                    // RESTAURANTS WITH THAT NAME
+                                    // })
+                                    // .catch(err => {
+                                    //     console.log('hello this is the error handler for searching restaurants', err)
+                                    // })
+                                }
+
+                            case 1:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, _this2);
+            }));
+
+            return function (_x) {
+                return _ref.apply(this, arguments);
+            };
+        }();
 
         _this.state = {
             search: '',
@@ -35915,35 +36050,13 @@ var SearchFilter = function (_Component) {
                 value: e.target.value
             });
         }
-    }, {
-        key: 'handleKeyPress',
-        value: function handleKeyPress(e) {
-            if (e.key === 'Enter') {
-                console.log('enter pressed for search');
-                var onPositionReceived = function onPositionReceived(position) {
-                    console.log(position);
-                };
-                var locationNotReceived = function locationNotReceived(positionError) {
-                    console.log(positionError);
-                };
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
-                    var watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
-                    console.log(watch);
-                    navigator.geolocation.clearWatch(watch);
-                }
-                // axios.get(`/api/users/feed/searchRestaurants/${this.state.search}`)
-                //     .then(response => {
-                //         console.log('hello this is the response for searching restaurants', response)
-                //push to this.state.restaurants of all the names
-                //SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
-                //RESTAURANTS WITH THAT NAME
-                //     })
-                //     .catch(err => {
-                //         console.log('hello this is the error handler for searching restaurants', err)
-                //     })
-            }
-        }
+
+        //on handleKeyPress, i need to get my position
+        //on business sign up im going to have it so that i have a coordinates inserted into the db
+        //do a query to the db and insert the coordinates.
+        //next im going to make do a fn where my coordinates compare with the search restaurants
+        //if they're 20 miles within, then i would populate it.
+
     }, {
         key: 'render',
         value: function render() {

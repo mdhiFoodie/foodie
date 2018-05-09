@@ -114,6 +114,8 @@ export const createBusinessesTable = async () => {
         dailyorders int,
         gross int,
         phone varchar(10),
+        latitude double precision,
+        longitude double precision,
         businessname varchar (100),
         contactname varchar (50),
         CONSTRAINT businesses_pk
@@ -456,10 +458,10 @@ export const dropMessagesTable = async () => {
 export const dummyData = async () => {
   try{
     await db.query(
-      `INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress)
-      VALUES ('Cheese', 'picture', 'Michael', '6060 Center Dr Culver City CA');
-      INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress)
-      VALUES ('Bread', 'picture', 'Daniel', '327 S Western Los Angeles CA')`
+      `INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress, latitude, longitude)
+      VALUES ('Cheese', 'picture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877);
+      INSERT INTO businesses (businessname, businesspicture, contactname, businessaddress, latitude, longitude)
+      VALUES ('Bread', 'picture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459)`
     )
   }
   catch(err) {

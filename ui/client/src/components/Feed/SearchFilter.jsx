@@ -31,34 +31,96 @@ class SearchFilter extends Component {
         })
     }
 
-    handleKeyPress(e) {
+    //on handleKeyPress, i need to get my position
+        //on business sign up im going to have it so that i have a coordinates inserted into the db
+            //do a query to the db and insert the coordinates.
+                //next im going to make do a fn where my coordinates compare with the search restaurants
+                    //if they're 20 miles within, then i would populate it.
+
+    handleKeyPress = async (e) => {
         if(e.key === 'Enter'){
             console.log('enter pressed for search')
-            let onPositionReceived = (position) => {
-                console.log(position);
+            let onPositionReceived = async (position) => {
+                console.log('this is position', position)
+                try {
+                const businessname = this.state.search;  
+                const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${businessname}`)
+                console.log('HERE =>', searchRestaurants.data)
+                }
+                catch(err) {
+                    console.log(err)
+                }
+
             };
             let locationNotReceived = (positionError) => {
                 console.log(positionError);
             };
             if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
+                let position = navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
                 let watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
-                console.log(watch);
+                console.log('this is watch', watch);
                 navigator.geolocation.clearWatch(watch);
+                //this gets me my current location, changes based on where i move to ^
+                // console.log('this is current position', position)
             }
-            // axios.get(`/api/users/feed/searchRestaurants/${this.state.search}`)
-            //     .then(response => {
-            //         console.log('hello this is the response for searching restaurants', response)
-                        //push to this.state.restaurants of all the names
-                        //SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
-                        //RESTAURANTS WITH THAT NAME
-            //     })
-            //     .catch(err => {
-            //         console.log('hello this is the error handler for searching restaurants', err)
-            //     })
-        }
+
+
+                // let locations = searchRestaurants.data.map( (restaurants) => {
+                //     return restaurants.distance = restaurants.latitude
+                //     return restaurants.distance = Math.hypot()
+                // })
+
+                // console.log('this is the map address', locations)
+
+                // let locations = searchRestaurants.data.map ( (restaurant) => {
+                //     const findGeoCode = axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                //         params: {
+                //             address: restaurant.businessaddress,
+                //             key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                //         }
+                //     })
+                //     return findGeoCode
+                // })
+
+                
+
+                // console.log('this is the geocode for restaurants/businesses', locations)
+
+                // .then(response => {
+                //     console.log('hello this is the response for searching restaurants', response)
+                    //get the response.address and set it to a variable [array of all restaurants with keyword] = array of
+                    //example: let location = '22 Main st Boston MA' (response.address or something)
+
+                    // const findGeoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                    //     params: {
+                    //         address: locations[0],
+                    //         key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                    //     }
+                    // })
+                    // console.log('this is geocode',findGeoCode)
+
+                    // const findDistanceBtwnLocations = await axios.get
+                    // .then(response => {
+                    //     console.log('this is the response from the geocode', response)
+                        //with this response i'm going to use a function to compare my current location
+                        //to the response.address coordinates.
+                            //then i want to grab distances all within 20 miles or something
+                                //push them up to the restaurants array
+                    // })
+                    // .catch(err => {
+                    //     console.log('this is the error from the geocode', err)
+                    // })
+
+                    //get the response.address/location then i should want to get the positions
+                    // push to this.state.restaurants of all the names
+                    // SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
+                    // RESTAURANTS WITH THAT NAME
+                // })
+                // .catch(err => {
+                //     console.log('hello this is the error handler for searching restaurants', err)
+                // })
     }
-    
+}
 
     render() {
         return(
