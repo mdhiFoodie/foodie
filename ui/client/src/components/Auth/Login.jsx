@@ -8,7 +8,8 @@ class Login extends Component {
       email: '',
       password: '',
     }
-    this.onSignup = this.onSignup.bind(this); 
+    this.onSignupUser = this.onSignupUser.bind(this);
+    this.onSignupBusiness = this.onSignupBusiness.bind(this); 
   }
 
   handleForm(e) {
@@ -27,16 +28,20 @@ class Login extends Component {
     localStorage.setItem('email', data.email)
     localStorage.setItem('id', data.id)
     localStorage.setItem('token', data.token.accessToken)
-    data ? this.props.history.push('/homepage') : this.props.history.push('/login');
-    console.log('localStorage =>', data)
+    data ? this.props.history.push('/home') : this.props.history.push('/login');
+    console.log('localStorage =>', data); 
     }
     catch(err) {
       console.log(err);
     }
   }
 
-  onSignup() {
-    this.props.history.push('/signup'); 
+  onSignupUser() {
+    this.props.history.push('/signupUser'); 
+  }
+
+  onSignupBusiness() {
+    this.props.history.push('/signupBusiness'); 
   }
 
   render() {
@@ -47,7 +52,14 @@ class Login extends Component {
           <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
           <input type='submit' value='login'/>
         </form>
-        <button onClick={this.onSignup}>Signup</button>
+        <br/><br/>
+        <div>
+          New here? <button onClick={this.onSignupUser}>Register</button>
+        </div> 
+        <br/>
+        <div>
+            Become a restaurant partner <button onClick={this.onSignupBusiness}>Register</button>
+        </div> 
       </div> 
     )
   }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Link, Switch } from "react-router-dom";
 import Feed from './Feed/index.jsx';
 import Login from './Auth/Login.jsx';
-import Signup from './Auth/Signup.jsx'; 
+import SignupUser from './Auth/SignupUser.jsx'; 
+import SignupBusiness from './Auth/BusinessSignup/SignupBusiness.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
 
 class App extends Component {
@@ -15,8 +16,9 @@ class App extends Component {
       <div>
       <Switch> 
         <Route exact path='/' component={Login}/>
-        <Route exact path='/homepage' component={Feed}/>
-        <Route exact path='/signup' component={Signup}/>
+        <Route exact path='/home' component={Feed}/>
+        <Route exact path='/signupUser' component={SignupUser}/>
+        <Route exact path='/signupBusiness' component={SignupBusiness}/>
       </Switch>
       </div>
     )
