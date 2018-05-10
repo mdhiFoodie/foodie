@@ -5,7 +5,6 @@ import MenusReducer from './reducers-menusData.js';
 import MessagesReducer from './reducers-messagesData.js';
 import OrdersReducer from './reducers-ordersData.js';
 import ReviewsReducer from './reducers-reviewsData.js';
-import UsersReducer from './reducers-usersData.js';
 import searchBusinesses from './reducers-searchBusinessesInFeed.js';
 
 import usersSignupReducer from './usersSignupReducer.js';
@@ -24,7 +23,6 @@ const rootReducer = combineReducers({
     MessagesReducer : MessagesReducer,
     OrdersReducer : OrdersReducer,
     ReviewsReducer : ReviewsReducer,
-    UsersReducer : UsersReducer,
     searchBusinesses : searchBusinesses
 });
 

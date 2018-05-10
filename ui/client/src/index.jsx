@@ -9,7 +9,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
-import rootReducer from './reducers/index.jsx';
+import rootReducer from './reducers/index.js';
 
 // const initialState = {};
 // const middleware = [thunk];
