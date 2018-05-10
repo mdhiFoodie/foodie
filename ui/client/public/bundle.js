@@ -7948,31 +7948,26 @@ var Menu = function (_Component) {
 
               case 3:
                 response = _context2.sent;
-                _context2.next = 6;
-                return this.setState({
+
+                this.setState({
                   currentMenu: response.data
                 });
-
-              case 6:
-                _context2.next = 8;
-                return this.renderFoodTypes();
-
-              case 8:
-                _context2.next = 13;
+                this.renderFoodTypes();
+                _context2.next = 11;
                 break;
 
-              case 10:
-                _context2.prev = 10;
+              case 8:
+                _context2.prev = 8;
                 _context2.t0 = _context2['catch'](0);
 
                 console.error(_context2.t0);
 
-              case 13:
+              case 11:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 10]]);
+        }, _callee2, this, [[0, 8]]);
       }));
 
       function handleClick() {

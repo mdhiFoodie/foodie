@@ -27,4 +27,5 @@ psql foodie
 
 1. mongod
 2. mongo
-3. yarn setup:db:mongodb
+3. yarn db:setup:mongodb
+4. yarn db:seed:mongodb

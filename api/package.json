@@ -11,7 +11,11 @@
     "db:setup:rest-server": "cd rest-server && babel-node src/config/databases/pg/setup.js",
     "buildEnv": "node bin/buildEnv.js",
     "db:setup:mongodb": "node rest-server/src/config/databases/mongo/index.js",
+<<<<<<< HEAD
     "db:seed:mongodb": "node rest-server/src/config/databases/mongo/menuModel.js"
+=======
+    "db:seed:mongodb": "node ./rest-server/src/config/databases/mongo/menuModel.js"
+>>>>>>> rebase hell continued
   },
   "repository": {
     "type": "git",
