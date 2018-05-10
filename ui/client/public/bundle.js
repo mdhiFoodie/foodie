@@ -13540,6 +13540,16 @@ var _App = __webpack_require__(393);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _reactRouterDom = __webpack_require__(156);
+
+var _index = __webpack_require__(165);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _Menu = __webpack_require__(177);
+
+var _Menu2 = _interopRequireDefault(_Menu);
+
 var _redux = __webpack_require__(54);
 
 var _reactRedux = __webpack_require__(80);
@@ -13548,16 +13558,25 @@ var _reduxThunk = __webpack_require__(466);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(484);
+var _index3 = __webpack_require__(469);
 
-var _index2 = _interopRequireDefault(_index);
+var _index4 = _interopRequireDefault(_index3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var initialState = {};
-var middleware = [_reduxThunk2.default];
+// const initialState = {};
+// const middleware = [thunk];
 
-var store = (0, _redux.createStore)(_index2.default, initialState, _redux.applyMiddleware.apply(undefined, middleware));
+// const store = createStore(rootReducer, initialState, applyMiddleWare(...middleware));
+var store = (0, _redux.createStore)(_index4.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+// ReactDOM.render(
+//   // <BrowserRouter>
+//   <App/>
+//   // </BrowserRouter>
+//   // <Feed/>
+//   // <Menu/>
+//   ,document.getElementById('root'),
+// );
 
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
@@ -32232,6 +32251,10 @@ var _BusinessDashboard = __webpack_require__(483);
 
 var _BusinessDashboard2 = _interopRequireDefault(_BusinessDashboard);
 
+var _redux = __webpack_require__(54);
+
+var _reactRedux = __webpack_require__(80);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35868,6 +35891,16 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(79);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _redux = __webpack_require__(54);
+
+var _reactRedux = __webpack_require__(80);
+
+var _actionsSearchBusinessesInFeed = __webpack_require__(461);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -35879,9 +35912,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import axios from 'axios';
-// import { geolocated } from 'react-geolocation';
+// import Geocode from 'react-geocode';
 
 var SearchFilter = function (_Component) {
     _inherits(SearchFilter, _Component);
@@ -35911,7 +35942,7 @@ var SearchFilter = function (_Component) {
                                                             _context.prev = 0;
                                                             businessname = _this.state.search;
                                                             _context.next = 4;
-                                                            return axios.get('http://localhost:3000/api/users/feed/searchRestaurants/' + businessname);
+                                                            return _axios2.default.get('http://localhost:3000/api/users/feed/searchRestaurants/' + businessname);
 
                                                         case 4:
                                                             searchRestaurants = _context.sent;
@@ -35939,21 +35970,22 @@ var SearchFilter = function (_Component) {
                                                                 })
                                                             });
                                                             console.log('this is the new state for sort', _this.state.restaurantSearchesSorted);
-                                                            _context.next = 16;
+                                                            _this.props.searchBusinessesInFeed(_this.state.restaurantSearchesSorted);
+                                                            _context.next = 17;
                                                             break;
 
-                                                        case 13:
-                                                            _context.prev = 13;
+                                                        case 14:
+                                                            _context.prev = 14;
                                                             _context.t0 = _context['catch'](0);
 
                                                             console.log(_context.t0);
 
-                                                        case 16:
+                                                        case 17:
                                                         case 'end':
                                                             return _context.stop();
                                                     }
                                                 }
-                                            }, _callee, _this2, [[0, 13]]);
+                                            }, _callee, _this2, [[0, 14]]);
                                         }));
 
                                         return function onPositionReceived(_x2) {
@@ -36109,7 +36141,19 @@ var SearchFilter = function (_Component) {
     return SearchFilter;
 }(_react.Component);
 
-exports.default = SearchFilter;
+// const mapStateToProps = (state) => {
+//     return {
+//         SearchBusinesses : state.SearchBusinessesInFeed
+//     };
+// };
+
+var matchDispatchToProps = function matchDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        searchBusinessesInFeed: _actionsSearchBusinessesInFeed.searchBusinessesInFeed
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(SearchFilter);
 
 /***/ }),
 /* 422 */
@@ -37957,7 +38001,24 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 }
 
 /***/ }),
-/* 461 */,
+/* 461 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var searchBusinessesInFeed = exports.searchBusinessesInFeed = function searchBusinessesInFeed(businesses) {
+  console.log('this is my searchbusinessesaction', businesses);
+  return {
+    type: 'SEARCH_BUSINESSES',
+    payload: businesses
+  };
+};
+
+/***/ }),
 /* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37974,6 +38035,14 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(54);
+
+var _reactRedux = __webpack_require__(80);
+
+var _NearByRestaurantsEntries = __webpack_require__(463);
+
+var _NearByRestaurantsEntries2 = _interopRequireDefault(_NearByRestaurantsEntries);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37981,8 +38050,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import NearByRestaurantsEntries from './NearByRestaurantsEntries.jsx';
 
 var NearByRestaurants = function (_Component) {
     _inherits(NearByRestaurants, _Component);
@@ -37999,6 +38066,7 @@ var NearByRestaurants = function (_Component) {
     _createClass(NearByRestaurants, [{
         key: 'render',
         value: function render() {
+            console.log('this.props', this.props);
             return _react2.default.createElement(
                 'div',
                 { className: 'NearByRestaurantsContainer' },
@@ -38012,10 +38080,70 @@ var NearByRestaurants = function (_Component) {
 
 ;
 
-exports.default = NearByRestaurants;
+// export default NearByRestaurants;
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        searchBusinesses: state.SearchBusinessesInFeedReducer
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(NearByRestaurants);
 
 /***/ }),
-/* 463 */,
+/* 463 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NearByRestaurantsEntries = function (_Component) {
+  _inherits(NearByRestaurantsEntries, _Component);
+
+  function NearByRestaurantsEntries(props) {
+    _classCallCheck(this, NearByRestaurantsEntries);
+
+    return _possibleConstructorReturn(this, (NearByRestaurantsEntries.__proto__ || Object.getPrototypeOf(NearByRestaurantsEntries)).call(this, props));
+  }
+
+  _createClass(NearByRestaurantsEntries, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'this is the entries',
+        this.props.restaurant
+      );
+    }
+  }]);
+
+  return NearByRestaurantsEntries;
+}(_react.Component);
+
+;
+
+exports.default = NearByRestaurantsEntries;
+
+/***/ }),
 /* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38236,139 +38364,18 @@ exports['default'] = thunk;
 /***/ }),
 /* 467 */,
 /* 468 */,
-/* 469 */,
-/* 470 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 469 */
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    if (action.type === "BUSINESSES_DATA") {
-        return action.payload;
-    } else {
-        return state;
-    }
-};
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/dk/Desktop/foodie/ui/client/src/reducers/index.jsx'");
 
 /***/ }),
-/* 471 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    if (action.type === "FRIENDS_DATA") {
-        return action.payload;
-    } else {
-        return state;
-    }
-};
-
-/***/ }),
-/* 472 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    if (action.type === "MENUS_DATA") {
-        return action.payload;
-    } else {
-        return state;
-    }
-};
-
-/***/ }),
-/* 473 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    if (action.type === "MESSAGES_DATA") {
-        return action.payload;
-    } else {
-        return state;
-    }
-};
-
-/***/ }),
-/* 474 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    if (action.type === "ORDERS_DATA") {
-        return action.payload;
-    } else {
-        return state;
-    }
-};
-
-/***/ }),
-/* 475 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    if (action.type === "REVIEWS_DATA") {
-        return action.payload;
-    } else {
-        return state;
-    }
-};
-
-/***/ }),
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */,
 /* 476 */,
 /* 477 */,
 /* 478 */
@@ -38932,134 +38939,6 @@ var mapStateToProps = function mapStateToProps(state) {
 // };
 // export default connect(mapStateToProps, matchDispatchToProps)(Login);
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(BusinessDashboard);
-
-/***/ }),
-/* 484 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(54);
-
-var _reducersBusinessesData = __webpack_require__(470);
-
-var _reducersBusinessesData2 = _interopRequireDefault(_reducersBusinessesData);
-
-var _reducersFriendsData = __webpack_require__(471);
-
-var _reducersFriendsData2 = _interopRequireDefault(_reducersFriendsData);
-
-var _reducersMenusData = __webpack_require__(472);
-
-var _reducersMenusData2 = _interopRequireDefault(_reducersMenusData);
-
-var _reducersMessagesData = __webpack_require__(473);
-
-var _reducersMessagesData2 = _interopRequireDefault(_reducersMessagesData);
-
-var _reducersOrdersData = __webpack_require__(474);
-
-var _reducersOrdersData2 = _interopRequireDefault(_reducersOrdersData);
-
-var _reducersReviewsData = __webpack_require__(475);
-
-var _reducersReviewsData2 = _interopRequireDefault(_reducersReviewsData);
-
-var _usersSignupReducer = __webpack_require__(485);
-
-var _usersSignupReducer2 = _interopRequireDefault(_usersSignupReducer);
-
-var _usersInformationReducer = __webpack_require__(486);
-
-var _usersInformationReducer2 = _interopRequireDefault(_usersInformationReducer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var rootReducer = (0, _redux.combineReducers)({
-  // Still trying to make the post request as an action 
-  usersData: _usersSignupReducer2.default,
-  //Gets every user information when they login or sign up 
-  getUsersInformation: _usersInformationReducer2.default,
-
-  BusinessesReducer: _reducersBusinessesData2.default,
-  FriendsReducer: _reducersFriendsData2.default,
-  MenusReducer: _reducersMenusData2.default,
-  MessagesReducer: _reducersMessagesData2.default,
-  OrdersReducer: _reducersOrdersData2.default,
-  ReviewsReducer: _reducersReviewsData2.default
-});
-
-exports.default = rootReducer;
-
-/***/ }),
-/* 485 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  console.log('REDUCER');
-  if (action.type === _type.signupData) {
-    return _extends({}, state, {
-      userInfo: action.usersInformation
-    });
-  } else {
-    return state;
-  }
-};
-
-var _type = __webpack_require__(478);
-
-var initialState = {
-  userInfo: {}
-};
-
-/***/ }),
-/* 486 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _type = __webpack_require__(478);
-
-var initialState = {
-  usersInfo: {}
-};
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  if (action.type === _type.usersInformation) {
-    return _extends({}, state, {
-      usersInfo: action.info
-    });
-  } else {
-    return initialState;
-  }
-};
 
 /***/ })
 /******/ ]);

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-// import { geolocated } from 'react-geolocation';
+import axios from 'axios';
+// import Geocode from 'react-geocode';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {searchBusinessesInFeed} from '../../actions/actions-searchBusinessesInFeed.js';
 
 class SearchFilter extends Component {
     constructor() {
@@ -60,6 +64,7 @@ class SearchFilter extends Component {
                         })
                     })
                     console.log('this is the new state for sort', this.state.restaurantSearchesSorted)
+                    this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted)
                 }
                 catch(err) {
                     console.log(err)
@@ -154,4 +159,16 @@ class SearchFilter extends Component {
     }
 }
 
-export default SearchFilter;
+// const mapStateToProps = (state) => {
+//     return {
+//         SearchBusinesses : state.SearchBusinessesInFeed
+//     };
+// };
+
+const matchDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        searchBusinessesInFeed
+    }, dispatch);
+};
+
+export default connect(null, matchDispatchToProps)(SearchFilter);
