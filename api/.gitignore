@@ -1,7 +1,8 @@
 node_modules/
 bundle.js
-.env
 bundle.js.map
+.env
+.DS_stores
 .DS_store 
 env.data.js
 
@@ -26,3 +27,4 @@ vagrant
 .lock-wscript
 
 *.css
+.env.sample.js

@@ -22,6 +22,7 @@ import {
   dropUsers_OrdersTable,
   dropMessagesTable,
   useDatabase,
+  dummyData
 } from '../../../lib/PG';
 
 const setup = async () => {
@@ -47,6 +48,7 @@ const setup = async () => {
   await createReviewsTable();
   await createReviews_UsersTable();
   await createUsers_OrdersTable();
+  await dummyData();
   process.exit();
 };
 

@@ -7,6 +7,9 @@ import SignupBusiness from './Auth/BusinessSignup/SignupBusiness.jsx';
 import Logout from './Auth/Logout.jsx'; 
 import BusinessDashboard from './Businesses/BusinessDashboard.jsx'; 
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 class App extends Component {
   constructor(props) {
     super(props);
