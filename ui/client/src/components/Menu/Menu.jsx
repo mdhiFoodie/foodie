@@ -13,12 +13,14 @@ class Menu extends Component {
       currentItemQuantity: null
     }
     this.handleClick = this.handleClick.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.itemClick = this.itemClick.bind(this);
   }
 
   renderFoodTypes() {
     const foodType = [];
     for (var key in this.state.currentMenu) {
-      foodType.push(<div className={`${key}`} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div>);
+      foodType.push(<div className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div>);
     }
     this.setState({
       food: foodType
@@ -27,16 +29,45 @@ class Menu extends Component {
 
   renderFoodItems(foodThing) {
     const foodItems = [];
-    for (var i = 0; i < this.state.currentMenu[foodThing].length; i++) {
-      foodItems.push(<div><li >{this.state.currentMenu[foodThing][i].name}</li><li >{this.state.currentMenu[foodThing][i].price}</li></div>);
+    let aFoodGroup = this.state.currentMenu[foodThing]
+    for (var i = 0; i < aFoodGroup.length; i++) {
+      foodItems.push(
+      <div className={this.state.currentMenu[foodThing][i].name} onClick={this.itemClick}>
+      <li className={this.state.currentMenu[foodThing][i].name}>{this.state.currentMenu[foodThing][i].name}</li>
+      <li className={this.state.currentMenu[foodThing][i].name}>{this.state.currentMenu[foodThing][i].price}</li>
+      </div>);
       }
       this.setState({
          foods: foodItems
       });
   }
   
-  addQuantity() {
-    
+  itemClick(e) {
+    this.setState({
+      currentItem: e.target.className/*the item clicked,*/,
+      currentItemQuantity: 1  /*quantity incremented*/
+    })
+  }
+
+  async addToCart() {
+    try {
+      const item = await axios.post(`http://localhost:3000/api/cart/addItem`, {
+      userId: localStorage.getItem('id'),
+      item: this.state.currentItem,
+      quantity: this.state.currentItemQuantity
+      });
+      // await this.setState({
+      //   currentMenu: response.data
+      // });
+      // await this.renderFoodTypes();
+    } catch (error) {
+      console.error(error);
+    } 
+
+    this.setState({
+      currentItem: null,
+      currentItemQuantity: null
+    })
   }
 
   async handleClick() {
@@ -51,7 +82,20 @@ class Menu extends Component {
     } catch (error) {
       console.error(error);
     }
+  }
 
+  adjustQuantity(amount) {
+    if(this.state.currentItemQuantity === 0 && amount === -1) {
+      return;
+    }
+    this.setState({
+      currentItemQuantity: this.state.currentItemQuantity + amount
+    });
+  }
+
+  viewCart() {
+    //switch to mouseover event after changing to stylized css div
+    console.log('view cart clicked');
   }
 
   render() {
@@ -62,6 +106,19 @@ class Menu extends Component {
           <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Los Burritos</li>
            ??{this.state.food}{this.state.foods}
         </ul>
+           {this.state.currentItem === null ? 
+           <div></div> 
+           : 
+           <div>
+           <button onClick={this.addToCart}>Add To Cart</button>
+             {this.state.currentItem}
+           <button onClick={() => this.adjustQuantity(-1)}>-</button>
+           <span>Quantity: {this.state.currentItemQuantity}</span>
+           <button onClick={() => this.adjustQuantity(1)}>+</button>
+           </div>}
+           <div>
+             <button onClick={this.viewCart}>View Cart</button>
+           </div>
       </div>
     );
   }
