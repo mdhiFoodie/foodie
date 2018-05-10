@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+//click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 
 class Menu extends Component {
   constructor() {
     super();
     this.state = {
+      currentBizId: 1 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizName: 'Los Burritos' /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
       currentMenu: null,
       food: null,
       foods: null,
@@ -15,6 +18,7 @@ class Menu extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.itemClick = this.itemClick.bind(this);
+    this.viewCart = this.viewCart.bind(this);
   }
 
   renderFoodTypes() {
@@ -71,10 +75,10 @@ class Menu extends Component {
   }
 
   async handleClick() {
-    //gonna need to grab biz id from sql db, then query mngod
     //need to grab specific biz id on click
+    //biz id should be attached to image on sql query for restaurants
     try {
-      const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${1}`)
+      const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${this.state.currentBizId}`)
       await this.setState({
         currentMenu: response.data
       });
@@ -95,7 +99,7 @@ class Menu extends Component {
 
   viewCart() {
     //switch to mouseover event after changing to stylized css div
-    console.log('view cart clicked');
+    console.log('view cart clicked', this.state);
   }
 
   render() {
@@ -104,11 +108,12 @@ class Menu extends Component {
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
           <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Los Burritos</li>
-           ??{this.state.food}{this.state.foods}
+          {this.state.food}
+          {this.state.foods}
         </ul>
-           {this.state.currentItem === null ? 
-           <div></div> 
-           : 
+        {this.state.currentItem === null ? 
+          <div></div> 
+        : 
            <div>
            <button onClick={this.addToCart}>Add To Cart</button>
              {this.state.currentItem}
