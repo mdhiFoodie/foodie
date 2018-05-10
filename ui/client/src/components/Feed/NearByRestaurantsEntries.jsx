@@ -8,8 +8,7 @@ class NearByRestaurantsEntries extends Component {
   render() {
     return(
       <div>
-        this is the entries
-        {this.props.restaurant}
+        {this.props.restaurant[0]} {this.props.restaurant[1]}
       </div>
     )
   }

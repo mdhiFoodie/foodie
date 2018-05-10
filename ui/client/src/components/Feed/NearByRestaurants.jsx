@@ -15,15 +15,16 @@ class NearByRestaurants extends Component {
     }
 
     render() {
-        console.log('this.props', this.props)
-        return(
+        // console.log('this.props is coming from nearbyrestaurants', this.props.searchBusinesses)
+
+        return(            
             <div className='NearByRestaurantsContainer'>
                 this is the nearby restaurants where you map through WITH THE RESPONSE THAT I SENT UP TO REDUX STORE
                 FROM THE SEARCH FILTER
-
-                {/* {this.props.searchBusinesses.map = ( (restaurant) => (
-                    <NearByRestaurantsEntries restaurant={restaurant}/>
-                ))} */}
+                {/* {this.props.searchBusinesses && JSON.stringify(this.props.searchBusinesses.businesses)} */}
+                {this.props.searchBusinesses && this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
+                    <NearByRestaurantsEntries key={key} restaurant={restaurant}/>
+                ))}
             </div>
         )
     }
@@ -33,7 +34,7 @@ class NearByRestaurants extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        searchBusinesses : state.SearchBusinessesInFeedReducer
+        searchBusinesses : state.searchBusinesses
     };
 };
 
