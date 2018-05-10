@@ -34433,6 +34433,7 @@ var Feed = function (_Component) {
   _createClass(Feed, [{
     key: 'render',
     value: function render() {
+      console.log(this.props.getUsersInformation);
       return _react2.default.createElement(
         'div',
         { className: 'FeedContainer' },
@@ -34461,8 +34462,9 @@ var Feed = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    //User information name, email, id, phone etc
-    usersLogin: state.usersLogin
+    //User information name, email, id, phone etc when they login or signup 
+    getUsersInformation: state.getUsersInformation
+
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Feed);
@@ -35860,7 +35862,7 @@ var _reactRedux = __webpack_require__(435);
 
 var _redux = __webpack_require__(436);
 
-var _userLoginAction = __webpack_require__(480);
+var _usersInformationAction = __webpack_require__(468);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35909,7 +35911,7 @@ var Login = function (_Component) {
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('token', data.token.accessToken);
-                _this.props.usersInfo({
+                _this.props.getUserInfo({
                   id: data.id,
                   name: data.name,
                   email: data.email,
@@ -36012,12 +36014,13 @@ var Login = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   //usersData is the key coming from our root reducers with the value of our reducer file
-  usersLogin: state.userLogin;
+  // Saves in the store the users information as soon as they login name, email, phone etc 
+  usersInformationReducer: state.usersInformationReducer;
 };
 
 var matchDispatchToProps = function matchDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({
-    usersInfo: _userLoginAction.usersInfo
+    getUserInfo: _usersInformationAction.getUserInfo
   }, dispatch);
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(Login);
@@ -36657,8 +36660,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 //We can import them in our actions and reducer so is less likely to have a typo 
+
+// Trying to make the post request for business and users signup as an action 
 var signupData = exports.signupData = 'signupData';
-var userLogin = exports.userLogin = 'userLogin';
+
+//Action to save in the store all users information 
+var usersInformation = exports.usersInformation = 'usersInformation';
 
 /***/ }),
 /* 438 */
@@ -38112,7 +38119,11 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRedux = __webpack_require__(435);
 
+var _redux = __webpack_require__(436);
+
 var _signupUsersActions = __webpack_require__(467);
+
+var _usersInformationAction = __webpack_require__(468);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38138,7 +38149,7 @@ var SignupUser = function (_Component) {
 
     _this.handleSignUpClick = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var _this$state, name, phone, email, password, type, body, _ref2, userData;
+        var _this$state, name, phone, email, password, type, body, data;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -38156,14 +38167,20 @@ var SignupUser = function (_Component) {
                 };
                 _context.prev = 3;
                 _context.next = 6;
-                return _this.props.userSignup(body);
+                return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
 
               case 6:
-                _ref2 = _context.sent;
-                userData = _ref2.userData;
+                data = _context.sent;
 
-                userData ? _this.props.history.push('/home') : alert('Request failed try again');
-                console.log('localStorage from user signup =>', userData);
+                _this.props.getUserInfo({
+                  id: data.data.id,
+                  name: data.data.name,
+                  phone: data.data.phone,
+                  email: data.data.email,
+                  type: data.data.type
+                });
+                data ? _this.props.history.push('/home') : alert('Request failed try again');
+                console.log('localStorage from user signup =>', data);
                 _context.next = 15;
                 break;
 
@@ -38251,11 +38268,19 @@ var SignupUser = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    //usersData is the key coming from our root reducers with the value of our reducer file
-    data: state.usersData
+    //Still working in making the post request as an action for signup 
+    usersData: state.usersData,
+    // getUsersInformation gets the users information name, email, id etc 
+    getUsersInformation: state.getUsersInformatio
   };
 };
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { userSignup: _signupUsersActions.userSignup })(SignupUser);
+var matchDispatchToProps = function matchDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({
+    getUserInfo: _usersInformationAction.getUserInfo,
+    userSignup: _signupUsersActions.userSignup
+  }, dispatch);
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(SignupUser);
 
 /***/ }),
 /* 466 */
@@ -38284,6 +38309,8 @@ var _redux = __webpack_require__(436);
 
 var _signupUsersActions = __webpack_require__(467);
 
+var _usersInformationAction = __webpack_require__(468);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -38310,49 +38337,61 @@ var SignupBusiness = function (_Component) {
 
     _this.handleSignUpClick = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var _this$state, businessName, address, contactName, phone, email, password, foodCategory, type, body, _ref2, userData;
+        var _this$state, businessname, address, contactname, phone, email, password, foodcategory, type, body, data;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 e.preventDefault();
-                _this$state = _this.state, businessName = _this$state.businessName, address = _this$state.address, contactName = _this$state.contactName, phone = _this$state.phone, email = _this$state.email, password = _this$state.password, foodCategory = _this$state.foodCategory, type = _this$state.type;
+                _this$state = _this.state, businessname = _this$state.businessname, address = _this$state.address, contactname = _this$state.contactname, phone = _this$state.phone, email = _this$state.email, password = _this$state.password, foodcategory = _this$state.foodcategory, type = _this$state.type;
                 body = {
-                  businessName: businessName,
+                  businessname: businessname,
                   address: address,
-                  contactName: contactName,
+                  contactname: contactname,
                   phone: phone,
                   email: email,
                   password: password,
-                  foodCategory: foodCategory,
+                  foodcategory: foodcategory,
                   type: type
                 };
                 _context.prev = 3;
-                _context.next = 6;
-                return _this.props.userSignup(body);
 
-              case 6:
-                _ref2 = _context.sent;
-                userData = _ref2.userData;
+                console.log('BODY', body);
+                // const { userData } = await this.props.userSignup(body);
+                _context.next = 7;
+                return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
 
-                userData ? _this.props.history.push('/dashboard') : alert('Request failed try again');
-                console.log('localStorage from user signup =>', userData);
-                _context.next = 15;
+              case 7:
+                data = _context.sent;
+
+                data ? _this.props.history.push('/dashboard') : alert('Request failed try again');
+                _this.props.getUserInfo({
+                  id: data.data.id,
+                  businessname: data.data.businessname,
+                  address: data.data.address,
+                  contactname: data.data.contactname,
+                  phone: data.data.phone,
+                  email: data.data.email,
+                  foodcategory: data.data.foodcategory,
+                  type: data.data.type
+                });
+                console.log('localStorage from user signup =>', data);
+                _context.next = 16;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context['catch'](3);
 
                 console.log(_context.t0);
 
-              case 15:
+              case 16:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 12]]);
+        }, _callee, _this2, [[3, 13]]);
       }));
 
       return function (_x) {
@@ -38361,13 +38400,13 @@ var SignupBusiness = function (_Component) {
     }();
 
     _this.state = {
-      businessName: '',
+      businessname: '',
       address: '',
-      constactName: '',
+      contactname: '',
       phone: '',
       email: '',
       password: '',
-      foodCategory: '',
+      foodcategory: '',
       type: 1,
       agree: false
     };
@@ -38403,11 +38442,11 @@ var SignupBusiness = function (_Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSignUpClick.bind(this) },
-          _react2.default.createElement('input', { name: 'businessName', placeholder: 'business name', onChange: this.handleForm.bind(this) }),
+          _react2.default.createElement('input', { name: 'businessname', placeholder: 'business name', onChange: this.handleForm.bind(this) }),
           _react2.default.createElement('br', null),
           _react2.default.createElement('input', { name: 'address', placeholder: 'address', onChange: this.handleForm.bind(this) }),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { name: 'contactName', placeholder: 'contact name', onChange: this.handleForm.bind(this) }),
+          _react2.default.createElement('input', { name: 'contactname', placeholder: 'contact name', onChange: this.handleForm.bind(this) }),
           _react2.default.createElement('br', null),
           _react2.default.createElement('input', { name: 'phone', placeholder: 'phone', onChange: this.handleForm.bind(this) }),
           _react2.default.createElement('br', null),
@@ -38458,12 +38497,15 @@ var SignupBusiness = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    //usersData is the key coming from our root reducers with the value of our reducer file
-    usersData: state.usersData
+    //Still working in making the post request as an action for signup 
+    usersData: state.usersData,
+    // getUsersInformation gets the users information name, email, id etc 
+    getUsersInformation: state.getUsersInformation
   };
 };
 var matchDispatchToProps = function matchDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({
+    getUserInfo: _usersInformationAction.getUserInfo,
     userSignup: _signupUsersActions.userSignup
   }, dispatch);
 };
@@ -38489,47 +38531,46 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+// export const userSignup = (body) => async dispatch => {
+//   dispatch({type: signupData})
+//   const data = await axios.post('http://localhost:3000/api/auth/signup', body);
+//   try {
+//       return 
+//   } 
+//   catch(err) {
+//     console.log('Is not working', err);
+//   }
+// };
 
-var userSignup = exports.userSignup = function userSignup(body) {
-  return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var data;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              dispatch({ type: _type.signupData });
-              _context.next = 3;
-              return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
-
-            case 3:
-              data = _context.sent;
-              _context.prev = 4;
-              return _context.abrupt('return');
-
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context['catch'](4);
-
-              console.log('Is not working', _context.t0);
-
-            case 11:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined, [[4, 8]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+var userSignup = exports.userSignup = function userSignup(userInfo) {
+  return {
+    type: _type.signupData,
+    usersInformation: userInfo
+  };
 };
 
 /***/ }),
-/* 468 */,
+/* 468 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getUserInfo = undefined;
+
+var _type = __webpack_require__(437);
+
+var getUserInfo = exports.getUserInfo = function getUserInfo(information) {
+  return {
+    type: _type.usersInformation,
+    info: information
+  };
+};
+
+/***/ }),
 /* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38572,7 +38613,7 @@ var BusinessDashboard = function (_Component) {
   _createClass(BusinessDashboard, [{
     key: 'render',
     value: function render() {
-      console.log('dash', this.props.usersData);
+      console.log('dash', this.props.getUsersInformation);
       return _react2.default.createElement(
         'div',
         null,
@@ -38587,9 +38628,17 @@ var BusinessDashboard = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     // usersData is the key coming from our root reducers with the value of our reducer file
-    usersData: state.usersData
+    getUsersInformation: state.getUsersInformation
+
   };
 };
+
+// const matchDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//   usersInfo: usersInfo
+//   }, dispatch);
+// };
+// export default connect(mapStateToProps, matchDispatchToProps)(Login);
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(BusinessDashboard);
 
 /***/ }),
@@ -38629,7 +38678,7 @@ exports['default'] = thunk;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _redux = __webpack_require__(436);
@@ -38662,22 +38711,24 @@ var _usersSignupReducer = __webpack_require__(478);
 
 var _usersSignupReducer2 = _interopRequireDefault(_usersSignupReducer);
 
-var _userLoginReducer = __webpack_require__(481);
+var _usersInformationReducer = __webpack_require__(479);
 
-var _userLoginReducer2 = _interopRequireDefault(_userLoginReducer);
+var _usersInformationReducer2 = _interopRequireDefault(_usersInformationReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-    usersData: _usersSignupReducer2.default,
-    usersLogin: _userLoginReducer2.default,
+  // Still trying to make the post request as an action 
+  usersData: _usersSignupReducer2.default,
+  //Gets every user information when they login or sign up 
+  getUsersInformation: _usersInformationReducer2.default,
 
-    BusinessesReducer: _reducersBusinessesData2.default,
-    FriendsReducer: _reducersFriendsData2.default,
-    MenusReducer: _reducersMenusData2.default,
-    MessagesReducer: _reducersMessagesData2.default,
-    OrdersReducer: _reducersOrdersData2.default,
-    ReviewsReducer: _reducersReviewsData2.default
+  BusinessesReducer: _reducersBusinessesData2.default,
+  FriendsReducer: _reducersFriendsData2.default,
+  MenusReducer: _reducersMenusData2.default,
+  MessagesReducer: _reducersMessagesData2.default,
+  OrdersReducer: _reducersOrdersData2.default,
+  ReviewsReducer: _reducersReviewsData2.default
 });
 
 exports.default = rootReducer;
@@ -38831,9 +38882,10 @@ exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
+  console.log('REDUCER');
   if (action.type === _type.signupData) {
     return _extends({}, state, {
-      data: action.userData
+      userInfo: action.usersInformation
     });
   } else {
     return state;
@@ -38843,33 +38895,11 @@ exports.default = function () {
 var _type = __webpack_require__(437);
 
 var initialState = {
-  data: []
+  userInfo: {}
 };
 
 /***/ }),
-/* 479 */,
-/* 480 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.usersInfo = undefined;
-
-var _type = __webpack_require__(437);
-
-var usersInfo = exports.usersInfo = function usersInfo(info) {
-  return {
-    type: _type.userLogin,
-    usersInformation: info
-  };
-};
-
-/***/ }),
-/* 481 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38884,19 +38914,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var _type = __webpack_require__(437);
 
 var initialState = {
-  userInfo: {}
+  usersInfo: {}
 };
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
-  if (action.type === _type.userLogin) {
+  if (action.type === _type.usersInformation) {
     return _extends({}, state, {
-      userInfo: action.usersInformation
+      usersInfo: action.info
     });
   } else {
-    return state;
+    return initialState;
   }
 };
 

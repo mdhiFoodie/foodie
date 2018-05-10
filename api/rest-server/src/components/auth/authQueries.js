@@ -30,7 +30,7 @@ export const signUpBusinessQuery = async (payload) => {
   try {
     const query = {
       text: businessSignUpHelper,
-      values: queryPayloadOrganizer(payload, ['businessName', 'address', 'contactName', 'phone', 'email', 'password', 'foodCategory'])
+      values: queryPayloadOrganizer(payload, ['businessname', 'address', 'contactname', 'phone', 'email', 'password', 'foodcategory', 'type'])
     }
     const data = await db.query(query);
     console.log('data from authQueries',data)

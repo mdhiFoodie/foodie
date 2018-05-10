@@ -8,7 +8,7 @@ class BusinessDashboard extends Component {
   }
   
   render() {
-    console.log('dash', this.props.usersData)
+    console.log('dash', this.props.getUsersInformation)
     return(
       <div>
         
@@ -28,7 +28,8 @@ class BusinessDashboard extends Component {
 
 const mapStateToProps = state => ({
   // usersData is the key coming from our root reducers with the value of our reducer file
-  usersData: state.usersData
+  getUsersInformation: state.getUsersInformation
+  
 })
 
 // const matchDispatchToProps = (dispatch) => {

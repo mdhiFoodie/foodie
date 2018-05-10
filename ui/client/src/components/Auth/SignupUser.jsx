@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignup } from '../../actions/signupUsersActions.js';
+import { getUserInfo } from '../../actions/usersInformationAction.js';
 
 class SignupUser extends Component {
   constructor() {
@@ -36,14 +37,14 @@ class SignupUser extends Component {
     try {
     // const { userData } = await this.props.userSignup(body);
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
-    data ? this.props.history.push('/home') : alert('Request failed try again');
-    this.props.userSignup({
+    this.props.getUserInfo({
       id: data.data.id,
       name: data.data.name,
       phone: data.data.phone,
       email: data.data.email,
       type: data.data.type
     });
+    data ? this.props.history.push('/home') : alert('Request failed try again');
     console.log('localStorage from user signup =>', data)
     }
     catch(err) {
@@ -81,11 +82,14 @@ class SignupUser extends Component {
 }
 
 const mapStateToProps = state => ({
-  //usersData is the key coming from our root reducers with the value of our reducer file
-  usersData: state.usersData
+    //Still working in making the post request as an action for signup 
+    usersData: state.usersData,
+    // getUsersInformation gets the users information name, email, id etc 
+    getUsersInformation: state.getUsersInformatio
 })
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
+    getUserInfo: getUserInfo,
     userSignup: userSignup
   }, dispatch)
 }

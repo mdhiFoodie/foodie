@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { usersInfo } from '../../actions/userLoginAction.js'; 
+import { getUserInfo } from '../../actions/usersInformationAction.js'; 
 
 class Login extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class Login extends Component {
     localStorage.setItem('email', data.email)
     localStorage.setItem('id', data.id)
     localStorage.setItem('token', data.token.accessToken)
-    this.props.usersInfo({
+    this.props.getUserInfo({
       id: data.id, 
       name: data.name, 
       email: data.email, 
@@ -77,12 +77,13 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   //usersData is the key coming from our root reducers with the value of our reducer file
-    usersLogin: state.userLogin
+  // Saves in the store the users information as soon as they login name, email, phone etc 
+  usersInformationReducer: state.usersInformationReducer
 }
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-  usersInfo: usersInfo
+    getUserInfo: getUserInfo
   }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(Login);

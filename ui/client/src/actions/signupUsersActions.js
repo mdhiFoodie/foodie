@@ -13,7 +13,6 @@ import axios from 'axios';
 // };
 
 export const userSignup = (userInfo) => {
-  console.log('ACTION')
   return {
     type: signupData,
     usersInformation: userInfo

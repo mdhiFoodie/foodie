@@ -1,7 +1,7 @@
 import { signupData } from '../actions/type'; 
 
 const initialState = {
-  data: {}
+  userInfo: {}
 }
 
 export default function(state = initialState, action) {
@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
     return {
       //grabs all the state object and changes the userData to the new payload 
       ...state, 
-      data: action.usersInformation
+      userInfo: action.usersInformation
     }
   } else {
     return state; 

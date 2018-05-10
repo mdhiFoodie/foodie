@@ -3,19 +3,20 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignup } from '../../../actions/signupUsersActions.js';
+import { getUserInfo } from '../../../actions/usersInformationAction.js';
 // import './index.css'; 
 
 class SignupBusiness extends Component {
   constructor() {
     super();
     this.state = {
-      businessName: '',
+      businessname: '',
       address: '',
-      constactName: '',
+      contactname: '',
       phone: '',
       email: '', 
       password: '', 
-      foodCategory: '', 
+      foodcategory: '', 
       type: 1,
       agree: false,
     }
@@ -28,28 +29,30 @@ class SignupBusiness extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-    const {businessName, address, contactName, phone, email, password, foodCategory, type} = this.state;
+    const {businessname, address, contactname, phone, email, password, foodcategory, type} = this.state;
     const body = {
-      businessName,
+      businessname,
       address,
-      contactName, 
+      contactname, 
       phone,
       email,
       password,
-      foodCategory, 
+      foodcategory, 
       type
     };
     try {
+      console.log('BODY', body)
     // const { userData } = await this.props.userSignup(body);
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
-    this.props.userSignup({
-      businessName: data.data.businessName,
+    this.props.getUserInfo({
+      id: data.data.id, 
+      businessname: data.data.businessname,
       address: data.data.address,
-      contactName: data.data.constactName, 
+      contactname: data.data.contactname, 
       phone: data.data.phone,
       email: data.data.email,
-      foodCategory: data.data.foodCategory, 
+      foodcategory: data.data.foodcategory, 
       type: data.data.type
     });
     console.log('localStorage from user signup =>', data)
@@ -71,11 +74,11 @@ class SignupBusiness extends Component {
     return (
       <div>
         <form onSubmit={this.handleSignUpClick.bind(this)}>
-          <input name='businessName' placeholder='business name' onChange={this.handleForm.bind(this)}/>
+          <input name='businessname' placeholder='business name' onChange={this.handleForm.bind(this)}/>
           <br/>
           <input name='address' placeholder='address' onChange={this.handleForm.bind(this)}/>
           <br/>
-          <input name='contactName' placeholder='contact name' onChange={this.handleForm.bind(this)}/>
+          <input name='contactname' placeholder='contact name' onChange={this.handleForm.bind(this)}/>
           <br/>
           <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>
           <br/>
@@ -103,11 +106,14 @@ class SignupBusiness extends Component {
 }
 
 const mapStateToProps = state => ({
-  //usersData is the key coming from our root reducers with the value of our reducer file
-  usersData: state.usersData
+  //Still working in making the post request as an action for signup 
+  usersData: state.usersData,
+  // getUsersInformation gets the users information name, email, id etc 
+  getUsersInformation: state.getUsersInformation
 })
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
+    getUserInfo: getUserInfo,   
     userSignup: userSignup
   }, dispatch)
 }

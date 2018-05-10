@@ -11,14 +11,13 @@ class Feed extends Component {
   }
 
   render() {
-    console.log(this.props.usersLogin)
+    console.log(this.props.getUsersInformation)
     return(
       <div className='FeedContainer'>
       
         <div>
           <SearchFilter/>
         </div>
-
         <div>
           <NearByRestaurants/>
         </div>
@@ -33,7 +32,8 @@ class Feed extends Component {
 }
 
 const mapStateToProps = state => ({
-  //User information name, email, id, phone etc
-  usersLogin: state.usersLogin
+  //User information name, email, id, phone etc when they login or signup 
+  getUsersInformation: state.getUsersInformation,
+
 })
 export default connect(mapStateToProps)(Feed);
