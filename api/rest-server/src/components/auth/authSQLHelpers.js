@@ -1,10 +1,10 @@
 export const signUpHelper = `
     INSERT INTO
-      users (name, phone, email, password)
+      users (name, phone, email, password, type)
     VALUES
-      ($1, $2, $3, $4)
+      ($1, $2, $3, $4, $5)
     RETURNING
-      id, email
+      id, name, phone, email, type
 `;
 
 export const businessSignUpHelper = `
@@ -18,7 +18,7 @@ export const businessSignUpHelper = `
 
 export const loginHelper = `
     SELECT
-      id, email, password
+      id, name, email, password, type, phone
     FROM
       users
     WHERE

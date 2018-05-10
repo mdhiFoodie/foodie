@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { usersInfo } from '../../actions/userLoginAction.js'; 
 
 class Login extends Component {
   constructor() {
@@ -21,15 +24,22 @@ class Login extends Component {
     e.preventDefault();
     const {email, password} = this.state;
     const body = {
-      email, password
+      email, 
+      password
     };
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/login', body);
     localStorage.setItem('email', data.email)
     localStorage.setItem('id', data.id)
     localStorage.setItem('token', data.token.accessToken)
+    this.props.usersInfo({
+      id: data.id, 
+      name: data.name, 
+      email: data.email, 
+      type: data.type, 
+      phone: data.phone
+    });
     data ? this.props.history.push('/home') : this.props.history.push('/login');
-    console.log('localStorage =>', data); 
     }
     catch(err) {
       console.log(err);
@@ -65,4 +75,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  //usersData is the key coming from our root reducers with the value of our reducer file
+    usersLogin: state.userLogin
+}
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+  usersInfo: usersInfo
+  }, dispatch);
+};
+export default connect(mapStateToProps, matchDispatchToProps)(Login);

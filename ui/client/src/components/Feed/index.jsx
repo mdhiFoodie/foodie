@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; 
 import SearchFilter from './SearchFilter.jsx';
 import NearByRestaurants from './NearByRestaurants.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Menu from '../Menu/Menu.jsx';
 
 class Feed extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-
-    }
+  constructor(props) {
+    super(props);
   }
-
-  // componentWillMount() {
-
-  // }
 
   render() {
     return(
@@ -38,4 +31,8 @@ class Feed extends Component {
   }
 }
 
-export default Feed;
+const mapStateToProps = state => ({
+  //User information name, email, id, phone etc
+  usersLogin: state.usersLogin
+})
+export default connect(mapStateToProps)(Feed);

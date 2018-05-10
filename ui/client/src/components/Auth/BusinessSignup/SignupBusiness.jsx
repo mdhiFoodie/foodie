@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { userSignup } from '../../../actions/signupUsersActions.js';
 // import './index.css'; 
 
 class SignupBusiness extends Component {
@@ -13,7 +16,7 @@ class SignupBusiness extends Component {
       email: '', 
       password: '', 
       foodCategory: '', 
-      type: 'business',
+      type: 1,
       agree: false,
     }
   }
@@ -37,12 +40,9 @@ class SignupBusiness extends Component {
       type
     };
     try {
-    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
-    // localStorage.setItem('email', data.email);
-    // localStorage.setItem('id', data.id);
-    // localStorage.setItem('name', data.name);
-    data ? this.props.history.push('/dashboard') : alert('Request failed try again');
-    console.log('localStorage =>', data)
+    const { userData } = await this.props.userSignup(body);
+    userData ? this.props.history.push('/dashboard') : alert('Request failed try again');
+    console.log('localStorage from user signup =>', userData)
     }
     catch(err) {
       console.log(err);
@@ -92,4 +92,13 @@ class SignupBusiness extends Component {
   }
 }
 
-export default SignupBusiness;
+const mapStateToProps = state => ({
+  //usersData is the key coming from our root reducers with the value of our reducer file
+  usersData: state.usersData
+})
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    userSignup: userSignup
+  }, dispatch)
+}
+export default connect(mapStateToProps, matchDispatchToProps)(SignupBusiness);
