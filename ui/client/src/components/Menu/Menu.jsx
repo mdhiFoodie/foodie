@@ -42,7 +42,7 @@ class Menu extends Component {
       </div>);
       }
       this.setState({
-         foods: foodItems
+        foods: foodItems
       });
   }
   

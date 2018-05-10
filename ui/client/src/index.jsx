@@ -1,20 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
-import { BrowserRouter, Route } from 'react-router-dom';
 
-// import { createStore } from 'redux';
-// import { Provider } from 'react-redux';
-// import { allReducers } from 'whateverthepathfileis';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk'; 
+import rootReducer from './reducers/index'; 
 
-// const store = createStore(allReducers);
+const initialState = {};
+const middleware = [thunk]; 
 
-ReactDOM.render(
-  <BrowserRouter>
-  <App/>
-  </BrowserRouter>
+const store = createStore(
+  rootReducer,
+  initialState, 
+  applyMiddleware(...middleware)
+  );
 
-  ,document.getElementById('root'),
-);
-
-// ReactDOM.render(<Provider store={store}><WHATEVER PARENT COMPONENT IS/></Provider>, document.getElementById("root")); 
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root")); 
