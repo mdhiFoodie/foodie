@@ -333,6 +333,7 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
+<<<<<<< HEAD
 autoprefixer@^7.2.4:
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-7.2.6.tgz#256672f86f7c735da849c4f07d008abb056067dc"
@@ -344,6 +345,8 @@ autoprefixer@^7.2.4:
     postcss "^6.0.17"
     postcss-value-parser "^3.2.3"
 
+=======
+>>>>>>> 52dc5da684499c21bbe3f02a23f6d0f4c8801172
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -1748,7 +1751,11 @@ combined-stream@1.0.6, combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
+<<<<<<< HEAD
 commander@^2.11.0, commander@^2.9.0:
+=======
+commander@^2.9.0:
+>>>>>>> 52dc5da684499c21bbe3f02a23f6d0f4c8801172
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
@@ -5120,7 +5127,11 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
+<<<<<<< HEAD
 lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
+=======
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.4:
+>>>>>>> 52dc5da684499c21bbe3f02a23f6d0f4c8801172
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -5524,7 +5535,11 @@ node-pre-gyp@^0.9.0:
     semver "^5.3.0"
     tar "^4"
 
+<<<<<<< HEAD
 node-sass@^4.7.2:
+=======
+node-sass@^4.9.0:
+>>>>>>> 52dc5da684499c21bbe3f02a23f6d0f4c8801172
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.9.0.tgz#d1b8aa855d98ed684d6848db929a20771cc2ae52"
   dependencies:

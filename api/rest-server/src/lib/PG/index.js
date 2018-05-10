@@ -104,13 +104,16 @@ export const createBusinessesTable = async () => {
       (
         id SERIAL,
         businesspicture varchar(255),
-        businessaddress varchar (255),
+        address varchar (255),
+        email varchar (50),
+        type varchar (50),
+        password varchar (100),
         rating int,
         foodcategory varchar (50),
         totalorder int,
         dailyorders int,
         gross int,
-        phone int NOT NULL,
+        phone varchar(10),
         businessname varchar (100),
         contactname varchar (50),
         CONSTRAINT businesses_pk

@@ -13,7 +13,6 @@
   "dependencies": {
     "autoprefixer": "^7.2.4",
     "axios": "^0.17.1",
-    "codemirror": "^5.33.0",
     "dotenv": "^4.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
