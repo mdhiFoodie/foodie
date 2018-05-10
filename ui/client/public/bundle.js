@@ -32155,6 +32155,22 @@ var _BusinessDashboard = __webpack_require__(478);
 
 var _BusinessDashboard2 = _interopRequireDefault(_BusinessDashboard);
 
+var _LoggedOutHeader = __webpack_require__(494);
+
+var _LoggedOutHeader2 = _interopRequireDefault(_LoggedOutHeader);
+
+var _UserHeader = __webpack_require__(495);
+
+var _UserHeader2 = _interopRequireDefault(_UserHeader);
+
+var _BusinessHeader = __webpack_require__(496);
+
+var _BusinessHeader2 = _interopRequireDefault(_BusinessHeader);
+
+var _DeliveryHeader = __webpack_require__(497);
+
+var _DeliveryHeader2 = _interopRequireDefault(_DeliveryHeader);
+
 var _redux = __webpack_require__(36);
 
 var _reactRedux = __webpack_require__(35);
@@ -32188,7 +32204,21 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Login2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _LoggedOutHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _LoggedOutHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _LoggedOutHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _UserHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _UserHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessHeader2.default })
+          )
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.BrowserRouter,
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _index2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _SignupBusiness2.default }),
@@ -39494,6 +39524,296 @@ exports.default = function () {
     return initialState;
   }
 };
+
+/***/ }),
+/* 492 */,
+/* 493 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 494 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(159);
+
+__webpack_require__(493);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LoggedOutHeader = function LoggedOutHeader() {
+  return _react2.default.createElement(
+    'header',
+    null,
+    _react2.default.createElement(
+      'nav',
+      null,
+      _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+          'li',
+          null,
+          'Logo'
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/' },
+            'Login'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/signup' },
+            'Signup'
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = LoggedOutHeader;
+
+/***/ }),
+/* 495 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(159);
+
+__webpack_require__(493);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserHeader = function UserHeader() {
+  return _react2.default.createElement(
+    'header',
+    null,
+    _react2.default.createElement(
+      'nav',
+      null,
+      _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/home' },
+            'Home'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/profile' },
+            'Profile'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/message' },
+            'Message'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/cart' },
+            'Cart'
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = UserHeader;
+
+/***/ }),
+/* 496 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(159);
+
+__webpack_require__(493);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BusinessHeader = function BusinessHeader() {
+  return _react2.default.createElement(
+    'header',
+    null,
+    _react2.default.createElement(
+      'nav',
+      null,
+      _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard' },
+            'Dashboard'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/profile' },
+            'Profile'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/orders' },
+            'Orders'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/menu' },
+            'Menu'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/delivery' },
+            'Delivery'
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = BusinessHeader;
+
+/***/ }),
+/* 497 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(159);
+
+__webpack_require__(493);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DeliveryHeader = function DeliveryHeader() {
+  return _react2.default.createElement(
+    'header',
+    null,
+    _react2.default.createElement(
+      'nav',
+      null,
+      _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/home' },
+            'Home'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/' },
+            'Login'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/signup' },
+            'Signup'
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = DeliveryHeader;
 
 /***/ })
 /******/ ]);
