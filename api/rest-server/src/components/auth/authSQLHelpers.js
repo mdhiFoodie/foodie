@@ -1,33 +1,24 @@
 export const signUpHelper = `
     INSERT INTO
-      users (name, phone, email, password)
+      users (name, phone, email, password, type)
     VALUES
-      ($1, $2, $3, $4)
+      ($1, $2, $3, $4, $5)
     RETURNING
-      id, email
+      id, name, phone, email, type
 `;
 
-// export const userLoginHelper = `
-//     SELECT
-//       id, email, password
-//     FROM
-//       users
-//     WHERE
-//       email=$1
-// `;
-
-// export const businessSignUpHelper = `
-//     INSERT INTO
-//       users (businessName, businessAddress, contactName, email, phone, foodCategory, password)
-//     VALUES
-//       ($1, $2, $3, $4, $5, $6, $7)
-//     RETURNING
-//       id, email
-// `;
+export const businessSignUpHelper = `
+    INSERT INTO
+      businesses (businessname, address, contactname, phone, email, password, foodcategory, type)
+    VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8)
+    RETURNING
+      id, businessname, address, contactname, phone, email, password, foodcategory, type
+`;
 
 export const loginHelper = `
     SELECT
-      id, email, password
+      id, name, email, password, type, phone
     FROM
       users
     WHERE

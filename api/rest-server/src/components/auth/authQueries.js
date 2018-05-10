@@ -2,7 +2,8 @@ import db from '../../config/databases/pg';
 import { queryPayloadOrganizer } from '../../lib/components/util';
 import {
   signUpHelper,
-  loginHelper
+  loginHelper,
+  businessSignUpHelper
 } from './authSQLHelpers';
 import {
   success,
@@ -13,9 +14,26 @@ export const signUpQuery = async (payload) => {
   try {
     const query = {
       text: signUpHelper,
-      values: queryPayloadOrganizer(payload, ['name', 'phone', 'email', 'password'])
+      values: queryPayloadOrganizer(payload, ['name', 'phone', 'email', 'password', 'type'])
     }
     const data = await db.query(query);
+    console.log('data from authQueries', data)
+    success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
+    return data;
+  } catch (err) {
+    error('signUpQuery - error= ', err);
+    throw new Error(err);
+  }
+};
+
+export const signUpBusinessQuery = async (payload) => {
+  try {
+    const query = {
+      text: businessSignUpHelper,
+      values: queryPayloadOrganizer(payload, ['businessname', 'address', 'contactname', 'phone', 'email', 'password', 'foodcategory', 'type'])
+    }
+    const data = await db.query(query);
+    console.log('data from authQueries',data)
     success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
     return data;
   } catch (err) {
@@ -25,16 +43,13 @@ export const signUpQuery = async (payload) => {
 };
 
 export const loginQuery = async (payload) => {
-  console.log('HERE IS PAYLOAD',payload)
   try {
     const query = {
       text: loginHelper,
       values: queryPayloadOrganizer(payload, ['email'])
     }
-    console.log('query.text', query.text);
-    console.log('payload', queryPayloadOrganizer(payload, ['email']));
     const data = await db.query(query);
-    // console.log('DATA BACK FROM DB', data.rows); 
+    console.log('DATA FROM LOGIN', data)
       success('loginQuery - successfully retrieved data ', data);
     return data;
   } catch (err) {
