@@ -3,3 +3,4 @@ bundle.js
 bundle.js.map
 .env
 .DS_stores
+.env.sample.js
