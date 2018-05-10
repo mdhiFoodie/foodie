@@ -13440,6 +13440,7 @@ var _App = __webpack_require__(400);
 
 var _App2 = _interopRequireDefault(_App);
 
+<<<<<<< HEAD
 var _reactRouterDom = __webpack_require__(159);
 
 var _index = __webpack_require__(168);
@@ -13450,6 +13451,8 @@ var _Menu = __webpack_require__(183);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
+=======
+>>>>>>> pre rebase with daniels on my branch
 var _redux = __webpack_require__(36);
 
 var _reactRedux = __webpack_require__(35);
@@ -13458,7 +13461,11 @@ var _reduxThunk = __webpack_require__(479);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
+<<<<<<< HEAD
 var _reduxPromiseMiddleware = __webpack_require__(480);
+=======
+var _index = __webpack_require__(482);
+>>>>>>> pre rebase with daniels on my branch
 
 var _reduxPromiseMiddleware2 = _interopRequireDefault(_reduxPromiseMiddleware);
 
@@ -37217,6 +37224,7 @@ var SearchFilter = function (_Component) {
     return SearchFilter;
 }(_react.Component);
 
+<<<<<<< HEAD
 // const mapStateToProps = (state) => {
 //     return {
 //         SearchBusinesses : state.SearchBusinessesInFeed
@@ -37230,6 +37238,9 @@ var matchDispatchToProps = function matchDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(SearchFilter);
+=======
+exports.default = SearchFilter;
+>>>>>>> pre rebase with daniels on my branch
 
 /***/ }),
 /* 452 */
@@ -38116,6 +38127,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38146,6 +38158,9 @@ var searchBusinessesInFeed = exports.searchBusinessesInFeed = function searchBus
 };
 
 /***/ }),
+=======
+/* 470 */,
+>>>>>>> pre rebase with daniels on my branch
 /* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38162,6 +38177,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 var _redux = __webpack_require__(36);
 
 var _reactRedux = __webpack_require__(35);
@@ -38170,6 +38186,8 @@ var _NearByRestaurantsEntries = __webpack_require__(472);
 
 var _NearByRestaurantsEntries2 = _interopRequireDefault(_NearByRestaurantsEntries);
 
+=======
+>>>>>>> pre rebase with daniels on my branch
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38178,6 +38196,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 var NearByRestaurants = function (_Component) {
     _inherits(NearByRestaurants, _Component);
 
@@ -38185,6 +38204,17 @@ var NearByRestaurants = function (_Component) {
         _classCallCheck(this, NearByRestaurants);
 
         var _this = _possibleConstructorReturn(this, (NearByRestaurants.__proto__ || Object.getPrototypeOf(NearByRestaurants)).call(this, props));
+=======
+// import NearByRestaurantsEntries from './NearByRestaurantsEntries.jsx';
+
+var NearByRestaurants = function (_Component) {
+    _inherits(NearByRestaurants, _Component);
+
+    function NearByRestaurants() {
+        _classCallCheck(this, NearByRestaurants);
+
+        var _this = _possibleConstructorReturn(this, (NearByRestaurants.__proto__ || Object.getPrototypeOf(NearByRestaurants)).call(this));
+>>>>>>> pre rebase with daniels on my branch
 
         _this.state = {};
         return _this;
@@ -38193,6 +38223,7 @@ var NearByRestaurants = function (_Component) {
     _createClass(NearByRestaurants, [{
         key: 'render',
         value: function render() {
+<<<<<<< HEAD
             // console.log('this.props is coming from nearbyrestaurants', this.props.searchBusinesses)
 
             return _react2.default.createElement(
@@ -38202,6 +38233,12 @@ var NearByRestaurants = function (_Component) {
                 this.props.searchBusinesses && this.props.searchBusinesses.businesses.map(function (restaurant, key) {
                     return _react2.default.createElement(_NearByRestaurantsEntries2.default, { key: key, restaurant: restaurant });
                 })
+=======
+            return _react2.default.createElement(
+                'div',
+                { className: 'NearByRestaurantsContainer' },
+                'this is the nearby restaurants where you map through WITH THE RESPONSE THAT I SENT UP TO REDUX STORE FROM THE SEARCH FILTER'
+>>>>>>> pre rebase with daniels on my branch
             );
         }
     }]);
@@ -38211,6 +38248,7 @@ var NearByRestaurants = function (_Component) {
 
 ;
 
+<<<<<<< HEAD
 // export default NearByRestaurants;
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -38276,6 +38314,12 @@ var NearByRestaurantsEntries = function (_Component) {
 exports.default = NearByRestaurantsEntries;
 
 /***/ }),
+=======
+exports.default = NearByRestaurants;
+
+/***/ }),
+/* 472 */,
+>>>>>>> pre rebase with daniels on my branch
 /* 473 */
 /***/ (function(module, exports) {
 
@@ -38980,6 +39024,7 @@ function createThunkMiddleware(extraArgument) {
         if (typeof action === 'function') {
           return action(dispatch, getState, extraArgument);
         }
+<<<<<<< HEAD
 
         return next(action);
       };
@@ -39183,6 +39228,8 @@ function promiseMiddleware() {
 
           return { value: value, action: resolvedAction };
         };
+=======
+>>>>>>> pre rebase with daniels on my branch
 
         /**
          * First, dispatch the pending action:
@@ -39222,6 +39269,11 @@ function isPromise(value) {
 }
 
 /***/ }),
+<<<<<<< HEAD
+=======
+/* 480 */,
+/* 481 */,
+>>>>>>> pre rebase with daniels on my branch
 /* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39422,6 +39474,7 @@ exports.default = function () {
 };
 
 /***/ }),
+<<<<<<< HEAD
 /* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39461,6 +39514,9 @@ var searchBusinesses = function searchBusinesses() {
 exports.default = searchBusinesses;
 
 /***/ }),
+=======
+/* 489 */,
+>>>>>>> pre rebase with daniels on my branch
 /* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
