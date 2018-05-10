@@ -28,6 +28,7 @@ class App extends Component {
           <Route exact path='/signupUser' component={LoggedOutHeader}/>
           <Route exact path='/signupBusiness' component={LoggedOutHeader}/>
           <Route exact path='/home' component={UserHeader}/>
+          <Route exact path='/' component={UserHeader}/>
           <Route exact path='/profile' component={UserHeader}/>
           <Route exact path='/dashboard' component={BusinessHeader}/>
         </Switch>
