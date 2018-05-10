@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { userSignup } from '../../actions/signupUsersActions';
 
 class SignupUser extends Component {
   constructor() {
@@ -9,6 +11,7 @@ class SignupUser extends Component {
       password: '',
       name: '', 
       phone: '',
+      type: 0,
       agree: false,
     }
   }
@@ -21,20 +24,18 @@ class SignupUser extends Component {
   handleSignUpClick = async (e) => {
     e.preventDefault();
 
-    const {name, phone, email, password} = this.state;
+    const {name, phone, email, password, type} = this.state;
     const body = {
       name,
       phone,
       email, 
-      password
+      password, 
+      type
     };
     try {
-    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
-    // localStorage.setItem('email', data.email);
-    // localStorage.setItem('id', data.id);
-    // localStorage.setItem('name', data.name);
-    data ? this.props.history.push('/home') : alert('Request failed try again');
-    console.log('localStorage =>', data)
+    const { userData } = await this.props.userSignup(body);
+    userData ? this.props.history.push('/home') : alert('Request failed try again');
+    console.log('localStorage from user signup =>', userData)
     }
     catch(err) {
       console.log(err);
@@ -70,4 +71,8 @@ class SignupUser extends Component {
   }
 }
 
-export default SignupUser;
+const mapStateToProps = state => ({
+  //usersData is the key coming from our root reducers with the value of our reducer file
+  data: state.usersData
+})
+export default connect(mapStateToProps, { userSignup })(SignupUser);
