@@ -3,6 +3,8 @@ import SearchFilter from './SearchFilter.jsx';
 import NearByRestaurants from './NearByRestaurants.jsx';
 import Logout from '../Auth/Logout.jsx';
 
+import './Feed.scss';
+
 class Feed extends Component {
   constructor() {
     super();

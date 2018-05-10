@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import './Auth.scss';
+
 class Login extends Component {
   constructor() {
     super();

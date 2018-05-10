@@ -4,6 +4,7 @@ import Feed from './Feed/index.jsx';
 import Login from './Auth/Login.jsx';
 import Signup from './Auth/Signup.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
+import Header from './Header/index.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -13,9 +14,10 @@ class App extends Component {
   render() {
     return (
       <div>
+      <Header />  
       <Switch> 
         <Route exact path='/' component={Login}/>
-        <Route exact path='/homepage' component={Feed}/>
+        <Route exact path='/home' component={Feed}/>
         <Route exact path='/signup' component={Signup}/>
       </Switch>
       </div>

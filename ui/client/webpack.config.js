@@ -4,6 +4,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
+var extractPlugin = new ExtractTextPlugin({
+  filename: './public/bundle.css'
+});
+
 const options = {
   devTool: 'source-map',
   uglify: {}
@@ -35,8 +39,10 @@ module.exports = {
         }
       },
       {
-        test: /\.(scss|css)$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
+        test: /\.scss$/,                    // made scss
+        use: extractPlugin.extract({
+            use: ['css-loader', 'sass-loader']
+        })
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -65,15 +71,18 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    extractPlugin
+  ],
   // plugins: [
   //   new ExtractTextPlugin('./client/styles/main.css', {
   //     allChunks: true
   //   }),
-    // new OptimizeCssAssetsPlugin({
-    //   assetNameRegExp: /\.optimize\.css$/g,
-    //   cssProcessor: require('cssnano'),
-    //   cssProcessorOptions: { discardComments: { removeAll: true } },
-    //   canPrint: true
-    // }),
+  //   new OptimizeCssAssetsPlugin({
+  //     assetNameRegExp: /\.optimize\.css$/g,
+  //     cssProcessor: require('cssnano'),
+  //     cssProcessorOptions: { discardComments: { removeAll: true } },
+  //     canPrint: true
+  //   }),
   // ]
 }

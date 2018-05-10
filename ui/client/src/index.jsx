@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from './components/App.jsx';
 
 
-// import { createStore } from 'redux';
+// import { createStore } from 'redux'; 
 // import { Provider } from 'react-redux';
 // import { allReducers } from 'whateverthepathfileis';
 
