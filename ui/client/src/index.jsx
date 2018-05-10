@@ -2,9 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Feed from './components/Feed/index.jsx';
-import Menu from './components/Menu/Menu.jsx';
-
 
 // import { createStore } from 'redux'; 
 // import { Provider } from 'react-redux';
@@ -13,11 +10,10 @@ import Menu from './components/Menu/Menu.jsx';
 // const store = createStore(allReducers);
 
 ReactDOM.render(
-  // <BrowserRouter>
-  // <App/>
-  // </BrowserRouter>
-  // <Feed/>
-  <Menu/>
+  <BrowserRouter>
+  <App/>
+  </BrowserRouter>
+
   ,document.getElementById('root'),
 );
 
