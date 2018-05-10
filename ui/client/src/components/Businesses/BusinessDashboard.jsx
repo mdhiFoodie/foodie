@@ -30,4 +30,11 @@ const mapStateToProps = state => ({
   // usersData is the key coming from our root reducers with the value of our reducer file
   usersData: state.usersData
 })
+
+// const matchDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//   usersInfo: usersInfo
+//   }, dispatch);
+// };
+// export default connect(mapStateToProps, matchDispatchToProps)(Login);
 export default connect(mapStateToProps, null)(BusinessDashboard);

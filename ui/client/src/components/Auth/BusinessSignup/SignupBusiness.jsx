@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { userSignup } from '../../../actions/signupUsersActions.js';
 // import './index.css'; 
 
@@ -40,9 +40,19 @@ class SignupBusiness extends Component {
       type
     };
     try {
-    const { userData } = await this.props.userSignup(body);
-    userData ? this.props.history.push('/dashboard') : alert('Request failed try again');
-    console.log('localStorage from user signup =>', userData)
+    // const { userData } = await this.props.userSignup(body);
+    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
+    data ? this.props.history.push('/dashboard') : alert('Request failed try again');
+    this.props.userSignup({
+      businessName: data.data.businessName,
+      address: data.data.address,
+      contactName: data.data.constactName, 
+      phone: data.data.phone,
+      email: data.data.email,
+      foodCategory: data.data.foodCategory, 
+      type: data.data.type
+    });
+    console.log('localStorage from user signup =>', data)
     }
     catch(err) {
       console.log(err);
