@@ -10,7 +10,8 @@
     "setup:socket-server": "cd socket-server && yarn",
     "db:setup:rest-server": "cd rest-server && babel-node src/config/databases/pg/setup.js",
     "buildEnv": "node bin/buildEnv.js",
-    "db:setup:mongodb": "node api/rest-server/src/config/databases/mongo/index.js"
+    "db:setup:mongodb": "node rest-server/src/config/databases/mongo/index.js",
+    "db:seed:mongodb": "node rest-server/src/config/databases/mongo/menuModel.js"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,8 @@
     "chalk": "^2.4.1",
     "env": "^0.0.2",
     "lodash": "^4.17.10",
-    "pg": "^7.4.3"
+    "pg": "^7.4.3",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1"

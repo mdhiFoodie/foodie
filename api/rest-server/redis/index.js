@@ -17,4 +17,4 @@ client.get('my test key', function(error, result) {
   console.log('GET result ->', result)
 });
 
-export default client;
+module.exports = client;
