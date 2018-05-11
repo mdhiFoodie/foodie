@@ -14,11 +14,12 @@ class SearchFilter extends Component {
             search : '',
             restaurantSearches : [],
             restaurantSearchesSorted : [],
-            getInitialState : () => {
-                return{
-                    value: 'Popularity'
-                }
-            }
+            value : 'totalorder',
+            // getInitialState : () => {
+            //     return{
+            //         value: 'totalorder'
+            //     }
+            // }
         }
     }
 
@@ -29,16 +30,37 @@ class SearchFilter extends Component {
         })
     }
 
+    sortRestaurants = (array, index) => {
+        array.sort((a, b) => {
+            return a[index] - b[index]
+        });
+        return array;
+    }
+
     filterClickHandler(e) {
+        console.log('clicked on different filters and showing restaurants sorted', this.state.value);
+        let sorted = this.state.restaurantSearchesSorted;
+        if (e.target.value === 'totalorder') {
+            sorted.sort((a,b) => {
+                return a[5] - b[5]
+            })
+        }
+        else if (e.target.value === 'rating') {
+            sorted.sort( (a,b) => {
+                return a[4] - b[4]
+            })
+        }
+        else if (e.target.value === 'price') {
+            sorted.sort ( (a,b) => {
+                return a[3] - b[3]
+            })
+        }
+        console.log('this is the sorted from search111111', sorted)
         this.setState({
+            restaurantSearchesSorted : sorted,
             value : e.target.value
-        })
-        console.log('clicked on different filters and showing restaurants sorted', this.state.getInitialState().value)
-        // this.setState({
-        //     restaurantSearchesSorted : this.state.restaurantSearches.sort( (a,b) => {
-        //         return a[this.state.getInitialState().value] - b[this.state.getInitialState().value]
-        //     })
-        // })
+        });
+        console.log('this is the sorted restaurants information please', this.state.restaurantSearchesSorted);
     }
 
     handleKeyPress = async (e) => {
@@ -87,35 +109,6 @@ class SearchFilter extends Component {
                 console.log('this is watch', watch);
                 navigator.geolocation.clearWatch(watch);
             }
-
-                // console.log('this is the map address', locations)
-
-                // let locations = searchRestaurants.data.map ( (restaurant) => {
-                //     const findGeoCode = axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                //         params: {
-                //             address: restaurant.businessaddress,
-                //             key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
-                //         }
-                //     })
-                //     return findGeoCode
-                // })
-
-                
-
-                // console.log('this is the geocode for restaurants/businesses', locations)
-
-                // .then(response => {
-                //     console.log('hello this is the response for searching restaurants', response)
-                    //get the response.address and set it to a variable [array of all restaurants with keyword] = array of
-                    //example: let location = '22 Main st Boston MA' (response.address or something)
-
-                    // const findGeoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                    //     params: {
-                    //         address: locations[0],
-                    //         key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
-                    //     }
-                    // })
-                    // console.log('this is geocode',findGeoCode)
     }
 }
 
@@ -129,9 +122,9 @@ class SearchFilter extends Component {
 
                 <div>
                     <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
-                    <option value='Popularity'>Popularity</option>
-                    <option value='Reviews'>Reviews</option>
-                    <option value='$$$'>$$$</option>
+                    <option value='totalorder'>totalorder</option>
+                    <option value='rating'>rating</option>
+                    <option value='price'>$$$</option>
                     </select>
                 </div>
 

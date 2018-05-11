@@ -6628,6 +6628,10 @@ var _Logout = __webpack_require__(183);
 
 var _Logout2 = _interopRequireDefault(_Logout);
 
+var _OpenPools = __webpack_require__(498);
+
+var _OpenPools2 = _interopRequireDefault(_OpenPools);
+
 var _Menu = __webpack_require__(184);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -6671,7 +6675,7 @@ var Feed = function (_Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_Menu2.default, null)
+          _react2.default.createElement(_OpenPools2.default, null)
         ),
         _react2.default.createElement(_Logout2.default, { history: this.props.history })
       );
@@ -37007,6 +37011,13 @@ var SearchFilter = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (SearchFilter.__proto__ || Object.getPrototypeOf(SearchFilter)).call(this));
 
+        _this.sortRestaurants = function (array, index) {
+            array.sort(function (a, b) {
+                return a[index] - b[index];
+            });
+            return array;
+        };
+
         _this.handleKeyPress = function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
                 var onPositionReceived, locationNotReceived, position, watch;
@@ -37090,34 +37101,6 @@ var SearchFilter = function (_Component) {
                                         console.log('this is watch', watch);
                                         navigator.geolocation.clearWatch(watch);
                                     }
-
-                                    // console.log('this is the map address', locations)
-
-                                    // let locations = searchRestaurants.data.map ( (restaurant) => {
-                                    //     const findGeoCode = axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                                    //         params: {
-                                    //             address: restaurant.businessaddress,
-                                    //             key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
-                                    //         }
-                                    //     })
-                                    //     return findGeoCode
-                                    // })
-
-
-                                    // console.log('this is the geocode for restaurants/businesses', locations)
-
-                                    // .then(response => {
-                                    //     console.log('hello this is the response for searching restaurants', response)
-                                    //get the response.address and set it to a variable [array of all restaurants with keyword] = array of
-                                    //example: let location = '22 Main st Boston MA' (response.address or something)
-
-                                    // const findGeoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                                    //     params: {
-                                    //         address: locations[0],
-                                    //         key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
-                                    //     }
-                                    // })
-                                    // console.log('this is geocode',findGeoCode)
                                 }
 
                             case 1:
@@ -37137,11 +37120,12 @@ var SearchFilter = function (_Component) {
             search: '',
             restaurantSearches: [],
             restaurantSearchesSorted: [],
-            getInitialState: function getInitialState() {
-                return {
-                    value: 'Popularity'
-                };
-            }
+            value: 'totalorder'
+            // getInitialState : () => {
+            //     return{
+            //         value: 'totalorder'
+            //     }
+            // }
         };
         return _this;
     }
@@ -37155,15 +37139,27 @@ var SearchFilter = function (_Component) {
     }, {
         key: 'filterClickHandler',
         value: function filterClickHandler(e) {
+            console.log('clicked on different filters and showing restaurants sorted', this.state.value);
+            var sorted = this.state.restaurantSearchesSorted;
+            if (e.target.value === 'totalorder') {
+                sorted.sort(function (a, b) {
+                    return a[5] - b[5];
+                });
+            } else if (e.target.value === 'rating') {
+                sorted.sort(function (a, b) {
+                    return a[4] - b[4];
+                });
+            } else if (e.target.value === 'price') {
+                sorted.sort(function (a, b) {
+                    return a[3] - b[3];
+                });
+            }
+            console.log('this is the sorted from search111111', sorted);
             this.setState({
+                restaurantSearchesSorted: sorted,
                 value: e.target.value
             });
-            console.log('clicked on different filters and showing restaurants sorted', this.state.getInitialState().value);
-            // this.setState({
-            //     restaurantSearchesSorted : this.state.restaurantSearches.sort( (a,b) => {
-            //         return a[this.state.getInitialState().value] - b[this.state.getInitialState().value]
-            //     })
-            // })
+            console.log('this is the sorted restaurants information please', this.state.restaurantSearchesSorted);
         }
     }, {
         key: 'render',
@@ -37184,17 +37180,17 @@ var SearchFilter = function (_Component) {
                         { value: this.state.value, onChange: this.filterClickHandler.bind(this) },
                         _react2.default.createElement(
                             'option',
-                            { value: 'Popularity' },
-                            'Popularity'
+                            { value: 'totalorder' },
+                            'totalorder'
                         ),
                         _react2.default.createElement(
                             'option',
-                            { value: 'Reviews' },
-                            'Reviews'
+                            { value: 'rating' },
+                            'rating'
                         ),
                         _react2.default.createElement(
                             'option',
-                            { value: '$$$' },
+                            { value: 'price' },
                             '$$$'
                         )
                     )
@@ -38187,7 +38183,6 @@ var NearByRestaurants = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'NearByRestaurantsContainer' },
-                'this is the nearby restaurants where you map through WITH THE RESPONSE THAT I SENT UP TO REDUX STORE FROM THE SEARCH FILTER',
                 this.props.searchBusinesses && this.props.searchBusinesses.businesses.map(function (restaurant, key) {
                     return _react2.default.createElement(_NearByRestaurantsEntries2.default, { key: key, restaurant: restaurant });
                 })
@@ -39818,6 +39813,60 @@ exports.default = function () {
     return initialState;
   }
 };
+
+/***/ }),
+/* 497 */,
+/* 498 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OpenPools = function (_Component) {
+  _inherits(OpenPools, _Component);
+
+  function OpenPools() {
+    _classCallCheck(this, OpenPools);
+
+    var _this = _possibleConstructorReturn(this, (OpenPools.__proto__ || Object.getPrototypeOf(OpenPools)).call(this));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(OpenPools, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'this is where the open pools are going'
+      );
+    }
+  }]);
+
+  return OpenPools;
+}(_react.Component);
+
+exports.default = OpenPools;
 
 /***/ })
 /******/ ]);
