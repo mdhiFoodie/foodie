@@ -42,6 +42,31 @@ class SignupBusiness extends Component {
     };
     try {
       console.log('BODY', body)
+
+      const locations = body.address;
+      
+      const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: locations,
+                    key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                }
+            })
+            // .then( data => {
+            //   console.log('data', data);
+            // }).catch (err => {
+            //   console.error('errrr', err);
+            // })
+            // geoCode();
+            console.log('this is my geocode', geoCode)
+       // let locations = searchRestaurants.data.map ( (restaurant) => {
+                //     const findGeoCode = axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                //         params: {
+                //             address: restaurant.businessaddress,
+                //             key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                //         }
+                //     })
+                //     return findGeoCode
+                // })
     // const { userData } = await this.props.userSignup(body);
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');

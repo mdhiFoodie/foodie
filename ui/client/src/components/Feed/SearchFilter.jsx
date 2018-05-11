@@ -30,18 +30,23 @@ class SearchFilter extends Component {
     }
 
     filterClickHandler(e) {
-        console.log('clicked on different filters')
         this.setState({
             value : e.target.value
         })
+        console.log('clicked on different filters and showing restaurants sorted', this.state.getInitialState().value)
+        // this.setState({
+        //     restaurantSearchesSorted : this.state.restaurantSearches.sort( (a,b) => {
+        //         return a[this.state.getInitialState().value] - b[this.state.getInitialState().value]
+        //     })
+        // })
     }
 
     handleKeyPress = async (e) => {
         if(e.key === 'Enter'){
             let onPositionReceived = async (position) => {
                 try {
-                    const businessname = this.state.search;  
-                    const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${businessname}`)
+                    const foodcategory = this.state.search;  
+                    const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${foodcategory}`)
                     console.log('HERE =>', searchRestaurants.data)
                     console.log('this is position', position.coords)
                     let locations = searchRestaurants.data.map ( (restaurants) => {
@@ -50,11 +55,14 @@ class SearchFilter extends Component {
                         let calculation = Math.sqrt(latitude*latitude + longitude*longitude) * 100;
                         let miles = calculation/1.609344;
                         if(miles <= 50) {
-                            // console.log('this is the restaurants', restaurants);
-                            // console.log('this is the calculation in miles', miles);
-                            // console.log('this is the restaurants name', restaurants.businessname);
-                            // console.log('this is the restaurants picture', restaurants.businesspicture);
-                            this.state.restaurantSearches.push([restaurants.businessname, restaurants.businesspicture, miles])
+                            console.log('this is the restaurants', restaurants);
+                            console.log('this is the calculation in miles', miles);
+                            console.log('this is the restaurants name', restaurants.businessname);
+                            console.log('this is the restaurants picture', restaurants.businesspicture);
+                            console.log('this is the price', restaurants.price);
+                            console.log('this is the rating', restaurants.rating);
+                            console.log('this is the total orders', restaurants.totalorder);
+                            this.state.restaurantSearches.push([restaurants.businessname, restaurants.businesspicture, miles, restaurants.price, restaurants.rating, restaurants.totalorder, restaurants.foodcategory])
                         }
                     })
                     console.log('this is the state', this.state.restaurantSearches)
@@ -79,12 +87,6 @@ class SearchFilter extends Component {
                 console.log('this is watch', watch);
                 navigator.geolocation.clearWatch(watch);
             }
-
-
-                // let locations = searchRestaurants.data.map( (restaurants) => {
-                //     return restaurants.distance = restaurants.latitude
-                //     return restaurants.distance = Math.hypot()
-                // })
 
                 // console.log('this is the map address', locations)
 
@@ -114,27 +116,6 @@ class SearchFilter extends Component {
                     //     }
                     // })
                     // console.log('this is geocode',findGeoCode)
-
-                    // const findDistanceBtwnLocations = await axios.get
-                    // .then(response => {
-                    //     console.log('this is the response from the geocode', response)
-                        //with this response i'm going to use a function to compare my current location
-                        //to the response.address coordinates.
-                            //then i want to grab distances all within 20 miles or something
-                                //push them up to the restaurants array
-                    // })
-                    // .catch(err => {
-                    //     console.log('this is the error from the geocode', err)
-                    // })
-
-                    //get the response.address/location then i should want to get the positions
-                    // push to this.state.restaurants of all the names
-                    // SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
-                    // RESTAURANTS WITH THAT NAME
-                // })
-                // .catch(err => {
-                //     console.log('hello this is the error handler for searching restaurants', err)
-                // })
     }
 }
 
