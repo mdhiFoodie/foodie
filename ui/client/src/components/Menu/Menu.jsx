@@ -79,10 +79,10 @@ class Menu extends Component {
     //biz id should be attached to image on sql query for restaurants
     try {
       const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${this.state.currentBizId}`)
-      await this.setState({
+      this.setState({
         currentMenu: response.data
       });
-      await this.renderFoodTypes();
+      this.renderFoodTypes();
     } catch (error) {
       console.error(error);
     }

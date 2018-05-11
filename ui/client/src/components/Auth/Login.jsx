@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { getUserInfo } from '../../actions/usersInformationAction.js'; 
 
+import './Auth.scss';
+
 class Login extends Component {
   constructor() {
     super();
