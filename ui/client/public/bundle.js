@@ -36007,16 +36007,62 @@ var Menu = function (_Component) {
       food: null,
       foods: null,
       currentItem: null,
-      currentItemQuantity: null
+      currentItemQuantity: null,
+      currentItemPrice: 3.75,
+      usersCart: null
     };
     _this.handleClick = _this.handleClick.bind(_this);
     _this.addToCart = _this.addToCart.bind(_this);
     _this.itemClick = _this.itemClick.bind(_this);
     _this.viewCart = _this.viewCart.bind(_this);
+    _this.checkout = _this.checkout.bind(_this);
     return _this;
   }
 
   _createClass(Menu, [{
+    key: 'handleClick',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var response;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return _axios2.default.get('http://localhost:3000/api/menu/menuGet/' + this.state.currentBizId);
+
+              case 3:
+                response = _context.sent;
+
+                this.setState({
+                  currentMenu: response.data
+                });
+                this.renderFoodTypes();
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context['catch'](0);
+
+                console.error(_context.t0);
+
+              case 11:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 8]]);
+      }));
+
+      function handleClick() {
+        return _ref.apply(this, arguments);
+      }
+
+      return handleClick;
+    }()
+  }, {
     key: 'renderFoodTypes',
     value: function renderFoodTypes() {
       var _this2 = this;
@@ -36039,20 +36085,20 @@ var Menu = function (_Component) {
     key: 'renderFoodItems',
     value: function renderFoodItems(foodThing) {
       var foodItems = [];
-      var aFoodGroup = this.state.currentMenu[foodThing];
-      for (var i = 0; i < aFoodGroup.length; i++) {
+      var aFG = this.state.currentMenu[foodThing];
+      for (var i = 0; i < aFG.length; i++) {
         foodItems.push(_react2.default.createElement(
           'div',
-          { className: this.state.currentMenu[foodThing][i].name, onClick: this.itemClick },
+          { className: aFG[i].name, onClick: this.itemClick },
           _react2.default.createElement(
             'li',
-            { className: this.state.currentMenu[foodThing][i].name },
-            this.state.currentMenu[foodThing][i].name
+            { className: aFG[i].name, id: aFG[i].price },
+            aFG[i].name
           ),
           _react2.default.createElement(
             'li',
-            { className: this.state.currentMenu[foodThing][i].name },
-            this.state.currentMenu[foodThing][i].price
+            { className: aFG[i].name, id: aFG[i].price },
+            aFG[i].price
           )
         ));
       }
@@ -36065,101 +36111,11 @@ var Menu = function (_Component) {
     value: function itemClick(e) {
       this.setState({
         currentItem: e.target.className /*the item clicked,*/
-        , currentItemQuantity: 1 /*quantity incremented*/
+        , currentItemQuantity: 1, /*quantity incremented*/
+        currentItemPrice: e.target.id
+
       });
     }
-  }, {
-    key: 'addToCart',
-    value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var item;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _axios2.default.post('http://localhost:3000/api/cart/addItem', {
-                  userId: localStorage.getItem('id'),
-                  item: this.state.currentItem,
-                  quantity: this.state.currentItemQuantity
-                });
-
-              case 3:
-                item = _context.sent;
-                _context.next = 9;
-                break;
-
-              case 6:
-                _context.prev = 6;
-                _context.t0 = _context['catch'](0);
-
-                console.error(_context.t0);
-
-              case 9:
-
-                this.setState({
-                  currentItem: null,
-                  currentItemQuantity: null
-                });
-
-              case 10:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[0, 6]]);
-      }));
-
-      function addToCart() {
-        return _ref.apply(this, arguments);
-      }
-
-      return addToCart;
-    }()
-  }, {
-    key: 'handleClick',
-    value: function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var response;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return _axios2.default.get('http://localhost:3000/api/menu/menuGet/' + this.state.currentBizId);
-
-              case 3:
-                response = _context2.sent;
-
-                this.setState({
-                  currentMenu: response.data
-                });
-                this.renderFoodTypes();
-                _context2.next = 11;
-                break;
-
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2['catch'](0);
-
-                console.error(_context2.t0);
-
-              case 11:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[0, 8]]);
-      }));
-
-      function handleClick() {
-        return _ref2.apply(this, arguments);
-      }
-
-      return handleClick;
-    }()
   }, {
     key: 'adjustQuantity',
     value: function adjustQuantity(amount) {
@@ -36171,10 +36127,131 @@ var Menu = function (_Component) {
       });
     }
   }, {
+    key: 'addToCart',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var thing, item;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                thing = [this.state.currentItemPrice, this.state.currentItemQuantity];
+                _context2.prev = 1;
+                _context2.next = 4;
+                return _axios2.default.post('http://localhost:3000/api/cart/addItem', {
+                  userId: localStorage.getItem('id'),
+                  item: this.state.currentItem,
+                  quantity: JSON.stringify(thing)
+                });
+
+              case 4:
+                item = _context2.sent;
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2['catch'](1);
+
+                console.error(_context2.t0);
+
+              case 10:
+
+                this.setState({
+                  currentItem: null,
+                  currentItemQuantity: null
+                });
+
+              case 11:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[1, 7]]);
+      }));
+
+      function addToCart() {
+        return _ref2.apply(this, arguments);
+      }
+
+      return addToCart;
+    }()
+  }, {
     key: 'viewCart',
-    value: function viewCart() {
-      //switch to mouseover event after changing to stylized css div
-      console.log('view cart clicked', this.state);
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var response, cart, subtotal, key, quantity, price;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return _axios2.default.get('http://localhost:3000/api/cart/getCart/' + localStorage.getItem('id'));
+
+              case 3:
+                response = _context3.sent;
+                cart = [];
+                subtotal = 0;
+
+                for (key in response.data) {
+                  quantity = JSON.parse(response.data[key])[1];
+                  price = JSON.parse(response.data[key])[0];
+
+                  subtotal += price * quantity;
+                  cart.push(_react2.default.createElement(
+                    'div',
+                    { className: key },
+                    key,
+                    ' Quantity:  ',
+                    quantity,
+                    ' Price: $',
+                    price * quantity
+                  ));
+                }
+                cart.push(_react2.default.createElement(
+                  'div',
+                  null,
+                  'Subtotal: ',
+                  subtotal
+                ));
+                cart.push(_react2.default.createElement(
+                  'button',
+                  { onClick: this.checkout },
+                  'Checkout'
+                ));
+
+                this.setState({
+                  usersCart: cart,
+                  subTotal: subtotal
+                });
+                _context3.next = 15;
+                break;
+
+              case 12:
+                _context3.prev = 12;
+                _context3.t0 = _context3['catch'](0);
+
+                console.error(_context3.t0);
+
+              case 15:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[0, 12]]);
+      }));
+
+      function viewCart() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return viewCart;
+    }()
+  }, {
+    key: 'checkout',
+    value: function checkout() {
+      console.log('checkout clicked', this.state);
     }
   }, {
     key: 'render',
@@ -36197,7 +36274,17 @@ var Menu = function (_Component) {
             'Los Burritos'
           ),
           this.state.food,
-          this.state.foods
+          this.state.foods,
+          this.state.usersCart,
+          this.state.usersCart !== null ? _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.setState({
+                  usersCart: null
+                });
+              } },
+            'Close Cart'
+          ) : _react2.default.createElement('div', null)
         ),
         this.state.currentItem === null ? _react2.default.createElement('div', null) : _react2.default.createElement(
           'div',
