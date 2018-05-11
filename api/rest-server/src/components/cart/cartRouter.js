@@ -1,16 +1,16 @@
 import express from 'express';
 
 import {
-  cartController
+  cartController, cartAddController
 } from './cartControllers';
 
 const router = express.Router();
 
 router.route('/addItem')
-  .post(cartController);
+  .post(cartAddController.addItem);
 
-// router.route('/getCart')
-//   .get(cartController.get);  
+router.route('/getCart/:userId')
+  .get(cartAddController.getCart);  
 
 
 export default router;

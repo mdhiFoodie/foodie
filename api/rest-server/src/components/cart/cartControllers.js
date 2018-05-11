@@ -6,7 +6,8 @@ import {
 } from '../../../../lib/log';
 
 
-export const cartController = async (req, res) => {
+export const cartAddController = {
+  addItem: async (req, res) => {
   try {
    
     const userId = req.body.userId
@@ -20,5 +21,21 @@ export const cartController = async (req, res) => {
     error('cartController - error= ', err);
     throw new Error(err);
   }
-};
+},
 
+getCart: async (req, res) => {
+  try {
+     await client.hgetall(req.params.userId, (err, cart) => {
+      if(err) {
+        error('error retrieving cart', err);
+      }
+      return res.status(200).send(cart);
+    });
+    success('cartController - successfully grabbed redis cart');
+  
+  } catch (err) {
+    error('cartController - grab cart error= ', err);
+    throw new Error(err);
+  }
+}
+}
