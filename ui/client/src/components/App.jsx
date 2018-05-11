@@ -33,14 +33,16 @@ class App extends Component {
           <Route exact path='/signupUser' component={LoggedOutHeader}/>
           <Route exact path='/signupBusiness' component={LoggedOutHeader}/>
           <Route exact path='/home' component={UserHeader}/>
-          <Route exact path='/' component={UserHeader}/>
+          <Route exact path='/businessProfile' component={BusinessHeader}/>
           <Route exact path='/profile' component={UserHeader}/>
           <Route exact path='/dashboard' component={BusinessHeader}/>
         </Switch>
       </BrowserRouter>
       <BrowserRouter>
       <Switch> 
-        <Route exact strict path='/' component={Login}/>
+        <Route exact path='/login' component={Login}/>
+        <Route exact path='/home' component={Feed}/>
+        <Route exact path='/businessProfile' component={BusinessProfile}/>
         <Route exact path='/signupUser' component={SignupUser}/>
         <Route exact path='/signupBusiness' component={SignupBusiness}/>
         <Menu/>

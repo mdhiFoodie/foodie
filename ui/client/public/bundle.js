@@ -2642,7 +2642,7 @@ var Logout = function (_Component) {
     key: 'logout',
     value: function logout() {
       localStorage.clear();
-      this.props.history.push('/');
+      this.props.history.push('/login');
     }
   }, {
     key: 'render',
@@ -32567,7 +32567,7 @@ var App = function (_Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _LoggedOutHeader2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _LoggedOutHeader2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _UserHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _UserHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/businessProfile', component: _BusinessHeader2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _UserHeader2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessHeader2.default })
           )
@@ -32578,7 +32578,9 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, strict: true, path: '/', component: _Login2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _index2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/businessProfile', component: BusinessProfile }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _SignupBusiness2.default }),
             _react2.default.createElement(_Menu2.default, null),
@@ -38976,22 +38978,30 @@ var SignupUser = function (_Component) {
                   email: data.email,
                   type: data.type
                 });
+
+                localStorage.setItem('id', data.data.id);
+                localStorage.setItem('name', data.data.name);
+                localStorage.setItem('phone', data.data.phone);
+                localStorage.setItem('email', data.data.email);
+                localStorage.setItem('token', data.data.token.accessToken);
+                localStorage.setItem('type', data.data.type);
+
                 data ? _this.props.history.push('/home') : alert('Request failed try again');
-                _context.next = 17;
+                _context.next = 23;
                 break;
 
-              case 14:
-                _context.prev = 14;
+              case 20:
+                _context.prev = 20;
                 _context.t0 = _context['catch'](4);
 
                 console.log(_context.t0);
 
-              case 17:
+              case 23:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[4, 14]]);
+        }, _callee, _this2, [[4, 20]]);
       }));
 
       return function (_x) {
@@ -39198,21 +39208,43 @@ var SignupBusiness = function (_Component) {
                   type: data.type
                 });
                 data ? _this.props.history.push('/dashboard') : alert('Request failed try again');
-                _context.next = 21;
+                _this.props.getUserInfo({
+                  id: data.data.id,
+                  businessname: data.data.businessname,
+                  address: data.data.address,
+                  contactname: data.data.contactname,
+                  phone: data.data.phone,
+                  email: data.data.email,
+                  foodcategory: data.data.foodcategory,
+                  type: data.data.type
+                });
+
+                localStorage.setItem('id', data.data.id);
+                localStorage.setItem('name', data.data.businessname);
+                localStorage.setItem('address', data.data.address);
+                localStorage.setItem('contactname', data.data.contactname);
+                localStorage.setItem('phone', data.data.phone);
+                localStorage.setItem('email', data.data.email);
+                localStorage.setItem('token', data.data.token.accessToken);
+                localStorage.setItem('foodcategory', data.data.foodcategory);
+                localStorage.setItem('type', data.data.type);
+
+                console.log('localStorage from user signup =>', data);
+                _context.next = 32;
                 break;
 
-              case 18:
-                _context.prev = 18;
+              case 29:
+                _context.prev = 29;
                 _context.t0 = _context['catch'](8);
 
                 console.log(_context.t0);
 
-              case 21:
+              case 32:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[8, 18]]);
+        }, _callee, _this2, [[8, 29]]);
       }));
 
       return function (_x) {

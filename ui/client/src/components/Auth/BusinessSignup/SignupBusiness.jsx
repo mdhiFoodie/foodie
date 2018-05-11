@@ -78,6 +78,28 @@ class SignupBusiness extends Component {
         type: data.type
       });
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
+    this.props.getUserInfo({
+      id: data.data.id, 
+      businessname: data.data.businessname,
+      address: data.data.address,
+      contactname: data.data.contactname, 
+      phone: data.data.phone,
+      email: data.data.email,
+      foodcategory: data.data.foodcategory, 
+      type: data.data.type
+    });
+
+    localStorage.setItem('id', data.data.id)
+    localStorage.setItem('name', data.data.businessname)
+    localStorage.setItem('address', data.data.address)
+    localStorage.setItem('contactname', data.data.contactname)
+    localStorage.setItem('phone', data.data.phone)
+    localStorage.setItem('email', data.data.email)
+    localStorage.setItem('token', data.data.token.accessToken)
+    localStorage.setItem('foodcategory', data.data.foodcategory)
+    localStorage.setItem('type', data.data.type)
+    
+    console.log('localStorage from user signup =>', data)
     }
     catch(err) {
       console.log(err);

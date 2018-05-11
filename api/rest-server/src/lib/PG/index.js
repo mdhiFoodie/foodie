@@ -190,6 +190,7 @@ export const createReviewsTable = async () => {
         id SERIAL,
         rating int NOT NULL,
         comment varchar (255),
+        createdAt bigint,
         id_businesses int NOT NULL,
         CONSTRAINT fk_reviews_id_businesses
           FOREIGN KEY(id_businesses) REFERENCES businesses(id)
@@ -456,21 +457,30 @@ export const dropMessagesTable = async () => {
   }
 };
 
-// export const dummyData = async () => {
-//   try{
-//     await db.query(
-//       `INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
-//       VALUES ('Bread', 'Michaelspicture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 5, 204, 2, 'Chinese');
-//       INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
-//       VALUES ('Bread', 'DanielsPicture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459, 3, 251, 2, 'Chinese');
-//       INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
-//       VALUES ('Bread', 'HuntersPicture', 'Hunter', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 4, 95, 1, 'Chinese');
-//       INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
-//       VALUES ('Bread', 'IsabellasPicture', 'Isabella', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 2, 125, 4, 'Chinese');
-//       `
-//     )
-//   }
-//   catch(err) {
-//     console.log(err)
-//   }
-// }
+export const dummyData = async () => {
+  try{
+    await db.query(
+      `INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
+      VALUES ('Bread', 'Michaelspicture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877);
+      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
+      VALUES ('Bread', 'DanielsPicture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459);
+      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
+      VALUES ('Bread', 'HuntersPicture', 'Hunter', '8600 Melrose Los Angeles CA', 34.052235, -118.243683);
+      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
+      VALUES ('Bread', 'IsabellasPicture', 'Isabella', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266);
+      INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
+      VALUES (1, 5, 'I love this place', 1526059238175, 1);
+      INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
+      VALUES (2, 4, 'I love this place less than the last guy', 1526059238175, 1);
+      INSERT INTO reviews_users (id, id_users, id_reviews)
+      VALUES (1, 2, 1);
+      INSERT INTO reviews_users (id, id_users, id_reviews)
+      VALUES (2, 2, 2);
+      `
+    )
+  }
+  catch(err) {
+    console.log(err)
+  }
+}
+
