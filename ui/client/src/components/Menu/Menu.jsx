@@ -41,7 +41,7 @@ class Menu extends Component {
   renderFoodTypes() {
     const foodType = [];
     for (var key in this.state.currentMenu) {
-      foodType.push(<div className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div>);
+      foodType.push(<div key={key} className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div>);
     }
     this.setState({
       food: foodType
@@ -53,7 +53,7 @@ class Menu extends Component {
     let aFG= this.state.currentMenu[foodThing]
     for (var i = 0; i < aFG.length; i++) {
       foodItems.push(
-      <div className={aFG[i].name} onClick={this.itemClick}>
+      <div key={aFG[i].name} className={aFG[i].name} onClick={this.itemClick}>
       <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].name}</li>
       <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].price}</li>
       </div>);
@@ -109,10 +109,10 @@ class Menu extends Component {
         let quantity = JSON.parse(response.data[key])[1];
         let price = JSON.parse(response.data[key])[0];
         subtotal += price * quantity;
-        cart.push(<div className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>);
+        cart.push(<div key={key} className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>);
       }
-      cart.push(<div>Subtotal: {subtotal}</div>);
-      cart.push(<button onClick={this.checkout}>Checkout</button>);
+      cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
+      cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
      
       this.setState({
         usersCart: cart,
