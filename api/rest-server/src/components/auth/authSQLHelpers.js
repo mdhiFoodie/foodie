@@ -9,11 +9,11 @@ export const signUpHelper = `
 
 export const businessSignUpHelper = `
     INSERT INTO
-      businesses (businessname, address, contactname, phone, email, password, foodcategory, type)
+      businesses (businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude)
     VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8)
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     RETURNING
-      id, businessname, address, contactname, phone, email, password, foodcategory, type
+      id, businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude
 `;
 
 export const loginHelper = `
