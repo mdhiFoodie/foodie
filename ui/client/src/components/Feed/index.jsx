@@ -5,6 +5,8 @@ import NearByRestaurants from './NearByRestaurants.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Menu from '../Menu/Menu.jsx';
 
+import './Feed.scss';
+
 class Feed extends Component {
   constructor(props) {
     super(props);

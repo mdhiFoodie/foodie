@@ -1,0 +1,23 @@
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root, .app {
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  color: #282828;
+}
+
+input {
+  clear: both;
+}
