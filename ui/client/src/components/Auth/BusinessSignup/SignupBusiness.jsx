@@ -41,8 +41,6 @@ class SignupBusiness extends Component {
       type
     };
     try {
-      console.log('BODY', body)
-    // const { userData } = await this.props.userSignup(body);
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
     this.props.getUserInfo({

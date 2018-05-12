@@ -31,17 +31,44 @@ class Login extends Component {
     };
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/login', body);
-    localStorage.setItem('email', data.email)
-    localStorage.setItem('id', data.id)
-    localStorage.setItem('token', data.token.accessToken)
-    this.props.getUserInfo({
-      id: data.id, 
-      name: data.name, 
-      email: data.email, 
-      type: data.type, 
-      phone: data.phone
-    });
-    data ? this.props.history.push('/home') : this.props.history.push('/login');
+    if (data.type === '0') {
+      localStorage.setItem('email', data.email)
+      localStorage.setItem('id', data.id)
+      localStorage.setItem('type', data.type)
+      localStorage.setItem('name', data.name)
+      localStorage.setItem('phone', data.phone)
+      localStorage.setItem('token', data.token.accessToken)
+      this.props.getUserInfo({
+        id: data.id, 
+        name: data.name, 
+        email: data.email, 
+        type: data.type, 
+        phone: data.phone
+      });
+      this.props.history.push('/home')
+
+    } else if (data.type === '1') {
+      localStorage.setItem('email', data.email)
+      localStorage.setItem('id', data.id)
+      localStorage.setItem('type', data.type)
+      localStorage.setItem('businessname', data.name)
+      localStorage.setItem('phone', data.phone)
+      localStorage.setItem('token', data.token.accessToken)
+      this.props.history.push('/dashboard')
+      this.props.getUserInfo({
+        id: data.id, 
+        businessname: data.name, 
+        email: data.email, 
+        type: data.type, 
+        phone: data.phone
+      });
+      
+    } else if (data.type === '2') {
+      this.props.history.push('/delivery')
+    } else {
+      console.log('TYPE FROM ELSE', typeof data.type)
+      this.props.history.push('/login')
+    }
     }
     catch(err) {
       console.log(err);
