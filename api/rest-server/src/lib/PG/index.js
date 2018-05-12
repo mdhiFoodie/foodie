@@ -116,6 +116,7 @@ export const createBusinessesTable = async () => {
         phone varchar(10),
         latitude double precision,
         longitude double precision,
+        price int,
         businessname varchar (100),
         contactname varchar (50),
         CONSTRAINT businesses_pk
@@ -458,14 +459,14 @@ export const dropMessagesTable = async () => {
 export const dummyData = async () => {
   try{
     await db.query(
-      `INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-      VALUES ('Bread', 'Michaelspicture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877);
-      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-      VALUES ('Bread', 'DanielsPicture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459);
-      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-      VALUES ('Bread', 'HuntersPicture', 'Hunter', '8600 Melrose Los Angeles CA', 34.052235, -118.243683);
-      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-      VALUES ('Bread', 'IsabellasPicture', 'Isabella', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266);
+      `INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
+      VALUES ('Bread', 'Michaelspicture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 5, 204, 2, 'Chinese');
+      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
+      VALUES ('Bread', 'DanielsPicture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459, 3, 251, 2, 'Chinese');
+      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
+      VALUES ('Bread', 'HuntersPicture', 'Hunter', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 4, 95, 1, 'Chinese');
+      INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory)
+      VALUES ('Bread', 'IsabellasPicture', 'Isabella', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 2, 125, 4, 'Chinese');
       `
     )
   }

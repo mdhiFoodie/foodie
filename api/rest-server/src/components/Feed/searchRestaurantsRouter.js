@@ -6,7 +6,7 @@ import {
 
 const router = express.Router();
 
-router.route(`/feed/searchRestaurants/:businessname`)
+router.route(`/feed/searchRestaurants/:foodcategory`)
   .get(searchRestaurantsController)
 
 export default router;

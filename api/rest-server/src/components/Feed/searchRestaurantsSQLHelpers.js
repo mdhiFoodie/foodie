@@ -1,8 +1,8 @@
 export const searchRestaurantsSQLHelper = `
     SELECT
-      businessname, businesspicture, contactname, address, latitude, longitude
+      businessname, businesspicture, contactname, address, latitude, longitude, rating, totalorder, price, foodcategory
     FROM
       businesses
     WHERE
-    businessname=$1
+    foodcategory=$1
 `;
