@@ -113,7 +113,7 @@ class Menu extends Component {
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
       cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
-     
+         
       this.setState({
         usersCart: cart,
         subTotal: subtotal,
