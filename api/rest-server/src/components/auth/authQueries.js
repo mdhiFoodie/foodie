@@ -44,6 +44,7 @@ export const signUpBusinessQuery = async (payload) => {
 
 export const loginQuery = async (payload) => {
   try {
+    console.log('PAYLOAD FROM LOGINQUERY',payload)
     const query = {
       text: loginHelper,
       values: queryPayloadOrganizer(payload, ['email'])
