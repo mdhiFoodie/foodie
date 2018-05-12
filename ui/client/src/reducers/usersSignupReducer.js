@@ -4,14 +4,11 @@ const initialState = {
   userInfo: {}
 }
 
-export default function(state = initialState, action) {
+export default function(state = {}, action) {
   console.log('REDUCER')
   if (action.type === signupData) {
-    return {
-      //grabs all the state object and changes the userData to the new payload 
-      ...state, 
-      userInfo: action.usersInformation
-    }
+    console.log('ay action', action.usersInformation)
+    return Object.assign({}, { usersInformation: action.usersInformation })
   } else {
     return state; 
   }

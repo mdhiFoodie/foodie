@@ -6714,6 +6714,7 @@ var Feed = function (_Component) {
     key: 'render',
     value: function render() {
       console.log(this.props.getUsersInformation);
+      console.log(this.props.usersData);
       return _react2.default.createElement(
         'div',
         { className: 'FeedContainer' },
@@ -6743,7 +6744,9 @@ var Feed = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     //User information name, email, id, phone etc when they login or signup 
-    getUsersInformation: state.getUsersInformation
+    getUsersInformation: state.getUsersInformation,
+    //
+    usersData: state.usersData
 
   };
 };
@@ -8175,17 +8178,6 @@ var _axios = __webpack_require__(39);
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// export const userSignup = (body) => async dispatch => {
-//   dispatch({type: signupData})
-//   const data = await axios.post('http://localhost:3000/api/auth/signup', body);
-//   try {
-//       return 
-//   } 
-//   catch(err) {
-//     console.log('Is not working', err);
-//   }
-// };
 
 var userSignup = exports.userSignup = function userSignup(userInfo) {
   return {
@@ -13562,19 +13554,7 @@ var _index4 = _interopRequireDefault(_index3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const initialState = {};
-// const middleware = [thunk];
-
-// const store = createStore(rootReducer, initialState, applyMiddleWare(...middleware));
 var store = (0, _redux.createStore)(_index4.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxPromiseMiddleware2.default)()));
-// ReactDOM.render(
-//   // <BrowserRouter>
-//   <App/>
-//   // </BrowserRouter>
-//   // <Feed/>
-//   // <Menu/>
-//   ,document.getElementById('root'),
-// );
 
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
@@ -38656,22 +38636,21 @@ var SignupUser = function (_Component) {
                   type: data.data.type
                 });
                 data ? _this.props.history.push('/home') : alert('Request failed try again');
-                console.log('localStorage from user signup =>', data);
-                _context.next = 15;
+                _context.next = 14;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context['catch'](3);
 
                 console.log(_context.t0);
 
-              case 15:
+              case 14:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 12]]);
+        }, _callee, _this2, [[3, 11]]);
       }));
 
       return function (_x) {
@@ -38743,11 +38722,12 @@ var SignupUser = function (_Component) {
 }(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
+  console.log('state = ', state);
   return {
     //Still working in making the post request as an action for signup 
     usersData: state.usersData,
     // getUsersInformation gets the users information name, email, id etc 
-    getUsersInformation: state.getUsersInformatio
+    usersInformation: state.usersInformation
   };
 };
 var matchDispatchToProps = function matchDispatchToProps(dispatch) {
@@ -39851,17 +39831,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
   console.log('REDUCER');
   if (action.type === _type.signupData) {
-    return _extends({}, state, {
-      userInfo: action.usersInformation
-    });
+    console.log('ay action', action.usersInformation);
+    return Object.assign({}, { usersInformation: action.usersInformation });
   } else {
     return state;
   }

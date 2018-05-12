@@ -11,18 +11,11 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import rootReducer from './reducers/index.js';
 
-// const initialState = {};
-// const middleware = [thunk];
 
-// const store = createStore(rootReducer, initialState, applyMiddleWare(...middleware));
-const store = createStore(rootReducer, applyMiddleware(thunk, promise()))
-// ReactDOM.render(
-//   // <BrowserRouter>
-//   <App/>
-//   // </BrowserRouter>
-//   // <Feed/>
-//   // <Menu/>
-//   ,document.getElementById('root'),
-// );
+const store = createStore(
+  rootReducer, 
+  applyMiddleware(thunk, promise())
+); 
+
 
 ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById("root")); 
