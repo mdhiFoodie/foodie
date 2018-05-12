@@ -37011,13 +37011,6 @@ var SearchFilter = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (SearchFilter.__proto__ || Object.getPrototypeOf(SearchFilter)).call(this));
 
-        _this.sortRestaurants = function (array, index) {
-            array.sort(function (a, b) {
-                return a[index] - b[index];
-            });
-            return array;
-        };
-
         _this.handleKeyPress = function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
                 var onPositionReceived, locationNotReceived, position, watch;
@@ -37121,11 +37114,6 @@ var SearchFilter = function (_Component) {
             restaurantSearches: [],
             restaurantSearchesSorted: [],
             value: 'totalorder'
-            // getInitialState : () => {
-            //     return{
-            //         value: 'totalorder'
-            //     }
-            // }
         };
         return _this;
     }
@@ -37136,6 +37124,14 @@ var SearchFilter = function (_Component) {
             console.log('this is the state for search', this.state);
             this.setState(_defineProperty({}, e.target.name, e.target.value));
         }
+
+        // sortRestaurants = (array, index) => {
+        //     array.sort((a, b) => {
+        //         return a[index] - b[index]
+        //     });
+        //     return array;
+        // }
+
     }, {
         key: 'filterClickHandler',
         value: function filterClickHandler(e) {
@@ -37159,7 +37155,8 @@ var SearchFilter = function (_Component) {
                 restaurantSearchesSorted: sorted,
                 value: e.target.value
             });
-            console.log('this is the sorted restaurants information please', this.state.restaurantSearchesSorted);
+            console.log('this is the sorted restaurants information that i need the reducer updated', this.state.restaurantSearchesSorted);
+            this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted);
         }
     }, {
         key: 'render',

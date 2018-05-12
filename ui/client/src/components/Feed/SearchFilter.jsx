@@ -14,12 +14,7 @@ class SearchFilter extends Component {
             search : '',
             restaurantSearches : [],
             restaurantSearchesSorted : [],
-            value : 'totalorder',
-            // getInitialState : () => {
-            //     return{
-            //         value: 'totalorder'
-            //     }
-            // }
+            value : 'totalorder'
         }
     }
 
@@ -30,12 +25,12 @@ class SearchFilter extends Component {
         })
     }
 
-    sortRestaurants = (array, index) => {
-        array.sort((a, b) => {
-            return a[index] - b[index]
-        });
-        return array;
-    }
+    // sortRestaurants = (array, index) => {
+    //     array.sort((a, b) => {
+    //         return a[index] - b[index]
+    //     });
+    //     return array;
+    // }
 
     filterClickHandler(e) {
         console.log('clicked on different filters and showing restaurants sorted', this.state.value);
@@ -60,7 +55,8 @@ class SearchFilter extends Component {
             restaurantSearchesSorted : sorted,
             value : e.target.value
         });
-        console.log('this is the sorted restaurants information please', this.state.restaurantSearchesSorted);
+        console.log('this is the sorted restaurants information that i need the reducer updated', this.state.restaurantSearchesSorted);
+        this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted)
     }
 
     handleKeyPress = async (e) => {
