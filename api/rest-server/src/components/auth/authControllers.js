@@ -26,16 +26,13 @@ export const signUpController = async (req, res) => {
   try {
     let row; 
     req.body.password = await hashPassword(req.body.password);
-    if (req.body.type === 0) {
+    if (req.body.type === 0 || req.body.type === 2) {
       const { rows } = await signUpQuery(req.body);
       row = rows; 
     } else if (req.body.type === 1){
       const { rows } = await signUpBusinessQuery(req.body);
       row = rows;
-    } else if (req.body.type === 2){
-      const { rows } = await signUpBusinessQuery(req.body);
-      row = rows;
-    }
+    } 
     const { id, email } = row[0];
     success('signUpController - successfully retrieved data ', JSON.stringify(row[0]));
     const token = await generateToken(id, email);
@@ -55,6 +52,7 @@ export const loginController = async (req, res) => {
     success('loginController - successfully retrieved data ', rows[0]);
     const token = await generateToken(id, email);
     rows[0].token = token;
+    console.log('AFTER TOKEN =====> ')
     return res.status(200).append('authorization', JSON.stringify(token)).send(rows[0]);
   } catch (err) {
     error('loginController - error= ', err);

@@ -17,4 +17,5 @@ router.route('/signup')
 router.route('/login')
   .post(validate(formValidation.login), passport.authenticate('local', { session: false }), loginController);
 
+
 export default router;

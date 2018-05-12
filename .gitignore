@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 node_modules/
 bundle.js
 bundle.js.map
 .env
-.DS_stores
+.DS_Store
 .env.sample.js
 
 lib-cov
@@ -27,7 +26,3 @@ vagrant
 .lock-wscript
 
 *.css
-=======
-ui/client/public/bundle.js
-ui/client/public/bundle.map.js
->>>>>>> 52dc5da684499c21bbe3f02a23f6d0f4c8801172
