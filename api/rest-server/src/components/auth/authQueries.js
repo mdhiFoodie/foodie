@@ -33,7 +33,6 @@ export const signUpBusinessQuery = async (payload) => {
       values: queryPayloadOrganizer(payload, ['businessname', 'address', 'contactname', 'phone', 'email', 'password', 'foodcategory', 'type', 'latitude', 'longitude'])
     }
     const data = await db.query(query);
-    console.log('data from authQueries',data)
     success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
     return data;
   } catch (err) {
@@ -44,7 +43,6 @@ export const signUpBusinessQuery = async (payload) => {
 
 export const loginQuery = async (payload) => {
   try {
-    console.log('PAYLOAD FROM LOGINQUERY',payload)
     const query = {
       text: loginHelper,
       values: queryPayloadOrganizer(payload, ['email'])

@@ -3,6 +3,7 @@
 #Get Started
 
 #Setup environment 
+cd ui 
 yarn
 yarn buildEnv 
 yarn setup:server

@@ -31,9 +31,10 @@ class Login extends Component {
     };
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/login', body);
+    console.log('DATA', data)
     localStorage.setItem('storage', JSON.stringify({
       id: data.id, 
-      name: data.name, 
+      businessname: data.businessname,
       email: data.email, 
       type: data.type, 
       phone: data.phone,
