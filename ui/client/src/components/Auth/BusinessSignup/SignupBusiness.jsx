@@ -58,8 +58,6 @@ class SignupBusiness extends Component {
       longitude
     };
     try {
-      console.log('BODY', body)
-
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
     this.props.getUserInfo({

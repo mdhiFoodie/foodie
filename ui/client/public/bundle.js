@@ -2619,6 +2619,9 @@ var signupData = exports.signupData = 'signupData';
 //Action to save in the store all users information 
 var usersInformation = exports.usersInformation = 'usersInformation';
 
+//Verify token 
+var verify = exports.verify = 'verify';
+
 /***/ }),
 /* 65 */
 /***/ (function(module, exports) {
@@ -8199,7 +8202,167 @@ var userSignup = exports.userSignup = function userSignup(userInfo) {
 };
 
 /***/ }),
-/* 186 */,
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(39);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRedux = __webpack_require__(33);
+
+var _type = __webpack_require__(64);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddDelivery = function (_Component) {
+  _inherits(AddDelivery, _Component);
+
+  function AddDelivery() {
+    var _this2 = this;
+
+    _classCallCheck(this, AddDelivery);
+
+    var _this = _possibleConstructorReturn(this, (AddDelivery.__proto__ || Object.getPrototypeOf(AddDelivery)).call(this));
+
+    _this.handleSignupForDriver = function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+        var _this$state, name, email, password, phone, type, body, _ref2, data;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                _this$state = _this.state, name = _this$state.name, email = _this$state.email, password = _this$state.password, phone = _this$state.phone, type = _this$state.type;
+                body = {
+                  name: name,
+                  email: email,
+                  password: password,
+                  phone: phone,
+                  type: type
+                };
+                _context.prev = 3;
+                _context.next = 6;
+                return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
+
+              case 6:
+                _ref2 = _context.sent;
+                data = _ref2.data;
+
+                data ? _this.props.history.push('/dashboard') : alert('Something went wrong with your request try again');
+                _context.next = 14;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context['catch'](3);
+
+                console.log('Error saving driver\'s data', _context.t0);
+
+              case 14:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this2, [[3, 11]]);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    _this.state = {
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+      type: 2
+    };
+    return _this;
+  }
+
+  _createClass(AddDelivery, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      var _e$target = e.target,
+          name = _e$target.name,
+          value = _e$target.value;
+
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      //Information from the business 
+      var usersInfo = this.props.getUsersInformation.usersInfo;
+
+      console.log('usersInformation', usersInfo);
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Add a delivery person'
+        ),
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSignupForDriver },
+          _react2.default.createElement('input', { name: 'name', placeholder: 'name', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { name: 'email', placeholder: 'email', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { name: 'password', type: 'password', placeholder: 'password', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { name: 'phone', placeholder: 'phone', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { type: 'submit' })
+        )
+      );
+    }
+  }]);
+
+  return AddDelivery;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    // usersData is the key coming from our root reducers with the value of our reducer file
+    getUsersInformation: state.getUsersInformation
+
+  };
+};
+
+// const matchDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//   usersInfo: usersInfo
+//   }, dispatch);
+// };
+// export default connect(mapStateToProps, matchDispatchToProps)(Login);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(AddDelivery);
+
+/***/ }),
 /* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32221,6 +32384,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(2);
@@ -32244,6 +32409,18 @@ var _SignupUser2 = _interopRequireDefault(_SignupUser);
 var _SignupBusiness = __webpack_require__(479);
 
 var _SignupBusiness2 = _interopRequireDefault(_SignupBusiness);
+
+var _AddDelivery = __webpack_require__(186);
+
+var _AddDelivery2 = _interopRequireDefault(_AddDelivery);
+
+var _index3 = __webpack_require__(480);
+
+var _index4 = _interopRequireDefault(_index3);
+
+var _DeliveryProfile = __webpack_require__(484);
+
+var _DeliveryProfile2 = _interopRequireDefault(_DeliveryProfile);
 
 var _Logout = __webpack_require__(83);
 
@@ -32293,6 +32470,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
+
       return _react2.default.createElement(
         'div',
         null,
@@ -32302,26 +32480,15 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _LoggedOutHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _LoggedOutHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _LoggedOutHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _UserHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _UserHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _UserHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessHeader2.default })
-          )
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.BrowserRouter,
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Switch,
-            null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _index2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, strict: true, path: '/', component: _Login2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _BusinessDashboard2.default }, props));
+              } }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _SignupBusiness2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessDashboard2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessDashboard2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/AddDelivery', component: _AddDelivery2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/deliveryProfile', component: _DeliveryProfile2.default })
           )
         )
       );
@@ -38361,6 +38528,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(2);
@@ -38423,32 +38592,57 @@ var Login = function (_Component) {
                 _ref2 = _context.sent;
                 data = _ref2.data;
 
-                localStorage.setItem('email', data.email);
-                localStorage.setItem('id', data.id);
-                localStorage.setItem('token', data.token.accessToken);
-                _this.props.getUserInfo({
-                  id: data.id,
-                  name: data.name,
-                  email: data.email,
-                  type: data.type,
-                  phone: data.phone
-                });
-                data ? _this.props.history.push('/home') : _this.props.history.push('/login');
-                _context.next = 18;
+                if (data.type === '0') {
+                  localStorage.setItem('email', data.email);
+                  localStorage.setItem('id', data.id);
+                  localStorage.setItem('type', data.type);
+                  localStorage.setItem('name', data.name);
+                  localStorage.setItem('phone', data.phone);
+                  localStorage.setItem('token', data.token.accessToken);
+                  _this.props.getUserInfo({
+                    id: data.id,
+                    name: data.name,
+                    email: data.email,
+                    type: data.type,
+                    phone: data.phone
+                  });
+                  _this.props.history.push('/home');
+                } else if (data.type === '1') {
+                  localStorage.setItem('email', data.email);
+                  localStorage.setItem('id', data.id);
+                  localStorage.setItem('type', data.type);
+                  localStorage.setItem('businessname', data.name);
+                  localStorage.setItem('phone', data.phone);
+                  localStorage.setItem('token', data.token.accessToken);
+                  _this.props.history.push('/dashboard');
+                  _this.props.getUserInfo({
+                    id: data.id,
+                    businessname: data.name,
+                    email: data.email,
+                    type: data.type,
+                    phone: data.phone
+                  });
+                } else if (data.type === '2') {
+                  _this.props.history.push('/delivery');
+                } else {
+                  console.log('TYPE FROM ELSE', _typeof(data.type));
+                  _this.props.history.push('/login');
+                }
+                _context.next = 14;
                 break;
 
-              case 15:
-                _context.prev = 15;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context['catch'](3);
 
                 console.log(_context.t0);
 
-              case 18:
+              case 14:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 15]]);
+        }, _callee, _this2, [[3, 11]]);
       }));
 
       return function (_x) {
@@ -38826,13 +39020,10 @@ var SignupBusiness = function (_Component) {
                   longitude: longitude
                 };
                 _context.prev = 10;
-
-                console.log('BODY', body);
-
-                _context.next = 14;
+                _context.next = 13;
                 return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
 
-              case 14:
+              case 13:
                 data = _context.sent;
 
                 data ? _this.props.history.push('/dashboard') : alert('Request failed try again');
@@ -38847,21 +39038,21 @@ var SignupBusiness = function (_Component) {
                   type: data.data.type
                 });
                 console.log('localStorage from user signup =>', data);
-                _context.next = 23;
+                _context.next = 22;
                 break;
 
-              case 20:
-                _context.prev = 20;
+              case 19:
+                _context.prev = 19;
                 _context.t0 = _context['catch'](10);
 
                 console.log(_context.t0);
 
-              case 23:
+              case 22:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[10, 20]]);
+        }, _callee, _this2, [[10, 19]]);
       }));
 
       return function (_x) {
@@ -38984,11 +39175,244 @@ var matchDispatchToProps = function matchDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(SignupBusiness);
 
 /***/ }),
-/* 480 */,
-/* 481 */,
-/* 482 */,
-/* 483 */,
-/* 484 */,
+/* 480 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _jwtDecode2 = __webpack_require__(481);
+
+var _jwtDecode3 = _interopRequireDefault(_jwtDecode2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Protected = function (_Component) {
+  _inherits(Protected, _Component);
+
+  function Protected() {
+    _classCallCheck(this, Protected);
+
+    return _possibleConstructorReturn(this, (Protected.__proto__ || Object.getPrototypeOf(Protected)).apply(this, arguments));
+  }
+
+  _createClass(Protected, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      try {
+        var _jwtDecode = (0, _jwtDecode3.default)(localStorage.token),
+            exp = _jwtDecode.exp;
+
+        if (exp < Math.floor(Date.now() / 1000)) {
+          this.props.history.push('/dashboard');
+        }
+      } catch (e) {
+        console.log('error in Protected ', e);
+        this.props.history.push('/');
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var Component = this.props.component;
+
+      return _react2.default.createElement(Component, this.props);
+    }
+  }]);
+
+  return Protected;
+}(_react.Component);
+
+exports.default = Protected;
+
+/***/ }),
+/* 481 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var base64_url_decode = __webpack_require__(482);
+
+function InvalidTokenError(message) {
+  this.message = message;
+}
+
+InvalidTokenError.prototype = new Error();
+InvalidTokenError.prototype.name = 'InvalidTokenError';
+
+module.exports = function (token,options) {
+  if (typeof token !== 'string') {
+    throw new InvalidTokenError('Invalid token specified');
+  }
+
+  options = options || {};
+  var pos = options.header === true ? 0 : 1;
+  try {
+    return JSON.parse(base64_url_decode(token.split('.')[pos]));
+  } catch (e) {
+    throw new InvalidTokenError('Invalid token specified: ' + e.message);
+  }
+};
+
+module.exports.InvalidTokenError = InvalidTokenError;
+
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var atob = __webpack_require__(483);
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
+    var code = p.charCodeAt(0).toString(16).toUpperCase();
+    if (code.length < 2) {
+      code = '0' + code;
+    }
+    return '%' + code;
+  }));
+}
+
+module.exports = function(str) {
+  var output = str.replace(/-/g, "+").replace(/_/g, "/");
+  switch (output.length % 4) {
+    case 0:
+      break;
+    case 2:
+      output += "==";
+      break;
+    case 3:
+      output += "=";
+      break;
+    default:
+      throw "Illegal base64url string!";
+  }
+
+  try{
+    return b64DecodeUnicode(output);
+  } catch (err) {
+    return atob(output);
+  }
+};
+
+
+/***/ }),
+/* 483 */
+/***/ (function(module, exports) {
+
+/**
+ * The code was extracted from:
+ * https://github.com/davidchambers/Base64.js
+ */
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function InvalidCharacterError(message) {
+  this.message = message;
+}
+
+InvalidCharacterError.prototype = new Error();
+InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+function polyfill (input) {
+  var str = String(input).replace(/=+$/, '');
+  if (str.length % 4 == 1) {
+    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+  }
+  for (
+    // initialize result and counters
+    var bc = 0, bs, buffer, idx = 0, output = '';
+    // get next character
+    buffer = str.charAt(idx++);
+    // character found in table? initialize bit storage and add its ascii value;
+    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+      // and if not first of each 4 characters,
+      // convert the first 8 bits to one ascii character
+      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+  ) {
+    // try to find character in table (0-63, not found => -1)
+    buffer = chars.indexOf(buffer);
+  }
+  return output;
+}
+
+
+module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
+
+
+/***/ }),
+/* 484 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Logout = __webpack_require__(83);
+
+var _Logout2 = _interopRequireDefault(_Logout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DeliveryProfile = function (_Component) {
+  _inherits(DeliveryProfile, _Component);
+
+  function DeliveryProfile(props) {
+    _classCallCheck(this, DeliveryProfile);
+
+    return _possibleConstructorReturn(this, (DeliveryProfile.__proto__ || Object.getPrototypeOf(DeliveryProfile)).call(this, props));
+  }
+
+  _createClass(DeliveryProfile, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'Hello world from deliveryProfile!',
+        _react2.default.createElement(_Logout2.default, { history: this.props.history })
+      );
+    }
+  }]);
+
+  return DeliveryProfile;
+}(_react.Component);
+
+exports.default = DeliveryProfile;
+
+/***/ }),
 /* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39011,7 +39435,19 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRedux = __webpack_require__(33);
 
+var _AddDelivery = __webpack_require__(186);
+
+var _AddDelivery2 = _interopRequireDefault(_AddDelivery);
+
+var _Logout = __webpack_require__(83);
+
+var _Logout2 = _interopRequireDefault(_Logout);
+
+__webpack_require__(486);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39023,19 +39459,112 @@ var BusinessDashboard = function (_Component) {
   _inherits(BusinessDashboard, _Component);
 
   function BusinessDashboard() {
+    var _this2 = this;
+
     _classCallCheck(this, BusinessDashboard);
 
-    return _possibleConstructorReturn(this, (BusinessDashboard.__proto__ || Object.getPrototypeOf(BusinessDashboard)).call(this));
+    var _this = _possibleConstructorReturn(this, (BusinessDashboard.__proto__ || Object.getPrototypeOf(BusinessDashboard)).call(this));
+
+    _this.getDeliveryTeam = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var data;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _axios2.default.get('http://localhost:3000/api/business/getDeliveryTeam');
+
+            case 3:
+              data = _context.sent;
+
+              console.log('delivery team in business dashboard', data);
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context['catch'](0);
+
+              console.log('Error getting the delivery team', _context.t0);
+
+            case 10:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, _this2, [[0, 7]]);
+    }));
+
+    _this.state = {
+      deliveryTeam: []
+    };
+    _this.addDeliveryPerson = _this.addDeliveryPerson.bind(_this);
+    return _this;
   }
 
   _createClass(BusinessDashboard, [{
+    key: 'addDeliveryPerson',
+    value: function addDeliveryPerson() {
+      this.props.history.push('/AddDelivery');
+    }
+  }, {
     key: 'render',
+
+
+    // componentDidMount() {
+    //getDeliveryTeam from that business 
+    // }
+
     value: function render() {
-      console.log('dash', this.props.getUsersInformation);
+      var usersInfo = this.props.getUsersInformation.usersInfo;
+
+      console.log('dash', usersInfo);
       return _react2.default.createElement(
         'div',
-        null,
-        'Business Dashboard Option to add delivery person How are we going to handle the delivery person? The delivery user information will be saved on the users table name email password phone type = deliveryUser (2)'
+        { className: 'dashboard' },
+        _react2.default.createElement(
+          'div',
+          { className: 'businessName' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            usersInfo.businessname
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Orders'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'delivery Team'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.addDeliveryPerson },
+            'Add a driver'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Statistics'
+          )
+        ),
+        _react2.default.createElement(_Logout2.default, { history: this.props.history })
       );
     }
   }]);
@@ -39060,7 +39589,12 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(BusinessDashboard);
 
 /***/ }),
-/* 486 */,
+/* 486 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
 /* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39088,33 +39622,7 @@ var LoggedOutHeader = function LoggedOutHeader() {
     _react2.default.createElement(
       'nav',
       null,
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          'Logo'
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/' },
-            'Login'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/signup' },
-            'Signup'
-          )
-        )
-      )
+      _react2.default.createElement('ul', null)
     )
   );
 };
@@ -39149,46 +39657,7 @@ var UserHeader = function UserHeader() {
     _react2.default.createElement(
       'nav',
       null,
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/home' },
-            'Home'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/profile' },
-            'Profile'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/message' },
-            'Message'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/cart' },
-            'Cart'
-          )
-        )
-      )
+      _react2.default.createElement('ul', null)
     )
   );
 };
@@ -39223,55 +39692,7 @@ var BusinessHeader = function BusinessHeader() {
     _react2.default.createElement(
       'nav',
       null,
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/dashboard' },
-            'Dashboard'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/profile' },
-            'Profile'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/orders' },
-            'Orders'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/menu' },
-            'Menu'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/delivery' },
-            'Delivery'
-          )
-        )
-      )
+      _react2.default.createElement('ul', null)
     )
   );
 };
@@ -39306,37 +39727,7 @@ var DeliveryHeader = function DeliveryHeader() {
     _react2.default.createElement(
       'nav',
       null,
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/home' },
-            'Home'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/' },
-            'Login'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/signup' },
-            'Signup'
-          )
-        )
-      )
+      _react2.default.createElement('ul', null)
     )
   );
 };
