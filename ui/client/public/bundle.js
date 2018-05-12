@@ -32480,15 +32480,36 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _LoggedOutHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _LoggedOutHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _LoggedOutHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _UserHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _UserHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _UserHeader2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessHeader2.default })
+          )
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.BrowserRouter,
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, strict: true, path: '/', component: _Login2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: function component(props) {
-                return _react2.default.createElement(_index4.default, _extends({ component: _BusinessDashboard2.default }, props));
-              } }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _SignupBusiness2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessDashboard2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/AddDelivery', component: _AddDelivery2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/deliveryProfile', component: _DeliveryProfile2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _index2.default }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _BusinessDashboard2.default }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/deliveryProfile', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _DeliveryProfile2.default }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/AddDelivery', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _AddDelivery2.default }, props));
+              } })
           )
         )
       );
@@ -38593,12 +38614,14 @@ var Login = function (_Component) {
                 data = _ref2.data;
 
                 if (data.type === '0') {
+                  console.log('I AM A USER');
                   localStorage.setItem('email', data.email);
                   localStorage.setItem('id', data.id);
                   localStorage.setItem('type', data.type);
                   localStorage.setItem('name', data.name);
                   localStorage.setItem('phone', data.phone);
                   localStorage.setItem('token', data.token.accessToken);
+                  _this.props.history.push('/home');
                   _this.props.getUserInfo({
                     id: data.id,
                     name: data.name,
@@ -38606,8 +38629,8 @@ var Login = function (_Component) {
                     type: data.type,
                     phone: data.phone
                   });
-                  _this.props.history.push('/home');
                 } else if (data.type === '1') {
+                  console.log('I AM A BUSINESS');
                   localStorage.setItem('email', data.email);
                   localStorage.setItem('id', data.id);
                   localStorage.setItem('type', data.type);
@@ -38800,7 +38823,7 @@ var SignupUser = function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 e.preventDefault();
-
+                console.log('inside signup function');
                 _this$state = _this.state, name = _this$state.name, phone = _this$state.phone, email = _this$state.email, password = _this$state.password, type = _this$state.type;
                 body = {
                   name: name,
@@ -38809,11 +38832,11 @@ var SignupUser = function (_Component) {
                   password: password,
                   type: type
                 };
-                _context.prev = 3;
-                _context.next = 6;
+                _context.prev = 4;
+                _context.next = 7;
                 return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
 
-              case 6:
+              case 7:
                 data = _context.sent;
 
                 _this.props.getUserInfo({
@@ -38823,23 +38846,24 @@ var SignupUser = function (_Component) {
                   email: data.data.email,
                   type: data.data.type
                 });
+                localStorage.setItem('token', data.data.token.accessToken);
                 data ? _this.props.history.push('/home') : alert('Request failed try again');
                 console.log('localStorage from user signup =>', data);
-                _context.next = 15;
+                _context.next = 17;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context['catch'](3);
+              case 14:
+                _context.prev = 14;
+                _context.t0 = _context['catch'](4);
 
                 console.log(_context.t0);
 
-              case 15:
+              case 17:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 12]]);
+        }, _callee, _this2, [[4, 14]]);
       }));
 
       return function (_x) {
@@ -39026,6 +39050,7 @@ var SignupBusiness = function (_Component) {
               case 13:
                 data = _context.sent;
 
+                localStorage.setItem('token', data.data.token.accessToken);
                 data ? _this.props.history.push('/dashboard') : alert('Request failed try again');
                 _this.props.getUserInfo({
                   id: data.data.id,
@@ -39037,7 +39062,6 @@ var SignupBusiness = function (_Component) {
                   foodcategory: data.data.foodcategory,
                   type: data.data.type
                 });
-                console.log('localStorage from user signup =>', data);
                 _context.next = 22;
                 break;
 
@@ -39197,6 +39221,8 @@ var _jwtDecode3 = _interopRequireDefault(_jwtDecode2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -39219,8 +39245,12 @@ var Protected = function (_Component) {
         var _jwtDecode = (0, _jwtDecode3.default)(localStorage.token),
             exp = _jwtDecode.exp;
 
-        if (exp < Math.floor(Date.now() / 1000)) {
+        if (exp < Math.floor(Date.now() / 1000) && localStorage.type === '0') {
+          this.props.history.push('/home');
+        } else if (exp < Math.floor(Date.now() / 1000) && localStorage.type === '1') {
           this.props.history.push('/dashboard');
+        } else if (exp < Math.floor(Date.now() / 1000) && localStorage.type === '2') {
+          this.props.history.push('/deliveryProfile');
         }
       } catch (e) {
         console.log('error in Protected ', e);
@@ -39230,8 +39260,11 @@ var Protected = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _console;
+
       var Component = this.props.component;
 
+      (_console = console).log.apply(_console, ['COMPONENT'].concat(_toConsumableArray(this.props)));
       return _react2.default.createElement(Component, this.props);
     }
   }]);

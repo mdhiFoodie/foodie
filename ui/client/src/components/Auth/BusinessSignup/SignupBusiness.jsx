@@ -59,6 +59,7 @@ class SignupBusiness extends Component {
     };
     try {
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
+    localStorage.setItem('token', data.data.token.accessToken);
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
     this.props.getUserInfo({
       id: data.data.id, 
@@ -70,7 +71,6 @@ class SignupBusiness extends Component {
       foodcategory: data.data.foodcategory, 
       type: data.data.type
     });
-    console.log('localStorage from user signup =>', data)
     }
     catch(err) {
       console.log(err);
