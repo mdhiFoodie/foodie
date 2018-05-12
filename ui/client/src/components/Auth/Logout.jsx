@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { getUserInfo } from '../../actions/usersInformationAction.js'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
-
-export default class Logout extends Component {
+class Logout extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
@@ -9,6 +11,7 @@ export default class Logout extends Component {
 
   logout() {
     localStorage.clear();
+    this.props.getUserInfo({});
     this.props.history.push('/login');
   }
 
@@ -18,3 +21,10 @@ export default class Logout extends Component {
     )
   }
 }
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getUserInfo: getUserInfo
+  }, dispatch);
+};
+export default connect(null, matchDispatchToProps)(Logout);

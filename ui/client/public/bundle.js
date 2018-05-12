@@ -2618,6 +2618,12 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _usersInformationAction = __webpack_require__(124);
+
+var _reactRedux = __webpack_require__(27);
+
+var _redux = __webpack_require__(36);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2642,6 +2648,7 @@ var Logout = function (_Component) {
     key: 'logout',
     value: function logout() {
       localStorage.clear();
+      this.props.getUserInfo({});
       this.props.history.push('/login');
     }
   }, {
@@ -2658,7 +2665,12 @@ var Logout = function (_Component) {
   return Logout;
 }(_react.Component);
 
-exports.default = Logout;
+var matchDispatchToProps = function matchDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({
+    getUserInfo: _usersInformationAction.getUserInfo
+  }, dispatch);
+};
+exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(Logout);
 
 /***/ }),
 /* 65 */
@@ -32513,6 +32525,10 @@ var _LoggedOutHeader = __webpack_require__(489);
 
 var _LoggedOutHeader2 = _interopRequireDefault(_LoggedOutHeader);
 
+var _Header = __webpack_require__(508);
+
+var _Header2 = _interopRequireDefault(_Header);
+
 var _UserHeader = __webpack_require__(490);
 
 var _UserHeader2 = _interopRequireDefault(_UserHeader);
@@ -32563,13 +32579,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _LoggedOutHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _LoggedOutHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _LoggedOutHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _UserHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/businessProfile', component: _BusinessHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _UserHeader2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessHeader2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Header2.default })
           )
         ),
         _react2.default.createElement(
@@ -32579,11 +32589,9 @@ var App = function (_Component) {
             _reactRouterDom.Switch,
             null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _index2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/businessProfile', component: BusinessProfile }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _SignupBusiness2.default }),
-            _react2.default.createElement(_Menu2.default, null),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: function component(props) {
                 return _react2.default.createElement(_index4.default, _extends({ component: _index2.default }, props));
               } }),
@@ -38963,6 +38971,7 @@ var SignupUser = function (_Component) {
                 _ref2 = _context.sent;
                 data = _ref2.data;
 
+                console.log('this is data after clicking signup as a user: ', data);
                 localStorage.setItem('storage', JSON.stringify({
                   id: data.id,
                   name: data.name,
@@ -38987,21 +38996,21 @@ var SignupUser = function (_Component) {
                 localStorage.setItem('type', data.data.type);
 
                 data ? _this.props.history.push('/home') : alert('Request failed try again');
-                _context.next = 23;
+                _context.next = 24;
                 break;
 
-              case 20:
-                _context.prev = 20;
+              case 21:
+                _context.prev = 21;
                 _context.t0 = _context['catch'](4);
 
                 console.log(_context.t0);
 
-              case 23:
+              case 24:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[4, 20]]);
+        }, _callee, _this2, [[4, 21]]);
       }));
 
       return function (_x) {
@@ -40750,7 +40759,100 @@ exports.default = function () {
 
 /***/ }),
 /* 507 */,
-/* 508 */,
+/* 508 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(57);
+
+var _reactRedux = __webpack_require__(27);
+
+var _LoggedOutHeader = __webpack_require__(489);
+
+var _LoggedOutHeader2 = _interopRequireDefault(_LoggedOutHeader);
+
+var _UserHeader = __webpack_require__(490);
+
+var _UserHeader2 = _interopRequireDefault(_UserHeader);
+
+var _BusinessHeader = __webpack_require__(491);
+
+var _BusinessHeader2 = _interopRequireDefault(_BusinessHeader);
+
+var _DeliveryHeader = __webpack_require__(492);
+
+var _DeliveryHeader2 = _interopRequireDefault(_DeliveryHeader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var storage = localStorage.storage && JSON.parse(localStorage.storage);
+
+var Header = function (_Component) {
+  _inherits(Header, _Component);
+
+  function Header(props) {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+  }
+
+  _createClass(Header, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      console.log('Patrick wants this string ot be here. he can\'t speel:', this.props.getUsersInformation);
+      var type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'sometype';
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return console.log('this is the prop', _this2.props.getUsersInformation, ' this is type ', type);
+            } },
+          'CLICK'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.BrowserRouter,
+          null,
+          this.props.getUsersInformation.usersInfo.type === '0' && type === '0' ? (console.log('we are users mothas', localStorage.storage ? JSON.parse(localStorage.storage).type : 'pent'), _react2.default.createElement(_UserHeader2.default, null)) : this.props.getUsersInformation.usersInfo.type === '1' && type === '1' ? (console.log('we are business mothas', type), _react2.default.createElement(_BusinessHeader2.default, null)) : this.props.getUsersInformation.usersInfo.type === '2' && type === '2' ? (console.log('we are deilvery mothas', type), _react2.default.createElement(_DeliveryHeader2.default, null)) : (console.log('we are logged out mothas', type), _react2.default.createElement(_LoggedOutHeader2.default, null))
+        )
+      );
+    }
+  }]);
+
+  return Header;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    //User information name, email, id, phone etc when they login or signup 
+    getUsersInformation: state.getUsersInformation
+
+  };
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
+
+/***/ }),
 /* 509 */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -37,6 +37,7 @@ class SignupUser extends Component {
     
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
+    console.log('this is data after clicking signup as a user: ', data);
     localStorage.setItem('storage', JSON.stringify({
       id: data.id, 
       name: data.name, 
