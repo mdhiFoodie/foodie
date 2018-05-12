@@ -3,7 +3,9 @@ import {
   success, 
   error
 } from '../../../../lib/log/index';
+import { globalController } from '../../lib/components'; 
+import { signUpBusinessDeliveryQuery } from '../auth/authQueries'; 
 
-export const getDeliveryTeam = async (req, res) => {
-  
-}
+
+export const saveDeliveryUser = globalController(signUpBusinessDeliveryQuery, 'saveDeliveryUser'); 
+

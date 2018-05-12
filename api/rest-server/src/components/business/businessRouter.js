@@ -1,12 +1,12 @@
 import express from 'express';
 
 import {
-  getDeliveryTeam
+  saveDeliveryUser
 } from './businessControllers';
 
 const router = express.Router();
 
-router.route('/getDeliveryTeam')
-  .get(getDeliveryTeam);
+router.route('/saveDeliveryUser')
+  .post(saveDeliveryUser);
 
 export default router;

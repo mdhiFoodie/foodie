@@ -10,7 +10,7 @@ class BusinessDashboard extends Component {
   constructor() {
     super();
     this.state = {
-      deliveryTeam: [] 
+      deliveryTeam: [],
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
   }
@@ -19,19 +19,23 @@ class BusinessDashboard extends Component {
     this.props.history.push('/AddDelivery')
   }
 
-  getDeliveryTeam = async () => {
-    try {
-    const data = await axios.get('http://localhost:3000/api/business/getDeliveryTeam');
-    console.log('delivery team in business dashboard', data)
-    } 
-    catch(err) {
-      console.log('Error getting the delivery team', err)
-    }
-  }; 
+  // getDeliveryTeam = async () => {
+    // const storage = JSON.parse(localStorage.storage); 
+    // const { id } = storage; 
+    // try {
+    // const data = await axios.get(`http://localhost:3000/api/business/getDeliveryTeam${id}`)
+    // } 
+    // catch(err) {
+    //   console.log('Error getting the delivery team', err)
+    // }
+  // }; 
+
+  // componentWillMount() {
+  //   this.getDeliveryTeam();
+  // }
   
   render() {
     const { usersInfo } = this.props.getUsersInformation; 
-    console.log('dash', usersInfo)
     return(
       <div className='dashboard'>
         <div className='businessName'>

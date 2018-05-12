@@ -7,6 +7,20 @@ export const signUpHelper = `
       id, name, phone, email, type
 `;
 
+
+export const signUpDeliveryHelper = `
+    WITH insUsers AS (
+      INSERT INTO users
+      (name, phone, email, password, type)
+      VALUES 
+      ($1, $2, $3, $4, $5)
+      RETURNING id
+    )
+      INSERT INTO delivery_users 
+      (id_users, id_businesses)
+      SELECT id, $6 FROM insUsers 
+`;
+
 export const businessSignUpHelper = `
     INSERT INTO
       businesses (businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude)
