@@ -25,7 +25,7 @@ class SignupUser extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-
+    console.log('inside signup function')
     const {name, phone, email, password, type} = this.state;
     const body = {
       name,
@@ -43,6 +43,7 @@ class SignupUser extends Component {
       email: data.data.email,
       type: data.data.type
     });
+    localStorage.setItem('token', data.data.token.accessToken);
     data ? this.props.history.push('/home') : alert('Request failed try again');
     }
     catch(err) {

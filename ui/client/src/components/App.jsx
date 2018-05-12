@@ -26,7 +26,7 @@ class App extends Component {
 
     return (
       <div>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Switch> 
           <Route exact path='/login' component={LoggedOutHeader}/>
           <Route exact path='/signupUser' component={LoggedOutHeader}/>
@@ -36,18 +36,24 @@ class App extends Component {
           <Route exact path='/profile' component={UserHeader}/>
           <Route exact path='/dashboard' component={BusinessHeader}/>
         </Switch>
-      </BrowserRouter> */}
+      </BrowserRouter>
       <BrowserRouter>
       <Switch> 
         <Route exact strict path='/' component={Login}/>
-        <Route exact path='/home' component={(props) => (
-          <Protected component={BusinessDashboard} {...props} />
-        )}/>
         <Route exact path='/signupUser' component={SignupUser}/>
         <Route exact path='/signupBusiness' component={SignupBusiness}/>
-        <Route exact path='/dashboard' component={BusinessDashboard}/>
-        <Route exact path='/AddDelivery' component={AddDelivery}/>
-        <Route exact path='/deliveryProfile' component={DeliveryProfile}/>
+        <Route exact path='/home' component={(props) => (
+          <Protected component={Feed} {...props} />
+        )}/>
+        <Route exact path='/dashboard' component={(props) => (
+          <Protected component={BusinessDashboard} {...props} />
+        )}/>
+        <Route exact path='/deliveryProfile' component={(props) => (
+          <Protected component={DeliveryProfile} {...props} />
+        )}/>
+        <Route exact path='/AddDelivery' component={(props) => (
+          <Protected component={AddDelivery} {...props} />
+        )}/>
       </Switch>
       </BrowserRouter>
       </div>
