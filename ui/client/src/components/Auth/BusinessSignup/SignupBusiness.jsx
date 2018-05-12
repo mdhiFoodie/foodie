@@ -6,6 +6,8 @@ import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
 // import './index.css'; 
 
+const GOOGLE = process.env.GOOGLE
+
 class SignupBusiness extends Component {
   constructor() {
     super();
@@ -35,7 +37,7 @@ class SignupBusiness extends Component {
     const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                     address: locations,
-                    key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                    key: GOOGLE
                 }
             }); 
             this.setState({
