@@ -10,7 +10,6 @@ class NearByRestaurants extends Component {
         super(props);
 
         this.state = {
-
         }
     }
 
@@ -19,8 +18,6 @@ class NearByRestaurants extends Component {
 
         return(            
             <div className='NearByRestaurantsContainer'>
-                this is the nearby restaurants where you map through WITH THE RESPONSE THAT I SENT UP TO REDUX STORE
-                FROM THE SEARCH FILTER
                 {/* {this.props.searchBusinesses && JSON.stringify(this.props.searchBusinesses.businesses)} */}
                 {this.props.searchBusinesses && this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
                     <NearByRestaurantsEntries key={key} restaurant={restaurant}/>

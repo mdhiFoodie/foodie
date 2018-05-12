@@ -19,6 +19,8 @@ class SignupBusiness extends Component {
       foodcategory: '', 
       type: 1,
       agree: false,
+      latitude: 0,
+      longitude: 0
     }
   }
 
@@ -29,7 +31,20 @@ class SignupBusiness extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-    const {businessname, address, contactname, phone, email, password, foodcategory, type} = this.state;
+    const locations = this.state.address;
+    const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: locations,
+                    key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                }
+            })
+            console.log('this is my geocode lat', geoCode.data.results[0].geometry.location.lat)
+            console.log('this is my geocode long', geoCode.data.results[0].geometry.location.lng)
+            this.setState({
+              latitude: geoCode.data.results[0].geometry.location.lat,
+              longitude: geoCode.data.results[0].geometry.location.lng
+            })
+    const {businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude} = this.state;
     const body = {
       businessname,
       address,
@@ -38,11 +53,13 @@ class SignupBusiness extends Component {
       email,
       password,
       foodcategory, 
-      type
+      type,
+      latitude,
+      longitude
     };
     try {
       console.log('BODY', body)
-    // const { userData } = await this.props.userSignup(body);
+
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
     this.props.getUserInfo({
