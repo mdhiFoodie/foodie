@@ -28,10 +28,6 @@ class BusinessDashboard extends Component {
       console.log('Error getting the delivery team', err)
     }
   }; 
-
-  // componentDidMount() {
-  //getDeliveryTeam from that business 
-  // }
   
   render() {
     const { usersInfo } = this.props.getUsersInformation; 
