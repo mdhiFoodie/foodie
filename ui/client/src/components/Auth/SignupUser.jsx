@@ -25,7 +25,7 @@ class SignupUser extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-
+    console.log('inside signup function')
     const {name, phone, email, password, type} = this.state;
     const body = {
       name,
@@ -35,7 +35,6 @@ class SignupUser extends Component {
       type
     };
     try {
-    // const { userData } = await this.props.userSignup(body);
     const data = await axios.post('http://localhost:3000/api/auth/signup', body);
     this.props.getUserInfo({
       id: data.data.id,
@@ -44,8 +43,8 @@ class SignupUser extends Component {
       email: data.data.email,
       type: data.data.type
     });
+    localStorage.setItem('token', data.data.token.accessToken);
     data ? this.props.history.push('/home') : alert('Request failed try again');
-    console.log('localStorage from user signup =>', data)
     }
     catch(err) {
       console.log(err);
@@ -81,12 +80,15 @@ class SignupUser extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+  console.log('state = ', state)
+  return {
     //Still working in making the post request as an action for signup 
     usersData: state.usersData,
     // getUsersInformation gets the users information name, email, id etc 
-    getUsersInformation: state.getUsersInformatio
-})
+    usersInformation: state.usersInformation
+  }
+}
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getUserInfo: getUserInfo,

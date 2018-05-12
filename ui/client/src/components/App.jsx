@@ -4,6 +4,9 @@ import Feed from './Feed/index.jsx';
 import Login from './Auth/Login.jsx';
 import SignupUser from './Auth/SignupUser.jsx'; 
 import SignupBusiness from './Auth/BusinessSignup/SignupBusiness.jsx'; 
+import AddDelivery from './Businesses/AddDelivery.jsx';
+import Protected from './Protected/index.js';
+import DeliveryProfile from './DeliveryUsers/DeliveryProfile.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
 import BusinessDashboard from './Businesses/BusinessDashboard.jsx'; 
 import LoggedOutHeader from './Header/LoggedOutHeader.jsx'
@@ -20,6 +23,7 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div>
       <BrowserRouter>
@@ -35,11 +39,21 @@ class App extends Component {
       </BrowserRouter>
       <BrowserRouter>
       <Switch> 
-        <Route exact path='/login' component={Login}/>
-        <Route exact path='/home' component={Feed}/>
+        <Route exact strict path='/' component={Login}/>
         <Route exact path='/signupUser' component={SignupUser}/>
         <Route exact path='/signupBusiness' component={SignupBusiness}/>
-        <Route exact path='/dashboard' component={BusinessDashboard}/>
+        <Route exact path='/home' component={(props) => (
+          <Protected component={Feed} {...props} />
+        )}/>
+        <Route exact path='/dashboard' component={(props) => (
+          <Protected component={BusinessDashboard} {...props} />
+        )}/>
+        <Route exact path='/deliveryProfile' component={(props) => (
+          <Protected component={DeliveryProfile} {...props} />
+        )}/>
+        <Route exact path='/AddDelivery' component={(props) => (
+          <Protected component={AddDelivery} {...props} />
+        )}/>
       </Switch>
       </BrowserRouter>
       </div>
