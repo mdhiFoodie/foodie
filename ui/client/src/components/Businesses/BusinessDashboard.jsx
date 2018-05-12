@@ -1,26 +1,54 @@
 import React, { Component } from 'react'; 
 import axios from 'axios'; 
 import { connect } from 'react-redux';
+import AddDelivery from './AddDelivery.jsx'; 
+import Logout from '../Auth/Logout.jsx';
+
+import './Business.scss';
 
 class BusinessDashboard extends Component {
   constructor() {
     super();
+    this.state = {
+      deliveryTeam: [] 
+    }
+    this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
   }
+
+  addDeliveryPerson() {
+    this.props.history.push('/AddDelivery')
+  }
+
+  getDeliveryTeam = async () => {
+    try {
+    const data = await axios.get('http://localhost:3000/api/business/getDeliveryTeam');
+    console.log('delivery team in business dashboard', data)
+    } 
+    catch(err) {
+      console.log('Error getting the delivery team', err)
+    }
+  }; 
   
   render() {
-    console.log('dash', this.props.getUsersInformation)
+    const { usersInfo } = this.props.getUsersInformation; 
+    console.log('dash', usersInfo)
     return(
-      <div>
-        
-        Business Dashboard 
-        Option to add delivery person 
-        How are we going to handle the delivery person? 
-        The delivery user information will be saved on the users table 
-        name 
-        email 
-        password 
-        phone 
-        type = deliveryUser (2)
+      <div className='dashboard'>
+        <div className='businessName'>
+        <h1>{usersInfo.businessname}</h1>
+        </div>
+        <div>
+        <h3>Orders</h3>
+        </div>
+        <div>
+        <h3>delivery Team</h3>
+
+        <button onClick={this.addDeliveryPerson}>Add a driver</button>
+        </div>
+        <div>
+        <h3>Statistics</h3>
+        </div>
+        <Logout history={this.props.history}/>
       </div>
     )
   }

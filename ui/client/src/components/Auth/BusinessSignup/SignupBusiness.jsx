@@ -6,6 +6,8 @@ import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
 // import './index.css'; 
 
+const GOOGLE = process.env.GOOGLE
+
 class SignupBusiness extends Component {
   constructor() {
     super();
@@ -19,6 +21,8 @@ class SignupBusiness extends Component {
       foodcategory: '', 
       type: 1,
       agree: false,
+      latitude: 0,
+      longitude: 0
     }
   }
 
@@ -29,7 +33,18 @@ class SignupBusiness extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-    const {businessname, address, contactname, phone, email, password, foodcategory, type} = this.state;
+    const locations = this.state.address;
+    const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: locations,
+                    key: GOOGLE
+                }
+            }); 
+            this.setState({
+              latitude: geoCode.data.results[0].geometry.location.lat,
+              longitude: geoCode.data.results[0].geometry.location.lng
+            })
+    const {businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude} = this.state;
     const body = {
       businessname,
       address,
@@ -38,24 +53,31 @@ class SignupBusiness extends Component {
       email,
       password,
       foodcategory, 
-      type
+      type,
+      latitude,
+      longitude
     };
     try {
-      console.log('BODY', body)
-    // const { userData } = await this.props.userSignup(body);
-    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
+    const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
+    localStorage.setItem('storage', JSON.stringify({
+      id: data.id, 
+      name: data.name, 
+      email: data.email, 
+      type: data.type, 
+      phone: data.phone,
+      token: data.token.accessToken
+    }));
+      this.props.getUserInfo({
+        id: data.id, 
+        businessname: data.businessname,
+        address: data.address,
+        contactname: data.contactname, 
+        phone: data.phone,
+        email: data.email,
+        foodcategory: data.foodcategory, 
+        type: data.type
+      });
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
-    this.props.getUserInfo({
-      id: data.data.id, 
-      businessname: data.data.businessname,
-      address: data.data.address,
-      contactname: data.data.contactname, 
-      phone: data.data.phone,
-      email: data.data.email,
-      foodcategory: data.data.foodcategory, 
-      type: data.data.type
-    });
-    console.log('localStorage from user signup =>', data)
     }
     catch(err) {
       console.log(err);

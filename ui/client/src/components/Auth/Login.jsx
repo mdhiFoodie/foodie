@@ -31,9 +31,15 @@ class Login extends Component {
     };
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/login', body);
-    localStorage.setItem('email', data.email)
-    localStorage.setItem('id', data.id)
-    localStorage.setItem('token', data.token.accessToken)
+    console.log('DATA', data)
+    localStorage.setItem('storage', JSON.stringify({
+      id: data.id, 
+      businessname: data.businessname,
+      email: data.email, 
+      type: data.type, 
+      phone: data.phone,
+      token: data.token.accessToken
+    }));
     this.props.getUserInfo({
       id: data.id, 
       name: data.name, 
@@ -41,7 +47,15 @@ class Login extends Component {
       type: data.type, 
       phone: data.phone
     });
-    data ? this.props.history.push('/home') : this.props.history.push('/login');
+    if (data.type === '0') {
+      this.props.history.push('/home')
+    } else if (data.type === '1') {
+      this.props.history.push('/dashboard')
+    } else if (data.type === '2') {
+      this.props.history.push('/delivery')
+    } else {
+      this.props.history.push('/login')
+    }
     }
     catch(err) {
       console.log(err);

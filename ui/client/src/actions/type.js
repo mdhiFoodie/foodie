@@ -5,3 +5,6 @@ export const signupData = 'signupData';
 
 //Action to save in the store all users information 
 export const usersInformation = 'usersInformation'; 
+
+//Verify token 
+export const verify = 'verify'; 

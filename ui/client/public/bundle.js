@@ -3182,6 +3182,9 @@ var signupData = exports.signupData = 'signupData';
 //Action to save in the store all users information 
 var usersInformation = exports.usersInformation = 'usersInformation';
 
+//Verify token 
+var verify = exports.verify = 'verify';
+
 /***/ }),
 /* 83 */
 /***/ (function(module, exports) {
@@ -6628,6 +6631,10 @@ var _Logout = __webpack_require__(183);
 
 var _Logout2 = _interopRequireDefault(_Logout);
 
+var _index = __webpack_require__(501);
+
+var _index2 = _interopRequireDefault(_index);
+
 var _Menu = __webpack_require__(184);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -6671,7 +6678,7 @@ var Feed = function (_Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_Menu2.default, null)
+          _react2.default.createElement(_index2.default, null)
         ),
         _react2.default.createElement(_Logout2.default, { history: this.props.history })
       );
@@ -32216,6 +32223,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -32239,6 +32248,18 @@ var _SignupUser2 = _interopRequireDefault(_SignupUser);
 var _SignupBusiness = __webpack_require__(478);
 
 var _SignupBusiness2 = _interopRequireDefault(_SignupBusiness);
+
+var _AddDelivery = __webpack_require__(500);
+
+var _AddDelivery2 = _interopRequireDefault(_AddDelivery);
+
+var _index3 = __webpack_require__(502);
+
+var _index4 = _interopRequireDefault(_index3);
+
+var _DeliveryProfile = __webpack_require__(506);
+
+var _DeliveryProfile2 = _interopRequireDefault(_DeliveryProfile);
 
 var _Logout = __webpack_require__(183);
 
@@ -32288,6 +32309,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
+
       return _react2.default.createElement(
         'div',
         null,
@@ -32312,11 +32334,21 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _index2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, strict: true, path: '/', component: _Login2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupBusiness', component: _SignupBusiness2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _BusinessDashboard2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _index2.default }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _BusinessDashboard2.default }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/deliveryProfile', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _DeliveryProfile2.default }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/AddDelivery', component: function component(props) {
+                return _react2.default.createElement(_index4.default, _extends({ component: _AddDelivery2.default }, props));
+              } })
           )
         )
       );
@@ -37104,15 +37136,15 @@ var SearchFilter = function (_Component) {
                                 if (e.key === 'Enter') {
                                     onPositionReceived = function () {
                                         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(position) {
-                                            var businessname, searchRestaurants, locations;
+                                            var foodcategory, searchRestaurants, locations;
                                             return regeneratorRuntime.wrap(function _callee$(_context) {
                                                 while (1) {
                                                     switch (_context.prev = _context.next) {
                                                         case 0:
                                                             _context.prev = 0;
-                                                            businessname = _this.state.search;
+                                                            foodcategory = _this.state.search;
                                                             _context.next = 4;
-                                                            return _axios2.default.get('http://localhost:3000/api/users/feed/searchRestaurants/' + businessname);
+                                                            return _axios2.default.get('http://localhost:3000/api/users/feed/searchRestaurants/' + foodcategory);
 
                                                         case 4:
                                                             searchRestaurants = _context.sent;
@@ -37125,11 +37157,14 @@ var SearchFilter = function (_Component) {
                                                                 var calculation = Math.sqrt(latitude * latitude + longitude * longitude) * 100;
                                                                 var miles = calculation / 1.609344;
                                                                 if (miles <= 50) {
-                                                                    // console.log('this is the restaurants', restaurants);
-                                                                    // console.log('this is the calculation in miles', miles);
-                                                                    // console.log('this is the restaurants name', restaurants.businessname);
-                                                                    // console.log('this is the restaurants picture', restaurants.businesspicture);
-                                                                    _this.state.restaurantSearches.push([restaurants.businessname, restaurants.businesspicture, miles]);
+                                                                    console.log('this is the restaurants', restaurants);
+                                                                    console.log('this is the calculation in miles', miles);
+                                                                    console.log('this is the restaurants name', restaurants.businessname);
+                                                                    console.log('this is the restaurants picture', restaurants.businesspicture);
+                                                                    console.log('this is the price', restaurants.price);
+                                                                    console.log('this is the rating', restaurants.rating);
+                                                                    console.log('this is the total orders', restaurants.totalorder);
+                                                                    _this.state.restaurantSearches.push([restaurants.businessname, restaurants.businesspicture, miles, restaurants.price, restaurants.rating, restaurants.totalorder, restaurants.foodcategory]);
                                                                 }
                                                             });
 
@@ -37174,60 +37209,6 @@ var SearchFilter = function (_Component) {
                                         console.log('this is watch', watch);
                                         navigator.geolocation.clearWatch(watch);
                                     }
-
-                                    // let locations = searchRestaurants.data.map( (restaurants) => {
-                                    //     return restaurants.distance = restaurants.latitude
-                                    //     return restaurants.distance = Math.hypot()
-                                    // })
-
-                                    // console.log('this is the map address', locations)
-
-                                    // let locations = searchRestaurants.data.map ( (restaurant) => {
-                                    //     const findGeoCode = axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                                    //         params: {
-                                    //             address: restaurant.businessaddress,
-                                    //             key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
-                                    //         }
-                                    //     })
-                                    //     return findGeoCode
-                                    // })
-
-
-                                    // console.log('this is the geocode for restaurants/businesses', locations)
-
-                                    // .then(response => {
-                                    //     console.log('hello this is the response for searching restaurants', response)
-                                    //get the response.address and set it to a variable [array of all restaurants with keyword] = array of
-                                    //example: let location = '22 Main st Boston MA' (response.address or something)
-
-                                    // const findGeoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                                    //     params: {
-                                    //         address: locations[0],
-                                    //         key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
-                                    //     }
-                                    // })
-                                    // console.log('this is geocode',findGeoCode)
-
-                                    // const findDistanceBtwnLocations = await axios.get
-                                    // .then(response => {
-                                    //     console.log('this is the response from the geocode', response)
-                                    //with this response i'm going to use a function to compare my current location
-                                    //to the response.address coordinates.
-                                    //then i want to grab distances all within 20 miles or something
-                                    //push them up to the restaurants array
-                                    // })
-                                    // .catch(err => {
-                                    //     console.log('this is the error from the geocode', err)
-                                    // })
-
-                                    //get the response.address/location then i should want to get the positions
-                                    // push to this.state.restaurants of all the names
-                                    // SEND THIS.STATE.RESPONSE UP TO REDUX STORE SO THAT I CAN MAP THROUGH IT AND DISPLAY
-                                    // RESTAURANTS WITH THAT NAME
-                                    // })
-                                    // .catch(err => {
-                                    //     console.log('hello this is the error handler for searching restaurants', err)
-                                    // })
                                 }
 
                             case 1:
@@ -37247,11 +37228,7 @@ var SearchFilter = function (_Component) {
             search: '',
             restaurantSearches: [],
             restaurantSearchesSorted: [],
-            getInitialState: function getInitialState() {
-                return {
-                    value: 'Popularity'
-                };
-            }
+            value: 'totalorder'
         };
         return _this;
     }
@@ -37262,13 +37239,39 @@ var SearchFilter = function (_Component) {
             console.log('this is the state for search', this.state);
             this.setState(_defineProperty({}, e.target.name, e.target.value));
         }
+
+        // sortRestaurants = (array, index) => {
+        //     array.sort((a, b) => {
+        //         return a[index] - b[index]
+        //     });
+        //     return array;
+        // }
+
     }, {
         key: 'filterClickHandler',
         value: function filterClickHandler(e) {
-            console.log('clicked on different filters');
+            console.log('clicked on different filters and showing restaurants sorted', this.state.value);
+            var sorted = this.state.restaurantSearchesSorted;
+            if (e.target.value === 'totalorder') {
+                sorted.sort(function (a, b) {
+                    return a[5] - b[5];
+                });
+            } else if (e.target.value === 'rating') {
+                sorted.sort(function (a, b) {
+                    return a[4] - b[4];
+                });
+            } else if (e.target.value === 'price') {
+                sorted.sort(function (a, b) {
+                    return a[3] - b[3];
+                });
+            }
+            console.log('this is the sorted from search111111', sorted);
             this.setState({
+                restaurantSearchesSorted: sorted,
                 value: e.target.value
             });
+            console.log('this is the sorted restaurants information that i need the reducer updated', this.state.restaurantSearchesSorted);
+            this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted);
         }
     }, {
         key: 'render',
@@ -37289,17 +37292,17 @@ var SearchFilter = function (_Component) {
                         { value: this.state.value, onChange: this.filterClickHandler.bind(this) },
                         _react2.default.createElement(
                             'option',
-                            { value: 'Popularity' },
-                            'Popularity'
+                            { value: 'totalorder' },
+                            'totalorder'
                         ),
                         _react2.default.createElement(
                             'option',
-                            { value: 'Reviews' },
-                            'Reviews'
+                            { value: 'rating' },
+                            'rating'
                         ),
                         _react2.default.createElement(
                             'option',
-                            { value: '$$$' },
+                            { value: 'price' },
                             '$$$'
                         )
                     )
@@ -38292,7 +38295,6 @@ var NearByRestaurants = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'NearByRestaurantsContainer' },
-                'this is the nearby restaurants where you map through WITH THE RESPONSE THAT I SENT UP TO REDUX STORE FROM THE SEARCH FILTER',
                 this.props.searchBusinesses && this.props.searchBusinesses.businesses.map(function (restaurant, key) {
                     return _react2.default.createElement(_NearByRestaurantsEntries2.default, { key: key, restaurant: restaurant });
                 })
@@ -38448,9 +38450,15 @@ var Login = function (_Component) {
                 _ref2 = _context.sent;
                 data = _ref2.data;
 
-                localStorage.setItem('email', data.email);
-                localStorage.setItem('id', data.id);
-                localStorage.setItem('token', data.token.accessToken);
+                console.log('DATA', data);
+                localStorage.setItem('storage', JSON.stringify({
+                  id: data.id,
+                  businessname: data.businessname,
+                  email: data.email,
+                  type: data.type,
+                  phone: data.phone,
+                  token: data.token.accessToken
+                }));
                 _this.props.getUserInfo({
                   id: data.id,
                   name: data.name,
@@ -38458,22 +38466,30 @@ var Login = function (_Component) {
                   type: data.type,
                   phone: data.phone
                 });
-                data ? _this.props.history.push('/home') : _this.props.history.push('/login');
-                _context.next = 18;
+                if (data.type === '0') {
+                  _this.props.history.push('/home');
+                } else if (data.type === '1') {
+                  _this.props.history.push('/dashboard');
+                } else if (data.type === '2') {
+                  _this.props.history.push('/delivery');
+                } else {
+                  _this.props.history.push('/login');
+                }
+                _context.next = 17;
                 break;
 
-              case 15:
-                _context.prev = 15;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context['catch'](3);
 
                 console.log(_context.t0);
 
-              case 18:
+              case 17:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 15]]);
+        }, _callee, _this2, [[3, 14]]);
       }));
 
       return function (_x) {
@@ -38624,14 +38640,14 @@ var SignupUser = function (_Component) {
 
     _this.handleSignUpClick = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var _this$state, name, phone, email, password, type, body, data;
+        var _this$state, name, phone, email, password, type, body, _ref2, data;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 e.preventDefault();
-
+                console.log('inside signup function');
                 _this$state = _this.state, name = _this$state.name, phone = _this$state.phone, email = _this$state.email, password = _this$state.password, type = _this$state.type;
                 body = {
                   name: name,
@@ -38640,37 +38656,45 @@ var SignupUser = function (_Component) {
                   password: password,
                   type: type
                 };
-                _context.prev = 3;
-                _context.next = 6;
+                _context.prev = 4;
+                _context.next = 7;
                 return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
 
-              case 6:
-                data = _context.sent;
+              case 7:
+                _ref2 = _context.sent;
+                data = _ref2.data;
 
+                localStorage.setItem('storage', JSON.stringify({
+                  id: data.id,
+                  name: data.name,
+                  email: data.email,
+                  type: data.type,
+                  phone: data.phone,
+                  token: data.token.accessToken
+                }));
                 _this.props.getUserInfo({
-                  id: data.data.id,
-                  name: data.data.name,
-                  phone: data.data.phone,
-                  email: data.data.email,
-                  type: data.data.type
+                  id: data.id,
+                  name: data.name,
+                  phone: data.phone,
+                  email: data.email,
+                  type: data.type
                 });
                 data ? _this.props.history.push('/home') : alert('Request failed try again');
-                console.log('localStorage from user signup =>', data);
-                _context.next = 15;
+                _context.next = 17;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context['catch'](3);
+              case 14:
+                _context.prev = 14;
+                _context.t0 = _context['catch'](4);
 
                 console.log(_context.t0);
 
-              case 15:
+              case 17:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 12]]);
+        }, _callee, _this2, [[4, 14]]);
       }));
 
       return function (_x) {
@@ -38762,7 +38786,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -38800,6 +38824,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // import './index.css'; 
 
+var GOOGLE = process.env.GOOGLE;
+
 var SignupBusiness = function (_Component) {
   _inherits(SignupBusiness, _Component);
 
@@ -38812,14 +38838,30 @@ var SignupBusiness = function (_Component) {
 
     _this.handleSignUpClick = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var _this$state, businessname, address, contactname, phone, email, password, foodcategory, type, body, data;
+        var locations, geoCode, _this$state, businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude, body, _ref2, data;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 e.preventDefault();
-                _this$state = _this.state, businessname = _this$state.businessname, address = _this$state.address, contactname = _this$state.contactname, phone = _this$state.phone, email = _this$state.email, password = _this$state.password, foodcategory = _this$state.foodcategory, type = _this$state.type;
+                locations = _this.state.address;
+                _context.next = 4;
+                return _axios2.default.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                  params: {
+                    address: locations,
+                    key: GOOGLE
+                  }
+                });
+
+              case 4:
+                geoCode = _context.sent;
+
+                _this.setState({
+                  latitude: geoCode.data.results[0].geometry.location.lat,
+                  longitude: geoCode.data.results[0].geometry.location.lng
+                });
+                _this$state = _this.state, businessname = _this$state.businessname, address = _this$state.address, contactname = _this$state.contactname, phone = _this$state.phone, email = _this$state.email, password = _this$state.password, foodcategory = _this$state.foodcategory, type = _this$state.type, latitude = _this$state.latitude, longitude = _this$state.longitude;
                 body = {
                   businessname: businessname,
                   address: address,
@@ -38828,45 +38870,52 @@ var SignupBusiness = function (_Component) {
                   email: email,
                   password: password,
                   foodcategory: foodcategory,
-                  type: type
+                  type: type,
+                  latitude: latitude,
+                  longitude: longitude
                 };
-                _context.prev = 3;
-
-                console.log('BODY', body);
-                // const { userData } = await this.props.userSignup(body);
-                _context.next = 7;
+                _context.prev = 8;
+                _context.next = 11;
                 return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
 
-              case 7:
-                data = _context.sent;
+              case 11:
+                _ref2 = _context.sent;
+                data = _ref2.data;
 
-                data ? _this.props.history.push('/dashboard') : alert('Request failed try again');
+                localStorage.setItem('storage', JSON.stringify({
+                  id: data.id,
+                  name: data.name,
+                  email: data.email,
+                  type: data.type,
+                  phone: data.phone,
+                  token: data.token.accessToken
+                }));
                 _this.props.getUserInfo({
-                  id: data.data.id,
-                  businessname: data.data.businessname,
-                  address: data.data.address,
-                  contactname: data.data.contactname,
-                  phone: data.data.phone,
-                  email: data.data.email,
-                  foodcategory: data.data.foodcategory,
-                  type: data.data.type
+                  id: data.id,
+                  businessname: data.businessname,
+                  address: data.address,
+                  contactname: data.contactname,
+                  phone: data.phone,
+                  email: data.email,
+                  foodcategory: data.foodcategory,
+                  type: data.type
                 });
-                console.log('localStorage from user signup =>', data);
-                _context.next = 16;
+                data ? _this.props.history.push('/dashboard') : alert('Request failed try again');
+                _context.next = 21;
                 break;
 
-              case 13:
-                _context.prev = 13;
-                _context.t0 = _context['catch'](3);
+              case 18:
+                _context.prev = 18;
+                _context.t0 = _context['catch'](8);
 
                 console.log(_context.t0);
 
-              case 16:
+              case 21:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[3, 13]]);
+        }, _callee, _this2, [[8, 18]]);
       }));
 
       return function (_x) {
@@ -38883,7 +38932,9 @@ var SignupBusiness = function (_Component) {
       password: '',
       foodcategory: '',
       type: 1,
-      agree: false
+      agree: false,
+      latitude: 0,
+      longitude: 0
     };
     return _this;
   }
@@ -38985,6 +39036,7 @@ var matchDispatchToProps = function matchDispatchToProps(dispatch) {
   }, dispatch);
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(SignupBusiness);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
 /* 479 */
@@ -39009,7 +39061,19 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRedux = __webpack_require__(35);
 
+var _AddDelivery = __webpack_require__(500);
+
+var _AddDelivery2 = _interopRequireDefault(_AddDelivery);
+
+var _Logout = __webpack_require__(183);
+
+var _Logout2 = _interopRequireDefault(_Logout);
+
+__webpack_require__(507);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39021,19 +39085,106 @@ var BusinessDashboard = function (_Component) {
   _inherits(BusinessDashboard, _Component);
 
   function BusinessDashboard() {
+    var _this2 = this;
+
     _classCallCheck(this, BusinessDashboard);
 
-    return _possibleConstructorReturn(this, (BusinessDashboard.__proto__ || Object.getPrototypeOf(BusinessDashboard)).call(this));
+    var _this = _possibleConstructorReturn(this, (BusinessDashboard.__proto__ || Object.getPrototypeOf(BusinessDashboard)).call(this));
+
+    _this.getDeliveryTeam = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var data;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _axios2.default.get('http://localhost:3000/api/business/getDeliveryTeam');
+
+            case 3:
+              data = _context.sent;
+
+              console.log('delivery team in business dashboard', data);
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context['catch'](0);
+
+              console.log('Error getting the delivery team', _context.t0);
+
+            case 10:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, _this2, [[0, 7]]);
+    }));
+
+    _this.state = {
+      deliveryTeam: []
+    };
+    _this.addDeliveryPerson = _this.addDeliveryPerson.bind(_this);
+    return _this;
   }
 
   _createClass(BusinessDashboard, [{
+    key: 'addDeliveryPerson',
+    value: function addDeliveryPerson() {
+      this.props.history.push('/AddDelivery');
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log('dash', this.props.getUsersInformation);
+      var usersInfo = this.props.getUsersInformation.usersInfo;
+
+      console.log('dash', usersInfo);
       return _react2.default.createElement(
         'div',
-        null,
-        'Business Dashboard Option to add delivery person How are we going to handle the delivery person? The delivery user information will be saved on the users table name email password phone type = deliveryUser (2)'
+        { className: 'dashboard' },
+        _react2.default.createElement(
+          'div',
+          { className: 'businessName' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            usersInfo.businessname
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Orders'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'delivery Team'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.addDeliveryPerson },
+            'Add a driver'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Statistics'
+          )
+        ),
+        _react2.default.createElement(_Logout2.default, { history: this.props.history })
       );
     }
   }]);
@@ -39901,6 +40052,473 @@ exports.default = function () {
     return initialState;
   }
 };
+
+/***/ }),
+/* 497 */,
+/* 498 */,
+/* 499 */,
+/* 500 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(52);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRedux = __webpack_require__(35);
+
+var _type = __webpack_require__(82);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddDelivery = function (_Component) {
+  _inherits(AddDelivery, _Component);
+
+  function AddDelivery() {
+    var _this2 = this;
+
+    _classCallCheck(this, AddDelivery);
+
+    var _this = _possibleConstructorReturn(this, (AddDelivery.__proto__ || Object.getPrototypeOf(AddDelivery)).call(this));
+
+    _this.handleSignupForDriver = function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+        var _this$state, name, email, password, phone, type, body, _ref2, data;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                _this$state = _this.state, name = _this$state.name, email = _this$state.email, password = _this$state.password, phone = _this$state.phone, type = _this$state.type;
+                body = {
+                  name: name,
+                  email: email,
+                  password: password,
+                  phone: phone,
+                  type: type
+                };
+                _context.prev = 3;
+                _context.next = 6;
+                return _axios2.default.post('http://localhost:3000/api/auth/signup', body);
+
+              case 6:
+                _ref2 = _context.sent;
+                data = _ref2.data;
+
+                data ? _this.props.history.push('/dashboard') : alert('Something went wrong with your request try again');
+                _context.next = 14;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context['catch'](3);
+
+                console.log('Error saving driver\'s data', _context.t0);
+
+              case 14:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this2, [[3, 11]]);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    _this.state = {
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+      type: 2
+    };
+    return _this;
+  }
+
+  _createClass(AddDelivery, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      var _e$target = e.target,
+          name = _e$target.name,
+          value = _e$target.value;
+
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      //Information from the business 
+      var usersInfo = this.props.getUsersInformation.usersInfo;
+
+      console.log('usersInformation', usersInfo);
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Add a delivery person'
+        ),
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSignupForDriver },
+          _react2.default.createElement('input', { name: 'name', placeholder: 'name', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { name: 'email', placeholder: 'email', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { name: 'password', type: 'password', placeholder: 'password', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { name: 'phone', placeholder: 'phone', onChange: this.onChange.bind(this) }),
+          _react2.default.createElement('input', { type: 'submit' })
+        )
+      );
+    }
+  }]);
+
+  return AddDelivery;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    // usersData is the key coming from our root reducers with the value of our reducer file
+    getUsersInformation: state.getUsersInformation
+
+  };
+};
+
+// const matchDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//   usersInfo: usersInfo
+//   }, dispatch);
+// };
+// export default connect(mapStateToProps, matchDispatchToProps)(Login);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(AddDelivery);
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OpenPools = function (_Component) {
+  _inherits(OpenPools, _Component);
+
+  function OpenPools() {
+    _classCallCheck(this, OpenPools);
+
+    var _this = _possibleConstructorReturn(this, (OpenPools.__proto__ || Object.getPrototypeOf(OpenPools)).call(this));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(OpenPools, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'Open Pools'
+      );
+    }
+  }]);
+
+  return OpenPools;
+}(_react.Component);
+
+exports.default = OpenPools;
+
+/***/ }),
+/* 502 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _jwtDecode2 = __webpack_require__(503);
+
+var _jwtDecode3 = _interopRequireDefault(_jwtDecode2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Protected = function (_Component) {
+  _inherits(Protected, _Component);
+
+  function Protected() {
+    _classCallCheck(this, Protected);
+
+    return _possibleConstructorReturn(this, (Protected.__proto__ || Object.getPrototypeOf(Protected)).apply(this, arguments));
+  }
+
+  _createClass(Protected, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      try {
+        var local = JSON.parse(localStorage.storage);
+
+        var _jwtDecode = (0, _jwtDecode3.default)(local.token),
+            exp = _jwtDecode.exp;
+
+        if (exp < Math.floor(Date.now() / 1000) && local.type === '0') {
+          this.props.history.push('/home');
+        } else if (exp < Math.floor(Date.now() / 1000) && local.type === '1') {
+          this.props.history.push('/dashboard');
+        } else if (exp < Math.floor(Date.now() / 1000) && local.type === '2') {
+          this.props.history.push('/deliveryProfile');
+        }
+      } catch (e) {
+        console.log('error in Protected ', e);
+        this.props.history.push('/');
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var Component = this.props.component;
+
+      return _react2.default.createElement(Component, this.props);
+    }
+  }]);
+
+  return Protected;
+}(_react.Component);
+
+exports.default = Protected;
+
+/***/ }),
+/* 503 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var base64_url_decode = __webpack_require__(504);
+
+function InvalidTokenError(message) {
+  this.message = message;
+}
+
+InvalidTokenError.prototype = new Error();
+InvalidTokenError.prototype.name = 'InvalidTokenError';
+
+module.exports = function (token,options) {
+  if (typeof token !== 'string') {
+    throw new InvalidTokenError('Invalid token specified');
+  }
+
+  options = options || {};
+  var pos = options.header === true ? 0 : 1;
+  try {
+    return JSON.parse(base64_url_decode(token.split('.')[pos]));
+  } catch (e) {
+    throw new InvalidTokenError('Invalid token specified: ' + e.message);
+  }
+};
+
+module.exports.InvalidTokenError = InvalidTokenError;
+
+
+/***/ }),
+/* 504 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var atob = __webpack_require__(505);
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
+    var code = p.charCodeAt(0).toString(16).toUpperCase();
+    if (code.length < 2) {
+      code = '0' + code;
+    }
+    return '%' + code;
+  }));
+}
+
+module.exports = function(str) {
+  var output = str.replace(/-/g, "+").replace(/_/g, "/");
+  switch (output.length % 4) {
+    case 0:
+      break;
+    case 2:
+      output += "==";
+      break;
+    case 3:
+      output += "=";
+      break;
+    default:
+      throw "Illegal base64url string!";
+  }
+
+  try{
+    return b64DecodeUnicode(output);
+  } catch (err) {
+    return atob(output);
+  }
+};
+
+
+/***/ }),
+/* 505 */
+/***/ (function(module, exports) {
+
+/**
+ * The code was extracted from:
+ * https://github.com/davidchambers/Base64.js
+ */
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function InvalidCharacterError(message) {
+  this.message = message;
+}
+
+InvalidCharacterError.prototype = new Error();
+InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+function polyfill (input) {
+  var str = String(input).replace(/=+$/, '');
+  if (str.length % 4 == 1) {
+    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+  }
+  for (
+    // initialize result and counters
+    var bc = 0, bs, buffer, idx = 0, output = '';
+    // get next character
+    buffer = str.charAt(idx++);
+    // character found in table? initialize bit storage and add its ascii value;
+    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+      // and if not first of each 4 characters,
+      // convert the first 8 bits to one ascii character
+      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+  ) {
+    // try to find character in table (0-63, not found => -1)
+    buffer = chars.indexOf(buffer);
+  }
+  return output;
+}
+
+
+module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
+
+
+/***/ }),
+/* 506 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Logout = __webpack_require__(183);
+
+var _Logout2 = _interopRequireDefault(_Logout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DeliveryProfile = function (_Component) {
+  _inherits(DeliveryProfile, _Component);
+
+  function DeliveryProfile(props) {
+    _classCallCheck(this, DeliveryProfile);
+
+    return _possibleConstructorReturn(this, (DeliveryProfile.__proto__ || Object.getPrototypeOf(DeliveryProfile)).call(this, props));
+  }
+
+  _createClass(DeliveryProfile, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'Hello world from deliveryProfile!',
+        _react2.default.createElement(_Logout2.default, { history: this.props.history })
+      );
+    }
+  }]);
+
+  return DeliveryProfile;
+}(_react.Component);
+
+exports.default = DeliveryProfile;
+
+/***/ }),
+/* 507 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

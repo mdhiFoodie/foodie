@@ -4,7 +4,7 @@ const envBuild = {
   ],
   'client': [
     'NODE_ENV=DEVELOPMENT',
-    // 'DEBUG=TRUE',
+    'GOOGLE=AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY',
     'ENVPREFIX=REACT_APP_',
     'REST_SERVER_URL=http://localhost:3000',
     'SOCKET_SERVER_URL=http://localhost:4000',

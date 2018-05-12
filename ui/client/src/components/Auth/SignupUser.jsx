@@ -25,7 +25,7 @@ class SignupUser extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-
+    console.log('inside signup function')
     const {name, phone, email, password, type} = this.state;
     const body = {
       name,
@@ -35,17 +35,23 @@ class SignupUser extends Component {
       type
     };
     try {
-    // const { userData } = await this.props.userSignup(body);
-    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
+    const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
+    localStorage.setItem('storage', JSON.stringify({
+      id: data.id, 
+      name: data.name, 
+      email: data.email, 
+      type: data.type, 
+      phone: data.phone,
+      token: data.token.accessToken
+    }));
     this.props.getUserInfo({
-      id: data.data.id,
-      name: data.data.name,
-      phone: data.data.phone,
-      email: data.data.email,
-      type: data.data.type
+      id: data.id,
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      type: data.type
     });
     data ? this.props.history.push('/home') : alert('Request failed try again');
-    console.log('localStorage from user signup =>', data)
     }
     catch(err) {
       console.log(err);
