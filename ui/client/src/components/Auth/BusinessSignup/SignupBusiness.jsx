@@ -6,6 +6,8 @@ import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
 // import './index.css'; 
 
+const GOOGLE = process.env.GOOGLE
+
 class SignupBusiness extends Component {
   constructor() {
     super();
@@ -35,11 +37,9 @@ class SignupBusiness extends Component {
     const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                     address: locations,
-                    key: 'AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY'
+                    key: GOOGLE
                 }
-            })
-            console.log('this is my geocode lat', geoCode.data.results[0].geometry.location.lat)
-            console.log('this is my geocode long', geoCode.data.results[0].geometry.location.lng)
+            }); 
             this.setState({
               latitude: geoCode.data.results[0].geometry.location.lat,
               longitude: geoCode.data.results[0].geometry.location.lng
@@ -58,19 +58,26 @@ class SignupBusiness extends Component {
       longitude
     };
     try {
-    const data = await axios.post('http://localhost:3000/api/auth/signup', body);
-    localStorage.setItem('token', data.data.token.accessToken);
+    const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
+    localStorage.setItem('storage', JSON.stringify({
+      id: data.id, 
+      name: data.name, 
+      email: data.email, 
+      type: data.type, 
+      phone: data.phone,
+      token: data.token.accessToken
+    }));
+      this.props.getUserInfo({
+        id: data.id, 
+        businessname: data.businessname,
+        address: data.address,
+        contactname: data.contactname, 
+        phone: data.phone,
+        email: data.email,
+        foodcategory: data.foodcategory, 
+        type: data.type
+      });
     data ? this.props.history.push('/dashboard') : alert('Request failed try again');
-    this.props.getUserInfo({
-      id: data.data.id, 
-      businessname: data.data.businessname,
-      address: data.data.address,
-      contactname: data.data.contactname, 
-      phone: data.data.phone,
-      email: data.data.email,
-      foodcategory: data.data.foodcategory, 
-      type: data.data.type
-    });
     }
     catch(err) {
       console.log(err);
