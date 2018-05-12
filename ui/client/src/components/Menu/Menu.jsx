@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
-
+//biz ideas cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
   constructor() {
     super();
     this.state = {
-      currentBizId: 1 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizId: 9 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
       currentBizName: 'Los Burritos' /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
       currentMenu: null,
       food: null,
       foods: null,
       currentItem: null,
       currentItemQuantity: null,
-      currentItemPrice: 3.75,
+      currentItemPrice: null,
       usersCart: null
     }
     this.handleClick = this.handleClick.bind(this);
@@ -116,15 +116,29 @@ class Menu extends Component {
      
       this.setState({
         usersCart: cart,
-        subTotal: subtotal
+        subTotal: subtotal,
+        checkoutCartData: response.data
       });
     } catch (error) {
       console.error(error);
     }
   }
 
-  checkout(){
-    console.log('checkout clicked', this.state);
+  async checkout(){
+    try {
+      const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
+      bizId: this.state.currentBizId,
+      order: JSON.stringify(this.state.checkoutCartData),
+      userId: localStorage.getItem('id')
+      });
+    } catch (error) {
+      console.error(error);
+    } 
+  this.setState({
+    usersCart: null
+  });
+
+  //delete cart from redis
   }
 
   render() {
