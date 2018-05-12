@@ -18,9 +18,16 @@ export const businessSignUpHelper = `
 
 export const loginHelper = `
     SELECT
-      id, name, email, password, type, phone
-    FROM
-      users
-    WHERE
+      u.id, u.name, u.email, u.password, u.type, u.phone
+      FROM
+        users AS u 
+      WHERE 
+      email=$1
+      UNION ALL 
+      SELECT
+      b.id, b.businessname, b.email, b.password, b.type, b.phone
+      FROM
+        businesses as b
+      WHERE 
       email=$1
 `;
