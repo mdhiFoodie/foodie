@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SearchFilter from './SearchFilter.jsx';
 import NearByRestaurants from './NearByRestaurants.jsx';
 import Logout from '../Auth/Logout.jsx';
-import OpenPools from './OpenPools.jsx';
+import OpenPools from '../OpenPool/index.jsx';
 import Menu from '../Menu/Menu.jsx';
 
 import './Feed.scss';

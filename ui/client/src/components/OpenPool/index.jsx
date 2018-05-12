@@ -5,14 +5,14 @@ class OpenPools extends Component {
     super();
 
     this.state = {
-
     }
   }
 
   render() {
     return(
       <div>
-        this is where the open pools are going
+        Open Pools
+        
       </div>
     )
   }
