@@ -20,13 +20,15 @@ class Chat extends Component {
     this.setState({
       [e.target.name] : e.target.value
     })
-  }
+  };
 
   handleKeyPress = async (e) => {
     if(e.key === 'Enter') {
       console.log('enter button has been clicked')
+      //do an axios call to get the text to redis.
+        //after let redis 
     }
-  }
+  };
 
   render() {
     return(

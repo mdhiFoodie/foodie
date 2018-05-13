@@ -36,7 +36,7 @@ class Menu extends Component {
     socket.on('messages', (data) => {
         console.log('this is the messages', data)
     })
-}
+};
   
     async handleClick() {
       //need to grab specific biz id on click
