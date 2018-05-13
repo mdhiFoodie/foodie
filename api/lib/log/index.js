@@ -9,7 +9,7 @@ const chalk = require('chalk');
 
 export const success = (...log) => {
   if (process.env.DEBUG === 'TRUE') {
-    console.log(chalk.default.white.bgGreen.bold(...log));
+    console.log(chalk.default.white.bgCyan.bold(...log));
   }
 };
 
@@ -21,7 +21,7 @@ export const warning = (...log) => {
 
 export const error = (...log) => {
   if (process.env.DEBUG === 'TRUE') {
-    console.error(chalk.default.white.bgRed.bold(...log));
+    console.error(chalk.default.white.bgMagenta.bold(...log));
   }
 };
 

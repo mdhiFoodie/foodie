@@ -10,7 +10,7 @@ class BusinessDashboard extends Component {
   constructor() {
     super();
     this.state = {
-      deliveryTeam: [],
+      myDeliveryTeam: []
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
   }
@@ -19,33 +19,46 @@ class BusinessDashboard extends Component {
     this.props.history.push('/AddDelivery')
   }
 
-  // getDeliveryTeam = async () => {
-    // const storage = JSON.parse(localStorage.storage); 
-    // const { id } = storage; 
-    // try {
-    // const data = await axios.get(`http://localhost:3000/api/business/getDeliveryTeam${id}`)
-    // } 
-    // catch(err) {
-    //   console.log('Error getting the delivery team', err)
-    // }
-  // }; 
+  getDeliveryTeam = async () => {
+    const storage = JSON.parse(localStorage.storage); 
+    const { id } = storage; 
+    const body = {
+      id_businesses: id
+    }
+    try {
+    const data = await axios.post('http://localhost:3000/api/business/getDeliveryTeam', body);
+    this.setState({
+      myDeliveryTeam: data 
+    })
+    console.log('MY DELIVERY LIST', this.state.myDeliveryTeam);
+    } 
+    catch(err) {
+      console.log('Error getting the delivery team', err)
+    }
+  }; 
 
-  // componentWillMount() {
-  //   this.getDeliveryTeam();
-  // }
+  componentDidMount() {
+    this.getDeliveryTeam();
+  }
   
   render() {
-    const { usersInfo } = this.props.getUsersInformation; 
+    const storage = JSON.parse(localStorage.storage);
+
     return(
       <div className='dashboard'>
         <div className='businessName'>
-        <h1>{usersInfo.businessname}</h1>
+        <h1>{storage.businessname}</h1>
         </div>
         <div>
         <h3>Orders</h3>
         </div>
         <div>
         <h3>delivery Team</h3>
+        <div>
+          <div>
+
+          </div>
+        </div>
 
         <button onClick={this.addDeliveryPerson}>Add a driver</button>
         </div>

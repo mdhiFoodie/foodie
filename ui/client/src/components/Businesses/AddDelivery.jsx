@@ -3,8 +3,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { usersInformation } from '../../actions/type';
 
-const storage =  JSON.parse(localStorage.storage); 
-const { id } = storage;
 
 class AddDelivery extends Component {
   constructor() {

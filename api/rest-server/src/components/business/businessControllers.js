@@ -5,7 +5,17 @@ import {
 } from '../../../../lib/log/index';
 import { globalController } from '../../lib/components'; 
 import { signUpBusinessDeliveryQuery } from '../auth/authQueries'; 
+import { getDeliveryListForBusinesses } from './businessQueries'; 
 
 
 export const saveDeliveryUser = globalController(signUpBusinessDeliveryQuery, 'saveDeliveryUser'); 
 
+export const getDeliveryTeam = async (req, res) => {
+  try {
+    const { rows } = await getDeliveryListForBusinesses (req.body);
+    return res.status(200).send(rows); 
+  } catch (err) {
+    error('getDeliveryTeam - error =', err);
+    throw new Error(err);
+  }
+}

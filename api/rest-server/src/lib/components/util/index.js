@@ -18,7 +18,6 @@ export const queryPayloadOrganizer = (payload, columns) => {
     columns.forEach(column => {
       values.push(payload[column]);
     });
-
     return values;
   } else {
     return columns;

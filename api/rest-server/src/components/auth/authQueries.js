@@ -28,7 +28,6 @@ export const signUpQuery = async (payload) => {
 };
 
 export const signUpBusinessDeliveryQuery = async (payload) => {
-  console.log('PAYLOAD', payload)
   try {
     const query = {
       text: signUpDeliveryHelper,
@@ -65,7 +64,6 @@ export const loginQuery = async (payload) => {
       values: queryPayloadOrganizer(payload, ['email'])
     }
     const data = await db.query(query);
-    console.log('DATA FROM LOGIN', data)
       success('loginQuery - successfully retrieved data ', data);
     return data;
   } catch (err) {
