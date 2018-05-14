@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { usersInformation } from '../../actions/type';
 
+
 class AddDelivery extends Component {
   constructor() {
     super();
@@ -23,6 +24,8 @@ class AddDelivery extends Component {
     }
 
     handleSignupForDriver = async(e) => {
+      const storage =  JSON.parse(localStorage.storage); 
+      const businessId = storage.id;
       e.preventDefault(); 
       const { name, email, password, phone, type } = this.state; 
       const body = {
@@ -30,10 +33,11 @@ class AddDelivery extends Component {
         email, 
         password, 
         phone, 
-        type
+        type,
+        businessId
       };
       try {
-        const { data } = await axios.post('http://localhost:3000/api/auth/signup', body)
+        const { data } = await axios.post('http://localhost:3000/api/business/saveDeliveryUser', body)
         data ? this.props.history.push('/dashboard') : alert('Something went wrong with your request try again');
       }
       catch(err) {
@@ -44,7 +48,6 @@ class AddDelivery extends Component {
   render() {
     //Information from the business 
     const { usersInfo } = this.props.getUsersInformation;
-    console.log('usersInformation', usersInfo);
     return(
       <div>
       <h4>Add a delivery person</h4>

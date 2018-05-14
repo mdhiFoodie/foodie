@@ -11,7 +11,7 @@ const menuSchema = new Schema({
 
 const Menus = mongoose.model('menu', menuSchema);
 
-const losBurritosInstance = new Menus({ biz_id: 1, biz_name: 'Los Burritos', menu:JSON.stringify(losBurritosMenu)});
+const losBurritosInstance = new Menus({ biz_id: 5, biz_name: 'Los Burritos', menu:JSON.stringify(losBurritosMenu)});
 
 losBurritosInstance.save()
 .then( () => {

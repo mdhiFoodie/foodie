@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import AddDelivery from './AddDelivery.jsx'; 
 import Logout from '../Auth/Logout.jsx';
+import EachDriver from './EachDriver.jsx';
 
 import './Business.scss';
 
@@ -10,9 +11,14 @@ class BusinessDashboard extends Component {
   constructor() {
     super();
     this.state = {
-      deliveryTeam: [] 
+      myDeliveryTeam: [],
+      //set bizid on component did mount
+      // bizId: localStorage.getItem('id'), hardcoded for now but will grab right menu as long as inserted into mongo with right id
+      bizId:9,
+      orders: null
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
+    this.currentOrders = this.currentOrders.bind(this);
   }
 
   addDeliveryPerson() {
@@ -20,33 +26,81 @@ class BusinessDashboard extends Component {
   }
 
   getDeliveryTeam = async () => {
+    const storage = JSON.parse(localStorage.storage); 
+    const { id } = storage; 
+    const body = {
+      id_businesses: id
+    }
     try {
-    const data = await axios.get('http://localhost:3000/api/business/getDeliveryTeam');
-    console.log('delivery team in business dashboard', data)
+    const { data } = await axios.post('http://localhost:3000/api/business/getDeliveryTeam', body);
+    this.setState({
+      myDeliveryTeam: data 
+    })
     } 
     catch(err) {
       console.log('Error getting the delivery team', err)
     }
   }; 
+
+  componentDidMount() {
+    this.getDeliveryTeam();
+  }
+  
+  async currentOrders() {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
+      //gonna need specific pool order to group them
+      for (var key in response.data) {
+        const orderToRender = [];
+        let foodItems = JSON.parse(response.data[key])
+        for (var item in foodItems) {
+          let price = JSON.parse(foodItems[item])[0];
+          let quantity = JSON.parse(foodItems[item])[1];
+          orderToRender.push(<div key={item}><div>{quantity}</div><div>{item}</div> <div>{price}</div></div>);        }
+        this.setState({
+          orders: orderToRender
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   
   render() {
-    const { usersInfo } = this.props.getUsersInformation; 
-    console.log('dash', usersInfo)
+    const storage = JSON.parse(localStorage.storage);
     return(
       <div className='dashboard'>
         <div className='businessName'>
-        <h1>{usersInfo.businessname}</h1>
-        </div>
+        <h1>{storage.name}</h1>
+      </div>
+
         <div>
-        <h3>Orders</h3>
+
         </div>
         <div>
         <h3>delivery Team</h3>
+        <div className='driverContainer'>
+          {
+            this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
+              <div className='driverColumn'><EachDriver driver={driver} key={driver.email}/></div>
+            )
+            :
+            null
+          }
+        </div>
+        <br/><br/>
+        </div>
+        <div>
+          <h3>Orders</h3>
+        {this.state.orders}
+
+        <button onClick={this.currentOrders}>Get Orders</button>
 
         <button onClick={this.addDeliveryPerson}>Add a driver</button>
         </div>
         <div>
         <h3>Statistics</h3>
+        
         </div>
         <Logout history={this.props.history}/>
       </div>
