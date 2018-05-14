@@ -7,6 +7,7 @@ import SignupBusiness from './Auth/BusinessSignup/SignupBusiness.jsx';
 import AddDelivery from './Businesses/AddDelivery.jsx';
 import Protected from './Protected/index.js';
 import DeliveryProfile from './DeliveryUsers/DeliveryProfile.jsx'; 
+import BusinessProfile from './Businesses/BusinessProfile.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
 import BusinessDashboard from './Businesses/BusinessDashboard.jsx'; 
 import LoggedOutHeader from './Header/LoggedOutHeader.jsx'
@@ -45,7 +46,7 @@ class App extends Component {
               ? 
               Feed 
               :
-              Dashboard}/>
+              BusinessDashboard}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/signupUser' component={SignupUser}/>

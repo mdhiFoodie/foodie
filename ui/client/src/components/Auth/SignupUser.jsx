@@ -54,13 +54,6 @@ class SignupUser extends Component {
       type: data.type
     });
 
-    localStorage.setItem('id', data.data.id)
-    localStorage.setItem('name', data.data.name)
-    localStorage.setItem('phone', data.data.phone)
-    localStorage.setItem('email', data.data.email)
-    localStorage.setItem('token', data.data.token.accessToken)
-    localStorage.setItem('type', data.data.type)
-
     data ? this.props.history.push('/home') : alert('Request failed try again');
     }
     catch(err) {
