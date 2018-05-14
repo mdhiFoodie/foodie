@@ -26,7 +26,7 @@ class Chat extends Component {
     if(e.key === 'Enter') {
       console.log('enter button has been clicked')
       //do an axios call to get the text to redis.
-        //after let redis 
+        //after let redis
     }
   };
 
