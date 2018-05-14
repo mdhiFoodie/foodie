@@ -48,7 +48,7 @@ const setup = async () => {
   await createReviewsTable();
   await createReviews_UsersTable();
   await createUsers_OrdersTable();
-  await dummyData();
+  // await dummyData();
   process.exit();
 };
 
