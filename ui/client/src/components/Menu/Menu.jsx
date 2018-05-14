@@ -11,7 +11,7 @@ class Menu extends Component {
   constructor() {
     super();
     this.state = {
-      currentBizId: 9 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizId: 5 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
       currentBizName: 'Los Burritos' /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
       currentMenu: null,
       food: null,
