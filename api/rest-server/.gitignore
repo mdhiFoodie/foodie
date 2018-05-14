@@ -4,6 +4,7 @@ bundle.js.map
 .env
 .DS_Store
 .env.sample.js
+.env.data.js
 
 lib-cov
 *.seed

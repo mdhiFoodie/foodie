@@ -59,9 +59,10 @@ class SignupBusiness extends Component {
     };
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
+
     localStorage.setItem('storage', JSON.stringify({
       id: data.id, 
-      name: data.name, 
+      name: data.businessname, 
       email: data.email, 
       type: data.type, 
       phone: data.phone,

@@ -7,9 +7,11 @@ import SignupBusiness from './Auth/BusinessSignup/SignupBusiness.jsx';
 import AddDelivery from './Businesses/AddDelivery.jsx';
 import Protected from './Protected/index.js';
 import DeliveryProfile from './DeliveryUsers/DeliveryProfile.jsx'; 
+import BusinessProfile from './Businesses/BusinessProfile.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
 import BusinessDashboard from './Businesses/BusinessDashboard.jsx'; 
 import LoggedOutHeader from './Header/LoggedOutHeader.jsx'
+import Header from './Header/Header.jsx'
 import UserHeader from './Header/UserHeader.jsx'
 import BusinessHeader from './Header/BusinessHeader.jsx'
 import DeliveryHeader from './Header/DeliveryHeader.jsx'
@@ -24,40 +26,45 @@ class App extends Component {
   }
 
   render() {
-
+    const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
-      <BrowserRouter>
-        <Switch> 
-          <Route exact path='/login' component={LoggedOutHeader}/>
-          <Route exact path='/signupUser' component={LoggedOutHeader}/>
-          <Route exact path='/signupBusiness' component={LoggedOutHeader}/>
-          <Route exact path='/home' component={UserHeader}/>
-          <Route exact path='/' component={UserHeader}/>
-          <Route exact path='/profile' component={UserHeader}/>
-          <Route exact path='/dashboard' component={BusinessHeader}/>
-        </Switch>
-      </BrowserRouter>
-      <BrowserRouter>
-      <Switch> 
-        <Route exact strict path='/' component={Login}/>
-        <Route exact path='/signupUser' component={SignupUser}/>
-        <Route exact path='/signupBusiness' component={SignupBusiness}/>
-        <Menu/>
-        <Route exact path='/home' component={(props) => (
-          <Protected component={Feed} {...props} />
-        )}/>
-        <Route exact path='/dashboard' component={(props) => (
-          <Protected component={BusinessDashboard} {...props} />
-        )}/>
-        <Route exact path='/deliveryProfile' component={(props) => (
-          <Protected component={DeliveryProfile} {...props} />
-        )}/>
-        <Route exact path='/AddDelivery' component={(props) => (
-          <Protected component={AddDelivery} {...props} />
-        )}/>
-      </Switch>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' component={Header}/>
+          </Switch>
+        </BrowserRouter>
+        <BrowserRouter>
+          <Switch> 
+            
+            <Route exact path='/' component={
+              type === 'loggedout' 
+              ? 
+              Login 
+              : 
+              type === '0' 
+              ? 
+              Feed 
+              :
+              BusinessDashboard}/>
+            <Route exact path='/login' component={Login}/>
+            <Route exact path='/businessProfile' component={BusinessProfile}/>
+            <Route exact path='/signupUser' component={SignupUser}/>
+            <Route exact path='/signupBusiness' component={SignupBusiness}/>
+            <Route exact path='/home' component={(props) => (
+              <Protected component={Feed} {...props} />
+            )}/>
+            <Route exact path='/dashboard' component={(props) => (
+              <Protected component={BusinessDashboard} {...props} />
+            )}/>
+            <Route exact path='/deliveryProfile' component={(props) => (
+              <Protected component={DeliveryProfile} {...props} />
+            )}/>
+            <Route exact path='/AddDelivery' component={(props) => (
+              <Protected component={AddDelivery} {...props} />
+            )}/>
+          </Switch>
+        </BrowserRouter>
       </div>
     )
   }

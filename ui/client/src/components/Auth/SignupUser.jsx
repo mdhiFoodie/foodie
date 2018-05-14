@@ -34,8 +34,10 @@ class SignupUser extends Component {
       password, 
       type
     };
+    
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
+    console.log('this is data after clicking signup as a user: ', data);
     localStorage.setItem('storage', JSON.stringify({
       id: data.id, 
       name: data.name, 
@@ -51,6 +53,7 @@ class SignupUser extends Component {
       email: data.email,
       type: data.type
     });
+
     data ? this.props.history.push('/home') : alert('Request failed try again');
     }
     catch(err) {
