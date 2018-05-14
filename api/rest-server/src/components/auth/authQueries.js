@@ -18,7 +18,6 @@ export const signUpQuery = async (payload) => {
       values: queryPayloadOrganizer(payload, ['name', 'phone', 'email', 'password', 'type'])
     }
     const data = await db.query(query);
-    console.log('data from authQueries', data)
     success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
     return data;
   } catch (err) {

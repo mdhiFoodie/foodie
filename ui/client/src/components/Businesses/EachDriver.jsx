@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { usersInformation } from '../../actions/type';
 
+import './Business.scss';
 
 class EachDriver extends Component {
   constructor() {
@@ -14,8 +15,16 @@ class EachDriver extends Component {
   render() {
     const { usersInfo } = this.props.getUsersInformation;
     return(
-      <div>
+      <div className='insideDriver'>
+        <div>
         {this.props.driver.name}
+        </div>
+        <div>
+        <img src='https://source.unsplash.com/200x100/?people' />
+        </div>
+        <div>
+          Rating
+        </div>
       </div>
     )
   }

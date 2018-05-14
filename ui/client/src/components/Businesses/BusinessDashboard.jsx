@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import AddDelivery from './AddDelivery.jsx'; 
 import Logout from '../Auth/Logout.jsx';
-import EachDriver from './Driver.jsx';
+import EachDriver from './EachDriver.jsx';
 
 import './Business.scss';
 
@@ -46,29 +46,31 @@ class BusinessDashboard extends Component {
     return(
       <div className='dashboard'>
         <div className='businessName'>
-        <h1>{storage.businessname}</h1>
+        <h1>{storage.name}</h1>
+        </div>
+        <div>
         </div>
         <div>
         <h3>Orders</h3>
+
         </div>
         <div>
         <h3>delivery Team</h3>
-        <div>
-          <div className='driverTeam'>
-            {
-              this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
-                <EachDriver driver={driver} key={driver.email}/>
-              )
-              :
-              null
-            }
-          </div>
+        <div className='driverContainer'>
+          {
+            this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
+              <div className='driverColumn'><EachDriver driver={driver} key={driver.email}/></div>
+            )
+            :
+            null
+          }
         </div>
-
+        <br/><br/>
         <button onClick={this.addDeliveryPerson}>Add a driver</button>
         </div>
         <div>
         <h3>Statistics</h3>
+        
         </div>
         <Logout history={this.props.history}/>
       </div>
