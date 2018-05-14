@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import AddDelivery from './AddDelivery.jsx'; 
 import Logout from '../Auth/Logout.jsx';
+import EachDriver from './EachDriver.jsx';
 
 import './Business.scss';
 
@@ -10,7 +11,7 @@ class BusinessDashboard extends Component {
   constructor() {
     super();
     this.state = {
-      deliveryTeam: [] 
+      myDeliveryTeam: []
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
   }
@@ -20,33 +21,56 @@ class BusinessDashboard extends Component {
   }
 
   getDeliveryTeam = async () => {
+    const storage = JSON.parse(localStorage.storage); 
+    const { id } = storage; 
+    const body = {
+      id_businesses: id
+    }
     try {
-    const data = await axios.get('http://localhost:3000/api/business/getDeliveryTeam');
-    console.log('delivery team in business dashboard', data)
+    const { data } = await axios.post('http://localhost:3000/api/business/getDeliveryTeam', body);
+    this.setState({
+      myDeliveryTeam: data 
+    })
     } 
     catch(err) {
       console.log('Error getting the delivery team', err)
     }
   }; 
+
+  componentDidMount() {
+    this.getDeliveryTeam();
+  }
   
   render() {
-    const { usersInfo } = this.props.getUsersInformation; 
-    console.log('dash', usersInfo)
+    const storage = JSON.parse(localStorage.storage);
     return(
       <div className='dashboard'>
         <div className='businessName'>
-        <h1>{usersInfo.businessname}</h1>
+        <h1>{storage.name}</h1>
+        </div>
+        <div>
         </div>
         <div>
         <h3>Orders</h3>
+
         </div>
         <div>
         <h3>delivery Team</h3>
-
+        <div className='driverContainer'>
+          {
+            this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
+              <div className='driverColumn'><EachDriver driver={driver} key={driver.email}/></div>
+            )
+            :
+            null
+          }
+        </div>
+        <br/><br/>
         <button onClick={this.addDeliveryPerson}>Add a driver</button>
         </div>
         <div>
         <h3>Statistics</h3>
+        
         </div>
         <Logout history={this.props.history}/>
       </div>
