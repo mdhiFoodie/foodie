@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:4000')
 
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
-//biz ideas cannot be formatted similarly or they will overwrite each other in redis
+//biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
   constructor() {
     super();
