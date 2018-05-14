@@ -13,6 +13,7 @@ import LoggedOutHeader from './Header/LoggedOutHeader.jsx'
 import UserHeader from './Header/UserHeader.jsx'
 import BusinessHeader from './Header/BusinessHeader.jsx'
 import DeliveryHeader from './Header/DeliveryHeader.jsx'
+import Menu from './Menu/Menu.jsx'
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -42,6 +43,7 @@ class App extends Component {
         <Route exact strict path='/' component={Login}/>
         <Route exact path='/signupUser' component={SignupUser}/>
         <Route exact path='/signupBusiness' component={SignupBusiness}/>
+        <Menu/>
         <Route exact path='/home' component={(props) => (
           <Protected component={Feed} {...props} />
         )}/>

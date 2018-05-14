@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Chat from '../Chat/index.jsx';
+
+import io from 'socket.io-client';
+const socket = io('http://localhost:4000')
 
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 
@@ -15,7 +19,8 @@ class Menu extends Component {
       currentItem: null,
       currentItemQuantity: null,
       currentItemPrice: 3.75,
-      usersCart: null
+      usersCart: null,
+      checkedOut: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -23,6 +28,15 @@ class Menu extends Component {
     this.viewCart = this.viewCart.bind(this);
     this.checkout = this.checkout.bind(this);
   }
+
+  componentDidMount () {
+    socket.on('connection', () => {
+        console.log('connected to server')
+    })
+    socket.on('messages', (data) => {
+        console.log('this is the messages', data)
+    })
+};
   
     async handleClick() {
       //need to grab specific biz id on click
@@ -125,11 +139,19 @@ class Menu extends Component {
 
   checkout(){
     console.log('checkout clicked', this.state);
+    this.setState({
+      checkedOut: !this.state.checkedOut
+    })
+    
   }
 
   render() {
     return (
       <div>
+
+        {!this.state.checkedOut ?
+
+        <div>
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
           <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Los Burritos</li>
@@ -157,6 +179,16 @@ class Menu extends Component {
         <div>
           <button onClick={this.viewCart}>View Cart</button>
         </div>
+
+        </div>
+
+          :
+
+          <div>
+          <Chat/>
+          </div>
+
+        }
       </div>
     );
   }
