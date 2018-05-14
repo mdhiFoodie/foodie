@@ -25,7 +25,6 @@ class SignupUser extends Component {
 
   handleSignUpClick = async (e) => {
     e.preventDefault();
-    console.log('inside signup function')
     const {name, phone, email, password, type} = this.state;
     const body = {
       name,
