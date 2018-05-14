@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   render() {
-
+    const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
         <BrowserRouter>
@@ -35,6 +35,17 @@ class App extends Component {
         </BrowserRouter>
         <BrowserRouter>
           <Switch> 
+            
+            <Route exact path='/' component={
+              type === 'loggedout' 
+              ? 
+              Login 
+              : 
+              type === '0' 
+              ? 
+              Feed 
+              :
+              Dashboard}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/signupUser' component={SignupUser}/>

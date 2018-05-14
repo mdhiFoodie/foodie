@@ -104,6 +104,7 @@ export const createBusinessesTable = async () => {
       (
         id SERIAL,
         businesspicture varchar(255),
+        coverpicture varchar(255),
         address varchar (255),
         email varchar (50) UNIQUE,
         type varchar (50),
@@ -458,29 +459,29 @@ export const dropMessagesTable = async () => {
 };
 
 export const dummyData = async () => {
-//   try{
-//     await db.query(
-//       `INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-//       VALUES ('Bread', 'Michaelspicture', 'Michael', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877);
-//       INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-//       VALUES ('Bread', 'DanielsPicture', 'Daniel', '327 S Western Los Angeles CA', 34.068154, -118.309459);
-//       INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-//       VALUES ('Bread', 'HuntersPicture', 'Hunter', '8600 Melrose Los Angeles CA', 34.052235, -118.243683);
-//       INSERT INTO businesses (businessname, businesspicture, contactname, address, latitude, longitude)
-//       VALUES ('Bread', 'IsabellasPicture', 'Isabella', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266);
-//       INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
-//       VALUES (1, 5, 'I love this place', 1526059238175, 1);
-//       INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
-//       VALUES (2, 4, 'I love this place less than the last guy', 1526059238175, 1);
-//       INSERT INTO reviews_users (id, id_users, id_reviews)
-//       VALUES (1, 2, 1);
-//       INSERT INTO reviews_users (id, id_users, id_reviews)
-//       VALUES (2, 2, 2);
-//       `
-//     )
-//   }
-//   catch(err) {
-//     console.log(err)
-//   }
+  try{
+    await db.query(
+      `INSERT INTO businesses (businessname, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
+      VALUES ('Michael\'s Cheese and Bread Emporium', 'https://source.unsplash.com/200x200/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Michael Pourshalimi', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 'American', '3108008735', 5, 1, 4000, 10, 40000, '1');
+      INSERT INTO businesses (businessname, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
+      VALUES ('Daniel\'s Korean BBQ, 'https://source.unsplash.com/200x200/?korean', 'https://source.unsplash.com/900x200/?korean', 'Daniel Kim', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Korean', '3108789000', 4.1, 2, 3000, 20, 30000, '1');
+      INSERT INTO businesses (businessname, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
+      VALUES ('Hunter\'s', 'https://source.unsplash.com/200x200/?boat', 'https://source.unsplash.com/900x200/?mountain', 'Hunter Morgenstern', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 'English', '8189008765', 3.5, 3, 2000, 30, 20000, '1');
+      INSERT INTO businesses (businessname, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
+      VALUES ('Isabella\'s Guatemalan Bazaar, 'https://source.unsplash.com/200x200/?guatemala', 'https://source.unsplash.com/900x200/?guatemala' 'Isabella Beltran', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
+      // INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
+      // VALUES (1, 5, 'I love this place', 1526059238175, 1);
+      // INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
+      // VALUES (2, 4, 'I love this place less than the last guy', 1526059238175, 1);
+      // INSERT INTO reviews_users (id, id_users, id_reviews)
+      // VALUES (1, 2, 1);
+      // INSERT INTO reviews_users (id, id_users, id_reviews)
+      // VALUES (2, 2, 2);
+      `
+    )
+  }
+  catch(err) {
+    console.log(err)
+  }
 }
 

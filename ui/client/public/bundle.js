@@ -32569,7 +32569,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-
+      var type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
       return _react2.default.createElement(
         'div',
         null,
@@ -32588,6 +32588,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: type === 'loggedout' ? _Login2.default : type === '0' ? _index2.default : Dashboard }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/businessProfile', component: BusinessProfile }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signupUser', component: _SignupUser2.default }),
@@ -39952,7 +39953,7 @@ var LoggedOutHeader = function LoggedOutHeader() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/' },
+            { to: '/login' },
             'Login'
           )
         ),
@@ -39961,7 +39962,7 @@ var LoggedOutHeader = function LoggedOutHeader() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/signup' },
+            { to: '/signupUser' },
             'Signup'
           )
         )
@@ -40820,7 +40821,7 @@ var Header = function (_Component) {
       var _this2 = this;
 
       console.log('Patrick wants this string ot be here. he can\'t speel:', this.props.getUsersInformation);
-      var type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'sometype';
+      var type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
       return _react2.default.createElement(
         'div',
         null,
