@@ -1,7 +1,7 @@
 import express from 'express';
 
 import {
-  cartController, cartAddController
+ cartAddController
 } from './cartControllers';
 
 const router = express.Router();
@@ -11,6 +11,13 @@ router.route('/addItem')
 
 router.route('/getCart/:userId')
   .get(cartAddController.getCart);  
+
+router.route('/sendOrder')
+  .post(cartAddController.sendOrder);
+
+router.route('/grabBizOrders/:bizId')
+  .get(cartAddController.grabBizOrders); 
+
 
 
 export default router;

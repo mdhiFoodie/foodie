@@ -11,9 +11,14 @@ class BusinessDashboard extends Component {
   constructor() {
     super();
     this.state = {
-      myDeliveryTeam: []
+      myDeliveryTeam: [],
+      //set bizid on component did mount
+      // bizId: localStorage.getItem('id'), hardcoded for now but will grab right menu as long as inserted into mongo with right id
+      bizId:9,
+      orders: null
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
+    this.currentOrders = this.currentOrders.bind(this);
   }
 
   addDeliveryPerson() {
@@ -41,17 +46,35 @@ class BusinessDashboard extends Component {
     this.getDeliveryTeam();
   }
   
+  async currentOrders() {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
+      //gonna need specific pool order to group them
+      for (var key in response.data) {
+        const orderToRender = [];
+        let foodItems = JSON.parse(response.data[key])
+        for (var item in foodItems) {
+          let price = JSON.parse(foodItems[item])[0];
+          let quantity = JSON.parse(foodItems[item])[1];
+          orderToRender.push(<div key={item}><div>{quantity}</div><div>{item}</div> <div>{price}</div></div>);        }
+        this.setState({
+          orders: orderToRender
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
   render() {
     const storage = JSON.parse(localStorage.storage);
     return(
       <div className='dashboard'>
         <div className='businessName'>
         <h1>{storage.name}</h1>
-        </div>
+      </div>
+
         <div>
-        </div>
-        <div>
-        <h3>Orders</h3>
 
         </div>
         <div>
@@ -66,6 +89,13 @@ class BusinessDashboard extends Component {
           }
         </div>
         <br/><br/>
+        </div>
+        <div>
+          <h3>Orders</h3>
+        {this.state.orders}
+
+        <button onClick={this.currentOrders}>Get Orders</button>
+
         <button onClick={this.addDeliveryPerson}>Add a driver</button>
         </div>
         <div>
