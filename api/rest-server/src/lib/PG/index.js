@@ -469,6 +469,8 @@ export const dummyData = async () => {
       VALUES ('Hunters', 'https://source.unsplash.com/200x200/?boat', 'https://source.unsplash.com/900x200/?mountain', 'Hunter Morgenstern', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 'English', '8189008765', 3.5, 3, 2000, 30, 20000, '1');
       INSERT INTO businesses (businessname, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
       VALUES ('Isabellas Guatemalan Bazaar', 'https://source.unsplash.com/200x200/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
+      INSERT INTO businesses (businessname, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
+      VALUES ('Test', 'https://source.unsplash.com/200x200/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
       `
     )
   }

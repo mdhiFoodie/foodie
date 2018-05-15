@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios'; 
 import { connect } from 'react-redux';
 import Menu from '../Menu/Menu.jsx';
-import Logout from '../Auth/Logout.jsx'
+import Logout from '../Auth/Logout.jsx';
+import Payment from './Payment.jsx'; 
 
 class BusinessProfile extends Component {
   constructor() {
@@ -10,7 +11,6 @@ class BusinessProfile extends Component {
   }
   
   render() {
-    console.log('dash', this.props.getUsersInformation)
     return(
       <div className='profileContainer'>
         <div className='coverPhoto'>
@@ -20,13 +20,12 @@ class BusinessProfile extends Component {
           <img src='http://placecorgi.com/200/200'></img>
           <div className='rating'>5 Stars</div>
         </div>
-       
         <div className='profileName'>
           <Logout />
           Business Name
           <div className='subText'>
-             <div className='category'>Category</div>
-             <div className='address'>Address</div>
+            <div className='category'>Category</div>
+            <div className='address'>Address</div>
           </div>
           <div className='subText2'>
             <div className='phone'>phone number</div>
@@ -36,6 +35,9 @@ class BusinessProfile extends Component {
         <h1>menu</h1>
         <div className='menu'>
           <Menu />
+        </div>
+        <div>
+          <Payment /> 
         </div>
         <h1>open pools</h1>
         <div className='openPools'>
