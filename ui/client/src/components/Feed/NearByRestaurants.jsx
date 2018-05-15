@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 
 import NearByRestaurantsEntries from './NearByRestaurantsEntries.jsx';
 
+import './Feed.scss'; 
+
 class NearByRestaurants extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ class NearByRestaurants extends Component {
             <div className='NearByRestaurantsContainer'>
                 {/* {this.props.searchBusinesses && JSON.stringify(this.props.searchBusinesses.businesses)} */}
                 {this.props.searchBusinesses && this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
-                    <NearByRestaurantsEntries key={key} restaurant={restaurant}/>
+                    <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
                 ))}
             </div>
         )

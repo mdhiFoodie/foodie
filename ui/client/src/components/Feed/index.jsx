@@ -22,7 +22,7 @@ class Feed extends Component {
           <SearchFilter/>
         </div>
         <div>
-          <NearByRestaurants/>
+          <NearByRestaurants history={this.props.history} />
         </div>
         <div>
           <OpenPools />

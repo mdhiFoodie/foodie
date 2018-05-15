@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
   // usersData is the key coming from our root reducers with the value of our reducer file
   getUsersInformation: state.getUsersInformation
   
-})
+});
 
 // const matchDispatchToProps = (dispatch) => {
 //   return bindActionCreators({
