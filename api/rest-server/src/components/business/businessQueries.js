@@ -1,7 +1,7 @@
 import db from '../../config/databases/pg';
 import { queryPayloadOrganizer } from '../../lib/components/util';
 import {
-  gettingDeliveryTeam
+  gettingDeliveryTeam, gettingBusinessInfoQuery
 } from './businessSQLHelpers'; 
 
 import {
@@ -17,6 +17,21 @@ export const getDeliveryListForBusinesses = async (payload) => {
     }
     const data = await db.query(query);
       success('getDeliveryList - successfully retrieved data', data); 
+    return data;  
+  } catch (err) {
+    error('businessQuery - error =', err);
+    throw new Error(err); 
+  }
+}
+
+export const getBusinessInfoQuery = async (payload) => {
+  try {
+    const query = {
+      text: gettingBusinessInfoQuery,
+      values: queryPayloadOrganizer(payload, ['id'])
+    }
+    const data = await db.query(query);
+      success('getBusinessInfo - successfully retrieved data', data); 
     return data;  
   } catch (err) {
     error('businessQuery - error =', err);

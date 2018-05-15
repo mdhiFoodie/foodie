@@ -459,7 +459,7 @@ export const dropMessagesTable = async () => {
 };
 
 export const dummyData = async () => {
-  try{
+  try {
     await db.query(
       `INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
       VALUES ('Michaels Cheese and Bread Emporium', 'michael@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/200x200/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Michael Pourshalimi', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 'American', '3108008735', 5, 1, 4000, 10, 40000, '1');
