@@ -24,23 +24,26 @@ class Header extends Component {
         <button onClick={()=> (console.log('this is the prop', this.props.getUsersInformation, ' this is type ', type))}>CLICK</button>
         <BrowserRouter>
         {
-        this.props.getUsersInformation.usersInfo.type === '0' && type === '0' ?
+        this.props.getUsersInformation.usersInfo.type === '0' || type === '0' ?
         (console.log('we are users mothas', localStorage.storage ? JSON.parse(localStorage.storage).type : 'pent'),
         <UserHeader />
         )
         :
-        this.props.getUsersInformation.usersInfo.type === '1' && type === '1' ?
+        this.props.getUsersInformation.usersInfo.type === '1' || type === '1' ?
         (console.log('we are business mothas', type),
-        <BusinessHeader />
+        <BusinessHeader history={this.props.history} />
         )
         :  
-        this.props.getUsersInformation.usersInfo.type === '2' && type === '2' ?
+        this.props.getUsersInformation.usersInfo.type === '2' || type === '2' ?
         (console.log('we are deilvery mothas', type),
         <DeliveryHeader />
         )
         :
+        type === 'loggedout' ? 
         (console.log('we are logged out mothas', type) ,
         <LoggedOutHeader />)
+        :
+        <div/>
         }
         </BrowserRouter>
         </div>

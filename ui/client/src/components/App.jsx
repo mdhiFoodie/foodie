@@ -31,7 +31,9 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route path='/' component={Header}/>
+            <Route path='/' component={(props) => (
+              <Header {...props}/>
+            )}/>
           </Switch>
         </BrowserRouter>
         <BrowserRouter>
