@@ -9,3 +9,10 @@ export const gettingDeliveryTeam = `
   du.id_businesses=$1
 `;
 
+export const gettingBusinessInfoQuery = `
+  SELECT id, businesspicture, coverpicture, address, email, type, rating, foodcategory, phone, latitude, longitude, price, businessname, contactname  
+  FROM businesses 
+  WHERE 
+  id=$1
+`;
+

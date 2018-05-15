@@ -2,7 +2,8 @@ import express from 'express';
 
 import {
   saveDeliveryUser,
-  getDeliveryTeam
+  getDeliveryTeam,
+  getBusinessInfo
 } from './businessControllers';
 
 const router = express.Router();
@@ -12,5 +13,8 @@ router.route('/saveDeliveryUser')
 
 router.route('/getDeliveryTeam')
   .post(getDeliveryTeam);
+
+router.route('/getInfoById/:id')
+  .get(getBusinessInfo);
 
 export default router;
