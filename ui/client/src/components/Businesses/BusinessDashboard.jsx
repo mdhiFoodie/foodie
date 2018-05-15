@@ -68,6 +68,7 @@ class BusinessDashboard extends Component {
   
   render() {
     const storage = JSON.parse(localStorage.storage);
+    console.log(storage);
     return(
       <div className='dashboard'>
         <div className='businessName'>
