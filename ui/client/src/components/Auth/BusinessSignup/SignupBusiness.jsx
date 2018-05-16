@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
-// import { Button, ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 import './BusinessSignup.scss';
 
 const GOOGLE = process.env.GOOGLE
@@ -123,19 +122,6 @@ class SignupBusiness extends Component {
             <option value='indian'>Indian</option>
             <option value='chinese'>Chinese</option>
           </select>
-
-            {/* <ButtonToolbar>
-            <DropdownButton title="Type of Cuisine" id="dropdown-size-medium">
-              <MenuItem onSelect={this.handleFoodCategory.bind(this)} eventKey="1">African</MenuItem>
-              <MenuItem eventKey="2">American</MenuItem>
-              <MenuItem eventKey="3">Bakery</MenuItem>
-              <MenuItem eventKey="4">Burger</MenuItem>
-              <MenuItem eventKey="5">Caribbean</MenuItem>
-              <MenuItem eventKey="6">Chinese</MenuItem>
-              <MenuItem eventKey="5">Halala</MenuItem>
-              <MenuItem eventKey="6">Indian</MenuItem>
-            </DropdownButton>
-          </ButtonToolbar> */}
 
           <br/><br/>
           <label>
