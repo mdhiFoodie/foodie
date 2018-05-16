@@ -14,6 +14,11 @@ class Chat extends Component {
       text : ''
     }
   }
+  
+  componentWillMount() {
+    // axios.get('http://localhost:3000/api/chat/messages/${business}') get the businessID
+      //render all data
+  }
 
   onTextChange(e) {
     console.log('this is the state', this.state.text)
