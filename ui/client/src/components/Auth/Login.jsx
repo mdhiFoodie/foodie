@@ -75,20 +75,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleLoginClick.bind(this)}>
+      <div className='loginContainer'>
+        <img className='logo' src='#'/>
+        <div className='formContainer'>
+        <form className='formStyle' onSubmit={this.handleLoginClick.bind(this)}>
           <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>
           <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
-          <input type='submit' value='login'/>
+          <input className='loginButton' type='submit' value='login'/>
         </form>
-        <br/><br/>
         <div>
-          New here? <button onClick={this.onSignupUser}>Register</button>
+          <a className='signupLink' onClick={this.onSignupUser}>signup</a>
         </div> 
-        <br/>
-        <div>
-            Become a restaurant partner <button onClick={this.onSignupBusiness}>Register</button>
+        
+        <div className='loginFooter'>
+            Are you a business <a onClick={this.onSignupBusiness}>sign up</a> here.
         </div> 
+        </div>
+        
       </div> 
     )
   }
