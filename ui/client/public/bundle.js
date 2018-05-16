@@ -12323,6 +12323,8 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRedux = __webpack_require__(14);
 
+var _redux = __webpack_require__(25);
+
 var _Menu = __webpack_require__(86);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -12356,6 +12358,8 @@ var _faFacebookF = __webpack_require__(533);
 var _faFacebookF2 = _interopRequireDefault(_faFacebookF);
 
 __webpack_require__(93);
+
+var _actionsBusinessesData = __webpack_require__(534);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12420,8 +12424,10 @@ var BusinessProfile = function (_Component) {
 
                 });
                 console.log('this is the state: ', data);
+                this.props.businessesData(data);
+                // console.log('this.props.businessesData: ', this.props.businessesData)
 
-              case 6:
+              case 7:
               case 'end':
                 return _context.stop();
             }
@@ -12569,13 +12575,14 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-// const matchDispatchToProps = (dispatch) => {
-//   return bindActionCreators({
-//   usersInfo: usersInfo
-//   }, dispatch);
-// };
+var matchDispatchToProps = function matchDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({
+    //saved all business data so i can use the businessID for sockets
+    businessesData: _actionsBusinessesData.businessesData
+  }, dispatch);
+};
 // export default connect(mapStateToProps, matchDispatchToProps)(Login);
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(BusinessProfile);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(BusinessProfile);
 
 /***/ }),
 /* 195 */
@@ -44955,6 +44962,10 @@ var _axios = __webpack_require__(30);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _redux = __webpack_require__(25);
+
+var _reactRedux = __webpack_require__(14);
+
 var _socket = __webpack_require__(195);
 
 var _socket2 = _interopRequireDefault(_socket);
@@ -44976,12 +44987,12 @@ var socket = (0, _socket2.default)('http://localhost:4000');
 var Chat = function (_Component) {
   _inherits(Chat, _Component);
 
-  function Chat() {
+  function Chat(props) {
     var _this2 = this;
 
     _classCallCheck(this, Chat);
 
-    var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this));
+    var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
 
     _this.handleKeyPress = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
@@ -44989,6 +45000,7 @@ var Chat = function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                // console.log('this is businesses data from reducer', this.props.businessesData)
                 if (e.key === 'Enter') {
                   console.log('enter button has been clicked');
                   //do an axios call to get the text to redis.
@@ -45018,8 +45030,7 @@ var Chat = function (_Component) {
   _createClass(Chat, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      // axios.get('http://localhost:3000/api/chat/messages/${business}') get the businessID
-      //render all data
+      // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
     }
   }, {
     key: 'onTextChange',
@@ -45053,7 +45064,17 @@ var Chat = function (_Component) {
 
 ;
 
-exports.default = Chat;
+// export default Chat;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    // usersData is the key coming from our root reducers with the value of our reducer file
+    businessesData: state.businessesData
+
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Chat);
 
 /***/ }),
 /* 505 */
@@ -48786,7 +48807,48 @@ module.exports = { prefix: 'fas', iconName: 'dollar-sign', icon: [288, 512, [], 
 module.exports = { prefix: 'fab', iconName: 'facebook-f', icon: [264, 512, [], "f39e", "M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"] };
 
 /***/ }),
-/* 534 */,
+/* 534 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// this will consist of:
+// 1: business name
+// 2: address 
+// 3: rating 
+// 4: food category 
+// 5: total order 
+// 6: daily order 
+// 7: gross 
+// 8: cuisine type 
+// 9: email 
+// 10: phone number 
+// 11: contact name 
+
+// export const businessesData = (businesses) => {
+//     return {
+//         type: 'BUSINESSES_DATA',
+//         payload: businesses
+//     };
+// };
+
+var businessesData = exports.businessesData = function businessesData(businesses) {
+  console.log('this is my action for businesses data', businesses);
+  return {
+    type: 'BUSINESSES_DATA',
+    payload: new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        resolve(businesses);
+      }, 2000);
+    })
+  };
+};
+
+/***/ }),
 /* 535 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50584,7 +50646,7 @@ var rootReducer = (0, _redux.combineReducers)({
   //Gets every user information when they login or sign up 
   getUsersInformation: _usersInformationReducer2.default,
 
-  BusinessesReducer: _reducersBusinessesData2.default,
+  businessesData: _reducersBusinessesData2.default,
   FriendsReducer: _reducersFriendsData2.default,
   MenusReducer: _reducersMenusData2.default,
   MessagesReducer: _reducersMessagesData2.default,
@@ -50606,16 +50668,34 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function () {
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// export default function (state = null, action) {
+//     console.log('this is the data business', action)
+//     if(action.type === "BUSINESSES_DATA_FULFILLED"){
+//         return action.payload;
+//     }else{
+//         return state;
+//     }
+// }
+
+var businessesData = function businessesData() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     var action = arguments[1];
 
-    if (action.type === "BUSINESSES_DATA") {
-        return action.payload;
-    } else {
-        return state;
+    console.log('business data', action);
+    switch (action.type) {
+        case "BUSINESSES_DATA_FULFILLED":
+            state = _extends({}, state, {
+                businesses: action.payload
+            });
+            console.log('this is my reducerbsdata', action.payload);
+            break;
     }
+    return state;
 };
+
+exports.default = businessesData;
 
 /***/ }),
 /* 563 */

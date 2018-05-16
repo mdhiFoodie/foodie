@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Messages from '../messages/index.jsx';
 
 import axios from 'axios';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import io from 'socket.io-client';
 const socket = io('http://localhost:4000')
 
 class Chat extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       messages : [],
@@ -16,8 +18,7 @@ class Chat extends Component {
   }
   
   componentWillMount() {
-    // axios.get('http://localhost:3000/api/chat/messages/${business}') get the businessID
-      //render all data
+    // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
   }
 
   onTextChange(e) {
@@ -28,6 +29,7 @@ class Chat extends Component {
   };
 
   handleKeyPress = async (e) => {
+    // console.log('this is businesses data from reducer', this.props.businessesData)
     if(e.key === 'Enter') {
       console.log('enter button has been clicked')
       //do an axios call to get the text to redis.
@@ -51,4 +53,12 @@ class Chat extends Component {
   }
 };
 
-export default Chat;
+// export default Chat;
+
+const mapStateToProps = state => ({
+  // usersData is the key coming from our root reducers with the value of our reducer file
+  businessesData: state.businessesData
+  
+})
+
+export default connect(mapStateToProps, null)(Chat);

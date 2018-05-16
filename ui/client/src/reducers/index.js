@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import BusinessesReducer from './reducers-businessesData.js';
+import businessesData from './reducers-businessesData.js';
 import FriendsReducer from './reducers-friendsData.js';
 import MenusReducer from './reducers-menusData.js';
 import MessagesReducer from './reducers-messagesData.js';
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   //Gets every user information when they login or sign up 
     getUsersInformation: usersInformationReducer,
 
-    BusinessesReducer : BusinessesReducer,
+    businessesData : businessesData,
     FriendsReducer : FriendsReducer,
     MenusReducer : MenusReducer,
     MessagesReducer : MessagesReducer,

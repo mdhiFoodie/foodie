@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import axios from 'axios'; 
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Payment from './Payment.jsx'; 
@@ -16,6 +17,7 @@ fontawesome.library.add(faDollarSign)
 
 
 import './Business.scss';
+import {businessesData} from '../../actions/actions-businessesData.js';
 
 class BusinessProfile extends Component {
   constructor() {
@@ -47,6 +49,9 @@ class BusinessProfile extends Component {
 
     })
     console.log('this is the state: ', data)
+    this.props.businessesData(data);
+    // console.log('this.props.businessesData: ', this.props.businessesData)
+
   }
 
   render() {
@@ -123,10 +128,11 @@ const mapStateToProps = state => ({
   
 })
 
-// const matchDispatchToProps = (dispatch) => {
-//   return bindActionCreators({
-//   usersInfo: usersInfo
-//   }, dispatch);
-// };
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    //saved all business data so i can use the businessID for sockets
+  businessesData: businessesData
+  }, dispatch);
+};
 // export default connect(mapStateToProps, matchDispatchToProps)(Login);
-export default connect(mapStateToProps, null)(BusinessProfile);
+export default connect(mapStateToProps, matchDispatchToProps)(BusinessProfile);
