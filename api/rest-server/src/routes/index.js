@@ -7,6 +7,8 @@ import businessRouter from '../components/business/businessRouter';
 import searchRestaurantsRouter from '../components/Feed/searchRestaurantsRouter';
 import poolRouter from '../components/pool/poolRouter';
 import reviewsRouter from '../components/reviews/reviewsRouter';
+import paymentsRouter from '../../stripe/payments.js'; 
+
 
 const router = express.Router();
 
@@ -20,6 +22,8 @@ router.use('/cart', cartRouter);
 router.use('/business', businessRouter);
 
 router.use('/pool', poolRouter);
+
+router.use('/stripe', paymentsRouter)
 
 router.use('/reviews', reviewsRouter);
 

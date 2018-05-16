@@ -221,9 +221,13 @@ class Menu extends Component {
         <div>
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
+<<<<<<< HEAD
           {/* <li onClick={this.handleClick}> 
             <div className='exploreMenu'>view menu</div>
           </li> */}
+=======
+          <li onClick={this.handleClick}> <img src="https://source.unsplash.com/260x180/?mexicanfood" alt=""/> <br/>Click For Menu</li>
+>>>>>>> Trying to set up Stripe
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}

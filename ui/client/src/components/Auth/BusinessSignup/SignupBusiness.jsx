@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
-// import './index.css'; 
+// import { Button, ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
+import './BusinessSignup.scss';
 
 const GOOGLE = process.env.GOOGLE
 
@@ -29,6 +30,13 @@ class SignupBusiness extends Component {
   handleForm(e) {
     const {name, value} = e.target;
     this.setState({[name]: value})
+  }
+
+  handleFoodCategory(e) {
+    this.setState({
+      foodcategory: e
+    }); 
+    console.log('HERE I AM HERE => ', e)
   }
 
   handleSignUpClick = async (e) => {
@@ -109,18 +117,33 @@ class SignupBusiness extends Component {
           <br/>
           <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
           <br/><br/>
-          <div className="typeOfCuisine">
-          <select>
+
+          <select id='btnCategory' onSelect={this.value} >
             <option value='mexican'>Mexican</option>
             <option value='indian'>Indian</option>
-            <option value='chinnese'>Chinese</option>
+            <option value='chinese'>Chinese</option>
           </select>
-          </div>
+
+            {/* <ButtonToolbar>
+            <DropdownButton title="Type of Cuisine" id="dropdown-size-medium">
+              <MenuItem onSelect={this.handleFoodCategory.bind(this)} eventKey="1">African</MenuItem>
+              <MenuItem eventKey="2">American</MenuItem>
+              <MenuItem eventKey="3">Bakery</MenuItem>
+              <MenuItem eventKey="4">Burger</MenuItem>
+              <MenuItem eventKey="5">Caribbean</MenuItem>
+              <MenuItem eventKey="6">Chinese</MenuItem>
+              <MenuItem eventKey="5">Halala</MenuItem>
+              <MenuItem eventKey="6">Indian</MenuItem>
+            </DropdownButton>
+          </ButtonToolbar> */}
+
+          <br/><br/>
           <label>
             <input type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
             I agree to the terms and conditions
           </label>
           <br/><br/>
+          
           <input type='submit' value='signup'/>
         </form>
       </div> 

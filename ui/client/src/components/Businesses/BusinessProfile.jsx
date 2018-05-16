@@ -1,10 +1,11 @@
 import React, { Component } from 'react'; 
-import axios from 'axios'; 
+import { StripeProvider } from 'react-stripe-elements'; 
 import { connect } from 'react-redux';
+import axios from 'axios'; 
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
-import Payment from './Payment.jsx'; 
 import Reviews from '../Reviews/Reviews.jsx';
+import Payment from './Stripe/Payment.jsx'; 
 
 import fontawesome from '@fortawesome/fontawesome'
 import faStar from '@fortawesome/fontawesome-free-solid/faStar'
@@ -72,6 +73,16 @@ class BusinessProfile extends Component {
           <div className='businessNameProfile'>
             {this.state.businessname}
           </div>
+          <Logout />
+          {this.state.businessname}
+          <img src='https://source.unsplash.com/900x200/?restaurants'></img>
+        </div>
+        <div className='profilePhoto'>
+          <img src='https://source.unsplash.com/200x200/?people'></img>
+          <div className='rating'>5 Stars</div>
+        </div>
+        <div className='profileName'>
+          Business Name
           <div className='subText'>
             <div className='category'>{this.state.foodcategory}</div>
             <div className='address'>{this.state.address}</div>
@@ -80,12 +91,12 @@ class BusinessProfile extends Component {
             <div className='phone'>{!!this.state.phone ? (`${this.state.phone.slice(0,3)} ${this.state.phone.slice(3,6)} ${this.state.phone.slice(6,10)}` ) : 'phone'}</div>
             <div className='price'>
               {
-               Array(Math.ceil(this.state.price) || 1).fill(1).map((dollar, i) => {
-                 console.log(dollar);
-                 return (
-                <div key={`${i} dollar`}><i className="fas fa-dollar-sign priceIcon"></i></div>
-                 )
-               }) 
+              Array(Math.ceil(this.state.price) || 1).fill(1).map((dollar, i) => {
+                console.log(dollar);
+                return (
+              <div key={`${i} dollar`}><i className="fas fa-dollar-sign priceIcon"></i></div>
+                )
+              }) 
               }
               
             </div>
@@ -98,7 +109,7 @@ class BusinessProfile extends Component {
           <Menu />
         </div>
         <div>
-          <Payment /> 
+            <Payment /> 
         </div>
         <div className='profileHeader'>
         <h1>open pools</h1>
@@ -112,6 +123,7 @@ class BusinessProfile extends Component {
         <div className='reviews'>
           <Reviews />
         </div>
+        <Logout history={this.props.history}/>
       </div>
     )
   }

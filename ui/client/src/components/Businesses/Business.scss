@@ -22,8 +22,12 @@
 }
 
 .driverContainer {
-  display: block;
-  
+  display: block; 
+}
+
+.addDriver {
+  border: thin solid gray; 
+  padding: 10px; 
 }
 
 .driverColumn {
@@ -35,6 +39,7 @@
   border: thin solid gray; 
   padding: 10px; 
 }
+<<<<<<< HEAD
 
 .profileHeader {
   text-align: left;
@@ -245,3 +250,5 @@
 @media screen and (max-width: 480px) {
 
 }
+=======
+>>>>>>> Trying to set up Stripe

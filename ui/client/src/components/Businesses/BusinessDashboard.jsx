@@ -49,6 +49,7 @@ class BusinessDashboard extends Component {
   async currentOrders() {
     try {
       const response = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
+      console.log('THIS IS RESPONSE', response)
       //gonna need specific pool order to group them
       for (var key in response.data) {
         const orderToRender = [];
@@ -73,30 +74,26 @@ class BusinessDashboard extends Component {
         <div className='businessName'>
         <h1>{storage.name}</h1>
       </div>
-
         <div>
-
+          <h3>Orders</h3>
+        {this.state.orders}
+        <button onClick={this.currentOrders}>Get Orders</button>
         </div>
         <div>
         <h3>delivery Team</h3>
         <div className='driverContainer'>
           {
             this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
-              <div className='driverColumn'><EachDriver driver={driver} key={driver.email}/></div>
+              <div className='driverColumn'>
+              <div className='addDriver' onClick={this.addDeliveryPerson}>Add a driver</div>
+              <EachDriver driver={driver} key={driver.email}/>
+              </div>
             )
             :
             null
           }
         </div>
         <br/><br/>
-        </div>
-        <div>
-          <h3>Orders</h3>
-        {this.state.orders}
-
-        <button onClick={this.currentOrders}>Get Orders</button>
-
-        <button onClick={this.addDeliveryPerson}>Add a driver</button>
         </div>
         <div>
         <h3>Statistics</h3>
