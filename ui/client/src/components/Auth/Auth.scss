@@ -22,3 +22,86 @@ body {
 input {
   clear: both;
 }
+
+.loginContainer {
+  max-width: 900px;
+  min-width: 350px;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 150px;
+  width: 150px;
+  margin: 20px auto;
+  margin-bottom: 35px;
+}
+
+.formContainer {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.formStyle input {
+  width: 80%;
+  margin: 0 10%;
+  display: block;
+  border: none;
+  border-bottom: thin solid #a4a4a4;
+  border-left: thin solid #a4a4a4;
+  padding: 10px 0px 3px 10px;
+  margin-bottom: 15px;
+  font-family: Helvetica;
+  font-weight: 100;
+  font-size: 1em;
+  float: right;
+}
+
+.signupLink {
+  float: right;
+  clear: both;
+  margin: -8px 18% 0 0;
+  display: block;
+  text-decoration: underline;
+}
+
+.signupLink:hover {
+  color: #E46F63;
+  cursor: pointer;
+}
+
+.loginFooter {
+  float: left;
+  clear: both;
+  margin: 0 auto;
+  display: block;
+  position: absolute;
+  bottom: 15px;
+  margin-left: 50px;
+  a {
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #E46F63;
+    cursor: pointer;
+  }
+}
+
+
+
+.loginText {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.loginButton {
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px 0px 8px 0px!important;
+  text-align: center;
+  font-size: 1.25em!important;
+}
