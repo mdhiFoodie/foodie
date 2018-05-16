@@ -36,6 +36,9 @@ class Menu extends Component {
     socket.on('messages', (data) => {
         console.log('this is the messages', data)
     })
+    this.setState({
+      currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1]
+    })
 };
   
     async handleClick() {
@@ -167,7 +170,7 @@ class Menu extends Component {
         <div>
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
-          <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Los Burritos</li>
+          <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Click For Menu</li>
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}

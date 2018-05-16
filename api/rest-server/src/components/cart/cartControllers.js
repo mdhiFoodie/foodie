@@ -6,7 +6,7 @@ import {
 } from '../../../../lib/log';
 
 
-export const cartAddController = {
+export const cartController = {
   addItem: async (req, res) => {
   try {
    
