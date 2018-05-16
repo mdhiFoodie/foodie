@@ -1,44 +1,54 @@
-
-.dropbtn {
-  background-color: powderblue;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
+.typeFoodCategoryBtn select{
+  width: 80%;
+  margin: 0 10%;
   display: block;
+  border: none;
+  border-bottom: thin solid #a4a4a4;
+  border-left: thin solid #a4a4a4;
+  padding: 10px 0px 3px 10px;
+  margin-bottom: 15px;
+  font-family: Helvetica;
+  font-weight: 100;
+  font-size: 1em;
+  float: right;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1
+.signupButton {
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px 0px 8px 0px!important;
+  text-align: center;
+  font-size: 1.25em!important;
 }
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
+label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-    background-color: gray;
+#checkTerms {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden;
+}
+
+.signupButton {
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px 0px 8px 0px!important;
+  text-align: center;
+  font-size: 1.25em!important;
+  margin-top: 50px!important;
 }
