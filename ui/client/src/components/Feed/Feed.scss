@@ -4,10 +4,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  color: #282828
 }
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 #root, .app {
@@ -16,8 +18,9 @@ html, body {
 
 body {
   background-color: white;
-  color: #282828;
+  color: #3d3d3d;
   text-align: center;
+  font-family: Helvetica
 }
 
 input, label {
@@ -28,7 +31,19 @@ input, label {
 
 h1, h2, h3, h4 {
   font-family: 'Poiret One', cursive;
+  font-weight: 100;
 }
+
+.heading {
+  text-align: left;
+  padding-left: 45px;
+ h2 {
+   margin-top: 9px;
+ }
+}
+
+
+//business profile
 
 .profileContainer {
   width: 100%;
@@ -78,10 +93,16 @@ h1, h2, h3, h4 {
 
 .NearByRestaurantsContainer {
   display: block; 
+  width: 100%;
+  margin-left: 0px;
+  overflow-x: scroll; 
+  height: 306px;
 }
 
 .restaurantsList {
   display: inline-block;
+  background-color: #BA9BC9;
+  float: left;
 }
 
 
@@ -91,6 +112,93 @@ h1, h2, h3, h4 {
 // }
 
 .eachRestaurant {
-  border: thin solid gray; 
+  border: thin solid white; 
   padding: 10px; 
+  background-size: auto;
+  width: 250px;
+  height: 250px;
+  float: left;
+  display: block;
+}
+
+//feed
+
+.FeedContainer {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+div .searchFeedContainer {
+  border-bottom: thin solid lightgray;
+  height: 88px;
+}
+
+.feedSearch {
+  border: none;
+  padding: 8px 10px 0px 45px;
+  font-size: 1.3em;
+  
+}
+
+.feedSearch::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #a4a4a4;
+  opacity: 1; /* Firefox */
+
+}
+
+input.feedSearch {
+  color: #a4a4a4;
+  font-weight: 100;
+  width: 60%;
+}
+
+select {
+  background-color: white;
+  border: none;
+  border-radius: 0px!important;
+  border-left: thin solid #a4a4a4;
+  border-image: initial;
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  font-size: 1.3em;
+  margin-top: 3px;
+  overflow: hidden;
+  padding: 5px 10px 1px 45px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 33%;
+  color: #a4a4a4;
+  font-weight: 100;
+  position: relative;
+  float: left;
+}
+
+.hairline-down-arrow {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  background-color: white;
+  float:left;
+}
+.hairline-down-arrow:after {
+  content: "";
+  position: absolute;
+  top: 33%;
+  left: 54%;
+  width: 14px;
+  height: 14px;
+  border-width: 0px 1px 1px 0px;
+  transform: rotate(46deg) translate(-50%) skew(10deg, 10deg);
+  transform-origin: left;
+  border-style: solid;
+  border-color: #a4a4a4;
+  float: right;
+}
+
+.eachRestaurant {
+
 }

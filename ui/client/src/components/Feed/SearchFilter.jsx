@@ -111,20 +111,22 @@ class SearchFilter extends Component {
 
     render() {
         return(
-            <div className='SearchFeedContainer'>
+            <div className='searchFeedContainer'>
                 
                 <div>
-                    <input onChange={this.onTextHandler.bind(this)} name='search' placeholder='search' onKeyPress={this.handleKeyPress.bind(this)}></input>
+                    <input className='feedSearch' onChange={this.onTextHandler.bind(this)} name='search' placeholder='search' onKeyPress={this.handleKeyPress.bind(this)}></input>
                 </div>
 
                 <div>
+                    
                     <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
-                    <option value='totalorder'>totalorder</option>
+                    <option default value='filter'>filter</option>
+                    <option className='hairline-down-arrow' value='totalorder'>totalorder</option>
                     <option value='rating'>rating</option>
                     <option value='price'>$$$</option>
                     </select>
+                    <div className="hairline-down-arrow"></div>
                 </div>
-
             </div>
         )
     }
