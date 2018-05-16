@@ -5,6 +5,7 @@ import menuRouter from '../components/menu/menuRouter';
 import cartRouter from '../components/cart/cartRouter';
 import businessRouter from '../components/business/businessRouter';
 import searchRestaurantsRouter from '../components/Feed/searchRestaurantsRouter';
+import poolRouter from '../components/pool/poolRouter';
 
 const router = express.Router();
 
@@ -16,5 +17,7 @@ router.use('/menu', menuRouter);
 router.use('/cart', cartRouter);
 
 router.use('/business', businessRouter);
+
+router.use('/pool', poolRouter);
 
 export default router; 
