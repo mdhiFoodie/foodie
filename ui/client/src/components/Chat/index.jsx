@@ -19,7 +19,17 @@ class Chat extends Component {
   
   componentWillMount() {
     // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
+      //i need pool ID, business ID, user ID
   }
+
+  componentDidMount () {
+    socket.on('connection', () => {
+        console.log('connected to server')
+    })
+    socket.on('messages', (data) => {
+        console.log('this be the messagessss', data.messages)
+    })
+}
 
   onTextChange(e) {
     console.log('this is the state', this.state.text)
@@ -34,6 +44,42 @@ class Chat extends Component {
       console.log('enter button has been clicked')
       //do an axios call to get the text to redis.
         //after let redis
+      e.preventDefault();
+      this.state.messages.push(this.state.text)
+      const storage =  JSON.parse(localStorage.storage);
+      const userid = storage.id;
+      const username = storage.name;
+      const email = storage.email;
+      const type = storage.type;
+      const createdAt = new Date();
+      const payload = {
+        messages: this.state.messages,
+        text: this.state.text,
+        userid: userid,
+        email: email,
+        type: type,
+        createdAt: createdAt
+      }
+      e.currentTarget.value = '';
+      console.log('this is the payload: ', payload)
+      try {
+        const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
+        console.log('this is user messages', JSON.parse(userMessages.config.data))
+        const returnedData = JSON.parse(userMessages.config.data);
+        console.log('this is parsed data', returnedData.text);
+        this.state.listofmessages.push(returnedData.text);
+        console.log('this is the state now', this.state.listofmessages)
+        //send this listofmessages up to redux
+        this.setState({
+          username: username
+        })
+      }
+      catch (err) {
+        console.log(err)
+      };
+      socket.emit('messages', {
+        message: payload.text
+      })
     }
   };
 

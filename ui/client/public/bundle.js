@@ -44996,23 +44996,76 @@ var Chat = function (_Component) {
 
     _this.handleKeyPress = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+        var storage, userid, username, email, type, createdAt, payload, userMessages, returnedData;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // console.log('this is businesses data from reducer', this.props.businessesData)
-                if (e.key === 'Enter') {
-                  console.log('enter button has been clicked');
-                  //do an axios call to get the text to redis.
-                  //after let redis
+                if (!(e.key === 'Enter')) {
+                  _context.next = 30;
+                  break;
                 }
 
-              case 1:
+                console.log('enter button has been clicked');
+                //do an axios call to get the text to redis.
+                //after let redis
+                e.preventDefault();
+                _this.state.messages.push(_this.state.text);
+                storage = JSON.parse(localStorage.storage);
+                userid = storage.id;
+                username = storage.name;
+                email = storage.email;
+                type = storage.type;
+                createdAt = new Date();
+                payload = {
+                  messages: _this.state.messages,
+                  text: _this.state.text,
+                  userid: userid,
+                  email: email,
+                  type: type,
+                  createdAt: createdAt
+                };
+
+                e.currentTarget.value = '';
+                console.log('this is the payload: ', payload);
+                _context.prev = 13;
+                _context.next = 16;
+                return _axios2.default.post('http://localhost:3000/api/chat/messages', payload);
+
+              case 16:
+                userMessages = _context.sent;
+
+                console.log('this is user messages', JSON.parse(userMessages.config.data));
+                returnedData = JSON.parse(userMessages.config.data);
+
+                console.log('this is parsed data', returnedData.text);
+                _this.state.listofmessages.push(returnedData.text);
+                console.log('this is the state now', _this.state.listofmessages);
+                //send this listofmessages up to redux
+                _this.setState({
+                  username: username
+                });
+                _context.next = 28;
+                break;
+
+              case 25:
+                _context.prev = 25;
+                _context.t0 = _context['catch'](13);
+
+                console.log(_context.t0);
+
+              case 28:
+                ;
+                socket.emit('messages', {
+                  message: payload.text
+                });
+
+              case 30:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2);
+        }, _callee, _this2, [[13, 25]]);
       }));
 
       return function (_x) {
@@ -45031,6 +45084,17 @@ var Chat = function (_Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
+      //i need pool ID, business ID, user ID
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      socket.on('connection', function () {
+        console.log('connected to server');
+      });
+      socket.on('messages', function (data) {
+        console.log('this be the messagessss', data.messages);
+      });
     }
   }, {
     key: 'onTextChange',
