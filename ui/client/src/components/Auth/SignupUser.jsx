@@ -36,7 +36,6 @@ class SignupUser extends Component {
     
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
-    console.log('this is data after clicking signup as a user: ', data);
     localStorage.setItem('storage', JSON.stringify({
       id: data.id, 
       name: data.name, 
@@ -70,20 +69,22 @@ class SignupUser extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <form onSubmit={this.handleSignUpClick.bind(this)}>
+      <div className='loginContainer'>
+        <div className='formContainer'>
+        <img className='logo' src='#' />
+          <form className='formStyle' onSubmit={this.handleSignUpClick.bind(this)}>
             <input name='name' placeholder='name' onChange={this.handleForm.bind(this)}/>
             <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>
             <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>
             <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
+            
+              <input className='checkTerms' type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
             <label>
-              <input type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
               I agree to the terms and conditions
             </label>
-            <input type='submit' value='signup'/>
+            <input className='signupButton'  type='submit' value='signup'/>
           </form> 
-        </div> 
+        </div>
       </div> 
     )
   }

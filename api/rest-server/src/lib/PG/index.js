@@ -515,6 +515,7 @@ export const dummyData = async () => {
 //     console.log(err)
 //   }
 // }
+<<<<<<< HEAD
 >>>>>>> Finish signup style and fixed the food category button
 
       // INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
@@ -525,3 +526,5 @@ export const dummyData = async () => {
       // VALUES (1, 2, 1);
       // INSERT INTO reviews_users (id, id_users, id_reviews)
       // VALUES (2, 2, 2);
+=======
+>>>>>>> Styling for user and business signup almost done
