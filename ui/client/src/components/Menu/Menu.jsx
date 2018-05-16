@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:4000')
 
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
-//biz ideas cannot be formatted similarly or they will overwrite each other in redis
+//biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
   constructor() {
     super();
@@ -35,6 +35,9 @@ class Menu extends Component {
     })
     socket.on('messages', (data) => {
         console.log('this is the messages', data)
+    })
+    this.setState({
+      currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1]
     })
 };
   
@@ -167,7 +170,7 @@ class Menu extends Component {
         <div>
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
-          <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Los Burritos</li>
+          <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Click For Menu</li>
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}

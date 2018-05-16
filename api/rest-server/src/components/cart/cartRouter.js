@@ -1,22 +1,22 @@
 import express from 'express';
 
 import {
- cartAddController
+ cartController
 } from './cartControllers';
 
 const router = express.Router();
 
 router.route('/addItem')
-  .post(cartAddController.addItem);
+  .post(cartController.addItem);
 
 router.route('/getCart/:userId')
-  .get(cartAddController.getCart);  
+  .get(cartController.getCart);  
 
 router.route('/sendOrder')
-  .post(cartAddController.sendOrder);
+  .post(cartController.sendOrder);
 
 router.route('/grabBizOrders/:bizId')
-  .get(cartAddController.grabBizOrders); 
+  .get(cartController.grabBizOrders); 
 
 
 
