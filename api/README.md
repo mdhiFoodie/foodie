@@ -9,6 +9,7 @@ yarn buildEnv
 yarn setup:rest-server
 yarn setup:socket-server
 
+
 #Start the Servers
 
 yarn start:rest-server 
@@ -22,6 +23,7 @@ createuser root
 
 createdb foodie
 psql foodie
+yarn db:setup:rest-server
 
 # Setup Mongo
 

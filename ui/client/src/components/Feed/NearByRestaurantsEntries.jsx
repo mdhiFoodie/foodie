@@ -12,8 +12,8 @@ class NearByRestaurantsEntries extends Component {
 
   render() {
     return(
-      <div onClick={()=> this.props.history.push('/businessProfile')} className='eachRestaurant'>
-        {this.props.restaurant[0]} {this.props.restaurant[1]}
+      <div onClick={()=> this.props.history.push(`/businessProfile/${this.props.restaurant[1]}~${this.props.restaurant[0]}`)} className='eachRestaurant' style={{backgroundImage: `url(${this.props.restaurant[2]})`}}>
+        {this.props.restaurant[1]}
       </div>
     )
   }
