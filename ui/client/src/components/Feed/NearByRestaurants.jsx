@@ -24,9 +24,11 @@ class NearByRestaurants extends Component {
                   <h2>nearby restaurants</h2>
                 </div>
                 {/* {this.props.searchBusinesses && JSON.stringify(this.props.searchBusinesses.businesses)} */}
+                <div className='searchResultContainer'>
                 {this.props.searchBusinesses && this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
                     <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
                 ))}
+                </div>
             </div>
         )
     }

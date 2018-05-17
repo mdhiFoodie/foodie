@@ -25,4 +25,4 @@ const store = createStore(rootReducer, applyMiddleware(thunk, promise()))
 //   ,document.getElementById('root'),
 // );
 
-ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById("root")); 
+ReactDOM.render(<BrowserRouter><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById("root")); 

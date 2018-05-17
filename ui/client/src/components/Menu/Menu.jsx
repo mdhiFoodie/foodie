@@ -117,7 +117,7 @@ class Menu extends Component {
   }
 
   async viewCart() {
-    //switch to mouseover event after changing to stylized css div
+    // switch to mouseover event after changing to stylized css div
     try {
       const response = await axios.get(`http://localhost:3000/api/cart/getCart/${localStorage.getItem('id')}`)
       const cart = [];
