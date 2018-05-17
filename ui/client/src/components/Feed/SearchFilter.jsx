@@ -30,7 +30,6 @@ class SearchFilter extends Component {
     // }
 
     filterClickHandler(e) {
-        console.log('clicked on different filters and showing restaurants sorted', this.state.value);
         let sorted = this.state.restaurantSearchesSorted;
         if (e.target.value === 'totalorder') {
             sorted.sort((a,b) => {

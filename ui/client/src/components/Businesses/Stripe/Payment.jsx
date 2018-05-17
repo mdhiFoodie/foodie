@@ -6,6 +6,7 @@ import { injectStripe } from 'react-stripe-elements';
 import axios from 'axios'; 
 import Transactions from './Transactions.jsx'; 
 
+// const { storage } = localStorage || JSON.parse(localStorage); 
 
 class Payment extends Component {
   constructor() {
@@ -13,71 +14,58 @@ class Payment extends Component {
     this.state = {
       setupBegan: false, 
       isLoadingFieldsNeeded: true, 
-      error: null
+      error: null, 
+      email: 'michael@gmail.com'
     }
-    this.fetchFieldsNeeded = this.fetchFieldsNeeded.bind(this); 
   }
 
-  componentWillMount() {
-    this.fetchFieldsNeeded(); 
-  }
+  // componentWillMount() {
+  //   this.fetchFieldsNeeded(); 
+  // }
 
   fetchFieldsNeeded = async () => {
-    const data = await axios.post('/api/stripe/account/get');
-    const {success, message, setupBegan} = data; 
-    if (success) {
-      this.setState({
-        setupBegan,
-        isLoadingFieldsNeeded: false, 
-      }); 
-    } else  {
-      this.setState({
-        error: message, 
-        isLoadingFieldsNeeded: false, 
-      });
+    /**
+     * Spin and let customer know that if they refresh or resubmit all their changes
+     * will be lost. A counter to dissable onClick after first try 
+     */
+    const { email } = this.state;
+    const body = {
+      email, 
+      total 
+    };
+    const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
+    console.log('Data from server', data)
+    if (data) {
+      
     }
   }
 
+  /**
+   * After getting token back push user to poolChat
+   */
+
   render() {
-    const {
-      isLoadingFieldsNeeded,
-      setupBegan,
-      error
-    } = this.state; 
-    if (isLoadingFieldsNeeded) {
-      return (
-        <p>Loading....</p>
-      )
-    } 
-    if (!setupBegan) {
-      return (
-      <div>
-        {
-          (error) ? (
-            <p>{error}</p>
-          ) 
-          :
-          (null)
-        }
-        <button>
-          Begin Setup 
-        </button>
-        <p>By clicking setup you agree to the TOS for Stripe and us</p>
-      </div>
-      )
-    }
-    // const { usersInfo } = this.props.getUsersInformation;
-    return(
-      <div>
-        {
-          (error) ? (
-            <p>{error}</p>
-          ) 
-          :
-          (null)
-        }
-        <p>Start adding Stripe elements</p>
-      </div>
+  return (
+    <div>
+      {/* <form id="payment-form">
+    Card Number
+    <input type="text" size="20" data-stripe="number" value="4242424242424242" />
+
+    Expiration (MM/YY)
+    <input type="text" size="2" data-stripe="exp_month" value="12" />
+    <input type="text" size="2" data-stripe="exp_year" value="17" />
+
+    CVC
+    <input type="text" size="4" data-stripe="cvc" value="123" />
+
+    Billing Zip
+    <input type="text" size="6" data-stripe="address_zip" value="12345" />
+
+    <input type="submit" class="submit" value="Submit Payment" />
+    </form> */}
+
+      <button onClick={this.fetchFieldsNeeded}>Get users account</button>
+    </div> 
     )
   }
 }

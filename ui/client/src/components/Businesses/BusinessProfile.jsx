@@ -70,10 +70,13 @@ class BusinessProfile extends Component {
           </div>
         </div>
         <div className='profileName'>
+<<<<<<< HEAD
           <div className='businessNameProfile'>
             {this.state.businessname}
           </div>
           <Logout />
+=======
+>>>>>>> Checking users for stripe account at checkout
           {this.state.businessname}
           <img src='https://source.unsplash.com/900x200/?restaurants'></img>
         </div>
@@ -106,12 +109,15 @@ class BusinessProfile extends Component {
         <h1>menu</h1>
         </div>
         <div className='menu'>
-          <Menu />
+        <Menu history={this.props.history}/>
         </div>
-        <div>
-            <Payment /> 
-        </div>
+<<<<<<< HEAD
         <div className='profileHeader'>
+=======
+        {/* <div>
+        <Payment /> 
+        </div> */}
+>>>>>>> Checking users for stripe account at checkout
         <h1>open pools</h1>
         </div>
         <div className='openPools'>

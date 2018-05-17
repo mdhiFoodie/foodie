@@ -32,7 +32,9 @@ class Menu extends Component {
       usersCart: null,
       userId: null,
       address: null,
-      subTotal: null
+      subTotal: null,
+      email: JSON.parse(localStorage.storage).email,
+      stripeAccount: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -151,7 +153,6 @@ class Menu extends Component {
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
       cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
-         
       this.setState({
         usersCart: cart,
         subTotal: subtotal,
@@ -165,21 +166,38 @@ class Menu extends Component {
 
   
   async checkout(){
+    const { history } = this.props; 
     try {
-      const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
-        bizId: this.state.currentBizId,
-        order: JSON.stringify(this.state.checkoutCartData),
-        userId: this.state.userId
-      });
-    } catch (error) {
-      console.error(error);
-    } 
-  this.setState({
-    usersCart: null,
-    checkedOut: !this.state.checkedOut
-  });
-
-  //delete cart from redis
+    //Check if user has stripe account 
+    const { email } = this.state;
+    const body = {
+      email 
+    };
+    const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
+    //If it does
+    if (data.stripeaccount.length > 0) {
+      try {
+        const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
+          bizId: this.state.currentBizId,
+          order: JSON.stringify(this.state.checkoutCartData),
+          userId: localStorage.getItem('id')
+        });
+      } catch (error) {
+        console.error('Error from Menu, checkout function first try -', error);
+      } 
+        this.setState({
+          usersCart: null,
+          checkedOut: !this.state.checkedOut
+        });
+        //delete cart from redis
+        history.push('/poolChat'); 
+    } else {
+      //Push them to fill out credit card info 
+      history.push('/payment'); 
+    }
+    } catch (err) {
+      console.log('Error from Menu, checkout function second try -', err);
+    }
   }
 
   handleForm(e) {
@@ -215,19 +233,13 @@ class Menu extends Component {
   render() {
     return (
       <div>
-
         {!this.state.checkedOut ?
-
         <div>
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
-<<<<<<< HEAD
           {/* <li onClick={this.handleClick}> 
             <div className='exploreMenu'>view menu</div>
           </li> */}
-=======
-          <li onClick={this.handleClick}> <img src="https://source.unsplash.com/260x180/?mexicanfood" alt=""/> <br/>Click For Menu</li>
->>>>>>> Trying to set up Stripe
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}
@@ -252,9 +264,7 @@ class Menu extends Component {
         <div className='cartButton'>
           <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
         </div>
-
         </div>
-
           :
 
           <div>

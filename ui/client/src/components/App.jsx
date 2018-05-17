@@ -17,6 +17,8 @@ import BusinessHeader from './Header/BusinessHeader.jsx';
 import DeliveryHeader from './Header/DeliveryHeader.jsx';
 import Menu from './Menu/Menu.jsx';
 import MyPool from './OpenPool/MyPool.jsx';
+import Chat from './Chat/index.jsx';
+import Payment from './Businesses/Stripe/Payment.jsx';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -48,6 +50,8 @@ class App extends Component {
               :
               BusinessDashboard}/>
             <Route exact path='/login' component={Login}/>
+            <Route exact path='/payment' component={Payment}/> 
+            <Route exact path='/poolChat' component={Chat}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/businessProfile/:nameid' component={BusinessProfile}/>
             <Route exact path='/signupUser' component={SignupUser}/>
