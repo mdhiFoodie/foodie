@@ -32,6 +32,7 @@ class SearchFilter extends Component {
     // }
 
     filterClickHandler(e) {
+        console.log('this is in the filter click handling for loading Statuwafwafs', this.props)
         console.log('clicked on different filters and showing restaurants sorted', this.state.value);
         let sorted = this.state.restaurantSearchesSorted;
         if (e.target.value === 'totalorder') {
@@ -128,11 +129,12 @@ class SearchFilter extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         SearchBusinesses : state.SearchBusinessesInFeed
-//     };
-// };
+const mapStateToProps = (state) => {
+    return {
+        searchBusinesses : state.searchBusinesses,
+        loadStatus: state.loadingStatus
+    };
+};
 
 const matchDispatchToProps = (dispatch) => {
     return bindActionCreators({
@@ -140,4 +142,4 @@ const matchDispatchToProps = (dispatch) => {
     }, dispatch);
 };
 
-export default connect(null, matchDispatchToProps)(SearchFilter);
+export default connect(mapStateToProps, matchDispatchToProps)(SearchFilter);

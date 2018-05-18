@@ -60243,6 +60243,7 @@ var SearchFilter = function (_Component) {
     }, {
         key: 'filterClickHandler',
         value: function filterClickHandler(e) {
+            console.log('this is in the filter click handling for loading Statuwafwafs', this.props);
             console.log('clicked on different filters and showing restaurants sorted', this.state.value);
             var sorted = this.state.restaurantSearchesSorted;
             if (e.target.value === 'totalorder') {
@@ -60313,11 +60314,12 @@ var SearchFilter = function (_Component) {
     return SearchFilter;
 }(_react.Component);
 
-// const mapStateToProps = (state) => {
-//     return {
-//         SearchBusinesses : state.SearchBusinessesInFeed
-//     };
-// };
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        searchBusinesses: state.searchBusinesses,
+        loadStatus: state.loadingStatus
+    };
+};
 
 var matchDispatchToProps = function matchDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
@@ -60325,7 +60327,7 @@ var matchDispatchToProps = function matchDispatchToProps(dispatch) {
     }, dispatch);
 };
 
-exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(SearchFilter);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(SearchFilter);
 
 /***/ }),
 /* 608 */
@@ -67838,7 +67840,7 @@ var loadingStatus = function loadingStatus() {
   switch (action.type) {
     case "SEARCH_BUSINESSES_FULFILLED":
       state = _extends({}, state, {
-        loading: action.payload,
+        businesses: action.payload,
         type: action.type
       });
       break;

@@ -13,7 +13,7 @@ const loadingStatus = (state = {}, action) => {
     case "SEARCH_BUSINESSES_FULFILLED":
       state = {
         ...state,
-        loading: action.payload,
+        businesses: action.payload,
         type: action.type
       };
       break;
