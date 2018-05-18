@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
-
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
 html, body {
   height: 100%;
   margin: 0;
@@ -20,16 +21,25 @@ nav {
   display: inline-block;
   float: left;
   width: 100%;
-
+  ul {
+    margin-top: 9px;
+    margin-bottom: 7px;
+  }
   li {
     display: inline-block;
     margin-right: 5%;
   }
 
   a {
+    clear: both;
     color: white;
     text-decoration: none;
     font-family: 'Poiret One', cursive; 
+    font-size: 0.75em;
   }
 
+}
+
+.icon {
+  font-size: 1.95em;
 }
