@@ -1,5 +1,8 @@
 import db from '../../config/databases/pg';
-import { getStripeId } from "./paymentsSQLHelpers";
+import { 
+  getStripeId, 
+  saveUserStripeAccount
+} from "./paymentsSQLHelpers";
 import { queryPayloadOrganizer } from '../../lib/components/util';
 import {
   success, 
@@ -13,9 +16,7 @@ export const paymentsQuery = async (payload) => {
       text: getStripeId,
       values: queryPayloadOrganizer(payload, ['email'])
     }
-    console.log('HERE PAYLOAD', payload)
     const data = await db.query(query);
-    console.log('data =>', data)
     success('stripeAccountQuery - successfully retrieved data ', data);
     return data;
   } catch (err) {
@@ -23,3 +24,19 @@ export const paymentsQuery = async (payload) => {
     throw new Error(err);
   }
 };
+
+export const saveUserAccountQuery = async (payload) => {
+  console.log(payload)
+  try {
+    const query = {
+      text: saveUserStripeAccount,
+      values: queryPayloadOrganizer(payload, ['stripeAccount', 'email'])
+    }
+    const data = await db.query(query); 
+    success('saveUserAccountQuery - successfully save account id');
+    return data; 
+  } catch (err) {
+    error('stripeAccountQuery - error= ', err);
+    throw new Error(err); 
+  }
+}

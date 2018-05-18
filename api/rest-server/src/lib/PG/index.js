@@ -499,7 +499,9 @@ export const dummyData = async () => {
           VALUES ('Michael', '', 'michael@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', 'cus_4x9tlO3czkPwWt');
           INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
           VALUES ('Jacob', '', 'jacob@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
-      `
+          INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
+          VALUES ('Isabella', '', 'isa@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
+          `
     );
   }
   catch(err) {

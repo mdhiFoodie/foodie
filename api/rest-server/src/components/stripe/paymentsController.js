@@ -4,8 +4,10 @@ import {
   error
 } from '../../../../lib/log';
 import {
-  paymentsQuery
+  paymentsQuery,
+  saveUserAccountQuery
 } from './paymentsQueries'; 
+import stripe from 'stripe'; 
 
 export const verifyStripe = async (req, res) => {
   try {
@@ -21,9 +23,25 @@ export const verifyStripe = async (req, res) => {
     }
 };
 
-
-
-
+export const createACustomAccount = async (req, res) => {
+  const stripe = require('stripe')(process.env.SECRET_KEY); 
+    try {
+      const email = 'jacob@gmail.com'; 
+      const data = await stripe.accounts.create({
+        type: 'custom', 
+        country: 'US', 
+        email
+      }); 
+      const userAccount = {
+        stripeAccount: data.id,
+        email: email
+      }
+      const saveNewAccount = await saveUserAccountQuery(userAccount); 
+      return res.status(200).send('Success'); 
+    } catch (err) {
+      console.log('Error from paymentsController inside createCustomAccount -', err); 
+    }
+}
 
 
 //This will get the users information and check if it has a stripe account 

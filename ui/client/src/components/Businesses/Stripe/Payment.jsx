@@ -1,12 +1,8 @@
 import React, { Component } from 'react';  
 import {Elements} from 'react-stripe-elements';
-// import { connect } from 'react-redux';
 import { injectStripe } from 'react-stripe-elements'; 
-// import { usersInformation } from '../../actions/type';
 import axios from 'axios'; 
 import Transactions from './Transactions.jsx'; 
-
-// const { storage } = localStorage || JSON.parse(localStorage); 
 
 class Payment extends Component {
   constructor() {
@@ -15,34 +11,21 @@ class Payment extends Component {
       setupBegan: false, 
       isLoadingFieldsNeeded: true, 
       error: null, 
-      email: 'michael@gmail.com'
+      email: JSON.parse(localStorage.storage).email
     }
   }
 
-  // componentWillMount() {
-  //   this.fetchFieldsNeeded(); 
-  // }
 
-  fetchFieldsNeeded = async () => {
-    /**
-     * Spin and let customer know that if they refresh or resubmit all their changes
-     * will be lost. A counter to dissable onClick after first try 
-     */
-    const { email } = this.state;
-    const body = {
-      email, 
-      total 
-    };
-    const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
-    console.log('Data from server', data)
-    if (data) {
-      
+  createACustomAccount = async () => {
+    try { 
+      const data = await axios.post('http://localhost:3000/api/stripe/createAccount');
+      if (data.data === 'Success') {
+        this.props.history.push('/poolChat');
+      }
+    } catch(err) {
+      console.log('Error from Payments inside createCustomAccount - ', err)
     }
   }
-
-  /**
-   * After getting token back push user to poolChat
-   */
 
   render() {
   return (
@@ -64,15 +47,10 @@ class Payment extends Component {
     <input type="submit" class="submit" value="Submit Payment" />
     </form> */}
 
-      <button onClick={this.fetchFieldsNeeded}>Get users account</button>
+      <button onClick={this.createACustomAccount}>Get users account</button>
     </div> 
     )
   }
 }
-
-// const mapStateToProps = state => ({
-//   getUsersInformation: state.getUsersInformation
-  
-// });
 
 export default Payment;

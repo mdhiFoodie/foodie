@@ -190,6 +190,7 @@ class Menu extends Component {
           checkedOut: !this.state.checkedOut
         });
         //delete cart from redis
+        //
         history.push('/poolChat'); 
     } else {
       //Push them to fill out credit card info 

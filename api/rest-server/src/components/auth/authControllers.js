@@ -23,6 +23,7 @@ import {
  */
 
 export const signUpController = async (req, res) => {
+  console.log('REQ.BODY', req.body)
   try {
     let row; 
     req.body.password = await hashPassword(req.body.password);
