@@ -60131,6 +60131,13 @@ var SearchFilter = function (_Component) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
                                 if (e.key === 'Enter') {
+                                    _this.setState({
+                                        loading: true
+                                    }, function () {
+                                        _this.props.loadingStatus(_this.state.loading);
+                                    });
+                                    console.log('this is the state loading', _this.state.loading);
+
                                     onPositionReceived = function () {
                                         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(position) {
                                             var foodcategory, searchRestaurants, locations;
@@ -61286,7 +61293,11 @@ var NearByRestaurants = function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            // console.log('this.props is coming from nearbyrestaurants', this.props.searchBusinesses)
+            console.log('this is the reducer type???', this.props);
+            //so if this.props.loadingStatus.type === 'SEARCH_LOADING_PENDING' then i want to
+            //make it so that i show the loading,
+            //else which is going t 'SEARCH_LOADING_FULFILLED' then show the other thing.
+            console.log('this.props.searchloading reducer', this.props.loadingStatus && this.props.loadingStatus.loading);
 
             return _react2.default.createElement(
                 'div',
@@ -61300,10 +61311,10 @@ var NearByRestaurants = function (_Component) {
                         'nearby restaurants'
                     )
                 ),
-                _react2.default.createElement(
+                this.props.loadingStatus.type === 'SEARCH_LOADING_FULFILLED' ? _react2.default.createElement(
                     'div',
                     { className: 'searchResultContainer' },
-                    this.props.searchBusinesses && this.props.searchBusinesses.businesses.map(function (restaurant, key) {
+                    this.props.searchBusinesses ? this.props.searchBusinesses.businesses.map(function (restaurant, key) {
                         return _react2.default.createElement(
                             'div',
                             { className: 'restaurantsList' },
@@ -61311,7 +61322,16 @@ var NearByRestaurants = function (_Component) {
                             _react2.default.createElement(_NearByRestaurantsEntries2.default, { history: _this2.props.history, key: key, restaurant: restaurant }),
                             ' '
                         );
-                    })
+                    }) : _react2.default.createElement(
+                        'div',
+                        null,
+                        ' ',
+                        _react2.default.createElement('img', { src: './loading.gif' })
+                    )
+                ) : _react2.default.createElement(
+                    'div',
+                    null,
+                    'NO SEARCHES MADE'
                 )
             );
         }
@@ -67810,14 +67830,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //   }
 // }
 
-var searchBusinesses = function searchBusinesses() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+var loadingStatus = function loadingStatus() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
+  console.log('this is my reducer loading', action);
   switch (action.type) {
     case "SEARCH_BUSINESSES_FULFILLED":
       state = _extends({}, state, {
-        businesses: action.payload
+        loading: action.payload,
+        type: action.type
       });
       break;
   }

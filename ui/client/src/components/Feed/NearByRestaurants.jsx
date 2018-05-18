@@ -16,19 +16,36 @@ class NearByRestaurants extends Component {
     }
 
     render() {
-        // console.log('this.props is coming from nearbyrestaurants', this.props.searchBusinesses)
+            console.log('this is the reducer type???', this.props)
+            //so if this.props.loadingStatus.type === 'SEARCH_LOADING_PENDING' then i want to
+                //make it so that i show the loading,
+            //else which is going t 'SEARCH_LOADING_FULFILLED' then show the other thing.
+            console.log('this.props.searchloading reducer', this.props.loadingStatus && this.props.loadingStatus.loading)
 
-        return(            
+        return(
             <div className='NearByRestaurantsContainer'>
                 <div className ='heading'>
                   <h2>nearby restaurants</h2>
                 </div>
-                {/* {this.props.searchBusinesses && JSON.stringify(this.props.searchBusinesses.businesses)} */}
+                
+                {this.props.loadingStatus.type === 'SEARCH_LOADING_FULFILLED' ? 
                 <div className='searchResultContainer'>
-                {this.props.searchBusinesses && this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
-                    <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
-                ))}
+                    {
+                    this.props.searchBusinesses ? this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
+                        <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
+                    ))
+                    :
+                    <div> <img src='./loading.gif'/></div>
+                    }
                 </div>
+
+                :
+
+                <div>
+                    NO SEARCHES MADE
+                </div>
+                }
+
             </div>
         )
     }

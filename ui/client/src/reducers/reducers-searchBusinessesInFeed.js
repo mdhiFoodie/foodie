@@ -7,12 +7,14 @@
 //   }
 // }
 
-const searchBusinesses = (state = null, action) => {
+const loadingStatus = (state = {}, action) => {
+  console.log('this is my reducer loading', action)
   switch(action.type) {
     case "SEARCH_BUSINESSES_FULFILLED":
       state = {
         ...state,
-        businesses: action.payload
+        loading: action.payload,
+        type: action.type
       };
       break;
   }

@@ -60,6 +60,12 @@ class SearchFilter extends Component {
 
     handleKeyPress = async (e) => {
         if(e.key === 'Enter'){
+            this.setState({
+                loading: true
+            }, () => {
+                this.props.loadingStatus(this.state.loading);
+            });
+            console.log('this is the state loading', this.state.loading)
             let onPositionReceived = async (position) => {
                 try {
                     const foodcategory = this.state.search;  
