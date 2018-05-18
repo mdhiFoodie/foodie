@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import rootReducer from './reducers/index.js';
+import fa from 'font-awesome-webpack';
 
 // const initialState = {};
 // const middleware = [thunk];

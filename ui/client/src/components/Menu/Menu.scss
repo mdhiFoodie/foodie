@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 4%;
+}
+
+.exploreMenu {
+  padding: 3% 18% 2% 0%;
+  margin: 0 4% 4%;
+  border: thin solid white;
+  border-right: none;
+  border-top: none;
+  color: white;
+  font-size: 1.45em;
+}
+
+.foodType {
+  width: 15%;
+  min-height: 135px;
+  height: auto;
+  float: left;
+  border: thin solid white;
+  padding: 3px;
+  color: white;
+  margin-right: -1px;
+}
+
+.foodType:hover {
+  background-color: white;
+  color: #E46F63;
+  cursor: pointer;
+}
+
+.foodType div:hover {
+  
+}
+
+.foodtype:first-child {
+  margin-left: 4%;
+}
+
+.foodType div {
+  margin-top: 40%;
+  color: inherit;
+  font-family: Helvetica, sans-serif;
+  font-weight: 100;
+
+}
+
+.foodItem {
+  width: 7.5%;
+  min-height: 67.5px;
+  height: auto;
+  float: left;
+  border: thin solid white;
+  padding: 3px;
+  color: white;
+  
+}
+
+.foodItem:first-child {
+  clear: left;
+}
+
+.foodItem div {
+  margin-top: 25%;
+  color: white;
+  font-family: Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 0.5em;
+}
+
+
+.cartButton button {
+  float: right;
+  height: 135px;
+  color: #E46F63;
+  background-color: white;
+  margin-right: 4%;
+}

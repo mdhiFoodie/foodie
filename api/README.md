@@ -38,6 +38,6 @@ brew install redis
 
  redis-server
  
- node redis/index.js
+ node rest-server/redis/index.js
 
  redis-cli
