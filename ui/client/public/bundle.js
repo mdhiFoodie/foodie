@@ -60157,8 +60157,15 @@ var SearchFilter = function (_Component) {
                                                                 var longitude = restaurants.longitude - position.coords.longitude;
                                                                 var calculation = Math.sqrt(latitude * latitude + longitude * longitude) * 100;
                                                                 var miles = calculation / 1.609344;
-                                                                if (miles <= 50) {
-
+                                                                if (miles <= 20) {
+                                                                    console.log('this is the restaurants', restaurants);
+                                                                    console.log('this is the calculation in miles', miles);
+                                                                    console.log('this is the restaurants name', restaurants.businessname);
+                                                                    console.log('this is the restaurants picture', restaurants.businesspicture);
+                                                                    console.log('this is the price', restaurants.price);
+                                                                    console.log('this is the rating', restaurants.rating);
+                                                                    console.log('this is the total orders', restaurants.totalorder);
+                                                                    console.log('this is the ids', restaurants.id);
                                                                     _this.state.restaurantSearches.push([restaurants.id, restaurants.businessname, restaurants.businesspicture, miles, restaurants.price, restaurants.rating, restaurants.totalorder, restaurants.foodcategory]);
                                                                 }
                                                             });
