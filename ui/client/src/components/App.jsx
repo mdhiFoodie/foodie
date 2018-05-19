@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import {StripeProvider} from 'react-stripe-elements';
 import Feed from './Feed/index.jsx';
 import Login from './Auth/Login.jsx';
 import SignupUser from './Auth/SignupUser.jsx'; 
@@ -32,6 +33,11 @@ class App extends Component {
     const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
+<<<<<<< HEAD
+=======
+
+        <BrowserRouter>
+>>>>>>> Get card token per user in order to charge when pool closes
           <Switch>
             <Route path='/' component={(props) => (
               <Header {...props}/>
@@ -50,7 +56,11 @@ class App extends Component {
               :
               BusinessDashboard}/>
             <Route exact path='/login' component={Login}/>
-            <Route exact path='/payment' component={Payment}/> 
+            <Route exact path='/payment' component={() => (
+            <StripeProvider apiKey="pk_test_z4MoEuHo0RIJC8oV0K6xhsO1">
+              <Payment />
+            </StripeProvider>
+            )}/> 
             <Route exact path='/poolChat' component={Chat}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/businessProfile/:nameid' component={BusinessProfile}/>

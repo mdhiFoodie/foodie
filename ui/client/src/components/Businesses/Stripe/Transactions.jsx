@@ -1,40 +1,321 @@
+import React, { Component } from 'react';  
+import { 
+  CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCVCElement,
+  PostalCodeElement,
+  PaymentRequestButtonElement,
+  injectStripe
+} from 'react-stripe-elements';
+import axios from 'axios'; 
+
+
+const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1')
+
+
+class Transactions extends Component {
+  constructor() {
+    super();
+    this.state = {
+      first_name: '',
+      last_name: '',
+      line1: '',
+      city: '',
+      state: '',
+      postal_code: '', 
+      tos_shown_and_accepted: false,
+      email: JSON.parse(localStorage.storage).email, 
+      finishInfo: false
+    }
+  }
+
+  createToken = async (e) => {
+    e.preventDefault(); 
+    try { 
+      const { first_name, last_name, line1, city, state, postal_code, tos_shown_and_accepted, email } = this.state; 
+      const body = {
+        first_name, 
+        last_name,
+        email,
+        line1,
+        city,
+        state,
+        postal_code,
+      }
+      const { token } = await stripe.createToken('account', {
+        legal_entity: {
+          first_name,
+          last_name,
+          address: {
+            line1,
+            city,
+            state,
+            postal_code,
+          },
+        },
+        tos_shown_and_accepted: true,
+      });
+      if (token)  {
+      const body = {
+        email, 
+        account_token: token.id
+      }
+      const data = await axios.post('http://localhost:3000/api/stripe/createAccount', body);
+      this.setState({
+        finishInfo: true
+      }); 
+        // this.props.history.push('/poolChat');
+    }
+    } catch(err) {
+      console.log('Error from Payments inside createCustomAccount - ', err)
+    }
+  }
+
+  createCardToken = async (e) => {
+    e.preventDefault(); 
+    try {
+      const cardToken = await this.props.stripe.createToken({
+        type: 'card',
+        name: 'Jacob Reisch'
+      }); 
+      console.log('Card token? ', cardToken);
+    } catch (err) {
+      console.log('Error from create card token on Transactions component -', err); 
+    }
+  }
+
+  handleForm(e) {
+    const {name, value} = e.target;
+    this.setState({[name]: value})
+  }
+
+  render() {
+    return (
+      <div>
+        {
+          !this.state.finishInfo ? 
+          (
+            <div>
+        <form className="my-form" onSubmit={this.createToken} >
+          <input type="hidden" name="token" id="token" />
+          <label>
+          <span>First Name</span>
+          <input onChange={this.handleForm.bind(this)} className="inp-first-name" name="first_name" />
+          </label>
+          <label>
+          <span>Last Name</span>
+          <input onChange={this.handleForm.bind(this)} className="inp-last-name" name="last_name"/>
+          </label>
+          <fieldset>
+          <legend>Address</legend>
+          <label>
+            <span>Street Address Line 1</span>
+            <input onChange={this.handleForm.bind(this)} className="inp-street-address1" name="line1" />
+          </label>
+          <label>
+            <span>City</span>
+            <input onChange={this.handleForm.bind(this)} className="inp-city" name="city" />
+          </label>
+          <label>
+            <span>State</span>
+            <input onChange={this.handleForm.bind(this)} className="inp-state" name="state" />
+          </label>
+          <label>
+            <span>Postal Code</span>
+            <input onChange={this.handleForm.bind(this)} className="inp-zip" name="zip" />
+          </label>
+        </fieldset>
+        <p>By clicking, you agree to <a href="#">our terms</a> and the <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
+        <button type='submit' >Submit</button>
+      </form>
+      </div>
+          )
+          :
+          (
+      <div>
+      <form onSubmit={this.createCardToken}>
+          <label>
+            Card number
+            <CardNumberElement
+          />
+          </label>
+          <label>
+            Expiration date
+            <CardExpiryElement
+            />
+          </label>
+          <label>
+            CVC
+            <CardCVCElement
+            />
+          </label>
+          <label>
+            Postal code
+            <PostalCodeElement
+            />
+          </label>
+          <p>By clicking, you agree to <a href="#">our terms</a> and the 
+          <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
+          <button type='submit'>Pay</button>
+        </form>
+        </div>
+          )
+        }
+      </div>
+    );
+  }
+}
+
+
+export default injectStripe(Transactions);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import React, { Component } from 'react';  
-// import {injectStripe} from 'react-stripe-elements';
-// // import { connect } from 'react-redux';
-// // import { Elements } from 'react-stripe-elements'; 
+// import { 
+//   CardElement,
+//   CardNumberElement,
+//   CardExpiryElement,
+//   CardCVCElement,
+//   PostalCodeElement,
+//   PaymentRequestButtonElement,
+//   injectStripe
+// } from 'react-stripe-elements';
 // import axios from 'axios'; 
-// import AddressSection from './AddressSection.jsx';
-// import CardSection from './CardSection.jsx';
+
+
+// const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1')
+
 
 // class Transactions extends Component {
 //   constructor() {
 //     super();
+//     this.state = {
+//       first_name: '',
+//       last_name: '',
+//       line1: '',
+//       city: '',
+//       state: '',
+//       postal_code: '', 
+//       tos_shown_and_accepted: false,
+//       email: JSON.parse(localStorage.storage).email
+//     }
 //   }
 
-//   handleSubmit = async (ev) => {
-//     // We don't want to let default form submission happen here, which would refresh the page.
-//     ev.preventDefault();
-//     const stripeToken = await this.props.createToken({name: 'Jenny Rosen'}); 
-//     console.log(stripeToken); 
-//     // Within the context of `Elements`, this call to createToken knows which Element to
-//     // tokenize, since there's only one in this group.
-//     // this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
-//     //   console.log('Received Stripe token:', token);
-//     // });
+//   createToken = async () => {
+//     try { 
+//       const { first_name, last_name, line1, city, state, postal_code, tos_shown_and_accepted, email } = this.state; 
+//       const body = {
+//         first_name, 
+//         last_name,
+//         email,
+//         line1,
+//         city,
+//         state,
+//         postal_code,
+//         tos_shown_and_accepted
+//       }
 
-//     // However, this line of code will do the same thing:
-//     // this.props.stripe.createToken({type: 'card', name: 'Jenny Rosen'});
+//       const data = await axios.post('http://localhost:3000/api/stripe/createAccount', body);
+//       if (data === 'Success') {
+//         // this.props.history.push('/poolChat');
+//       }
+//     } catch(err) {
+//       console.log('Error from Payments inside createCustomAccount - ', err)
+//     }
+//   }
+
+//   handleBlur = () => {
+//     console.log('[blur]')
+//   }
+
+//   onChange = (e) => {
+//     console.log('[change]', change)
+//   }
+
+//   onFocus = () => {
+//     console.log('[focus]')
+//   }
+
+//   onReady = () => {
+//     console.log('[ready]')
 //   }
 
 //   render() {
-//     // const { usersInfo } = this.props.getUsersInformation;
-//     return(
-//       <form onSubmit={this.handleSubmit}>
-//         <AddressSection />
-//         <CardSection />
-//         <button>Confirm order</button>
+//     console.log('component  = ', CardNumberElement);
+//     return (
+//       <form onSubmit={this.createToken}>
+//         <label>
+//           Card number
+//           <CardNumberElement
+//           />
+//         </label>
+//         <label>
+//           Expiration date
+//           <CardExpiryElement
+//           />
+//         </label>
+//         <label>
+//           CVC
+//           <CardCVCElement
+//           />
+//         </label>
+//         <label>
+//           Postal code
+//           <PostalCodeElement
+//           />
+//         </label>
+//         <p>By clicking, you agree to <a href="#">our terms</a> and the 
+//         <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
+//         <button>Pay</button>
 //       </form>
-//     )
+//     );
 //   }
 // }
 

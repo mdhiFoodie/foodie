@@ -26,15 +26,16 @@ export const verifyStripe = async (req, res) => {
 export const createACustomAccount = async (req, res) => {
   const stripe = require('stripe')(process.env.SECRET_KEY); 
     try {
-      const email = 'jacob@gmail.com'; 
+      console.log('REQ.BODY', req.body)
       const data = await stripe.accounts.create({
         type: 'custom', 
-        country: 'US', 
-        email
+        country: 'US',
+        email: req.body.email,
+        account_token: req.body.account_token
       }); 
       const userAccount = {
         stripeAccount: data.id,
-        email: email
+        email: req.body.email
       }
       const saveNewAccount = await saveUserAccountQuery(userAccount); 
       return res.status(200).send('Success'); 
@@ -44,28 +45,3 @@ export const createACustomAccount = async (req, res) => {
 }
 
 
-//This will get the users information and check if it has a stripe account 
-/**
- * type is custom or standard 
- * pass from the front end:
- * country code 
- * users email
- */
-// module.exports = (app) => {
-//   app.post('/api/stripe/account/get', (req, res, next) => {
-//     const stripeAccountId = null; 
-//     if(!stripeAccountId) {
-//       res.send({
-//         success: true, 
-//         message: 'missing stripe account',
-//         setuBegan: false 
-//       }); 
-//     } else {
-//       res.send({
-//         succes: true,
-//         message: 'stripe account',
-//         setuBegan: false        
-//       });
-//     }
-//   });
-// }
