@@ -27,7 +27,8 @@ class Menu extends Component {
       currentItemQuantity: null,
       checkedOut: false,
       currentItemPrice: null,
-      usersCart: null
+      usersCart: null,
+      userId: null
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -37,24 +38,25 @@ class Menu extends Component {
   }
 
   componentDidMount () {
-    this.handleClick();
     
     socket.on('connection', () => {
-        console.log('connected to server')
+      console.log('connected to server')
     })
     socket.on('messages', (data) => {
-        console.log('this is the messages', data)
+      console.log('this is the messages', data)
     })
     this.setState({
-      currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1]
+      currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1],
+      userId: JSON.parse(localStorage.storage).id
     })
-};
+    this.handleClick(location.pathname.split('/businessProfile/').join('').split('~')[1]);
+  };
   
-    async handleClick() {
+    async handleClick(bizId) {
       //need to grab specific biz id on click
       //biz id should be attached to image on sql query for restaurants
       try {
-        const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${this.state.currentBizId}`)
+        const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${bizId}`)
         this.setState({
           currentMenu: response.data
         });
@@ -114,7 +116,7 @@ class Menu extends Component {
     const thing = [this.state.currentItemPrice, this.state.currentItemQuantity]
     try {
       const item = await axios.post(`http://localhost:3000/api/cart/addItem`, {
-      userId: localStorage.getItem('id'),
+      userId: this.state.userId,
       item: this.state.currentItem,
       quantity: JSON.stringify(thing)
       });
@@ -131,7 +133,7 @@ class Menu extends Component {
   async viewCart() {
     // switch to mouseover event after changing to stylized css div
     try {
-      const response = await axios.get(`http://localhost:3000/api/cart/getCart/${localStorage.getItem('id')}`)
+      const response = await axios.get(`http://localhost:3000/api/cart/getCart/${this.state.userId}`)
       const cart = [];
       let subtotal = 0;
       for (var key in response.data) {
@@ -160,7 +162,7 @@ class Menu extends Component {
       const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
         bizId: this.state.currentBizId,
         order: JSON.stringify(this.state.checkoutCartData),
-        userId: localStorage.getItem('id')
+        userId: this.state.userId
       });
     } catch (error) {
       console.error(error);
