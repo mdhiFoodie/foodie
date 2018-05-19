@@ -108,20 +108,24 @@ export const poolController = {
   },
   grabAllPools: async (req, res) => {
     try {
-      const poolSet = await client.smembers('allPools');
-      // Array.from(poolSet); not sure if this is needed
-      const pools = [];
-      for (var i = 0; i < poolSet.length; i++) {
-        await client.hgetall(poolSet[i], (err, pool) => {
-          if(err) {
-            error('error retrieving cart', err);
-          }
-          pools.push(pool);
-        })
-      }
-      success('poolController - successfully found pool and added user');
-      //this needs to wait until the above function completes, enclose in a fn and then await?
-      return res.status(200).send(pools);
+       await client.smembers('allPools', async (err, poolIds) => {
+        if (err) {
+          error('error grabbing poolIds')
+        }
+       const pools = [];
+       for (var i = 0; i < poolIds.length; i++) {
+         await client.hgetall(poolIds[i], (err, pool) => {
+           if(err) {
+             error('error retrieving cart', err);
+           }
+           console.log('this is response', pool);
+           pools.push(pool);
+         })
+       }
+       success('poolController - successfully grabbed all pools');
+       //this needs to wait until the above function completes, enclose in a fn and then await?
+       return res.status(200).send(pools);
+      });
        
     } catch (err) {
       error('add user poolController - error= ', err);
