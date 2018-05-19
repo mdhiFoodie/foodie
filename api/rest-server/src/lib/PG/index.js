@@ -61,7 +61,7 @@ export const useDatabase = async () => {
 
 export const createUsersTable = async () => {
   try {
-    await db.query(
+    await db.query( 
       `
       CREATE TABLE IF NOT EXISTS users
       (
@@ -471,6 +471,21 @@ export const dummyData = async () => {
       VALUES ('Isabellas Guatemalan Bazaar', 'isa@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
       VALUES ('Test', 'test@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
+      
+      INSERT INTO users (name, profilepicture, email, password, type, phone)
+      VALUES ('tilly duck', 'https://source.unsplash.com/225x225/?duck', 'tilly@duck.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '3103103103');
+      INSERT INTO users (name, profilepicture, email, password, type, phone)
+      VALUES ('test user', 'https://source.unsplash.com/225x225/?test', 'test@test.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '2102102102');
+
+      INSERT INTO reviews (rating, comment, createdAt, id_businesses)
+      VALUES (5, 'I love this place', 1526678767742, 1);
+      INSERT INTO reviews (rating, comment, createdAt, id_businesses)
+      VALUES (4, 'I love this place less than the last guy', 1526678767742, 1);
+      
+      INSERT INTO reviews_users (id_users, id_reviews)
+      VALUES (2, 1);
+      INSERT INTO reviews_users (id_users, id_reviews)
+      VALUES (2, 2);
       `
     )
   }
