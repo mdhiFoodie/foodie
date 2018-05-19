@@ -5,7 +5,6 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-  console.log('REDUCER')
   if (action.type === signupData) {
     return {
       //grabs all the state object and changes the userData to the new payload 

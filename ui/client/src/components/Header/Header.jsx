@@ -17,7 +17,6 @@ class Header extends Component {
 
 
   render() {
-    console.log('Patrick wants this string ot be here. he can\'t speel:', this.props.getUsersInformation);
     const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
