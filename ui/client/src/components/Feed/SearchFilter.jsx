@@ -19,7 +19,6 @@ class SearchFilter extends Component {
     }
 
     onTextHandler(e) {
-        console.log('this is the state for search', this.state)
         this.setState({
             [e.target.name] : e.target.value
         })
@@ -65,32 +64,24 @@ class SearchFilter extends Component {
                 try {
                     const foodcategory = this.state.search;  
                     const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${foodcategory}`)
-                    console.log('HERE =>', searchRestaurants.data)
-                    console.log('this is position', position.coords)
+
                     let locations = searchRestaurants.data.map ( (restaurants) => {
                         let latitude = (restaurants.latitude - position.coords.latitude);
                         let longitude = (restaurants.longitude - position.coords.longitude);
                         let calculation = Math.sqrt(latitude*latitude + longitude*longitude) * 100;
                         let miles = calculation/1.609344;
                         if(miles <= 50) {
-                            console.log('this is the restaurants', restaurants);
-                            console.log('this is the calculation in miles', miles);
-                            console.log('this is the restaurants name', restaurants.businessname);
-                            console.log('this is the restaurants picture', restaurants.businesspicture);
-                            console.log('this is the price', restaurants.price);
-                            console.log('this is the rating', restaurants.rating);
-                            console.log('this is the total orders', restaurants.totalorder);
-                            console.log('this is the id', restaurants.id);
+
                             this.state.restaurantSearches.push([restaurants.id, restaurants.businessname, restaurants.businesspicture, miles, restaurants.price, restaurants.rating, restaurants.totalorder, restaurants.foodcategory])
                         }
                     })
-                    console.log('this is the state', this.state.restaurantSearches)
+
                     this.setState({
                         restaurantSearchesSorted : this.state.restaurantSearches.sort( (a,b) => {
                             return a[2]-b[2];
                         })
                     })
-                    console.log('this is the new state for sort', this.state.restaurantSearchesSorted)
+
                     this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted)
                 }
                 catch(err) {
@@ -103,7 +94,6 @@ class SearchFilter extends Component {
             if(navigator.geolocation) {
                 let position = navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
                 let watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
-                console.log('this is watch', watch);
                 navigator.geolocation.clearWatch(watch);
             }
     }

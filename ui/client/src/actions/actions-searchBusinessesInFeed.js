@@ -7,7 +7,6 @@
 // };
 
 export const searchBusinessesInFeed = (businesses) => {
-  console.log('this is my search businesses', businesses)
   return {
     type: 'SEARCH_BUSINESSES',
     payload: new Promise((resolve, reject) => {

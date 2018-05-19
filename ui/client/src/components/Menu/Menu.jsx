@@ -12,14 +12,16 @@ fontawesome.library.add(faShoppingCart);
 
 import './Menu.scss';
 
+const GOOGLE = process.env.GOOGLE
+
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 //biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
   constructor() {
     super();
     this.state = {
-      currentBizId: 5 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
-      currentBizName: 'Los Burritos' /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizId: 5 /*should be set on click of restaurant thumbnail So can biz name!! (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizName: null,
       currentMenu: null,
       food: null,
       foods: null,
@@ -27,34 +29,41 @@ class Menu extends Component {
       currentItemQuantity: null,
       checkedOut: false,
       currentItemPrice: null,
-      usersCart: null
+      usersCart: null,
+      userId: null,
+      address: null,
+      subTotal: null
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.itemClick = this.itemClick.bind(this);
     this.viewCart = this.viewCart.bind(this);
     this.checkout = this.checkout.bind(this);
+    this.handleForm = this.handleForm.bind(this);
+    this.submitDeliveryAddress = this.submitDeliveryAddress.bind(this);
   }
 
   componentDidMount () {
-    this.handleClick();
     
     socket.on('connection', () => {
-        console.log('connected to server')
+      console.log('connected to server')
     })
     socket.on('messages', (data) => {
-        console.log('this is the messages', data)
+      console.log('this is the messages', data)
     })
     this.setState({
-      currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1]
+      currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1],
+      currentBizName: location.pathname.split('/businessProfile/').join('').split('~')[0].split('%20').join(' '),
+      userId: JSON.parse(localStorage.storage).id
     })
-};
+    this.handleClick(location.pathname.split('/businessProfile/').join('').split('~')[1]);
+  };
   
-    async handleClick() {
+    async handleClick(bizId) {
       //need to grab specific biz id on click
       //biz id should be attached to image on sql query for restaurants
       try {
-        const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${this.state.currentBizId}`)
+        const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${bizId}`)
         this.setState({
           currentMenu: response.data
         });
@@ -114,7 +123,7 @@ class Menu extends Component {
     const thing = [this.state.currentItemPrice, this.state.currentItemQuantity]
     try {
       const item = await axios.post(`http://localhost:3000/api/cart/addItem`, {
-      userId: localStorage.getItem('id'),
+      userId: this.state.userId,
       item: this.state.currentItem,
       quantity: JSON.stringify(thing)
       });
@@ -131,7 +140,7 @@ class Menu extends Component {
   async viewCart() {
     // switch to mouseover event after changing to stylized css div
     try {
-      const response = await axios.get(`http://localhost:3000/api/cart/getCart/${localStorage.getItem('id')}`)
+      const response = await axios.get(`http://localhost:3000/api/cart/getCart/${this.state.userId}`)
       const cart = [];
       let subtotal = 0;
       for (var key in response.data) {
@@ -160,7 +169,7 @@ class Menu extends Component {
       const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
         bizId: this.state.currentBizId,
         order: JSON.stringify(this.state.checkoutCartData),
-        userId: localStorage.getItem('id')
+        userId: this.state.userId
       });
     } catch (error) {
       console.error(error);
@@ -172,6 +181,36 @@ class Menu extends Component {
 
   //delete cart from redis
   }
+
+  handleForm(e) {
+    const {name, value} = e.target;
+    this.setState({[name]: value})
+  }
+
+  submitDeliveryAddress = async (e) => {
+    e.preventDefault();
+    const locations = this.state.address;
+    const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: locations,
+                    key: GOOGLE
+                }
+            }); 
+            this.setState({
+              latitude: geoCode.data.results[0].geometry.location.lat,
+              longitude: geoCode.data.results[0].geometry.location.lng
+            })
+            await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
+              bizId: this.state.currentBizId,
+              bizName: this.state.currentBizName,
+              longitude: this.state.longitude,
+              latitude: this.state.latitude,
+              userId: this.state.userId,
+              poolId: this.state.currentBizId + this.state.userId
+            }); 
+            // await console.log('clicked poolId !!!!',this.state, this.state.currentBizId , this.state.userId);
+  }
+
 
   render() {
     return (
@@ -215,7 +254,8 @@ class Menu extends Component {
           :
 
           <div>
-          <Chat/>
+          <input name='address' placeholder='address' onChange={this.handleForm}/>
+          <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
           </div>
 
         }

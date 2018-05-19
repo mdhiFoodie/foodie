@@ -6,11 +6,17 @@ import {
 
 const router = express.Router();
 
-router.route('/addPool')
-  .post(poolController.addPool);
+router.route('/checkForExistingPoolThenAddUser')
+  .post(poolController.checkForExistingPoolThenAddUser);
 
-  router.route('/addUserToPool')
-  .post(poolController.addUserToPool);
+router.route('/grabAllPools')
+  .get(poolController.grabAllPools);
+
+router.route('/grabUsersPool/:userId')
+  .get(poolController.grabUsersPool);
+
+// router.route('/addUserToPool')
+//   .post(poolController.addUserToPool);
 
 
 export default router;

@@ -14,7 +14,6 @@ class Feed extends Component {
   }
 
   render() {
-    console.log(this.props.getUsersInformation)
     return(
       <div className='FeedContainer'>
       

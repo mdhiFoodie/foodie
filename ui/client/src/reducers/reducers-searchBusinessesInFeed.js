@@ -8,7 +8,6 @@
 // }
 
 const searchBusinesses = (state = null, action) => {
-  console.log('this is my reducer', action.payload)
   switch(action.type) {
     case "SEARCH_BUSINESSES_FULFILLED":
       state = {
