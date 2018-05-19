@@ -7,6 +7,7 @@ import businessRouter from '../components/business/businessRouter';
 import searchRestaurantsRouter from '../components/Feed/searchRestaurantsRouter';
 import poolRouter from '../components/pool/poolRouter';
 import reviewsRouter from '../components/reviews/reviewsRouter';
+import chatRouter from '../components/chat/chatRouter';
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.use('/business', businessRouter);
 router.use('/pool', poolRouter);
 
 router.use('/reviews', reviewsRouter);
+router.use('/chat', chatRouter);
 
 
 export default router; 

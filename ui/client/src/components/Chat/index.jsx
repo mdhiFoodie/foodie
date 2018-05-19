@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Messages from '../messages/index.jsx';
+import Messages from './messages.jsx';
 
 import axios from 'axios';
 import {bindActionCreators} from 'redux';
@@ -13,7 +13,9 @@ class Chat extends Component {
 
     this.state = {
       messages : [],
-      text : ''
+      text : '',
+      listofmessages: [],
+      username: ''
     }
   }
   
@@ -68,7 +70,7 @@ class Chat extends Component {
         const returnedData = JSON.parse(userMessages.config.data);
         console.log('this is parsed data', returnedData.text);
         this.state.listofmessages.push(returnedData.text);
-        console.log('this is the state now', this.state.listofmessages)
+        console.log('this is the state for list of messages', this.state.listofmessages)
         //send this listofmessages up to redux
         this.setState({
           username: username
@@ -84,11 +86,18 @@ class Chat extends Component {
   };
 
   render() {
+    console.log('this state username', this.state.username)
     return(
       <div>
         WELCOME TO THE CHAT PAGE
         <div>
         <Messages/>
+        </div>
+
+        <div>
+          {this.state.listofmessages && this.state.listofmessages.map ( (message, key) => {
+            return <Messages key={key} singleMessage={message} username={this.state.username}/>
+          })}
         </div>
 
         <form>
