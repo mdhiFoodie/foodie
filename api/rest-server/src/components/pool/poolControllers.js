@@ -9,7 +9,7 @@ import {
 export const poolController = {
   addPool: async (req, res) => {
     try {
-      
+      console.log('this is req.body', req.body);
       const poolId = 'poolId' + req.body.poolId;
       const bizId = req.body.bizId;
       const longitude = req.body.longitude;
@@ -29,7 +29,7 @@ export const poolController = {
         'bizId', bizId, 'longitude', longitude,'latitude', latitude, 'timer', timer,
         'eta', eta, 'count', count, ('userId' + userId), userId );
 
-      await client.geoadd(bizId, longitude, latitude, poolId);
+      await client.geoadd('bizId' + bizId, longitude, latitude, poolId);
 
       await client.sadd('allPools', poolId);
       
@@ -73,27 +73,33 @@ export const poolController = {
       const acceptableDistance = 500; //in meters
       const distanceUnits = 'm';
 
-      const joinablePoolId = await client.georadius(bizId, longitude, latitude, acceptableDistance, distanceUnits);
-      //should look into this data sturcture and if it needs to be mutated, what about if theres multiples??
-      if (joinablePoolId !== null /*or whatever an empty georadius returns*/) {
-        await client.hset(joinablePoolId, ('userId' + userId), userId );
-        await client.hincrby(joinablePoolId, 'count', 1);    
-        await client.set(userId, 'poolId' + joinablePoolId);
-        let rightNow = new Date();
-        if (rightNow.getHours() > 10) {
-          rightNow.setDate(rightNow.getDate() + 1);
+      await client.georadius('bizId' + bizId, longitude, latitude, acceptableDistance, distanceUnits, async (err, pools) => {
+        if(err) {
+          error('error checking georadius', err);
         }
-          rightNow.setHours(13,0,0);
-        const ttl = Math.round(rightNow.getTime() / 1000);
-        await client.expireat(userId, ttl);
-        // const poolData = await client.hgetall(joinablePools);
-        success('poolController - successfully found pool and added user');
-        return res.status(200).send(true);        
-      } else {
-        success('poolController - no local pool creating new pool ');
-        //if no pool exists then send a flag that will prompt user to add new pool
-        poolController.addPool(req, res); //no idea if this will work...
-      }
+        if (pools.length > 0 ) {
+          console.log(pools);
+          await client.hset(pools[0], ('userId' + userId), userId );
+          await client.hincrby(pools[0], 'count', 1);    
+          await client.set(userId, 'poolId' + pools[0]);
+          let rightNow = new Date();
+          if (rightNow.getHours() > 10) {
+            rightNow.setDate(rightNow.getDate() + 1);
+          }
+            rightNow.setHours(13,0,0);
+          const ttl = Math.round(rightNow.getTime() / 1000);
+          await client.expireat(userId, ttl);
+          // const poolData = await client.hgetall(joinablePools);
+          success('poolController - successfully found pool and added user');
+          return res.status(200).send(true);        
+        } else {
+          success('poolController - no local pool creating new pool ');
+          //if no pool exists then send a flag that will prompt user to add new pool
+          poolController.addPool(req, res); //no idea if this will work...
+        }
+      });
+      //should look into this data sturcture and if it needs to be mutated, what about if theres multiples??
+     
 
     } catch (err) {
       error('add user poolController - error= ', err);

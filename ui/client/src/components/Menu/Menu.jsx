@@ -12,6 +12,8 @@ fontawesome.library.add(faShoppingCart);
 
 import './Menu.scss';
 
+const GOOGLE = process.env.GOOGLE
+
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 //biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
@@ -19,7 +21,6 @@ class Menu extends Component {
     super();
     this.state = {
       currentBizId: 5 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
-      currentBizName: 'Los Burritos' /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
       currentMenu: null,
       food: null,
       foods: null,
@@ -28,13 +29,17 @@ class Menu extends Component {
       checkedOut: false,
       currentItemPrice: null,
       usersCart: null,
-      userId: null
+      userId: null,
+      address: null,
+      subTotal: null
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.itemClick = this.itemClick.bind(this);
     this.viewCart = this.viewCart.bind(this);
     this.checkout = this.checkout.bind(this);
+    this.handleForm = this.handleForm.bind(this);
+    this.submitDeliveryAddress = this.submitDeliveryAddress.bind(this);
   }
 
   componentDidMount () {
@@ -175,6 +180,35 @@ class Menu extends Component {
   //delete cart from redis
   }
 
+  handleForm(e) {
+    const {name, value} = e.target;
+    this.setState({[name]: value})
+  }
+
+  submitDeliveryAddress = async (e) => {
+    e.preventDefault();
+    const locations = this.state.address;
+    const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: locations,
+                    key: GOOGLE
+                }
+            }); 
+            this.setState({
+              latitude: geoCode.data.results[0].geometry.location.lat,
+              longitude: geoCode.data.results[0].geometry.location.lng
+            })
+            await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
+              bizId: this.state.currentBizId,
+              longitude: this.state.longitude,
+              latitude: this.state.latitude,
+              userId: this.state.userId,
+              poolId: this.state.currentBizId + this.state.userId
+            }); 
+            // await console.log('clicked poolId !!!!',this.state, this.state.currentBizId , this.state.userId);
+  }
+
+
   render() {
     return (
       <div>
@@ -217,7 +251,8 @@ class Menu extends Component {
           :
 
           <div>
-          <Chat/>
+          <input name='address' placeholder='address' onChange={this.handleForm}/>
+          <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
           </div>
 
         }
