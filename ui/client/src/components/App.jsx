@@ -29,14 +29,11 @@ class App extends Component {
     const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
-        <BrowserRouter>
           <Switch>
             <Route path='/' component={(props) => (
               <Header {...props}/>
             )}/>
           </Switch>
-        </BrowserRouter>
-        <BrowserRouter>
           <Switch> 
             
             <Route exact path='/' component={
@@ -51,7 +48,7 @@ class App extends Component {
               BusinessDashboard}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
-            <Route path='/businessProfile/:nameid' component={BusinessProfile}/>
+            <Route exact path='/businessProfile/:nameid' component={BusinessProfile}/>
             <Route exact path='/signupUser' component={SignupUser}/>
             <Route exact path='/signupBusiness' component={SignupBusiness}/>
             <Route exact path='/home' component={(props) => (
@@ -67,7 +64,6 @@ class App extends Component {
               <Protected component={AddDelivery} {...props} />
             )}/>
           </Switch>
-        </BrowserRouter>
       </div>
     )
   }

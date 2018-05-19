@@ -5,6 +5,13 @@ import Chat from '../Chat/index.jsx';
 import io from 'socket.io-client';
 const socket = io('http://localhost:4000')
 
+import fontawesome from '@fortawesome/fontawesome'
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart'
+
+fontawesome.library.add(faShoppingCart);
+
+import './Menu.scss';
+
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 //biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
@@ -30,6 +37,8 @@ class Menu extends Component {
   }
 
   componentDidMount () {
+    this.handleClick();
+    
     socket.on('connection', () => {
         console.log('connected to server')
     })
@@ -58,7 +67,7 @@ class Menu extends Component {
   renderFoodTypes() {
     const foodType = [];
     for (var key in this.state.currentMenu) {
-      foodType.push(<div key={key} className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div>);
+      foodType.push(<div className='foodType'><div key={key} className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div></div>);
     }
     this.setState({
       food: foodType
@@ -70,10 +79,13 @@ class Menu extends Component {
     let aFG= this.state.currentMenu[foodThing]
     for (var i = 0; i < aFG.length; i++) {
       foodItems.push(
-      <div key={aFG[i].name} className={aFG[i].name} onClick={this.itemClick}>
-      <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].name}</li>
-      <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].price}</li>
-      </div>);
+      <div className='foodItem'>
+        <div key={aFG[i].name} className={aFG[i].name} onClick={this.itemClick}>
+          <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].name}</li>
+          <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].price}</li>
+        </div>
+      </div>
+      );
       }
       this.setState({
         foods: foodItems
@@ -117,7 +129,7 @@ class Menu extends Component {
   }
 
   async viewCart() {
-    //switch to mouseover event after changing to stylized css div
+    // switch to mouseover event after changing to stylized css div
     try {
       const response = await axios.get(`http://localhost:3000/api/cart/getCart/${localStorage.getItem('id')}`)
       const cart = [];
@@ -170,7 +182,9 @@ class Menu extends Component {
         <div>
         <ul>
         {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
-          <li onClick={this.handleClick}> <img src="http://placecorgi.com/260/180" alt=""/> <br/>Click For Menu</li>
+          {/* <li onClick={this.handleClick}> 
+            <div className='exploreMenu'>view menu</div>
+          </li> */}
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}
@@ -192,8 +206,8 @@ class Menu extends Component {
         <span>Quantity: {this.state.currentItemQuantity}</span>
         <button onClick={() => this.adjustQuantity(1)}>+</button>
         </div>}
-        <div>
-          <button onClick={this.viewCart}>View Cart</button>
+        <div className='cartButton'>
+          <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
         </div>
 
         </div>

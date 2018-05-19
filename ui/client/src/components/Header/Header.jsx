@@ -21,8 +21,6 @@ class Header extends Component {
     const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
-        <button onClick={()=> (console.log('this is the prop', this.props.getUsersInformation, ' this is type ', type))}>CLICK</button>
-        <BrowserRouter>
         {
         this.props.getUsersInformation.usersInfo.type === '0' || type === '0' ?
         (console.log('we are users mothas', localStorage.storage ? JSON.parse(localStorage.storage).type : 'pent'),
@@ -45,7 +43,6 @@ class Header extends Component {
         :
         <div/>
         }
-        </BrowserRouter>
         </div>
     )
   }

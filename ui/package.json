@@ -22,7 +22,10 @@
   "keywords": [],
   "dependencies": {
     "eslint-plugin-react": "^7.7.0",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
     "lodash": "^4.17.10"
   }
 }

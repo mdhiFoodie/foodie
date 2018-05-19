@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import rootReducer from './reducers/index.js';
+import fa from 'font-awesome-webpack';
 
 // const initialState = {};
 // const middleware = [thunk];
@@ -25,4 +26,4 @@ const store = createStore(rootReducer, applyMiddleware(thunk, promise()))
 //   ,document.getElementById('root'),
 // );
 
-ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById("root")); 
+ReactDOM.render(<BrowserRouter><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById("root")); 
