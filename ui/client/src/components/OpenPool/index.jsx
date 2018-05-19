@@ -6,6 +6,7 @@ class OpenPools extends Component {
     super();
 
     this.state = {
+      discount: ['free delivery', .05, .1, .15]
     }
   }
 
@@ -18,21 +19,28 @@ class OpenPools extends Component {
   }
 
   async grabPools () {
-    const pools = [];
     const response = await axios.get(`http://localhost:3000/api/pool/grabAllPools`)
+    const pools = Array.from(response.data).map((pool) => 
+      <div>
+        <div>{pool.bizName}</div>
+        <div>count: {pool.count}</div>
+        <div>discount: {this.state.discount[0]}</div>
+        <div>pool closes at: {pool.eta}</div>
+        <div>food will be delvered at: {pool.timer}</div>
+      </div>
+    )
     this.setState({
-      pool: response.data
+      openPools: pools
     });
 
-    await console.log(response);
+    await console.log(response.data);
   }
 
   render() {
     return(
       <div>
         Open Pools
-
-        {this.state.openPools}
+       {this.state.openPools}
       </div>
     )
   }

@@ -21,7 +21,7 @@ const UserHeader = () => (
         <li><Link to='/home'><i className="fas fa-home icon"></i><br/>home</Link></li>
         <li><Link to='/profile'><i className="fas fa-user icon"></i><br/>profile</Link></li>
         <li><Link to='/message'><i className="fas fa-comment icon"></i><br/>message</Link></li>
-        <li><Link to='/cart'><i className="fas fa-shopping-cart icon"></i><br/>cart</Link></li>
+        <li><Link to='/myPool'><i className="fas fa-shopping-cart icon"></i><br/>cart</Link></li>
       </ul>
     </nav>
   </header>

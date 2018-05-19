@@ -10,12 +10,13 @@ import DeliveryProfile from './DeliveryUsers/DeliveryProfile.jsx';
 import BusinessProfile from './Businesses/BusinessProfile.jsx'; 
 import Logout from './Auth/Logout.jsx'; 
 import BusinessDashboard from './Businesses/BusinessDashboard.jsx'; 
-import LoggedOutHeader from './Header/LoggedOutHeader.jsx'
-import Header from './Header/Header.jsx'
-import UserHeader from './Header/UserHeader.jsx'
-import BusinessHeader from './Header/BusinessHeader.jsx'
-import DeliveryHeader from './Header/DeliveryHeader.jsx'
-import Menu from './Menu/Menu.jsx'
+import LoggedOutHeader from './Header/LoggedOutHeader.jsx';
+import Header from './Header/Header.jsx';
+import UserHeader from './Header/UserHeader.jsx';
+import BusinessHeader from './Header/BusinessHeader.jsx';
+import DeliveryHeader from './Header/DeliveryHeader.jsx';
+import Menu from './Menu/Menu.jsx';
+import MyPool from './OpenPool/MyPool.jsx';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -56,6 +57,9 @@ class App extends Component {
             )}/>
             <Route exact path='/dashboard' component={(props) => (
               <Protected component={BusinessDashboard} {...props} />
+            )}/>
+            <Route exact path='/myPool' component={(props) => (
+              <Protected component={MyPool} {...props} />
             )}/>
             <Route exact path='/deliveryProfile' component={(props) => (
               <Protected component={DeliveryProfile} {...props} />

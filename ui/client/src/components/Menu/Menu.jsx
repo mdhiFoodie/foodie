@@ -20,7 +20,8 @@ class Menu extends Component {
   constructor() {
     super();
     this.state = {
-      currentBizId: 5 /*should be set on click of restaurant thumbnail (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizId: 5 /*should be set on click of restaurant thumbnail So can biz name!! (can be grabbed off the menu if response is modified on server side)*/,
+      currentBizName: null,
       currentMenu: null,
       food: null,
       foods: null,
@@ -52,6 +53,7 @@ class Menu extends Component {
     })
     this.setState({
       currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1],
+      currentBizName: location.pathname.split('/businessProfile/').join('').split('~')[0].split('%20').join(' '),
       userId: JSON.parse(localStorage.storage).id
     })
     this.handleClick(location.pathname.split('/businessProfile/').join('').split('~')[1]);
@@ -200,6 +202,7 @@ class Menu extends Component {
             })
             await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
               bizId: this.state.currentBizId,
+              bizName: this.state.currentBizName,
               longitude: this.state.longitude,
               latitude: this.state.latitude,
               userId: this.state.userId,
