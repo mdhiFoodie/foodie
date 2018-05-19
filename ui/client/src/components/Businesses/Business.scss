@@ -7,6 +7,9 @@
 .businessName {
   background-color: aqua; 
   color: white; 
+  h1 {
+    margin-top: 0px;
+  }
 }
 
 .businessNameProfile {
@@ -38,6 +41,8 @@
   margin-left: 4%;
   margin-bottom: -17px;
   float: left;
+  clear: both;
+  width: 100%;
 }
 
 .rating {
@@ -45,6 +50,13 @@
   width: auto;
   margin: 0 auto;
   text-align: center;
+}
+
+.rating div {
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  width: 87%;
 }
 
 //business profile
@@ -149,6 +161,70 @@
 
 .reviews {
   float: left;
+  width: 95%;
+  background-color: lightgray;
+  min-height: 300px;
+}
+
+.reviewEntry {
+  width: 100%;
+  display: block;
+  float: left;
+  border-bottom: thin solid white;
+  img {
+    display: block;
+  }
+}
+
+.reviewPhoto {
+  height: auto;
+  float: left;
+  display: block;
+  width: inherit;
+  
+}
+
+.reviewerName {
+  float: left;
+  clear: left;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  width: inherit;
+}
+
+.reviewPhotoAndName {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-left: 15px;
+  display: block;
+  float: left;
+  width: 30%;
+}
+
+.reviewRating {
+  display: block;
+  float: right !important;
+  width: 21%;
+  position: relative;
+  .starIcon {
+    margin-left: 1%;
+    text-align: right;
+    margin-top: 8%;
+  }
+}
+
+.reviewText {
+  float: left;
+  margin-top: 30px;
+  width: 60%;
+  text-align: left;
+}
+
+.reviewTime {
+  float: right;
+  margin-right: 28%;
+  margin-top: 10px
 }
 
 @media screen and (max-width: 825px) {

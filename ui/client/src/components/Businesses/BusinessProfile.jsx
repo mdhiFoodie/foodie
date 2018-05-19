@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Payment from './Payment.jsx'; 
+import Reviews from '../Reviews/Reviews.jsx';
 
 import fontawesome from '@fortawesome/fontawesome'
 import faStar from '@fortawesome/fontawesome-free-solid/faStar'
@@ -109,7 +110,7 @@ class BusinessProfile extends Component {
         <h1>reviews</h1>
         </div>
         <div className='reviews'>
-          These are the reviews for the business.
+          <Reviews />
         </div>
       </div>
     )
