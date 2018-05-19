@@ -5,18 +5,20 @@ import {
 } from '../../../../lib/log';
 import {
   paymentsQuery,
-  saveUserAccountQuery
+  saveUserAccountQuery,
+  saveCustomerPaymentId
 } from './paymentsQueries'; 
 import stripe from 'stripe'; 
 
 export const verifyStripe = async (req, res) => {
   try {
     const { rows } = await paymentsQuery(req.body);
-    success('verifyStripe - successfully retrieved data ', rows);
-    if (rows[0].stripeaccount) {
-      //charge customer 
+    if (rows[0].stripeaccount.length === 0) {
+      res.status(200).send('CreateAccount'); 
+    } else {
+      res.status(200).send('RenderPool');
     }
-    res.status(200).send(rows[0]); 
+    success('verifyStripe - successfully retrieved data ', rows);
     } catch (err) {
     error('verifyStripe - error= ', err);
     throw new Error(err);
@@ -26,7 +28,6 @@ export const verifyStripe = async (req, res) => {
 export const createACustomAccount = async (req, res) => {
   const stripe = require('stripe')(process.env.SECRET_KEY); 
     try {
-      console.log('REQ.BODY', req.body)
       const data = await stripe.accounts.create({
         type: 'custom', 
         country: 'US',
@@ -45,3 +46,22 @@ export const createACustomAccount = async (req, res) => {
 }
 
 
+export const createCustomer = async (req, res) => {
+  const stripe = require('stripe')(process.env.SECRET_KEY);
+  try {
+    const customer = await stripe.customers.create({
+      description: `Customer for ${req.body.name}`,
+      email: req.body.email,
+      source: req.body.source 
+    }); 
+    const customerId = {
+      paymentid: customer.id, 
+      email:req.body.email 
+    }
+    const saveCustomer = await saveCustomerPaymentId(customerId);
+    success('createCustomer - successfully update data ', saveCustomer);
+    res.status(200).send('Success'); 
+  } catch (err) {
+    console.log('Error from paymentsController inside createCustomer', err);
+  }
+}

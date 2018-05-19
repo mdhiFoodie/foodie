@@ -2,7 +2,8 @@ import express from 'express';
 
 import {
   verifyStripe,
-  createACustomAccount
+  createACustomAccount, 
+  createCustomer
 } from './paymentsController'; 
 
 const router = express.Router();
@@ -11,7 +12,9 @@ router.route('/verifyStripeToken')
   .post(verifyStripe);
 
 router.route('/createAccount') 
-  .post(createACustomAccount)
+  .post(createACustomAccount);
 
+router.route('/createCustomerId') 
+  .post(createCustomer);
 
 export default router; 

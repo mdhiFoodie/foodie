@@ -1,7 +1,8 @@
 import db from '../../config/databases/pg';
 import { 
   getStripeId, 
-  saveUserStripeAccount
+  saveUserStripeAccount,
+  saveCustomerId
 } from "./paymentsSQLHelpers";
 import { queryPayloadOrganizer } from '../../lib/components/util';
 import {
@@ -26,7 +27,6 @@ export const paymentsQuery = async (payload) => {
 };
 
 export const saveUserAccountQuery = async (payload) => {
-  console.log(payload)
   try {
     const query = {
       text: saveUserStripeAccount,
@@ -40,3 +40,21 @@ export const saveUserAccountQuery = async (payload) => {
     throw new Error(err); 
   }
 }
+
+export const saveCustomerPaymentId = async (payload) => {
+  try {
+    const query = {
+      text: saveCustomerId,
+      values: queryPayloadOrganizer(payload, ['paymentid', 'email'])
+    }
+    console.log('QUERY FROM QUERIES', query)
+    const data = await db.query(query); 
+    console.log('data from queries', data); 
+    success('saveUserAccountQuery - successfully save account id');
+    return data; 
+  } catch (err) {
+    error('stripeAccountQuery - error= ', err);
+    throw new Error(err); 
+  }
+}
+

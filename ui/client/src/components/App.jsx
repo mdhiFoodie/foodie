@@ -56,9 +56,9 @@ class App extends Component {
               :
               BusinessDashboard}/>
             <Route exact path='/login' component={Login}/>
-            <Route exact path='/payment' component={() => (
+            <Route exact path='/payment' component={(props) => (
             <StripeProvider apiKey="pk_test_z4MoEuHo0RIJC8oV0K6xhsO1">
-              <Payment />
+              <Payment {...props} />
             </StripeProvider>
             )}/> 
             <Route exact path='/poolChat' component={Chat}/>

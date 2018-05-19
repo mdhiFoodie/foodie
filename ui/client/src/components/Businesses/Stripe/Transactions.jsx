@@ -13,7 +13,6 @@ import axios from 'axios';
 
 const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1')
 
-
 class Transactions extends Component {
   constructor() {
     super();
@@ -32,6 +31,9 @@ class Transactions extends Component {
 
   createToken = async (e) => {
     e.preventDefault(); 
+    this.setState({
+      tos_shown_and_accepted: true
+    }); 
     try { 
       const { first_name, last_name, line1, city, state, postal_code, tos_shown_and_accepted, email } = this.state; 
       const body = {
@@ -43,6 +45,7 @@ class Transactions extends Component {
         state,
         postal_code,
       }
+      console.log('this.state.tos', tos_shown_and_accepted)
       const { token } = await stripe.createToken('account', {
         legal_entity: {
           first_name,
@@ -56,6 +59,7 @@ class Transactions extends Component {
         },
         tos_shown_and_accepted: true,
       });
+      console.log(token) 
       if (token)  {
       const body = {
         email, 
@@ -65,7 +69,6 @@ class Transactions extends Component {
       this.setState({
         finishInfo: true
       }); 
-        // this.props.history.push('/poolChat');
     }
     } catch(err) {
       console.log('Error from Payments inside createCustomAccount - ', err)
@@ -73,13 +76,24 @@ class Transactions extends Component {
   }
 
   createCardToken = async (e) => {
+    const { history } = this.props; 
+    const { first_name, last_name, email} = this.state; 
     e.preventDefault(); 
     try {
-      const cardToken = await this.props.stripe.createToken({
+      const { token } = await this.props.stripe.createToken({
         type: 'card',
-        name: 'Jacob Reisch'
+        name: `${first_name} ${last_name}`
       }); 
-      console.log('Card token? ', cardToken);
+      const body = {
+        source: token.id, 
+        email,
+        name: `${first_name} ${last_name}`
+      }
+      const data = await axios.post('http://localhost:3000/api/stripe/createCustomerId', body);
+      if (data) {
+        alert('We have successfully created your account');
+        history.push('/poolChat');
+      }
     } catch (err) {
       console.log('Error from create card token on Transactions component -', err); 
     }
@@ -98,32 +112,32 @@ class Transactions extends Component {
           (
             <div>
         <form className="my-form" onSubmit={this.createToken} >
-          <input type="hidden" name="token" id="token" />
+          <input required type="hidden" name="token" id="token" />
           <label>
           <span>First Name</span>
-          <input onChange={this.handleForm.bind(this)} className="inp-first-name" name="first_name" />
+          <input required onChange={this.handleForm.bind(this)} className="inp-first-name" name="first_name" />
           </label>
           <label>
           <span>Last Name</span>
-          <input onChange={this.handleForm.bind(this)} className="inp-last-name" name="last_name"/>
+          <input required onChange={this.handleForm.bind(this)} className="inp-last-name" name="last_name"/>
           </label>
           <fieldset>
           <legend>Address</legend>
           <label>
             <span>Street Address Line 1</span>
-            <input onChange={this.handleForm.bind(this)} className="inp-street-address1" name="line1" />
+            <input required onChange={this.handleForm.bind(this)} className="inp-street-address1" name="line1" />
           </label>
           <label>
             <span>City</span>
-            <input onChange={this.handleForm.bind(this)} className="inp-city" name="city" />
+            <input required onChange={this.handleForm.bind(this)} className="inp-city" name="city" />
           </label>
           <label>
             <span>State</span>
-            <input onChange={this.handleForm.bind(this)} className="inp-state" name="state" />
+            <input required onChange={this.handleForm.bind(this)} className="inp-state" name="state" />
           </label>
           <label>
             <span>Postal Code</span>
-            <input onChange={this.handleForm.bind(this)} className="inp-zip" name="zip" />
+            <input required onChange={this.handleForm.bind(this)} className="inp-zip" name="zip" />
           </label>
         </fieldset>
         <p>By clicking, you agree to <a href="#">our terms</a> and the <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>

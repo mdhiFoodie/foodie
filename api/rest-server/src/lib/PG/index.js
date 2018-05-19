@@ -72,6 +72,7 @@ export const createUsersTable = async () => {
         password varchar (255),
         type varchar(50),
         phone varchar (50), 
+        paymentid varchar (50),
         stripeAccount varchar (50), 
         CONSTRAINT users_pk
           PRIMARY KEY (id)

@@ -166,39 +166,35 @@ class Menu extends Component {
 
   
   async checkout(){
+    //I need to send the cart also on the transactions components when they successfully create an account
     const { history } = this.props; 
     try {
-    //Check if user has stripe account 
     const { email } = this.state;
     const body = {
       email 
     };
     const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
-    //If it does
-    if (data.stripeaccount.length > 0) {
-      try {
-        const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
-          bizId: this.state.currentBizId,
-          order: JSON.stringify(this.state.checkoutCartData),
-          userId: localStorage.getItem('id')
-        });
-      } catch (error) {
-        console.error('Error from Menu, checkout function first try -', error);
-      } 
-        this.setState({
-          usersCart: null,
-          checkedOut: !this.state.checkedOut
-        });
-        //delete cart from redis
-        //
+    if (data === 'CreateAccount') {
+        history.push('/payment'); 
+      } else {
+        try {
+          const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
+            bizId: this.state.currentBizId,
+            order: JSON.stringify(this.state.checkoutCartData),
+            userId: localStorage.getItem('id')
+          });
+        } catch (error) {
+          console.error('Error from Menu, checkout function -', error);
+        } 
+          this.setState({
+            usersCart: null,
+            checkedOut: !this.state.checkedOut
+          });
         history.push('/poolChat'); 
-    } else {
-      //Push them to fill out credit card info 
-      history.push('/payment'); 
-    }
-    } catch (err) {
-      console.log('Error from Menu, checkout function second try -', err);
-    }
+        }
+      } catch (err) {
+        console.log('Error from Menu, checkout function -', err);
+      }
   }
 
   handleForm(e) {
@@ -237,10 +233,6 @@ class Menu extends Component {
         {!this.state.checkedOut ?
         <div>
         <ul>
-        {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
-          {/* <li onClick={this.handleClick}> 
-            <div className='exploreMenu'>view menu</div>
-          </li> */}
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}
