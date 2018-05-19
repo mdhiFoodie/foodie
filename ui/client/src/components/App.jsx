@@ -33,11 +33,8 @@ class App extends Component {
     const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
-<<<<<<< HEAD
-=======
 
-        <BrowserRouter>
->>>>>>> Get card token per user in order to charge when pool closes
+        {/* <BrowserRouter> */}
           <Switch>
             <Route path='/' component={(props) => (
               <Header {...props}/>

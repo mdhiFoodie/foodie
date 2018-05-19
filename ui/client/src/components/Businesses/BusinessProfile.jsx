@@ -1,7 +1,6 @@
 import React, { Component } from 'react'; 
-import { StripeProvider } from 'react-stripe-elements'; 
-import { connect } from 'react-redux';
 import axios from 'axios'; 
+import { connect } from 'react-redux';
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Reviews from '../Reviews/Reviews.jsx';
@@ -45,9 +44,7 @@ class BusinessProfile extends Component {
       price: data[0].price, 
       businessname: data[0].businessname, 
       contactname: data[0].contactname
-
-    })
-    console.log('this is the state: ', data)
+    });
   }
 
   render() {
@@ -70,22 +67,9 @@ class BusinessProfile extends Component {
           </div>
         </div>
         <div className='profileName'>
-<<<<<<< HEAD
           <div className='businessNameProfile'>
             {this.state.businessname}
           </div>
-          <Logout />
-=======
->>>>>>> Checking users for stripe account at checkout
-          {this.state.businessname}
-          <img src='https://source.unsplash.com/900x200/?restaurants'></img>
-        </div>
-        <div className='profilePhoto'>
-          <img src='https://source.unsplash.com/200x200/?people'></img>
-          <div className='rating'>5 Stars</div>
-        </div>
-        <div className='profileName'>
-          Business Name
           <div className='subText'>
             <div className='category'>{this.state.foodcategory}</div>
             <div className='address'>{this.state.address}</div>
@@ -109,15 +93,9 @@ class BusinessProfile extends Component {
         <h1>menu</h1>
         </div>
         <div className='menu'>
-        <Menu history={this.props.history}/>
+          <Menu history={this.props.history}/>
         </div>
-<<<<<<< HEAD
         <div className='profileHeader'>
-=======
-        {/* <div>
-        <Payment /> 
-        </div> */}
->>>>>>> Checking users for stripe account at checkout
         <h1>open pools</h1>
         </div>
         <div className='openPools'>
@@ -129,7 +107,6 @@ class BusinessProfile extends Component {
         <div className='reviews'>
           <Reviews />
         </div>
-        <Logout history={this.props.history}/>
       </div>
     )
   }
