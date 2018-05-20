@@ -61492,7 +61492,7 @@ var Chat = function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(e.key === 'Enter')) {
-                  _context.next = 30;
+                  _context.next = 31;
                   break;
                 }
 
@@ -61513,16 +61513,20 @@ var Chat = function (_Component) {
                   userid: userid,
                   email: email,
                   type: type,
-                  createdAt: createdAt
+                  createdAt: createdAt,
+                  username: username
                 };
 
                 e.currentTarget.value = '';
                 console.log('this is the payload: ', payload);
-                _context.prev = 13;
-                _context.next = 16;
+                socket.emit('messages', {
+                  message: payload.messages[payload.messages.length - 1]
+                });
+                _context.prev = 14;
+                _context.next = 17;
                 return _axios2.default.post('http://localhost:3000/api/chat/messages', payload);
 
-              case 16:
+              case 17:
                 userMessages = _context.sent;
 
                 console.log('this is user messages', JSON.parse(userMessages.config.data));
@@ -61535,27 +61539,27 @@ var Chat = function (_Component) {
                 _this.setState({
                   username: username
                 });
-                _context.next = 28;
+                _context.next = 29;
                 break;
 
-              case 25:
-                _context.prev = 25;
-                _context.t0 = _context['catch'](13);
+              case 26:
+                _context.prev = 26;
+                _context.t0 = _context['catch'](14);
 
                 console.log(_context.t0);
 
-              case 28:
+              case 29:
                 ;
                 socket.emit('messages', {
                   message: payload.text
                 });
 
-              case 30:
+              case 31:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[13, 25]]);
+        }, _callee, _this2, [[14, 26]]);
       }));
 
       return function (_x) {
@@ -61574,18 +61578,53 @@ var Chat = function (_Component) {
 
   _createClass(Chat, [{
     key: 'componentWillMount',
-    value: function componentWillMount() {
-      // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
-      //i need pool ID, business ID, user ID
-    }
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var storage, getMessages;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                storage = JSON.parse(localStorage.storage).id;
+                _context2.next = 4;
+                return _axios2.default.get('http://localhost:3000/api/retrievemessages/' + storage);
+
+              case 4:
+                getMessages = _context2.sent;
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2['catch'](0);
+
+                console.log(_context2.t0);
+
+              case 10:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 7]]);
+      }));
+
+      function componentWillMount() {
+        return _ref2.apply(this, arguments);
+      }
+
+      return componentWillMount;
+    }()
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log('hello this is the component will mount');
       socket.on('connection', function () {
-        console.log('connected to server');
+        console.log('connected to serverSETIOSEHTOI#%%#%#%');
       });
       socket.on('messages', function (data) {
         console.log('this be the messagessss', data.messages);
+        console.log('this be the messag from socket message', data);
       });
     }
   }, {

@@ -8,12 +8,14 @@ const rooms = [];
 const usernames = {};
 let counter = 1;
 
-io.on('connection', (socket) => {
+io.on('connection', socket => {
+  // console.log('what is socket', socket)
   console.log(`Connected ${socket.id}`);
-  // socket.on('messages', (message) => {
-  //   console.log('this is getting messages: ', message);
-  //   io.emit('messages', message)
-  // });
+  socket.on('messages', (message) => {
+    console.log('this is getting messages: ', message);
+    console.log('this is the actual message: ', message.message)
+    io.emit('messages', message.message)
+  });
   socket.on('addUser', (username) => {
     console.log('this is signing up users', username);
     io.emit('addUser', (username) => {

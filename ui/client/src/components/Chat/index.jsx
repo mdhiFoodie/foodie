@@ -5,7 +5,9 @@ import axios from 'axios';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import io from 'socket.io-client';
-const socket = io('http://localhost:4000')
+const socket = io('http://localhost:4000');
+
+
 
 class Chat extends Component {
   constructor(props) {
@@ -19,17 +21,29 @@ class Chat extends Component {
     }
   }
   
-  componentWillMount() {
+  async componentWillMount() {
     // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
       //i need pool ID, business ID, user ID
+    
+    //get messages from redis
+    try {
+      const storage =  JSON.parse(localStorage.storage).id;
+      const getMessages = await axios.get(`http://localhost:3000/api/retrievemessages/${storage}`)
+
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 
   componentDidMount () {
+    console.log('hello this is the component will mount')
     socket.on('connection', () => {
-        console.log('connected to server')
+        console.log('connected to serverSETIOSEHTOI#%%#%#%')
     })
     socket.on('messages', (data) => {
         console.log('this be the messagessss', data.messages)
+        console.log('this be the messag from socket message', data)
     })
 }
 
@@ -60,10 +74,14 @@ class Chat extends Component {
         userid: userid,
         email: email,
         type: type,
-        createdAt: createdAt
+        createdAt: createdAt,
+        username: username
       }
       e.currentTarget.value = '';
       console.log('this is the payload: ', payload)
+      socket.emit('messages', {
+        message: payload.messages[payload.messages.length-1]
+      })
       try {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
