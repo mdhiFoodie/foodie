@@ -19,7 +19,7 @@ import {
 
 
 const chargeUser = new cron.CronJob({
-  cronTime: '* * * * * *',
+  cronTime: '* * * * * ',
   onTick: async () => {
     try {
 //look for users ID and return email and paymentid on redis? 
