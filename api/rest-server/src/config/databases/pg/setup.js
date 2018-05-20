@@ -23,7 +23,6 @@ import {
   dropMessagesTable,
   useDatabase,
   dummyData, 
-  dummyDataB
 } from '../../../lib/PG';
 
 const setup = async () => {

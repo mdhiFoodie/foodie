@@ -47,9 +47,7 @@ export const saveCustomerPaymentId = async (payload) => {
       text: saveCustomerId,
       values: queryPayloadOrganizer(payload, ['paymentid', 'email'])
     }
-    console.log('QUERY FROM QUERIES', query)
     const data = await db.query(query); 
-    console.log('data from queries', data); 
     success('saveUserAccountQuery - successfully save account id');
     return data; 
   } catch (err) {

@@ -162,8 +162,6 @@ class Menu extends Component {
       console.error(error);
     }
   }
-
-
   
   async checkout(){
     //I need to send the cart also on the transactions components when they successfully create an account
@@ -219,24 +217,23 @@ class Menu extends Component {
     e.preventDefault();
     const locations = this.state.address;
     const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                params: {
-                    address: locations,
-                    key: GOOGLE
-                }
-            }); 
-            this.setState({
-              latitude: geoCode.data.results[0].geometry.location.lat,
-              longitude: geoCode.data.results[0].geometry.location.lng
-            })
-            await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
-              bizId: this.state.currentBizId,
-              bizName: this.state.currentBizName,
-              longitude: this.state.longitude,
-              latitude: this.state.latitude,
-              userId: this.state.userId,
-              poolId: this.state.currentBizId + this.state.userId
-            }); 
-            // await console.log('clicked poolId !!!!',this.state, this.state.currentBizId , this.state.userId);
+        params: {
+            address: locations,
+            key: GOOGLE
+        }
+    }); 
+    this.setState({
+      latitude: geoCode.data.results[0].geometry.location.lat,
+      longitude: geoCode.data.results[0].geometry.location.lng
+    })
+    await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
+      bizId: this.state.currentBizId,
+      bizName: this.state.currentBizName,
+      longitude: this.state.longitude,
+      latitude: this.state.latitude,
+      userId: this.state.userId,
+      poolId: this.state.currentBizId + this.state.userId
+    }); 
   }
 
 
@@ -272,12 +269,10 @@ class Menu extends Component {
         </div>
         </div>
           :
-
           <div>
           <input name='address' placeholder='address' onChange={this.handleForm}/>
           <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
           </div>
-
         }
       </div>
     );

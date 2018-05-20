@@ -71,21 +71,22 @@ class BusinessDashboard extends Component {
     const storage = JSON.parse(localStorage.storage);
     return(
       <div className='dashboard'>
-        <div className='businessName'>
+        <div className='profileHeader'>
         <h1>{storage.name}</h1>
       </div>
-        <div>
+      <div className='profileHeader'>
           <h3>Orders</h3>
         {this.state.orders}
         <button onClick={this.currentOrders}>Get Orders</button>
         </div>
         <div>
+        <div className='profileHeader'>
         <h3>delivery Team</h3>
-        <div className='driverContainer'>
+        
           {
             this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
               <div className='driverColumn'>
-              <div className='addDriver' onClick={this.addDeliveryPerson}>Add a driver</div>
+              {/* <div className='addDriver' onClick={this.addDeliveryPerson}>Add a driver</div> */}
               <EachDriver driver={driver} key={driver.email}/>
               </div>
             )
@@ -95,9 +96,10 @@ class BusinessDashboard extends Component {
         </div>
         <br/><br/>
         </div>
-        <div>
+        <div className='profileHeader'>
         <h3>Statistics</h3>
-        
+        <div className='statscontainer'>
+        </div>
         </div>
         <Logout history={this.props.history}/>
       </div>

@@ -118,7 +118,7 @@ export const poolController = {
       }
       const pools = [];
 
-      for (let i =0; i < poolIds.length; i++) {
+      for (let i = 0; i < poolIds.length; i++) {
         const poolData = await client.hgetallAsync(poolIds[i]);
         pools.push(poolData);
       }

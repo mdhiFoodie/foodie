@@ -36,8 +36,8 @@ yarn db:setup:rest-server
 
 brew install redis
 
- redis-server
- 
- node rest-server/redis/index.js
+redis-server
 
- redis-cli
+node rest-server/redis/index.js
+
+redis-cli

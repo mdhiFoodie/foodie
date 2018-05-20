@@ -14,7 +14,6 @@ export const getReviews = async (req, res) => {
   try {
     console.log('this is req.params: ', req.params)
     const { rows } = await getReviewsQuery(req.params);
-    console.log('this is ROWS: ', rows)
     return res.status(200).send(rows); 
   } catch (err) {
     error('getReviews - error =', err);

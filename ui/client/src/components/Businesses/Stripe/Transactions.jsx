@@ -11,7 +11,7 @@ import {
 import axios from 'axios'; 
 
 
-const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1')
+// const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1');
 
 class Transactions extends Component {
   constructor() {
@@ -45,8 +45,7 @@ class Transactions extends Component {
         state,
         postal_code,
       }
-      console.log('this.state.tos', tos_shown_and_accepted)
-      const { token } = await stripe.createToken('account', {
+      const { token } = await this.props.stripe.createToken('account', {
         legal_entity: {
           first_name,
           last_name,

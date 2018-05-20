@@ -4,9 +4,9 @@ import App from './config/express';
 import { success } from '../../lib/log';
 
 
-// import {
-
-// } from '../cron'; 
+import {
+  chargeUser
+} from '../cron/cronController.js'; 
 
 const app = App.express; 
 
@@ -21,7 +21,7 @@ server.listen(PORT, (err) => {
   console.log(`Successfully connected to port ${PORT}`); 
 });
 
-
+// chargeUser.start(); 
 
 server.on('error', () => {
   server.close(
