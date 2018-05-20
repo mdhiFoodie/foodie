@@ -175,6 +175,19 @@ class Menu extends Component {
     };
     const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
     if (data === 'CreateAccount') {
+      try {
+        const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
+          bizId: this.state.currentBizId,
+          order: JSON.stringify(this.state.checkoutCartData),
+          userId: localStorage.getItem('id')
+        });
+      } catch (error) {
+        console.error('Error from Menu, checkout function -', error);
+      } 
+        this.setState({
+          usersCart: null,
+          checkedOut: !this.state.checkedOut
+        });
         history.push('/payment'); 
       } else {
         try {

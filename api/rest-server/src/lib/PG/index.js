@@ -501,48 +501,4 @@ export const dummyData = async () => {
   }
 };
 
-// export const dummyData = async () => {
-//   try {
-//     await db.query(
-//       `INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-//       VALUES ('Michaels Cheese and Bread Emporium', 'michael@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Michael Pourshalimi', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 'American', '3108008735', 5, 1, 4000, 10, 40000, '1');
-//       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-//       VALUES ('Daniels Korean BBQ', 'daniel@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?korean', 'https://source.unsplash.com/900x200/?korean', 'Daniel Kim', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Korean', '3108789000', 4.1, 2, 3000, 20, 30000, '1');
-//       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-//       VALUES ('Hunters', 'hunter@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?boat', 'https://source.unsplash.com/900x200/?mountain', 'Hunter Morgenstern', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 'English', '8189008765', 3.5, 3, 2000, 30, 20000, '1');
-//       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-//       VALUES ('Isabellas Guatemalan Bazaar', 'isa@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
-//       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-//       VALUES ('Test', 'test@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
-//       `
-//     )
 
-// export const dummyDataUsers = async () => {
-//   try {
-//     await db.query(
-//       `INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
-//           VALUES ('Michael', '', 'michael@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', 'cus_4x9tlO3czkPwWt');
-//           INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
-//           VALUES ('Jacob', '', 'jacob@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
-//           INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
-//           VALUES ('Isabella', '', 'isa@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
-//           `
-//     );
-//   }
-//   catch(err) {
-//     console.log(err)
-//   }
-// }
-
-// export const dummyDataBusiness = async () => {
-//   try {
-//     await db.query(
-//       `INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-//       VALUES ('Michaels Cheese and Bread Emporium', 'michael@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/200x200/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Michael Pourshalimi', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 'American', '3108008735', 5, 1, 4000, 10, 40000, '1');
-//       `
-//     );
-
-//   }
-//   catch(err) {
-//     console.log(err)
-//   }

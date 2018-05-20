@@ -2,12 +2,17 @@ import http from 'http';
 
 import App from './config/express';
 import { success } from '../../lib/log';
-// import './config/database';
+
+
+// import {
+
+// } from '../cron'; 
 
 const app = App.express; 
 
 const server = http.createServer(app); 
 const PORT = process.env.PORT; 
+
 
 server.listen(PORT, (err) => {
   if (err) {
@@ -15,6 +20,8 @@ server.listen(PORT, (err) => {
   }
   console.log(`Successfully connected to port ${PORT}`); 
 });
+
+
 
 server.on('error', () => {
   server.close(

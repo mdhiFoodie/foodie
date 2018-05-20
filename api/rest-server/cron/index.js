@@ -1,13 +1,28 @@
-const CronJob = require('cron').CronJob;
+const cron = require('cron');
 
-//CHARGES 
-const job = new CronJob({cronTime: '00 15 10 * * 0-6', onTick: () => {
-  /*
-   * Runs every weekday
-   * at 10:15:00 AM.
-   */
+const chargeUser = new cron.CronJob({
+  cronTime: '* * * * *',
+  onTick: function() {
+    const charge = stripe.charges.create({
+    amount: 999,
+    currency: 'usd',
+    source: 'tok_visa',
+    receipt_email: 'jenny.rosen@example.com',
+  });
   },
-  start: true, //Starts the job now 
-  timeZone: 'America/LosAngeles' 
+  start: true,
+  timeZone: 'America/Los_Angeles'
 });
-job.start(); 
+
+
+
+module.exports = {
+
+}
+
+/**
+ * CRON JOB
+ * 
+ * Grab all the pool order ID from redis 
+ * For each pool order 
+ */

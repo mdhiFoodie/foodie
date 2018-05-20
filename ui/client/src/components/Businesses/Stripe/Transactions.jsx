@@ -110,18 +110,23 @@ class Transactions extends Component {
         {
           !this.state.finishInfo ? 
           (
-            <div>
+        <div>
         <form className="my-form" onSubmit={this.createToken} >
           <input required type="hidden" name="token" id="token" />
+          <div className='firstAndLastName'>
           <label>
           <span>First Name</span>
+          <br/><br/>
           <input required onChange={this.handleForm.bind(this)} className="inp-first-name" name="first_name" />
           </label>
           <label>
           <span>Last Name</span>
+          <br/><br/>
           <input required onChange={this.handleForm.bind(this)} className="inp-last-name" name="last_name"/>
           </label>
-          <fieldset>
+          </div>
+          <br/><br/>
+          <div className='addressField'>
           <legend>Address</legend>
           <label>
             <span>Street Address Line 1</span>
@@ -139,15 +144,20 @@ class Transactions extends Component {
             <span>Postal Code</span>
             <input required onChange={this.handleForm.bind(this)} className="inp-zip" name="zip" />
           </label>
-        </fieldset>
+        </div>
+        <div>
         <p>By clicking, you agree to <a href="#">our terms</a> and the <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
-        <button type='submit' >Submit</button>
+        </div>
+        <div className='submitBtn'>    
+        <button type='submit'>Submit</button>
+        </div> 
       </form>
       </div>
           )
           :
           (
       <div>
+
       <form onSubmit={this.createCardToken}>
           <label>
             Card number
@@ -169,10 +179,10 @@ class Transactions extends Component {
             <PostalCodeElement
             />
           </label>
+        </form>
           <p>By clicking, you agree to <a href="#">our terms</a> and the 
           <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
           <button type='submit'>Pay</button>
-        </form>
         </div>
           )
         }

@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root, .app {
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  font-family: 'Poiret One', cursive; 
+}
+
+input {
+  clear: both;
+}
+
 .dashboard {
   font-family: 'Poiret One', cursive; 
 }
@@ -249,3 +272,24 @@
 @media screen and (max-width: 480px) {
 
 }
+
+// .firstAndLastName {
+//   margin: 50px;
+//   padding: 50px;
+// }
+
+.addressField {
+  margin: 50px;
+  padding: 50px;
+}
+
+.submitBtn button{
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  text-align: center;
+  font-size: 1.25em!important;
+}
+

@@ -50,7 +50,6 @@ const setup = async () => {
   await createReviews_UsersTable();
   await createUsers_OrdersTable();
   await dummyData();
-  await dummyDataB();
   process.exit();
 };
 
