@@ -11,7 +11,7 @@ import {
 import axios from 'axios'; 
 
 
-// const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1');
+const stripe = Stripe('pk_test_z4MoEuHo0RIJC8oV0K6xhsO1');
 
 class Transactions extends Component {
   constructor() {
@@ -75,9 +75,10 @@ class Transactions extends Component {
   }
 
   createCardToken = async (e) => {
+    e.preventDefault(); 
+    console.log('FIRE');
     const { history } = this.props; 
     const { first_name, last_name, email} = this.state; 
-    e.preventDefault(); 
     try {
       const { token } = await this.props.stripe.createToken({
         type: 'card',
@@ -156,7 +157,6 @@ class Transactions extends Component {
           :
           (
       <div>
-
       <form onSubmit={this.createCardToken}>
           <label>
             Card number
@@ -178,10 +178,10 @@ class Transactions extends Component {
             <PostalCodeElement
             />
           </label>
-        </form>
           <p>By clicking, you agree to <a href="#">our terms</a> and the 
           <a href="/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
           <button type='submit'>Pay</button>
+        </form>
         </div>
           )
         }

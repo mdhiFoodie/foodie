@@ -57,7 +57,7 @@ class SearchFilter extends Component {
         if(e.key === 'Enter'){
             let onPositionReceived = async (position) => {
                 try {
-                    const foodcategory = this.state.search;  
+                    const foodcategory = this.state.search.toLowerCase();  
                     const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${foodcategory}`)
 
                     let locations = searchRestaurants.data.map ( (restaurants) => {

@@ -24,19 +24,6 @@ const chargeUser = new cron.CronJob({
     try {
 //look for users ID and return email and paymentid on redis? 
 //Case: if for some reason user doesn't have paymentid ? 
-      // client.smembers('allPools', async (err, poolIds) => {
-      //   if (err) {
-      //     error('error grabbing poolIds')
-      //   }
-      //   const pools = [];
-  
-      //   for (let i = 0; i < poolIds.length; i++) {
-      //     const poolData = await client.hgetallAsync(poolIds[i]);
-      //     pools.push(poolData);
-      //   }
-      //     console.log('Pools from cron worker', pools);
-      //     // return res.status(200).send(pools);
-      // });
 //GRAB USERS POOL 
 //GRAB USERS ID 
 //Grab users email and stripeaccount to make the charge 
@@ -57,12 +44,13 @@ const chargeUser = new cron.CronJob({
   } catch(err) {
     error('Error from cronController inside charge user', err); 
   }
-
   },
   start: false,
   timeZone: 'America/Los_Angeles'
 });
 
+
+//Save them to the db 
 
 module.exports = {
   chargeUser

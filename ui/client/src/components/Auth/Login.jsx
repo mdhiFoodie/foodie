@@ -40,7 +40,6 @@ class Login extends Component {
       phone: data.phone,
       token: data.token.accessToken
     }));
-    console.log('HERE TYPE', typeof data.type)
     this.props.getUserInfo({
       id: data.id, 
       name: data.name, 

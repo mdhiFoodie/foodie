@@ -165,8 +165,42 @@ class Menu extends Component {
   
   async checkout(){
     //I need to send the cart also on the transactions components when they successfully create an account
-    const { history } = this.props; 
+    this.setState({
+      checkedOut: !this.state.checkedOut
+    });
+  }
+
+  handleForm(e) {
+    const {name, value} = e.target;
+    this.setState({[name]: value})
+  }
+
+  submitDeliveryAddress = async (e) => {
+    e.preventDefault();
     try {
+    const locations = this.state.address;
+    const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+            address: locations,
+            key: GOOGLE
+        }
+    }); 
+    this.setState({
+      latitude: geoCode.data.results[0].geometry.location.lat,
+      longitude: geoCode.data.results[0].geometry.location.lng
+    })
+    const createPool = await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
+      bizId: this.state.currentBizId,
+      bizName: this.state.currentBizName,
+      longitude: this.state.longitude,
+      latitude: this.state.latitude,
+      userId: this.state.userId,
+      poolId: this.state.currentBizId + this.state.userId
+    });
+    
+    createPool.data === true ?  alert('You joined an existing pool') : alert('You just created a pool');
+  
+    const { history } = this.props; 
     const { email } = this.state;
     const body = {
       email 
@@ -183,8 +217,7 @@ class Menu extends Component {
         console.error('Error from Menu, checkout function -', error);
       } 
         this.setState({
-          usersCart: null,
-          checkedOut: !this.state.checkedOut
+          usersCart: null
         });
         history.push('/payment'); 
       } else {
@@ -199,41 +232,12 @@ class Menu extends Component {
         } 
           this.setState({
             usersCart: null,
-            checkedOut: !this.state.checkedOut
           });
         history.push('/poolChat'); 
         }
       } catch (err) {
         console.log('Error from Menu, checkout function -', err);
       }
-  }
-
-  handleForm(e) {
-    const {name, value} = e.target;
-    this.setState({[name]: value})
-  }
-
-  submitDeliveryAddress = async (e) => {
-    e.preventDefault();
-    const locations = this.state.address;
-    const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-            address: locations,
-            key: GOOGLE
-        }
-    }); 
-    this.setState({
-      latitude: geoCode.data.results[0].geometry.location.lat,
-      longitude: geoCode.data.results[0].geometry.location.lng
-    })
-    await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
-      bizId: this.state.currentBizId,
-      bizName: this.state.currentBizName,
-      longitude: this.state.longitude,
-      latitude: this.state.latitude,
-      userId: this.state.userId,
-      poolId: this.state.currentBizId + this.state.userId
-    }); 
   }
 
 
