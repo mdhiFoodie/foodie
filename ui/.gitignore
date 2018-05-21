@@ -26,3 +26,5 @@ vagrant
 .lock-wscript
 
 *.css
+
+bundle.css.map
