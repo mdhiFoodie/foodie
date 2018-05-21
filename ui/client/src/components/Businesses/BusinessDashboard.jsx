@@ -13,8 +13,8 @@ class BusinessDashboard extends Component {
     this.state = {
       myDeliveryTeam: [],
       //set bizid on component did mount
-      // bizId: localStorage.getItem('id'), hardcoded for now but will grab right menu as long as inserted into mongo with right id
-      bizId:9,
+      bizId: JSON.parse(localStorage.storage).id, 
+      // bizId: JSON.pa,
       orders: null
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
@@ -44,6 +44,7 @@ class BusinessDashboard extends Component {
 
   componentDidMount() {
     this.getDeliveryTeam();
+    this.currentOrders();
   }
   
   async currentOrders() {
@@ -77,7 +78,7 @@ class BusinessDashboard extends Component {
       <div className='profileHeader'>
           <h3>Orders</h3>
         {this.state.orders}
-        <button onClick={this.currentOrders}>Get Orders</button>
+        {/* <button onClick={this.currentOrders}>Get Orders</button> */}
         </div>
         <div>
         <div className='profileHeader'>

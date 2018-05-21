@@ -20,6 +20,7 @@ import Menu from './Menu/Menu.jsx';
 import MyPool from './OpenPool/MyPool.jsx';
 import Chat from './Chat/index.jsx';
 import Payment from './Businesses/Stripe/Payment.jsx';
+import userProfile from './Users/UsersProfile.jsx'; 
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -58,6 +59,7 @@ class App extends Component {
               <Payment {...props} />
             </StripeProvider>
             )}/> 
+            <Route exact path='/userProfile' component={userProfile}/>
             <Route exact path='/poolChat' component={Chat}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/businessProfile/:nameid' component={BusinessProfile}/>

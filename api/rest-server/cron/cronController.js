@@ -1,6 +1,9 @@
 const cron = require('cron');  
-const stripe = require('stripe')(process.env.SECRET_KEY); 
+const stripe = require('stripe')(process.env.SECRET_KEY);
+const Order = require('../src/config/databases/mongo/orders/ordersModel');
+const { Schema } = require('mongoose'); 
 import client from '../redis'; 
+
 import {
   success, 
   error
@@ -49,9 +52,41 @@ const chargeUser = new cron.CronJob({
   timeZone: 'America/Los_Angeles'
 });
 
+/**
+ * After order is been deliver 
+ * Grab the orders id 
+ * Save data in the MongoDB
+ */
+
+const userOrderHistory = new cron.CronJob({
+  //Save all the orders of the day after delivery so 1pm everyday 
+  cronTime: '* * * * * *', 
+  onTick: async () => {
+    //Save each user order on mongoDB 
+    //Get information from redis 
+    try {
+      const order = new Order({
+        userId: 3,
+        businessId: 3,
+        createdAt: '05/21/2018',
+        cart: '{name: price, name: price, name: price, name: price}',
+        total: 50, 
+        location: '6060 Center Dr Culver City CA'
+      });
+      const saveOrders = await order.save(); 
+      success('Successfully save each order '); 
+    } catch(err) {
+      error('Failed saving order history from cronController error= ', err); 
+    }
+  },
+  start: false, 
+  timeZone: 'America/Los_Angeles'
+});
+
 
 //Save them to the db 
 
 module.exports = {
-  chargeUser
+  chargeUser, 
+  userOrderHistory
 }

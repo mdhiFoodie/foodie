@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Poiret+One'); 
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root, .app {
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  font-family: 'Poiret One', cursive; 
+}
+
+input {
+  clear: both;
+}
+
+.userProfile {
+  // display: block;
+  // position: relative;
+  // width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  min-width: 350px;
+}
+
+.userPicture {
+  border: solid black; 
+  height: 100px;
+}
+
+.friends {
+  border: solid black; 
+  height: 100px;
+}
+
+.ordersHistory {
+  border: solid black; 
+  height: 100px;
+}
+
+.profileHeader {
+  text-align: left;
+  margin-left: 4%;
+  margin-bottom: -17px;
+  float: left;
+  clear: both;
+  width: 100%;
+}
