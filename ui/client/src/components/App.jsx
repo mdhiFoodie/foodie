@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import {StripeProvider} from 'react-stripe-elements';
 import Feed from './Feed/index.jsx';
 import Login from './Auth/Login.jsx';
 import SignupUser from './Auth/SignupUser.jsx'; 
@@ -17,6 +18,8 @@ import BusinessHeader from './Header/BusinessHeader.jsx';
 import DeliveryHeader from './Header/DeliveryHeader.jsx';
 import Menu from './Menu/Menu.jsx';
 import MyPool from './OpenPool/MyPool.jsx';
+import Chat from './Chat/index.jsx';
+import Payment from './Businesses/Stripe/Payment.jsx';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -30,6 +33,8 @@ class App extends Component {
     const type = localStorage.storage ? JSON.parse(localStorage.storage).type : 'loggedout';
     return (
       <div>
+
+        {/* <BrowserRouter> */}
           <Switch>
             <Route path='/' component={(props) => (
               <Header {...props}/>
@@ -48,6 +53,12 @@ class App extends Component {
               :
               BusinessDashboard}/>
             <Route exact path='/login' component={Login}/>
+            <Route exact path='/payment' component={(props) => (
+            <StripeProvider apiKey="pk_test_z4MoEuHo0RIJC8oV0K6xhsO1">
+              <Payment {...props} />
+            </StripeProvider>
+            )}/> 
+            <Route exact path='/poolChat' component={Chat}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/businessProfile/:nameid' component={BusinessProfile}/>
             <Route exact path='/signupUser' component={SignupUser}/>

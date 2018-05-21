@@ -57,7 +57,7 @@ class OpenPools extends Component {
     return(
       <div>
         Open Pools
-       {this.state.openPools}
+      {this.state.openPools}
       </div>
     )
   }

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
-import Payment from './Payment.jsx'; 
 import Reviews from '../Reviews/Reviews.jsx';
+import Payment from './Stripe/Payment.jsx'; 
 
 import fontawesome from '@fortawesome/fontawesome'
 import faStar from '@fortawesome/fontawesome-free-solid/faStar'
@@ -44,9 +44,7 @@ class BusinessProfile extends Component {
       price: data[0].price, 
       businessname: data[0].businessname, 
       contactname: data[0].contactname
-
-    })
-    console.log('this is the state: ', data)
+    });
   }
 
   render() {
@@ -80,12 +78,12 @@ class BusinessProfile extends Component {
             <div className='phone'>{!!this.state.phone ? (`${this.state.phone.slice(0,3)} ${this.state.phone.slice(3,6)} ${this.state.phone.slice(6,10)}` ) : 'phone'}</div>
             <div className='price'>
               {
-               Array(Math.ceil(this.state.price) || 1).fill(1).map((dollar, i) => {
-                 console.log(dollar);
-                 return (
-                <div key={`${i} dollar`}><i className="fas fa-dollar-sign priceIcon"></i></div>
-                 )
-               }) 
+              Array(Math.ceil(this.state.price) || 1).fill(1).map((dollar, i) => {
+                console.log(dollar);
+                return (
+              <div key={`${i} dollar`}><i className="fas fa-dollar-sign priceIcon"></i></div>
+                )
+              }) 
               }
               
             </div>
@@ -95,10 +93,7 @@ class BusinessProfile extends Component {
         <h1>menu</h1>
         </div>
         <div className='menu'>
-          <Menu />
-        </div>
-        <div>
-          <Payment /> 
+          <Menu history={this.props.history}/>
         </div>
         <div className='profileHeader'>
         <h1>open pools</h1>

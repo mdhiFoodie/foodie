@@ -1,0 +1,54 @@
+.typeFoodCategoryBtn select{
+  width: 80%;
+  margin: 0 10%;
+  display: block;
+  border: none;
+  border-bottom: thin solid #a4a4a4;
+  border-left: thin solid #a4a4a4;
+  padding: 10px 0px 3px 10px;
+  margin-bottom: 15px;
+  font-family: Helvetica;
+  font-weight: 100;
+  font-size: 1em;
+  float: right;
+}
+
+.signupButton {
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px 0px 8px 0px!important;
+  text-align: center;
+  font-size: 1.25em!important;
+}
+
+label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+
+#checkTerms {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden;
+}
+
+.signupButton {
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px 0px 8px 0px!important;
+  text-align: center;
+  font-size: 1.25em!important;
+  margin-top: 50px!important;
+}

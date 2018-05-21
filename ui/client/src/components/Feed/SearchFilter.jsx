@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import Geocode from 'react-geocode';
-
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {searchBusinessesInFeed} from '../../actions/actions-searchBusinessesInFeed.js';
@@ -32,7 +30,6 @@ class SearchFilter extends Component {
     // }
 
     filterClickHandler(e) {
-        console.log('clicked on different filters and showing restaurants sorted', this.state.value);
         let sorted = this.state.restaurantSearchesSorted;
         if (e.target.value === 'totalorder') {
             sorted.sort((a,b) => {
@@ -47,14 +44,12 @@ class SearchFilter extends Component {
         else if (e.target.value === 'price') {
             sorted.sort ( (a,b) => {
                 return a[3] - b[3]
-            })
+            });
         }
-        console.log('this is the sorted from search111111', sorted)
         this.setState({
             restaurantSearchesSorted : sorted,
             value : e.target.value
         });
-        console.log('this is the sorted restaurants information that i need the reducer updated', this.state.restaurantSearchesSorted);
         this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted)
     }
 
@@ -62,7 +57,7 @@ class SearchFilter extends Component {
         if(e.key === 'Enter'){
             let onPositionReceived = async (position) => {
                 try {
-                    const foodcategory = this.state.search;  
+                    const foodcategory = this.state.search.toLowerCase();  
                     const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${foodcategory}`)
 
                     let locations = searchRestaurants.data.map ( (restaurants) => {
@@ -80,8 +75,7 @@ class SearchFilter extends Component {
                         restaurantSearchesSorted : this.state.restaurantSearches.sort( (a,b) => {
                             return a[2]-b[2];
                         })
-                    })
-
+                    });
                     this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted)
                 }
                 catch(err) {
@@ -108,7 +102,6 @@ class SearchFilter extends Component {
                 </div>
 
                 <div>
-                    
                     <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
                     <option default value='filter'>filter</option>
                     <option className='hairline-down-arrow' value='totalorder'>totalorder</option>

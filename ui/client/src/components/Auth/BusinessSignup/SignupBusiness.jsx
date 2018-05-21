@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
-// import './index.css'; 
+import './BusinessSignup.scss';
 
 const GOOGLE = process.env.GOOGLE
 
@@ -22,7 +22,8 @@ class SignupBusiness extends Component {
       type: 1,
       agree: false,
       latitude: 0,
-      longitude: 0
+      longitude: 0, 
+      foodcategory: 'type of cuisine'
     }
   }
 
@@ -32,6 +33,7 @@ class SignupBusiness extends Component {
   }
 
   handleSignUpClick = async (e) => {
+
     e.preventDefault();
     const locations = this.state.address;
     const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -44,7 +46,7 @@ class SignupBusiness extends Component {
               latitude: geoCode.data.results[0].geometry.location.lat,
               longitude: geoCode.data.results[0].geometry.location.lng
             })
-    const {businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude} = this.state;
+    const {businessname, address, contactname, phone, email, password, foodcategory, type, latitude, longitude } = this.state;
     const body = {
       businessname,
       address,
@@ -55,7 +57,8 @@ class SignupBusiness extends Component {
       foodcategory, 
       type,
       latitude,
-      longitude
+      longitude, 
+      foodcategory
     };
     try {
     const { data } = await axios.post('http://localhost:3000/api/auth/signup', body);
@@ -85,6 +88,13 @@ class SignupBusiness extends Component {
     }
   }
 
+  typeOfCuisineClickHandler(e) {
+    e.preventDefault(); 
+    this.setState({
+      foodcategory: e.target.value.toLowerCase() 
+    }); 
+  }
+
   agreeToTerms() {
     this.setState ({
       agree: !this.state.agree
@@ -95,34 +105,45 @@ class SignupBusiness extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSignUpClick.bind(this)}>
+      <div className='loginContainer'>
+        <div className='formContainer'>
+        <img className='logo' src='' />
+        <form className='formStyle' onSubmit={this.handleSignUpClick.bind(this)}>
           <input name='businessname' placeholder='business name' onChange={this.handleForm.bind(this)}/>
-          <br/>
           <input name='address' placeholder='address' onChange={this.handleForm.bind(this)}/>
-          <br/>
           <input name='contactname' placeholder='contact name' onChange={this.handleForm.bind(this)}/>
-          <br/>
           <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>
-          <br/>
           <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>
-          <br/>
           <input name='password' type='password' placeholder='password' onChange={this.handleForm.bind(this)}/>
-          <br/><br/>
-          <div className="typeOfCuisine">
-          <select>
-            <option value='mexican'>Mexican</option>
-            <option value='indian'>Indian</option>
-            <option value='chinnese'>Chinese</option>
-          </select>
+        
+          <div className='typeFoodCategoryBtn'>
+              <select value={this.state.value} onChange={this.typeOfCuisineClickHandler.bind(this)}>
+              <option selected disable hidden value=''>type of cuisine</option>
+              <option value='American'>American</option>
+              <option value='Asian'>Asian</option>
+              <option value='Bakery'>Bakery</option>
+              <option value='BBQ'>BBQ</option>
+              <option value='Cajun'>Cajun</option>
+              <option value='Caribbean'>Caribbean</option>
+              <option value='Chinese'>Chinese</option>
+              <option value='Halal'>Halal</option>
+              <option value='Indian'>Indian</option>
+              <option value='Italian'>Italian</option>
+              <option value='Japanese'>Japanese</option>
+              <option value='Korean'>Korean</option>
+              <option value='Mediterrean'>Mediterrean</option>
+              <option value='Mexican'>Mexican</option>
+              <option value='Russian'>Russian</option>
+              <option value='Vegetarian'>Vegetarian</option>
+              </select>
           </div>
+          <input className='checkTerms' type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
           <label>
-            <input type="checkBox" name="agree" onChange={this.agreeToTerms.bind(this)}/>
             I agree to the terms and conditions
-          </label>
-          <br/><br/>
-          <input type='submit' value='signup'/>
+          </label>   
+          <input className='signupButton' type='submit' value='signup'/>
         </form>
+        </div>
       </div> 
     )
   }

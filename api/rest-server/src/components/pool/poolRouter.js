@@ -1,7 +1,7 @@
 import express from 'express';
 
 import {
- poolController
+  poolController
 } from './poolControllers';
 
 const router = express.Router();

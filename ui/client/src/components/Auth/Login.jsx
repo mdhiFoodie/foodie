@@ -40,7 +40,6 @@ class Login extends Component {
       phone: data.phone,
       token: data.token.accessToken
     }));
-    console.log('HERE TYPE', typeof data.type)
     this.props.getUserInfo({
       id: data.id, 
       name: data.name, 
@@ -50,9 +49,7 @@ class Login extends Component {
     });
     if (data.type === '0') {
       this.props.history.push('/home')
-      console.log('HERE USER')
     } else if (data.type === '1') {
-      console.log('HERE BUSINESS')
       this.props.history.push('/dashboard')
     } else if (data.type === '2') {
       this.props.history.push('/delivery')

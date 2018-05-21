@@ -8,7 +8,6 @@ import {
 
 export const menuController = async (req, res) => {
   try {
-   
     const data = await Menus.find(req.params)
     const { menu } = data[0];
     success('menuController - successfully retrieved data ', menu);

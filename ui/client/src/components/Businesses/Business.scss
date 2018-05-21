@@ -1,15 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
-.dashboard {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root, .app {
+  height: 100%;
+}
+
+body {
+  background-color: white;
   font-family: 'Poiret One', cursive; 
 }
 
-.businessName {
-  background-color: aqua; 
-  color: white; 
-  h1 {
-    margin-top: 0px;
-  }
+input {
+  clear: both;
+}
+
+.dashboard {
+  font-family: 'Poiret One', cursive; 
 }
 
 .businessNameProfile {
@@ -19,21 +34,6 @@
   font-weight: 600;
   border-bottom: thin solid lightgray;
   padding-bottom: 5px;
-}
-
-.driverContainer {
-  display: block;
-  
-}
-
-.driverColumn {
-  display: inline-block; 
-
-}
-
-.insideDriver {
-  border: thin solid gray; 
-  padding: 10px; 
 }
 
 .profileHeader {
@@ -244,4 +244,79 @@
 
 @media screen and (max-width: 480px) {
 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//PAYMENT 
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+.addressField {
+  margin: 50px;
+  padding: 50px;
+}
+
+.submitBtn button{
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  text-align: center;
+  font-size: 1.25em!important;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//BUSINESS DASHBOARD
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+.businessName {
+  text-align: left;
+  color: #525252; 
+  font-size: 1.25em;
+  font-weight: 600;
+  border-bottom: thin solid lightgray;
+  padding-bottom: 5px;
+}
+
+.driverContainer {
+  display: block; 
+  padding: 40px;
+}
+
+.addDriver {
+  border: thin solid gray; 
+  padding: 10px; 
+}
+
+.driverColumn {
+  display: inline-block; 
+}
+
+.insideDriver {
+  border: thin solid #7BB7C5; 
+  padding: 10px; 
+  background-color: #7BB7C5; 
+  margin: 1px;
+}
+
+.statscontainer {
+  border: solid black; 
+  float: left;
+  width: 97%;
+  background-color: lightgray;
+  max-height: 300px;
+  overflow-y: scroll; 
+}
+
+.dailyOrders {
+  background-color: #BA9CC8;
+  float: left;
+  width: 100%;
+  padding-bottom: 16px;
 }
