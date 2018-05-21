@@ -28,7 +28,7 @@ class Chat extends Component {
     //get messages from redis
     try {
       const storage =  JSON.parse(localStorage.storage).id;
-      const getMessages = await axios.get(`http://localhost:3000/api/retrievemessages/${storage}`)
+      const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${storage}`)
 
     }
     catch (error) {
@@ -42,7 +42,6 @@ class Chat extends Component {
         console.log('connected to serverSETIOSEHTOI#%%#%#%')
     })
     socket.on('messages', (data) => {
-        console.log('this be the messagessss', data.messages)
         console.log('this be the messag from socket message', data)
     })
 }

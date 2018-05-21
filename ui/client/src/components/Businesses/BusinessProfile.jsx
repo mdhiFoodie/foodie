@@ -6,6 +6,7 @@ import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Payment from './Payment.jsx'; 
 import Reviews from '../Reviews/Reviews.jsx';
+import Chat from '../Chat/index.jsx';
 
 import fontawesome from '@fortawesome/fontawesome'
 import faStar from '@fortawesome/fontawesome-free-solid/faStar'
@@ -101,6 +102,9 @@ class BusinessProfile extends Component {
         </div>
         <div className='menu'>
           <Menu />
+        </div>
+        <div>
+          <Chat/>
         </div>
         <div>
           <Payment /> 

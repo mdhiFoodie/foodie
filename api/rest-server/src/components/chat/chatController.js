@@ -18,7 +18,7 @@ export const chatController = {
     } 
   }, 
 
-  getMessages: async (req, res) => { 
+  retrieveMessages: async (req, res) => { 
     try{ 
       console.log('hello') 
     } 

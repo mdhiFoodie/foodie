@@ -12,6 +12,7 @@ class NearByRestaurants extends Component {
         super(props);
 
         this.state = {
+            // searches: false
         }
     }
 
@@ -25,7 +26,7 @@ class NearByRestaurants extends Component {
         return(
             <div className='NearByRestaurantsContainer'>
                 <div className ='heading'>
-                  <h2>nearby restaurants</h2>
+                <h2>nearby restaurants</h2>
                 </div>
                 
                 {this.props.loadingStatus.type === 'SEARCH_LOADING_FULFILLED' ? 
@@ -38,9 +39,7 @@ class NearByRestaurants extends Component {
                     <div> <img src='./loading.gif'/></div>
                     }
                 </div>
-
                 :
-
                 <div>
                     NO SEARCHES MADE
                 </div>
@@ -55,7 +54,8 @@ class NearByRestaurants extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        searchBusinesses : state.searchBusinesses
+        searchBusinesses : state.searchBusinesses,
+        loadingStatus: state.loadingStatus
     };
 };
 
