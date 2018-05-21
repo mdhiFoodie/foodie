@@ -10,7 +10,15 @@ class userProfile extends Component {
   }
 
   getUsersOrderHistory = async () => {
-    
+    try {
+    const payload = {
+      userId: JSON.parse(localStorage.storage).id 
+    }
+    const getHistory = await axios.post('http://localhost:3000/api/orders/getUserHistory', payload)
+    console.log('Get order history -', getHistory);
+    } catch (err) {
+      console.log('Error getting users order history - ', err)
+    }
   }
 
 
@@ -24,8 +32,7 @@ class userProfile extends Component {
           <div className='profileHeader'>
             History
           </div>
-
-
+          <button onClick={this.getUsersOrderHistory}>Get history</button>
         </div>
       </div>
     );

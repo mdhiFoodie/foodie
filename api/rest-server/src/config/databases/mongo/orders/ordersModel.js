@@ -4,13 +4,7 @@ import {
   success, 
   error
 } from '../../../../../../lib/log';
-// const ordersSchema = new Schema ({
-//   createdAt: Number,
-//   cart: Number,
-//   total: Number,
-//   location: Number,
-//   totalUsersInEachOrder: Number
-// });
+
 
 const ordersSchema = new Schema({
   userId: Number,
