@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
+require('moment-countdown');
 
 import fontawesome from '@fortawesome/fontawesome';
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
@@ -16,10 +18,6 @@ class OpenPools extends Component {
   }
 
   componentDidMount () {
-    this.setState({
-      openPools: []
-    })
-
     this.grabPools();
   }
 
@@ -41,6 +39,10 @@ class OpenPools extends Component {
     }
   }
 
+  goToBusiness = async() => {
+
+  }
+
   async grabPools () {
     const { data } = await axios.get(`http://localhost:3000/api/pool/grabAllPools`);
     this.setState({
@@ -52,17 +54,17 @@ class OpenPools extends Component {
     const { openPools } = this.state; 
     console.log('openPools',this.state.openPools);
     return(
-      <div>
+      <div onClick={this.goToBusiness}>
       {
         openPools && openPools.length ? openPools.map(pool => 
-          <div className='usersPool' key={pool.bizid + pool.userId}>
+          <div className='usersPool' >
           <div>{`${pool.bizName}`}</div>
           <label>pool closes at</label><br/>
-          <div>{`${pool.eta.split(':')[0]} AM`}</div>
+          <div>{`${moment(pool.eta).countdown().toString().split('and')[0]}`}</div>
           <label>discount</label><br/>
           <div>{`${this.calcDiscount(pool.count)}`}</div>
           <label>food will be deliver at</label><br/>
-          <div>{`${pool.timer.split(':')[0]} PM`}</div>
+          <div>{`${moment(pool.timer).countdown().toString().split('and')[0]}`}</div>
           <br/>
           <div className='poolCount'>
             <i className="fas fa-circle fa-2x circleIcon"></i>
