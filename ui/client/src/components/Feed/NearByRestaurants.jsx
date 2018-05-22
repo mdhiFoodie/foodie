@@ -18,9 +18,6 @@ class NearByRestaurants extends Component {
 
     render() {
             console.log('this is the reducer type???', this.props)
-            //so if this.props.loadingStatus.type === 'SEARCH_LOADING_PENDING' then i want to
-                //make it so that i show the loading,
-            //else which is going t 'SEARCH_LOADING_FULFILLED' then show the other thing.
             console.log('this.props.searchloading reducer', this.props.loadingStatus && this.props.loadingStatus.loading)
 
         return(

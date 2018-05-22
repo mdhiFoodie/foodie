@@ -17,18 +17,24 @@ class Chat extends Component {
       messages : [],
       text : '',
       listofmessages: [],
-      username: ''
+      username: '',
+      messagesFromRedis: []
     }
   }
   
   async componentWillMount() {
-    // axios.get('http://localhost:3000/api/chat/messages/${poolId}') grab messages by poolID.
-      //i need pool ID, business ID, user ID
-    
-    //get messages from redis
     try {
-      const storage =  JSON.parse(localStorage.storage).id;
-      const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${storage}`)
+      const userid =  JSON.parse(localStorage.storage).id;
+      const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${userid}`)
+      
+      console.log('getting messages on client side', Object.entries(getMessages.data).sort().map( (messages) => {
+        return JSON.parse(messages[1]).text
+      } ))
+      this.setState({
+        messagesFromRedis: Object.entries(getMessages.data).sort().map( (messages) => {
+          return JSON.parse(messages[1]).text
+        } )
+      })
 
     }
     catch (error) {
@@ -86,8 +92,10 @@ class Chat extends Component {
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
         console.log('this is parsed data', returnedData.text);
-        this.state.listofmessages.push(returnedData.text);
-        console.log('this is the state for list of messages', this.state.listofmessages)
+        // this.state.listofmessages.push(returnedData.text);
+        this.state.messagesFromRedis.push(returnedData.text)
+        console.log('this state for messages from redis', this.state.messagesFromRedis)
+        // console.log('this is the state for list of messages', this.state.listofmessages)
         //send this listofmessages up to redux
         this.setState({
           username: username
@@ -112,7 +120,7 @@ class Chat extends Component {
         </div>
 
         <div>
-          {this.state.listofmessages && this.state.listofmessages.map ( (message, key) => {
+          {this.state.messagesFromRedis && this.state.messagesFromRedis.map ( (message, key) => {
             return <Messages key={key} singleMessage={message} username={this.state.username}/>
           })}
         </div>

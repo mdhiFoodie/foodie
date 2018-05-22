@@ -13670,8 +13670,10 @@ var Chat = function (_Component) {
                 returnedData = JSON.parse(userMessages.config.data);
 
                 console.log('this is parsed data', returnedData.text);
-                _this.state.listofmessages.push(returnedData.text);
-                console.log('this is the state for list of messages', _this.state.listofmessages);
+                // this.state.listofmessages.push(returnedData.text);
+                _this.state.messagesFromRedis.push(returnedData.text);
+                console.log('this state for messages from redis', _this.state.messagesFromRedis);
+                // console.log('this is the state for list of messages', this.state.listofmessages)
                 //send this listofmessages up to redux
                 _this.setState({
                   username: username
@@ -13708,7 +13710,8 @@ var Chat = function (_Component) {
       messages: [],
       text: '',
       listofmessages: [],
-      username: ''
+      username: '',
+      messagesFromRedis: []
     };
     return _this;
   }
@@ -13717,33 +13720,44 @@ var Chat = function (_Component) {
     key: 'componentWillMount',
     value: function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var storage, getMessages;
+        var userid, getMessages;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                storage = JSON.parse(localStorage.storage).id;
+                userid = JSON.parse(localStorage.storage).id;
                 _context2.next = 4;
-                return _axios2.default.get('http://localhost:3000/api/chat/retrievemessages/' + storage);
+                return _axios2.default.get('http://localhost:3000/api/chat/retrievemessages/' + userid);
 
               case 4:
                 getMessages = _context2.sent;
-                _context2.next = 10;
+
+
+                console.log('getting messages on client side', Object.entries(getMessages.data).sort().map(function (messages) {
+                  return JSON.parse(messages[1]).text;
+                }));
+                this.setState({
+                  messagesFromRedis: Object.entries(getMessages.data).sort().map(function (messages) {
+                    return JSON.parse(messages[1]).text;
+                  })
+                });
+
+                _context2.next = 12;
                 break;
 
-              case 7:
-                _context2.prev = 7;
+              case 9:
+                _context2.prev = 9;
                 _context2.t0 = _context2['catch'](0);
 
                 console.log(_context2.t0);
 
-              case 10:
+              case 12:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 7]]);
+        }, _callee2, this, [[0, 9]]);
       }));
 
       function componentWillMount() {
@@ -13787,7 +13801,7 @@ var Chat = function (_Component) {
         _react2.default.createElement(
           'div',
           null,
-          this.state.listofmessages && this.state.listofmessages.map(function (message, key) {
+          this.state.messagesFromRedis && this.state.messagesFromRedis.map(function (message, key) {
             return _react2.default.createElement(_messages2.default, { key: key, singleMessage: message, username: _this3.state.username });
           })
         ),
@@ -61607,9 +61621,6 @@ var NearByRestaurants = function (_Component) {
             var _this2 = this;
 
             console.log('this is the reducer type???', this.props);
-            //so if this.props.loadingStatus.type === 'SEARCH_LOADING_PENDING' then i want to
-            //make it so that i show the loading,
-            //else which is going t 'SEARCH_LOADING_FULFILLED' then show the other thing.
             console.log('this.props.searchloading reducer', this.props.loadingStatus && this.props.loadingStatus.loading);
 
             return _react2.default.createElement(

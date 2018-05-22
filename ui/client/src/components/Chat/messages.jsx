@@ -10,6 +10,9 @@ class Messages extends Component {
   render() {
     return(
       <div>
+        {/* {this.props.previousMessage && this.props.previousMessage.map ( (message) => {
+          return message
+        })} */}
         {this.props.username}: {this.props.singleMessage}
       </div>
     )
