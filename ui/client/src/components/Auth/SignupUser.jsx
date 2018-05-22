@@ -71,7 +71,7 @@ class SignupUser extends Component {
     return (
       <div className='loginContainer'>
         <div className='formContainer'>
-        <img className='logo' src='#' />
+        <img className='logo' src='/foodie-logo2.png'/>
           <form className='formStyle' onSubmit={this.handleSignUpClick.bind(this)}>
             <input name='name' placeholder='name' onChange={this.handleForm.bind(this)}/>
             <input name='phone' placeholder='phone' onChange={this.handleForm.bind(this)}/>

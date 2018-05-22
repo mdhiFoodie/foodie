@@ -30,15 +30,14 @@ h1, h2, h3, h4 {
 .heading {
   text-align: left;
   padding-left: 45px;
- h2 {
-   margin-top: 9px;
- }
+  h2 {
+    margin-top: 9px;
+  }
 }
 .NearByRestaurantsContainer {
   display: block; 
   width: 100%;
   margin-left: 0px;
-  height: 306px;
   white-space: nowrap;
   overflow-y: hidden;
 }
@@ -153,4 +152,40 @@ select {
   text-align: right;
   // width: 350px; 
   // margin: 0 auto; 
+}
+.profileHeader {
+  text-align: left;
+  margin-left: 4%;
+  margin-bottom: -17px;
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+.openPoolsContainer {
+  background-color: #a4a4a4; 
+  float: left;
+  width: 100%;
+  padding: 15px;
+  height: 400px; 
+  text-align: left;
+  margin: 5px; 
+}
+
+.usersPool {
+  border: thin solid #7BB7C5;
+  padding: 10px; 
+  background-color: #7BB7C5; 
+  height: 200px;
+  float: left;
+  display: block;
+  margin-right: 2px; 
+}
+
+.circleIcon {
+  color:#E46F63; 
+}
+
+.poolCount {
+  float: right; 
 }

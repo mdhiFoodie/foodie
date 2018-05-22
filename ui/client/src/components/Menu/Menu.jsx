@@ -211,7 +211,7 @@ class Menu extends Component {
         const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
           bizId: this.state.currentBizId,
           order: JSON.stringify(this.state.checkoutCartData),
-          userId: localStorage.getItem('id')
+          userId: JSON.parse(localStorage.storage).id
         });
       } catch (error) {
         console.error('Error from Menu, checkout function -', error);
@@ -225,7 +225,7 @@ class Menu extends Component {
           const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
             bizId: this.state.currentBizId,
             order: JSON.stringify(this.state.checkoutCartData),
-            userId: localStorage.getItem('id')
+            userId: JSON.parse(localStorage.storage).id
           });
         } catch (error) {
           console.error('Error from Menu, checkout function -', error);

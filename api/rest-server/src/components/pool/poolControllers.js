@@ -104,7 +104,6 @@ export const poolController = {
         }
       });
       //should look into this data sturcture and if it needs to be mutated, what about if theres multiples??
-     
 
     } catch (err) {
       error('add user poolController - error= ', err);

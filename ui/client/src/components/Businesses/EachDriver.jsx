@@ -4,6 +4,10 @@ import { usersInformation } from '../../actions/type';
 
 import './Business.scss';
 
+import fontawesome from '@fortawesome/fontawesome';
+import faStar from '@fortawesome/fontawesome-free-solid/faStar';
+fontawesome.library.add(faStar);
+
 class EachDriver extends Component {
   constructor() {
     super();
@@ -19,11 +23,17 @@ class EachDriver extends Component {
         <div>
         {this.props.driver.name}
         </div>
-        <div>
-        <img src='https://source.unsplash.com/200x100/?people' />
+        <div className='driversPicture'>
+        <img src='#' />
         </div>
         <div>
-          Rating
+          <div>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+          </div>
         </div>
       </div>
     )
@@ -36,10 +46,4 @@ const mapStateToProps = state => ({
   
 });
 
-// const matchDispatchToProps = (dispatch) => {
-//   return bindActionCreators({
-//   usersInfo: usersInfo
-//   }, dispatch);
-// };
-// export default connect(mapStateToProps, matchDispatchToProps)(Login);
 export default connect(mapStateToProps, null)(EachDriver);

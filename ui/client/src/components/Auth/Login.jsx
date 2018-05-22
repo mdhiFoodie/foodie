@@ -73,7 +73,7 @@ class Login extends Component {
   render() {
     return (
       <div className='loginContainer'>
-        <img className='logo' src='#'/>
+        <img className='logo' src='/foodie-logo2.png'/>
         <div className='formContainer'>
         <form className='formStyle' onSubmit={this.handleLoginClick.bind(this)}>
           <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>

@@ -9,7 +9,6 @@ import {
 export const cartController = {
   addItem: async (req, res) => {
   try {
-   
     const userId = req.body.userId;
     const item = req.body.item;
     const quantity = req.body.quantity;
@@ -25,7 +24,7 @@ export const cartController = {
 
 getCart: async (req, res) => {
   try {
-     await client.hgetall(req.params.userId, (err, cart) => {
+    await client.hgetall(req.params.userId, (err, cart) => {
       if(err) {
         error('error retrieving cart', err);
       }
@@ -56,7 +55,7 @@ sendOrder: async (req, res) => {
 
 grabBizOrders: async (req, res) => {
   try {
-     await client.hgetall(req.params.bizId, (err, orders) => {
+    await client.hgetall(req.params.bizId, (err, orders) => {
       if(err) {
         error('error retrieving orders', err);
       }
