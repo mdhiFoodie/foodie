@@ -4,6 +4,13 @@ import { connect } from 'react-redux';
 import AddDelivery from './AddDelivery.jsx'; 
 import Logout from '../Auth/Logout.jsx';
 import EachDriver from './EachDriver.jsx';
+import EachOrder from './EachOrder.jsx';
+
+import fontawesome from '@fortawesome/fontawesome';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
+import faStar from '@fortawesome/fontawesome-free-solid/faStar';
+fontawesome.library.add(faStar);
+fontawesome.library.add(faPlus)
 
 import './Business.scss';
 
@@ -12,9 +19,7 @@ class BusinessDashboard extends Component {
     super();
     this.state = {
       myDeliveryTeam: [],
-      //set bizid on component did mount
       bizId: JSON.parse(localStorage.storage).id, 
-      // bizId: JSON.pa,
       orders: null
     }
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
@@ -41,53 +46,75 @@ class BusinessDashboard extends Component {
       console.log('Error getting the delivery team', err)
     }
   }; 
+  
+  async currentOrders() {
+    try {
+      const {data} = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
+      //gonna need specific pool order to group them
+      console.log('Response to get orders for each business', data, 'TYPEOF' ,typeof data);
+// "{"Bean & Cheese Cheese Bread":"[\"4.95\",1]","Green Chile Cheese Bread":"[\"7.65\",1]"}
+      for (var key in data) {
+        const orderToRender = [];
+        let foodItems = JSON.parse(data[key])
+        console.log('foodITEMS ', foodItems);
+        for (var item in foodItems) {
+
+          let price = JSON.parse(foodItems[item])[0];
+          //FOR EACH PRICE ADD THEM AND RENDER TOTAL FOR THE ORDER 
+          let quantity = JSON.parse(foodItems[item])[1];
+
+          orderToRender.push({quantity, item, price});
+        }
+        // <div key={item}><div>{quantity}</div><div>{item}</div> <div>{price}</div></div>
+        this.setState({
+          orders: orderToRender
+        });
+
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   componentDidMount() {
     this.getDeliveryTeam();
     this.currentOrders();
   }
   
-  async currentOrders() {
-    try {
-      const response = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
-      console.log('THIS IS RESPONSE', response)
-      //gonna need specific pool order to group them
-      for (var key in response.data) {
-        const orderToRender = [];
-        let foodItems = JSON.parse(response.data[key])
-        for (var item in foodItems) {
-          let price = JSON.parse(foodItems[item])[0];
-          let quantity = JSON.parse(foodItems[item])[1];
-          orderToRender.push(<div key={item}><div>{quantity}</div><div>{item}</div> <div>{price}</div></div>);        }
-        this.setState({
-          orders: orderToRender
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  
   render() {
     const storage = JSON.parse(localStorage.storage);
+    console.log('RENDER');
+    console.log('RENDER', this.state.orders);
     return(
       <div className='dashboard'>
         <div className='profileHeader'>
         <h1>{storage.name}</h1>
       </div>
-      <div className='profileHeader'>
-          <h3>Orders</h3>
-        {this.state.orders}
-        {/* <button onClick={this.currentOrders}>Get Orders</button> */}
-        </div>
-        <div>
+
         <div className='profileHeader'>
-        <h3>delivery Team</h3>
-        
+            <h1>orders</h1>
+        </div>
+
+      <div className='dashboardOrders'>
+        <button onClick={this.currentOrders}>Get Orders</button>
+        {
+          this.state.orders && this.state.orders.length ? this.state.orders.map(item => 
+            <EachOrder order={item} key={item[0]}/> 
+          )
+          :
+          <div/>
+          }
+        </div>
+
+        <div className='profileHeader'>
+        <h1>delivery Team</h1>
+        </div>
+
+        <div className='dashboarDeliveryTeam'>
+        <button className='addDriver' onClick={this.addDeliveryPerson}><i className="fas fa-plus icon"></i></button> 
           {
             this.state.myDeliveryTeam.length ? this.state.myDeliveryTeam.map(driver => 
               <div className='driverColumn'>
-              {/* <div className='addDriver' onClick={this.addDeliveryPerson}>Add a driver</div> */}
               <EachDriver driver={driver} key={driver.email}/>
               </div>
             )
@@ -95,14 +122,18 @@ class BusinessDashboard extends Component {
             null
           }
         </div>
-        <br/><br/>
-        </div>
+        
+        <div >
         <div className='profileHeader'>
-        <h3>Statistics</h3>
+        <h1>statistics</h1>
+        </div>
         <div className='statscontainer'>
+          
         </div>
         </div>
+        <div >
         <Logout history={this.props.history}/>
+        </div>  
       </div>
     )
   }

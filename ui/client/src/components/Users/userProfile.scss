@@ -24,13 +24,10 @@ input {
 }
 
 .userProfile {
-  // display: block;
-  // position: relative;
-  // width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  min-width: 350px;
-}
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
 .userPicture {
   border: solid black; 

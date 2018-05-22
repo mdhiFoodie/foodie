@@ -21,8 +21,6 @@ class userProfile extends Component {
     }
   }
 
-
-
   render() {
     return (
       <div className='userProfile'>

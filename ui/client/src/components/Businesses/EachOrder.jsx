@@ -4,27 +4,25 @@ import { usersInformation } from '../../actions/type';
 
 import './Business.scss';
 
-class EachDriver extends Component {
+class EachOrder extends Component {
   constructor() {
     super();
   }
-/** 
- * Driver's information 
- * Driver's stars 
-*/
+
   render() {
     const { usersInfo } = this.props.getUsersInformation;
+    console.log('PROPS FROM EACH ORDER', this.props.order);
     return(
-      <div className='insideDriver'>
-        <div>
-        {this.props.driver.name}
-        </div>
-        <div className='driversPicture'>
-        <img src='#' />
-        </div>
-        <div>
-          Rating
-        </div>
+      <div className='insideOrder'>
+
+        {
+          this.props.order && this.props.order.length ? this.props.order.map(item => 
+            {`${item.quantity} ${item.item} ${item.price}`}
+          )
+          :
+          null 
+        } 
+
       </div>
     )
   }
@@ -36,4 +34,4 @@ const mapStateToProps = state => ({
   
 });
 
-export default connect(mapStateToProps, null)(EachDriver);
+export default connect(mapStateToProps, null)(EachOrder);
