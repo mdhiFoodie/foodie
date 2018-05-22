@@ -14,15 +14,8 @@ class EachOrder extends Component {
     console.log('PROPS FROM EACH ORDER', this.props.order);
     return(
       <div className='insideOrder'>
-
-        {
-          this.props.order && this.props.order.length ? this.props.order.map(item => 
-            {`${item.quantity} ${item.item} ${item.price}`}
-          )
-          :
-          null 
-        } 
-
+        <div>{`${this.props.order.quantity} ${this.props.order.item} $ ${this.props.order.price}`}</div>
+        <div>{`Total   $ ${this.props.order.subtotal}`}</div>
       </div>
     )
   }

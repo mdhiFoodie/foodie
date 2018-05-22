@@ -12,7 +12,7 @@ class SearchFilter extends Component {
             search : '',
             restaurantSearches : [],
             restaurantSearchesSorted : [],
-            value : 'totalorder'
+            value : ''
         }
     }
 
@@ -103,7 +103,7 @@ class SearchFilter extends Component {
 
                 <div>
                     <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
-                    <option default value='filter'>filter</option>
+                    <option default value=''>filter</option>
                     <option className='hairline-down-arrow' value='totalorder'>totalorder</option>
                     <option value='rating'>rating</option>
                     <option value='price'>$$$</option>

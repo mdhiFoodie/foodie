@@ -20,8 +20,17 @@ class Feed extends Component {
         <div>
           <SearchFilter/>
         </div>
+
+        <div className='profileHeader'>
+            <h1>nearby restaurants</h1>
+        </div>
+
         <div>
           <NearByRestaurants history={this.props.history} />
+        </div>
+
+        <div className='profileHeader'>
+            <h1>open pools</h1>
         </div>
         <div>
           <OpenPools />

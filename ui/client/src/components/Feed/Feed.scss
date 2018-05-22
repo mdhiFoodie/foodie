@@ -30,15 +30,14 @@ h1, h2, h3, h4 {
 .heading {
   text-align: left;
   padding-left: 45px;
- h2 {
-   margin-top: 9px;
- }
+  h2 {
+    margin-top: 9px;
+  }
 }
 .NearByRestaurantsContainer {
   display: block; 
   width: 100%;
   margin-left: 0px;
-  height: 306px;
   white-space: nowrap;
   overflow-y: hidden;
 }
@@ -153,4 +152,13 @@ select {
   text-align: right;
   // width: 350px; 
   // margin: 0 auto; 
+}
+
+.profileHeader {
+  text-align: left;
+  margin-left: 4%;
+  margin-bottom: -17px;
+  float: left;
+  clear: both;
+  width: 100%;
 }

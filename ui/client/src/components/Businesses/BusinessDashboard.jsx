@@ -51,25 +51,19 @@ class BusinessDashboard extends Component {
     try {
       const {data} = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
       //gonna need specific pool order to group them
-      console.log('Response to get orders for each business', data, 'TYPEOF' ,typeof data);
-// "{"Bean & Cheese Cheese Bread":"[\"4.95\",1]","Green Chile Cheese Bread":"[\"7.65\",1]"}
       for (var key in data) {
         const orderToRender = [];
         let foodItems = JSON.parse(data[key])
-        console.log('foodITEMS ', foodItems);
         for (var item in foodItems) {
-
+          let subtotal = 0; 
           let price = JSON.parse(foodItems[item])[0];
-          //FOR EACH PRICE ADD THEM AND RENDER TOTAL FOR THE ORDER 
           let quantity = JSON.parse(foodItems[item])[1];
-
-          orderToRender.push({quantity, item, price});
+          subtotal += quantity * price; 
+          orderToRender.push({quantity, item, price, subtotal});
         }
-        // <div key={item}><div>{quantity}</div><div>{item}</div> <div>{price}</div></div>
         this.setState({
           orders: orderToRender
         });
-
       }
     } catch (error) {
       console.error(error);
@@ -83,8 +77,6 @@ class BusinessDashboard extends Component {
   
   render() {
     const storage = JSON.parse(localStorage.storage);
-    console.log('RENDER');
-    console.log('RENDER', this.state.orders);
     return(
       <div className='dashboard'>
         <div className='profileHeader'>
@@ -96,10 +88,10 @@ class BusinessDashboard extends Component {
         </div>
 
       <div className='dashboardOrders'>
-        <button onClick={this.currentOrders}>Get Orders</button>
+        <button onClick={this.currentOrders}>get Orders</button>
         {
           this.state.orders && this.state.orders.length ? this.state.orders.map(item => 
-            <EachOrder order={item} key={item[0]}/> 
+            <EachOrder order={item} /> 
           )
           :
           <div/>

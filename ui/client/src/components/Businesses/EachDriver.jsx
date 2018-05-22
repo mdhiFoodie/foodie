@@ -4,6 +4,10 @@ import { usersInformation } from '../../actions/type';
 
 import './Business.scss';
 
+import fontawesome from '@fortawesome/fontawesome';
+import faStar from '@fortawesome/fontawesome-free-solid/faStar';
+fontawesome.library.add(faStar);
+
 class EachDriver extends Component {
   constructor() {
     super();
@@ -23,7 +27,13 @@ class EachDriver extends Component {
         <img src='#' />
         </div>
         <div>
-          Rating
+          <div>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+            <i className="fas fa-star starIcon"></i>
+          </div>
         </div>
       </div>
     )
