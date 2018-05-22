@@ -43,6 +43,7 @@ class Menu extends Component {
     this.checkout = this.checkout.bind(this);
     this.handleForm = this.handleForm.bind(this);
     this.submitDeliveryAddress = this.submitDeliveryAddress.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount () {
@@ -139,6 +140,20 @@ class Menu extends Component {
     })
   }
 
+  async deleteItem(food) {
+    try{
+      const item = await axios.delete(`http://localhost:3000/api/cart/deleteItem`, {
+        data: {
+          userId: this.state.userId,
+          item: food
+        }
+      });
+      console.log('fuckin clicked bitch');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async viewCart() {
     // switch to mouseover event after changing to stylized css div
     try {
@@ -149,8 +164,10 @@ class Menu extends Component {
         let quantity = JSON.parse(response.data[key])[1];
         let price = JSON.parse(response.data[key])[0];
         subtotal += price * quantity;
-        
-        cart.push(<div key={key} className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>);
+        cart.push(<div>
+                    <div key={key} className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>
+                    <div onClick={() => {this.deleteItem(key)}}>XX</div>
+                  </div>);
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
       cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
@@ -199,8 +216,10 @@ class Menu extends Component {
       userId: this.state.userId,
       poolId: this.state.currentBizId + this.state.userId
     });
+
+    console.log('createpool response data', createPool.data);
     
-    createPool.data === true ?  alert('You joined an existing pool') : alert('You just created a pool');
+    createPool.data.addedPool === true ?  alert('You joined an existing pool') : alert('You just created a pool');
   
     const { history } = this.props; 
     const { email } = this.state;
@@ -208,13 +227,16 @@ class Menu extends Component {
       email 
     };
     const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
+
     if (data === 'CreateAccount') {
       try {
         const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
           bizId: this.state.currentBizId,
           order: JSON.stringify(this.state.checkoutCartData),
-          userId: JSON.parse(localStorage.storage).id
+          userId: JSON.parse(localStorage.storage).id,
+          poolId: createPool.data.poolId
         });
+        console.log('this is create pool ish', createPool.data.poolId);
       } catch (error) {
         console.error('Error from Menu, checkout function -', error);
       } 
@@ -228,8 +250,11 @@ class Menu extends Component {
           const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
             bizId: this.state.currentBizId,
             order: JSON.stringify(this.state.checkoutCartData),
-            userId: JSON.parse(localStorage.storage).id
+            userId: JSON.parse(localStorage.storage).id,
+            poolId: createPool.data.poolId
           });
+          console.log('this is create pool ish', createPool.data.poolId);
+
         } catch (error) {
           console.error('Error from Menu, checkout function -', error);
         } 
