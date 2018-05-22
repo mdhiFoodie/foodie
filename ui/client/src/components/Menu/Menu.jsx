@@ -130,6 +130,7 @@ class Menu extends Component {
       item: this.state.currentItem,
       quantity: JSON.stringify(thing)
       });
+      await this.viewCart();
     } catch (error) {
       console.error(error);
     } 
@@ -142,12 +143,15 @@ class Menu extends Component {
 
   async deleteItem(food) {
     try{
+
       const item = await axios.delete(`http://localhost:3000/api/cart/deleteItem`, {
         data: {
           userId: this.state.userId,
           item: food
         }
       });
+      
+      await this.viewCart();
       console.log('fuckin clicked bitch');
     } catch (error) {
       console.error(error);
