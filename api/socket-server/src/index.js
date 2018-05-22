@@ -2,7 +2,7 @@ const http = require('http');
 const SocketIo = require('socket.io');
 
 const server = http.createServer();
-const io = SocketIo(server);
+export const io = SocketIo(server);
 
 const rooms = [];
 const usernames = {};

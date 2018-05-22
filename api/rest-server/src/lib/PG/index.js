@@ -71,7 +71,9 @@ export const createUsersTable = async () => {
         email varchar (50) UNIQUE,
         password varchar (255),
         type varchar(50),
-        phone varchar (50),  
+        phone varchar (50), 
+        paymentid varchar (50),
+        stripeAccount varchar (50), 
         CONSTRAINT users_pk
           PRIMARY KEY (id)
       )
@@ -462,22 +464,27 @@ export const dummyData = async () => {
   try {
     await db.query(
       `INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-      VALUES ('Michaels Cheese and Bread Emporium', 'michael@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Michael Pourshalimi', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 'American', '3108008735', 5, 1, 4000, 10, 40000, '1');
+      VALUES ('Michaels Cheese', 'michael@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Michael Pourshalimi', '6060 Center Dr Culver City CA', 33.9759755, -118.3908877, 'american', '3108008735', 5, 1, 4000, 10, 40000, '1');
       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
       VALUES ('Wine Cheese Bakery', 'daniel1@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?cheese', 'https://source.unsplash.com/900x200/?cheese', 'Mike P', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'American', '2139485924', 4, 2, 2500, 5, 20000, '1');
       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
       VALUES ('Daniels Korean BBQ', 'daniel@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?korean', 'https://source.unsplash.com/900x200/?korean', 'Daniel Kim', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Korean', '3108789000', 4.1, 2, 3000, 20, 30000, '1');
       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-      VALUES ('Hunters', 'hunter@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?boat', 'https://source.unsplash.com/900x200/?mountain', 'Hunter Morgenstern', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 'English', '8189008765', 3.5, 3, 2000, 30, 20000, '1');
+      VALUES ('Hunters', 'hunter@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?boat', 'https://source.unsplash.com/900x200/?mountain', 'Hunter Morgenstern', '8600 Melrose Los Angeles CA', 34.052235, -118.243683, 'english', '8189008765', 3.5, 3, 2000, 30, 20000, '1');
       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-      VALUES ('Isabellas Guatemalan Bazaar', 'isa@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
+      VALUES ('Isabellas Guatemalan Bazaar', 'isa@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '13463 Washington Blvd Culver City CA', 33.993043, -118.447266, 'hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
       INSERT INTO businesses (businessname, email, password, businesspicture, coverpicture, contactname, address, latitude, longitude, foodcategory, phone, rating, price, totalorder, dailyorders, gross, type)
-      VALUES ('Test', 'test@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'Hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
+      VALUES ('Test', 'test@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
       
       INSERT INTO users (name, profilepicture, email, password, type, phone)
       VALUES ('tilly duck', 'https://source.unsplash.com/225x225/?duck', 'tilly@duck.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '3103103103');
       INSERT INTO users (name, profilepicture, email, password, type, phone)
       VALUES ('test user', 'https://source.unsplash.com/225x225/?test', 'test@test.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '2102102102');
+      VALUES ('Michael', '', 'michael@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', 'cus_4x9tlO3czkPwWt');
+      INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
+      VALUES ('Jacob', '', 'jacob@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
+      INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
+      VALUES ('Isabella', '', 'isa@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
 
       INSERT INTO reviews (rating, comment, createdAt, id_businesses)
       VALUES (5, 'I love this place', 1526678767742, 1);
@@ -490,17 +497,10 @@ export const dummyData = async () => {
       VALUES (2, 2);
       `
     )
+    success('successfully created dummyData');
+  } catch (err) {
+    error('error creating DummyData table ', err);
   }
-  catch(err) {
-    console.log(err)
-  }
-}
+};
 
-      // INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
-      // VALUES (1, 5, 'I love this place', 1526059238175, 1);
-      // INSERT INTO reviews (id, rating, comment, createdAt, id_businesses)
-      // VALUES (2, 4, 'I love this place less than the last guy', 1526059238175, 1);
-      // INSERT INTO reviews_users (id, id_users, id_reviews)
-      // VALUES (1, 2, 1);
-      // INSERT INTO reviews_users (id, id_users, id_reviews)
-      // VALUES (2, 2, 2);
+

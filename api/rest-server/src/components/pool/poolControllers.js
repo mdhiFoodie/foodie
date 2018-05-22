@@ -45,7 +45,7 @@ export const poolController = {
       await client.expireat(userId, ttl)
 
       success('poolController - successfully added pool to redis pool');
-      return res.status(200).send('pool created');
+      return res.status(200).send(false);
 
     } catch (err) {
       error('poolController - error= ', err);
@@ -104,7 +104,6 @@ export const poolController = {
         }
       });
       //should look into this data sturcture and if it needs to be mutated, what about if theres multiples??
-     
 
     } catch (err) {
       error('add user poolController - error= ', err);
@@ -118,7 +117,7 @@ export const poolController = {
       }
       const pools = [];
 
-      for (let i =0; i < poolIds.length; i++) {
+      for (let i = 0; i < poolIds.length; i++) {
         const poolData = await client.hgetallAsync(poolIds[i]);
         pools.push(poolData);
       }

@@ -17,8 +17,8 @@ const GOOGLE = process.env.GOOGLE
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 //biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       currentBizId: 5 /*should be set on click of restaurant thumbnail So can biz name!! (can be grabbed off the menu if response is modified on server side)*/,
       currentBizName: null,
@@ -32,7 +32,9 @@ class Menu extends Component {
       usersCart: null,
       userId: null,
       address: null,
-      subTotal: null
+      subTotal: null,
+      email: JSON.parse(localStorage.storage).email,
+      stripeAccount: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -151,7 +153,6 @@ class Menu extends Component {
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
       cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
-         
       this.setState({
         usersCart: cart,
         subTotal: subtotal,
@@ -161,25 +162,12 @@ class Menu extends Component {
       console.error(error);
     }
   }
-
-
   
   async checkout(){
-    try {
-      const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
-        bizId: this.state.currentBizId,
-        order: JSON.stringify(this.state.checkoutCartData),
-        userId: this.state.userId
-      });
-    } catch (error) {
-      console.error(error);
-    } 
-  this.setState({
-    usersCart: null,
-    checkedOut: !this.state.checkedOut
-  });
-
-  //delete cart from redis
+    //I need to send the cart also on the transactions components when they successfully create an account
+    this.setState({
+      checkedOut: !this.state.checkedOut
+    });
   }
 
   handleForm(e) {
@@ -189,41 +177,76 @@ class Menu extends Component {
 
   submitDeliveryAddress = async (e) => {
     e.preventDefault();
+    try {
     const locations = this.state.address;
     const geoCode = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                params: {
-                    address: locations,
-                    key: GOOGLE
-                }
-            }); 
-            this.setState({
-              latitude: geoCode.data.results[0].geometry.location.lat,
-              longitude: geoCode.data.results[0].geometry.location.lng
-            })
-            await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
-              bizId: this.state.currentBizId,
-              bizName: this.state.currentBizName,
-              longitude: this.state.longitude,
-              latitude: this.state.latitude,
-              userId: this.state.userId,
-              poolId: this.state.currentBizId + this.state.userId
-            }); 
-            // await console.log('clicked poolId !!!!',this.state, this.state.currentBizId , this.state.userId);
+        params: {
+            address: locations,
+            key: GOOGLE
+        }
+    }); 
+    this.setState({
+      latitude: geoCode.data.results[0].geometry.location.lat,
+      longitude: geoCode.data.results[0].geometry.location.lng
+    })
+    const createPool = await axios.post(`http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`, {
+      bizId: this.state.currentBizId,
+      bizName: this.state.currentBizName,
+      longitude: this.state.longitude,
+      latitude: this.state.latitude,
+      userId: this.state.userId,
+      poolId: this.state.currentBizId + this.state.userId
+    });
+    
+    createPool.data === true ?  alert('You joined an existing pool') : alert('You just created a pool');
+  
+    const { history } = this.props; 
+    const { email } = this.state;
+    const body = {
+      email 
+    };
+    const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
+    if (data === 'CreateAccount') {
+      try {
+        const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
+          bizId: this.state.currentBizId,
+          order: JSON.stringify(this.state.checkoutCartData),
+          userId: JSON.parse(localStorage.storage).id
+        });
+      } catch (error) {
+        console.error('Error from Menu, checkout function -', error);
+      } 
+        this.setState({
+          usersCart: null
+        });
+        history.push('/payment'); 
+      } else {
+        try {
+          const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
+            bizId: this.state.currentBizId,
+            order: JSON.stringify(this.state.checkoutCartData),
+            userId: JSON.parse(localStorage.storage).id
+          });
+        } catch (error) {
+          console.error('Error from Menu, checkout function -', error);
+        } 
+          this.setState({
+            usersCart: null,
+          });
+        history.push('/poolChat'); 
+        }
+      } catch (err) {
+        console.log('Error from Menu, checkout function -', err);
+      }
   }
 
 
   render() {
     return (
       <div>
-
         {!this.state.checkedOut ?
-
         <div>
         <ul>
-        {/*use to overlap restaurant name onto image https://www.w3schools.com/howto/howto_css_image_text.asp */}
-          {/* <li onClick={this.handleClick}> 
-            <div className='exploreMenu'>view menu</div>
-          </li> */}
           {this.state.food}
           {this.state.foods}
           {this.state.usersCart}
@@ -248,16 +271,12 @@ class Menu extends Component {
         <div className='cartButton'>
           <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
         </div>
-
         </div>
-
           :
-
           <div>
           <input name='address' placeholder='address' onChange={this.handleForm}/>
           <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
           </div>
-
         }
       </div>
     );

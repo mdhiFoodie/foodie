@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import Geocode from 'react-geocode';
-
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {searchBusinessesInFeed} from '../../actions/actions-searchBusinessesInFeed.js';
@@ -53,12 +51,10 @@ class SearchFilter extends Component {
                 return a[4] - b[4]
             })
         }
-        console.log('this is the sorted from search111111', sorted)
         this.setState({
             restaurantSearchesSorted : sorted,
             value : e.target.value,
         });
-        console.log('this is the sorted restaurants information that i need the reducer updated', this.state.restaurantSearchesSorted);
         this.props.searchBusinessesInFeed(this.state.restaurantSearchesSorted)
     }
 
@@ -74,7 +70,7 @@ class SearchFilter extends Component {
             console.log('this is the state loading', this.state.loading)
             let onPositionReceived = async (position) => {
                 try {
-                    const foodcategory = this.state.search;  
+                    const foodcategory = this.state.search.toLowerCase();  
                     const searchRestaurants = await axios.get(`http://localhost:3000/api/users/feed/searchRestaurants/${foodcategory}`)
                     console.log('HERE =>', searchRestaurants.data)
                     console.log('this is position', position.coords)
@@ -129,9 +125,8 @@ class SearchFilter extends Component {
                 </div>
 
                 <div>
-                    
                     <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
-                    <option default value='filter'>filter</option>
+                    <option default value=''>filter</option>
                     <option className='hairline-down-arrow' value='totalorder'>totalorder</option>
                     <option value='rating'>rating</option>
                     <option value='price'>$$$</option>

@@ -48,6 +48,7 @@ export const signUpBusinessQuery = async (payload) => {
       values: queryPayloadOrganizer(payload, ['businessname', 'address', 'contactname', 'phone', 'email', 'password', 'foodcategory', 'type', 'latitude', 'longitude'])
     }
     const data = await db.query(query);
+
     success('signUpQuery - successfully retrieved data ', JSON.stringify(data));
     return data;
   } catch (err) {

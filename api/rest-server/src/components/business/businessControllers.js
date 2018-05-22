@@ -23,9 +23,7 @@ export const getDeliveryTeam = async (req, res) => {
 
 export const getBusinessInfo = async (req, res) => {
   try {
-    console.log('this is req.body: ', req.params)
     const { rows } = await getBusinessInfoQuery(req.params);
-    console.log('this is ROWS: ', rows)
     return res.status(200).send(rows); 
   } catch (err) {
     error('getDeliveryTeam - error =', err);

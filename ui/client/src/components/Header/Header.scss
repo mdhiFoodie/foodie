@@ -21,6 +21,7 @@ nav {
   display: inline-block;
   float: left;
   width: 100%;
+  font-size: 15px;
   ul {
     margin-top: 9px;
     margin-bottom: 7px;
@@ -39,7 +40,26 @@ nav {
   }
 
 }
-
 .icon {
   font-size: 1.95em;
+}
+
+.loggedOutHeader {
+  float: left; 
+}
+
+.headerLogo {
+  width: 50px;
+  float: right;
+  right: -100%;
+  position: relative;
+}
+
+.headerText {
+  font-family: 'Poiret One', cursive; 
+  font-size: 2.69em;
+  float: left;
+  left: -26%;
+  position: relative;
+  font-weight: 100;
 }

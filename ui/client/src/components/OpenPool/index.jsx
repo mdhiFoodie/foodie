@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import fontawesome from '@fortawesome/fontawesome';
+import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
+fontawesome.library.add(faCircle);
+
 class OpenPools extends Component {
   constructor() {
     super();
@@ -13,7 +17,7 @@ class OpenPools extends Component {
 
   componentDidMount () {
     this.setState({
-      openPools: 'pools'
+      openPools: []
     })
 
     this.grabPools();
@@ -38,26 +42,37 @@ class OpenPools extends Component {
   }
 
   async grabPools () {
-    const response = await axios.get(`http://localhost:3000/api/pool/grabAllPools`)
-    const pools = Array.from(response.data).map((pool) => 
-      <div key={pool.bizid + pool.userId}>
-        <div>{pool.bizName}</div>
-        <div>count: {pool.count}</div>
-        <div>discount: {this.calcDiscount(pool.count)}</div>
-        <div>pool closes at: {pool.eta}</div>
-        <div>food will be delvered at: {pool.timer}</div>
-      </div>
-    )
+    const { data } = await axios.get(`http://localhost:3000/api/pool/grabAllPools`);
     this.setState({
-      openPools: pools
+      openPools: data
     });
   }
 
   render() {
+    const { openPools } = this.state; 
+    console.log('openPools',this.state.openPools);
     return(
       <div>
-        Open Pools
-       {this.state.openPools}
+      {
+        openPools && openPools.length ? openPools.map(pool => 
+          <div className='usersPool' key={pool.bizid + pool.userId}>
+          <div>{`${pool.bizName}`}</div>
+          <label>pool closes at</label><br/>
+          <div>{`${pool.eta.split(':')[0]} AM`}</div>
+          <label>discount</label><br/>
+          <div>{`${this.calcDiscount(pool.count)}`}</div>
+          <label>food will be deliver at</label><br/>
+          <div>{`${pool.timer.split(':')[0]} PM`}</div>
+          <br/>
+          <div className='poolCount'>
+            <i className="fas fa-circle fa-2x circleIcon"></i>
+          </div>
+          </div>
+
+        )
+        :
+        null
+      }
       </div>
     )
   }

@@ -7,7 +7,7 @@ const menuSchema = new Schema({
   biz_id: Number,
   biz_name: String,
   menu: String
-})
+});
 
 const Menus = mongoose.model('menu', menuSchema);
 

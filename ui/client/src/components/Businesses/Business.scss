@@ -1,15 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
 
-.dashboard {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root, .app {
+  height: 100%;
+}
+
+body {
+  background-color: white;
   font-family: 'Poiret One', cursive; 
 }
 
-.businessName {
-  background-color: aqua; 
-  color: white; 
-  h1 {
-    margin-top: 0px;
-  }
+input {
+  clear: both;
+}
+
+.dashboard {
+  font-family: 'Poiret One', cursive; 
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .businessNameProfile {
@@ -19,21 +39,6 @@
   font-weight: 600;
   border-bottom: thin solid lightgray;
   padding-bottom: 5px;
-}
-
-.driverContainer {
-  display: block;
-  
-}
-
-.driverColumn {
-  display: inline-block; 
-
-}
-
-.insideDriver {
-  border: thin solid gray; 
-  padding: 10px; 
 }
 
 .profileHeader {
@@ -245,3 +250,144 @@
 @media screen and (max-width: 480px) {
 
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//PAYMENT 
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+.addressField {
+  margin: 50px;
+  padding: 50px;
+}
+
+.submitBtn button{
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  text-align: center;
+  font-size: 1.25em!important;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//BUSINESS DASHBOARD
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+.businessName {
+  text-align: left;
+  color: #525252; 
+  font-size: 1.25em;
+  font-weight: 600;
+  border-bottom: thin solid lightgray;
+  padding-bottom: 5px;
+}
+
+.driverContainer {
+  display: block; 
+  padding: 40px;
+}
+
+.driverHeader {
+  margin: 100px;
+}
+
+.driverColumn {
+  display: inline-block; 
+}
+
+.insideDriver {
+  border: thin solid #7BB7C5;
+  padding: 10px; 
+  background-color: #7BB7C5; 
+  height: 200px;
+  float: left;
+  display: block;
+  margin-right: 2px; 
+}
+
+.statscontainer {
+  background-color: lightgray;
+  float: left;
+  width: 100%;
+  padding-bottom: 16px;
+  height: 400px;
+}
+
+
+
+.dailyOrders {
+  background-color: lightgray;
+  border: thin solid lightgray; 
+  padding: 10px; 
+  margin: 5px;
+  width: 20%;
+  height: 190px;
+}
+
+
+.dashboarDeliveryTeam {
+  float: left;
+  width: 100%;
+  padding-bottom: 16px;
+  height: 200px; 
+  text-align: left;
+  margin: 5px; 
+  button{
+    float: left;
+    height: 200px;
+    color: white;
+    background-color: #E46F63;
+    border: #E46F63; 
+    margin-right: 2px;
+    width: 18%;
+  }
+}
+
+.driversPicture {
+  height: 130px;
+  width: 155px;
+  border: lightgrey; 
+}
+
+.dashboardOrders {
+  float: left;
+  width: 100%;
+  padding-bottom: 16px;
+  height: 200px; 
+  text-align: left;
+  margin: 5px; 
+  overflow-x: scroll;
+  overflow-y: hidden;
+  button{
+    float: left;
+    height: 200px;
+    color: white;
+    background-color: #E46F63;
+    border: #E46F63; 
+    margin-right: 2px;
+    width: 18%;
+    font-family: 'Poiret One', cursive; 
+  }
+}
+
+.insideOrder {
+  border: thin solid #BA9CC8;
+  padding: 10px; 
+  background-color: #BA9CC8; 
+  height: 200px;
+  float: left;
+  display: block;
+  margin-right: 2px; 
+}
+
+.starIcon {
+  color: #E46F63;
+}
+
