@@ -48,9 +48,9 @@ class Menu extends Component {
     socket.on('connection', () => {
       console.log('connected to server')
     })
-    socket.on('messages', (data) => {
-      console.log('this is the messages', data)
-    })
+    // socket.on('messages', (data) => {
+    //   console.log('this is the messages', data)
+    // })
     this.setState({
       currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1],
       currentBizName: location.pathname.split('/businessProfile/').join('').split('~')[0].split('%20').join(' '),

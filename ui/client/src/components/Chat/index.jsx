@@ -49,6 +49,8 @@ class Chat extends Component {
     })
     socket.on('messages', (data) => {
         console.log('this be the messag from socket message', data)
+        this.state.messagesFromRedis.push(data);
+        this.setState({});
     })
 }
 
@@ -84,16 +86,16 @@ class Chat extends Component {
       }
       e.currentTarget.value = '';
       console.log('this is the payload: ', payload)
-      socket.emit('messages', {
-        message: payload.messages[payload.messages.length-1]
-      })
+      // socket.emit('messages', {
+      //   message: payload.messages[payload.messages.length-1]
+      // })
       try {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
         console.log('this is parsed data', returnedData.text);
         // this.state.listofmessages.push(returnedData.text);
-        this.state.messagesFromRedis.push(returnedData.text)
+        // this.state.messagesFromRedis.push(returnedData.text)
         console.log('this state for messages from redis', this.state.messagesFromRedis)
         // console.log('this is the state for list of messages', this.state.listofmessages)
         //send this listofmessages up to redux
