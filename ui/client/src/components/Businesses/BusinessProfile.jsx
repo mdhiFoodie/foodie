@@ -1,9 +1,11 @@
 import React, { Component } from 'react'; 
 import axios from 'axios'; 
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
 import Reviews from '../Reviews/Reviews.jsx';
+import Chat from '../Chat/index.jsx';
 import Payment from './Stripe/Payment.jsx'; 
 
 import fontawesome from '@fortawesome/fontawesome'
@@ -16,6 +18,7 @@ fontawesome.library.add(faDollarSign)
 
 
 import './Business.scss';
+import {businessesData} from '../../actions/actions-businessesData.js';
 
 class BusinessProfile extends Component {
   constructor() {
@@ -44,7 +47,12 @@ class BusinessProfile extends Component {
       price: data[0].price, 
       businessname: data[0].businessname, 
       contactname: data[0].contactname
-    });
+
+    })
+    console.log('this is the state: ', data)
+    this.props.businessesData(data);
+    // console.log('this.props.businessesData: ', this.props.businessesData)
+
   }
 
   render() {
@@ -95,6 +103,12 @@ class BusinessProfile extends Component {
         <div className='menu'>
           <Menu history={this.props.history}/>
         </div>
+        <div>
+          <Chat/>
+        </div>
+        <div>
+          <Payment /> 
+        </div>
         <div className='profileHeader'>
         <h1>open pools</h1>
         </div>
@@ -118,10 +132,11 @@ const mapStateToProps = state => ({
   
 })
 
-// const matchDispatchToProps = (dispatch) => {
-//   return bindActionCreators({
-//   usersInfo: usersInfo
-//   }, dispatch);
-// };
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    //saved all business data so i can use the businessID for sockets
+  businessesData: businessesData
+  }, dispatch);
+};
 // export default connect(mapStateToProps, matchDispatchToProps)(Login);
-export default connect(mapStateToProps, null)(BusinessProfile);
+export default connect(mapStateToProps, matchDispatchToProps)(BusinessProfile);

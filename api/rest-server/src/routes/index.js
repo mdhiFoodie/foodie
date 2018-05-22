@@ -7,6 +7,7 @@ import businessRouter from '../components/business/businessRouter';
 import searchRestaurantsRouter from '../components/Feed/searchRestaurantsRouter';
 import poolRouter from '../components/pool/poolRouter';
 import reviewsRouter from '../components/reviews/reviewsRouter';
+import chatRouter from '../components/chat/chatRouter';
 import paymentsRouter from '../components/stripe/paymentsRouter'; 
 import ordersRouter from '../components/orders/ordersRouter'; 
 
@@ -29,6 +30,7 @@ router.use('/stripe', paymentsRouter);
 
 router.use('/reviews', reviewsRouter);
 
+router.use('/chat', chatRouter);
 router.use('/orders', ordersRouter); 
 
 

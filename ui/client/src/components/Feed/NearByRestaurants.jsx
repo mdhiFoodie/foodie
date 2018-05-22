@@ -12,20 +12,36 @@ class NearByRestaurants extends Component {
         super(props);
 
         this.state = {
+            // searches: false
         }
     }
 
     render() {
-        // console.log('this.props is coming from nearbyrestaurants', this.props.searchBusinesses)
+            console.log('this is the reducer type???', this.props)
+            console.log('this.props.searchloading reducer', this.props.loadingStatus && this.props.loadingStatus.loading)
 
-        return(            
+        return(
             <div className='NearByRestaurantsContainer'>
-                {/* {this.props.searchBusinesses && JSON.stringify(this.props.searchBusinesses.businesses)} */}
-                <div className='searchResultContainer'>
-                {this.props.searchBusinesses && this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
-                    <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
-                ))}
+                <div className ='heading'>
+                <h2>nearby restaurants</h2>
                 </div>
+                
+                {this.props.loadingStatus.type === 'SEARCH_LOADING_FULFILLED' ? 
+                <div className='searchResultContainer'>
+                    {
+                    this.props.searchBusinesses ? this.props.searchBusinesses.businesses.map ( (restaurant, key) => (
+                        <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
+                    ))
+                    :
+                    <div> <img src='./loading.gif'/></div>
+                    }
+                </div>
+                :
+                <div>
+                    NO SEARCHES MADE
+                </div>
+                }
+
             </div>
         )
     }
@@ -35,7 +51,8 @@ class NearByRestaurants extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        searchBusinesses : state.searchBusinesses
+        searchBusinesses : state.searchBusinesses,
+        loadingStatus: state.loadingStatus
     };
 };
 

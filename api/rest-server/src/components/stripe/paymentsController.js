@@ -14,7 +14,7 @@ export const verifyStripe = async (req, res) => {
   try {
     const { rows } = await paymentsQuery(req.body);
     //If it exist render pool else create account 
-    if (rows[0].stripeaccount) {
+    if (rows[0] && rows[0].stripeaccount) {
       res.status(200).send('RenderPool'); 
     } else {
       res.status(200).send('CreateAccount');

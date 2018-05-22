@@ -17,8 +17,8 @@ const GOOGLE = process.env.GOOGLE
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
 //biz ids cannot be formatted similarly or they will overwrite each other in redis
 class Menu extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       currentBizId: 5 /*should be set on click of restaurant thumbnail So can biz name!! (can be grabbed off the menu if response is modified on server side)*/,
       currentBizName: null,
@@ -50,9 +50,9 @@ class Menu extends Component {
     socket.on('connection', () => {
       console.log('connected to server')
     })
-    socket.on('messages', (data) => {
-      console.log('this is the messages', data)
-    })
+    // socket.on('messages', (data) => {
+    //   console.log('this is the messages', data)
+    // })
     this.setState({
       currentBizId: location.pathname.split('/businessProfile/').join('').split('~')[1],
       currentBizName: location.pathname.split('/businessProfile/').join('').split('~')[0].split('%20').join(' '),
