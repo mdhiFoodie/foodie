@@ -13,10 +13,11 @@ import stripe from 'stripe';
 export const verifyStripe = async (req, res) => {
   try {
     const { rows } = await paymentsQuery(req.body);
-    if (rows[0].stripeaccount.length === 0) {
-      res.status(200).send('CreateAccount'); 
+    //If it exist render pool else create account 
+    if (rows[0].stripeaccount) {
+      res.status(200).send('RenderPool'); 
     } else {
-      res.status(200).send('RenderPool');
+      res.status(200).send('CreateAccount');
     }
     success('verifyStripe - successfully retrieved data ', rows);
     } catch (err) {

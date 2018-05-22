@@ -5,11 +5,11 @@ import './Header.scss';
 
 const LoggedOutHeader = () => (
   <header>
-    <nav>
+    <nav >
       <ul>
-        <li>Logo</li>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/signupUser'>Signup</Link></li>
+        <li className='loggedOutHeader'>foodie</li>
+        {/* <li><Link to='/login'>Login</Link></li>
+        <li><Link to='/signupUser'>Signup</Link></li> */}
       </ul>
     </nav>
   </header>

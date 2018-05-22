@@ -21,6 +21,7 @@ nav {
   display: inline-block;
   float: left;
   width: 100%;
+  font-size: 15px;
   ul {
     margin-top: 9px;
     margin-bottom: 7px;
@@ -42,4 +43,8 @@ nav {
 
 .icon {
   font-size: 1.95em;
+}
+
+.loggedOutHeader {
+  float: left; 
 }

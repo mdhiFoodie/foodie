@@ -23,11 +23,13 @@ const chargeUser = new cron.CronJob({
       let discount;  
       let userId; 
       let total; 
+
       const poolIds = await client.smembersAsync('allPools')
         const pools = [];
         for (let i = 0; i < poolIds.length; i++) {
           let poolData = await client.hgetallAsync(poolIds[i]);
           count = poolData.count; 
+
           let allOrder = await client.hgetallAsync(poolData.bizId); 
           for (var key in allOrder) {
             userId = key; //Will be in the format poolId:userId 
@@ -88,14 +90,61 @@ const userOrderHistory = new cron.CronJob({
   onTick: async () => {
     //Save each user order on mongoDB 
     //Get information from redis 
-    
     try {
+      let count; 
+      let userId; 
+      let businessId; 
+      let discount; 
+      let cart = [];  
+      let total; 
+      let location;  
+
+      const poolIds = await client.smembersAsync('allPools')
+        const pools = [];
+        for (let i = 0; i < poolIds.length; i++) {
+          let poolData = await client.hgetallAsync(poolIds[i]);
+          count = poolData.count;
+          businessId = poolData.bizId; 
+          for (var key in poolData) {
+            userId = key.split('d')[1]; 
+          let allOrder = await client.hgetallAsync(poolData.bizId); 
+          console.log('ALL ORDER', allOrder);
+          for (var key in allOrder) {
+            userId = key; //Will be in the format poolId:userId 
+            let subtotal = 0;
+            let order = JSON.parse(allOrder[key]);
+              for (var item in order) {
+                let quantity = JSON.parse(order[item])[1];
+                let price = JSON.parse(order[item])[0];
+                cart.push({quantity, item: item, price})
+                subtotal += price * quantity;
+              }
+              if(count < 5) {
+                discount = 1; 
+              }
+              if(count < 10 && count > 5) {
+                discount = 1; 
+              }
+              if(count < 15 && count > 10) {
+                discount = .95;
+              }
+              if(count < 20 && count > 15) {
+                discount = .9;
+              }
+              if(count > 20) {
+                discount = .85;
+              }
+              total = discount * subtotal * 100; 
+            }
+          }
+        }
+
       const order = new Order({
-        userId: 3,
-        businessId: 3,
-        createdAt: '05/21/2018',
-        cart: '{name: price, name: price, name: price, name: price}',
-        total: 50, 
+        userId: userId,
+        businessId: businessId,
+        createdAt: new Date(), //todays date 
+        cart: JSON.stringify(cart),
+        total: total, 
         location: '6060 Center Dr Culver City CA'
       });
       const saveOrders = await order.save(); 

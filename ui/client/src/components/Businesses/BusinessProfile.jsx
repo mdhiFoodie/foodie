@@ -79,7 +79,7 @@ class BusinessProfile extends Component {
             <div className='price'>
               {
               Array(Math.ceil(this.state.price) || 1).fill(1).map((dollar, i) => {
-                console.log(dollar);
+                // console.log(dollar);
                 return (
               <div key={`${i} dollar`}><i className="fas fa-dollar-sign priceIcon"></i></div>
                 )

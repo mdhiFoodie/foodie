@@ -12,6 +12,9 @@ import faStar from '@fortawesome/fontawesome-free-solid/faStar';
 fontawesome.library.add(faStar);
 fontawesome.library.add(faPlus)
 
+import io from 'socket.io-client';
+
+
 import './Business.scss';
 
 class BusinessDashboard extends Component {
@@ -22,6 +25,7 @@ class BusinessDashboard extends Component {
       bizId: JSON.parse(localStorage.storage).id, 
       orders: null
     }
+    this.socket = io('http://localhost:4000'); 
     this.addDeliveryPerson = this.addDeliveryPerson.bind(this);
     this.currentOrders = this.currentOrders.bind(this);
   }
@@ -49,11 +53,12 @@ class BusinessDashboard extends Component {
   
   async currentOrders() {
     try {
-      const {data} = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
+      const response = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
+      console.log('Hellooooooo', response)
       //gonna need specific pool order to group them
-      for (var key in data) {
+      for (var key in response.data) {
         const orderToRender = [];
-        let foodItems = JSON.parse(data[key])
+        let foodItems = JSON.parse(response.data[key])
         for (var item in foodItems) {
           let subtotal = 0; 
           let price = JSON.parse(foodItems[item])[0];
