@@ -30,11 +30,11 @@ input {
 }
 
 .logo {
-  height: 150px;
-  width: 150px;
-  margin: 20px auto;
-  margin-bottom: 35px;
-}
+  height: 282px;
+  width: 282px;
+  margin: 60px auto;
+  margin-bottom: 40px;
+  }
 
 .formContainer {
   width: 350px;
@@ -86,8 +86,6 @@ input {
   }
 }
 
-
-
 .loginText {
   margin-left: 30px;
   margin-bottom: 10px;
@@ -106,16 +104,78 @@ input {
   font-size: 1.25em!important;
 }
 
-.tileText {
-  position: relative;
-  margin-top: 86%;
-  float: left;
-  -webkit-text-fill-color: #3d3d3d; 
-  -webkit-text-stroke-width: 0.2px;
-   -webkit-text-stroke-color: white;
-   font-weight: 800;
-   font-size: .85em;
-   margin-left: 35px;
-   text-shadow: 2px 2px 4px #000000;
-   text-align: right;
+// .tileText {
+//   position: relative;
+//   margin-top: 86%;
+//   float: left;
+//   -webkit-text-fill-color: #3d3d3d; 
+//   -webkit-text-stroke-width: 0.2px;
+//    -webkit-text-stroke-color: white;
+//    font-weight: 800;
+//    font-size: .85em;
+//    margin-left: 35px;
+//    text-shadow: 2px 2px 4px #000000;
+//    text-align: right;
+//   // width: 350px; 
+//   // margin: 0 auto; 
+// }
+
+.formStyle input{
+  width: 80%;
+  margin: 0 10%;
+  float: right;
+  display: block;
+  border: none; 
+  border-bottom: thin solid #848484; 
+  border-left: thin solid #848484;
+  padding: 10px 0px 3px 10px; 
+  margin-bottom: 15px; 
+  font-family: Helvetica; 
+  font-weight: 100; 
+  font-size: 1em;
+  
 }
+
+.signupLink {
+  clear: both;
+  float: right;
+  margin: -8px 18% 0 0; 
+  display: block; 
+  text-decoration: underline; 
+}
+
+.signupLink:hover {
+  color: #e46f63;
+  cursor: pointer; 
+}
+
+.loginFooter { 
+  clear: both;
+  float: left;
+  margin: 0 auto; 
+  display: block;
+  position: absolute; 
+  bottom: 15px;
+  margin-left: 50px; 
+  a {
+    text-decoration: underline; 
+  }
+  a:hover {
+    color: #e46f63;
+    cursor: pointer; 
+  }
+}
+
+.loginButton {
+  background-color: #e46f63;
+  color: white; 
+  max-width: 100px; 
+  border: none!important; 
+  font-family: 'Poiret One', cursive!important;
+  padding-left: 10px 0px 8px 0px!important; 
+  text-align: center;
+  font-size: 1.25em!important; 
+  float: right;
+}
+
+

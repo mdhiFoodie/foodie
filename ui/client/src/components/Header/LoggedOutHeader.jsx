@@ -7,9 +7,8 @@ const LoggedOutHeader = () => (
   <header>
     <nav>
       <ul>
-        <li>Logo</li>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/signupUser'>Signup</Link></li>
+        <li><div className='headerText'>foodie</div></li>
+        <li><img className='headerLogo' src='/foodie-header-logo.png'/></li>
       </ul>
     </nav>
   </header>

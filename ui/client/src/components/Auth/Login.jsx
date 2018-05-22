@@ -40,7 +40,6 @@ class Login extends Component {
       phone: data.phone,
       token: data.token.accessToken
     }));
-    console.log('HERE TYPE', typeof data.type)
     this.props.getUserInfo({
       id: data.id, 
       name: data.name, 
@@ -50,9 +49,7 @@ class Login extends Component {
     });
     if (data.type === '0') {
       this.props.history.push('/home')
-      console.log('HERE USER')
     } else if (data.type === '1') {
-      console.log('HERE BUSINESS')
       this.props.history.push('/dashboard')
     } else if (data.type === '2') {
       this.props.history.push('/delivery')
@@ -76,7 +73,7 @@ class Login extends Component {
   render() {
     return (
       <div className='loginContainer'>
-        <img className='logo' src='#'/>
+        <img className='logo' src='/foodie-logo2.png'/>
         <div className='formContainer'>
         <form className='formStyle' onSubmit={this.handleLoginClick.bind(this)}>
           <input name='email' placeholder='email' onChange={this.handleForm.bind(this)}/>

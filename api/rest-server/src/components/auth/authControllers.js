@@ -23,6 +23,7 @@ import {
  */
 
 export const signUpController = async (req, res) => {
+  console.log('REQ.BODY', req.body)
   try {
     let row; 
     req.body.password = await hashPassword(req.body.password);
@@ -52,7 +53,6 @@ export const loginController = async (req, res) => {
     success('loginController - successfully retrieved data ', rows[0]);
     const token = await generateToken(id, email);
     rows[0].token = token;
-    console.log('AFTER TOKEN =====> ')
     return res.status(200).append('authorization', JSON.stringify(token)).send(rows[0]);
   } catch (err) {
     error('loginController - error= ', err);

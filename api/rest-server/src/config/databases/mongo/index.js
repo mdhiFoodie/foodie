@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/foodie');
 const sampleSchema = new Schema({
   name: String,
   secret: String
-})
+});
 
 const sampleModel = mongoose.model('sample', sampleSchema);
 
