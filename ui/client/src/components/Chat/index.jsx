@@ -81,7 +81,7 @@ class Chat extends Component {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
-        // console.log('this is parsed data', [returnedData.text, returnedData.username]);
+        // console.log('this is parsed data', [returnedData.text, returnedData.username]);asd
         // this.state.listofmessages.push(returnedData.text);
         // this.state.messagesFromRedis.push(returnedData.text)
         // console.log('this state for messages from redis', this.state.messagesFromRedis)
