@@ -59,6 +59,7 @@ class Reviews extends Component {
                 <div className='reviewText'>
                   {review.comment}
                 </div>  
+                 
             </div>
           )
         :     

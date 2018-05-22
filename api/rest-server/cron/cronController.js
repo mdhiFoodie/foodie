@@ -134,7 +134,7 @@ const userOrderHistory = new cron.CronJob({
               if(count > 20) {
                 discount = .85;
               }
-              total = discount * subtotal * 100; 
+              total = discount * subtotal; 
             }
           }
         }

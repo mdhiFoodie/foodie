@@ -107,7 +107,7 @@ class SignupBusiness extends Component {
     return (
       <div className='loginContainer'>
         <div className='formContainer'>
-        <img className='logo' src='' />
+        <img className='logo' src='/foodie-logo2.png'/>
         <form className='formStyle' onSubmit={this.handleSignUpClick.bind(this)}>
           <input name='businessname' placeholder='business name' onChange={this.handleForm.bind(this)}/>
           <input name='address' placeholder='address' onChange={this.handleForm.bind(this)}/>
