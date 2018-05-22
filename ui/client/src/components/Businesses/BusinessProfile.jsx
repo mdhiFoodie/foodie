@@ -103,12 +103,6 @@ class BusinessProfile extends Component {
         <div className='menu'>
           <Menu history={this.props.history}/>
         </div>
-        <div>
-          <Chat/>
-        </div>
-        <div>
-          <Payment /> 
-        </div>
         <div className='profileHeader'>
         <h1>open pools</h1>
         </div>

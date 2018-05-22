@@ -222,6 +222,7 @@ class Menu extends Component {
           usersCart: null
         });
         history.push('/payment'); 
+
       } else {
         try {
           const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
@@ -235,6 +236,7 @@ class Menu extends Component {
           this.setState({
             usersCart: null,
           });
+          
         history.push('/poolChat'); 
         }
       } catch (err) {
