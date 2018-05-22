@@ -153,7 +153,6 @@ select {
   // width: 350px; 
   // margin: 0 auto; 
 }
-
 .profileHeader {
   text-align: left;
   margin-left: 4%;
@@ -161,4 +160,32 @@ select {
   float: left;
   clear: both;
   width: 100%;
+}
+
+.openPoolsContainer {
+  background-color: #a4a4a4; 
+  float: left;
+  width: 100%;
+  padding: 15px;
+  height: 400px; 
+  text-align: left;
+  margin: 5px; 
+}
+
+.usersPool {
+  border: thin solid #7BB7C5;
+  padding: 10px; 
+  background-color: #7BB7C5; 
+  height: 200px;
+  float: left;
+  display: block;
+  margin-right: 2px; 
+}
+
+.circleIcon {
+  color:#E46F63; 
+}
+
+.poolCount {
+  float: right; 
 }

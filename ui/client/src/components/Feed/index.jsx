@@ -32,7 +32,8 @@ class Feed extends Component {
         <div className='profileHeader'>
             <h1>open pools</h1>
         </div>
-        <div>
+        
+        <div className='openPoolsContainer'>
           <OpenPools />
         </div>
 
