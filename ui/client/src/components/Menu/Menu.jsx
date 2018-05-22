@@ -152,7 +152,6 @@ class Menu extends Component {
       });
       
       await this.viewCart();
-      console.log('fuckin clicked bitch');
     } catch (error) {
       console.error(error);
     }

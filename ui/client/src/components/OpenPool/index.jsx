@@ -70,7 +70,6 @@ class OpenPools extends Component {
             <i className="fas fa-circle fa-2x circleIcon"></i>
           </div>
           </div>
-
         )
         :
         null
