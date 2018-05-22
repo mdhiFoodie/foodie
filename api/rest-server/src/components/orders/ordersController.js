@@ -7,7 +7,6 @@ import {
 
 export const getUserOrderHistory = async (req, res) => {
   try {
-    console.log('HERE FROM CONTROLLER IN ORDERS => ', req.body.userId); 
     const getOrder = await Orders.find({userId: req.body.userId}); 
     success('Orders for customer = ', getOrder)
 

@@ -149,6 +149,7 @@ class Menu extends Component {
         let quantity = JSON.parse(response.data[key])[1];
         let price = JSON.parse(response.data[key])[0];
         subtotal += price * quantity;
+        
         cart.push(<div key={key} className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>);
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
@@ -158,6 +159,7 @@ class Menu extends Component {
         subTotal: subtotal,
         checkoutCartData: response.data
       });
+      
     } catch (error) {
       console.error(error);
     }
@@ -220,6 +222,7 @@ class Menu extends Component {
           usersCart: null
         });
         history.push('/payment'); 
+
       } else {
         try {
           const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
@@ -233,6 +236,7 @@ class Menu extends Component {
           this.setState({
             usersCart: null,
           });
+          
         history.push('/poolChat'); 
         }
       } catch (err) {
@@ -242,6 +246,8 @@ class Menu extends Component {
 
 
   render() {
+    const { usersCart, subTotal, checkoutCartData } = this.state; 
+    console.log('SUBTOTAL', usersCart, subTotal, checkoutCartData);
     return (
       <div>
         {!this.state.checkedOut ?

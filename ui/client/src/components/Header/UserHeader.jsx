@@ -18,10 +18,10 @@ const UserHeader = () => (
   <header>
     <nav>
       <ul>
-        <li><Link to='/home'><i className="fas fa-home icon"></i><br/>home</Link></li>
+        <li><Link to='/'><i className="fas fa-home icon"></i><br/>home</Link></li>
         <li><Link to='/userProfile'><i className="fas fa-user icon"></i><br/>profile</Link></li>
         <li><Link to='/message'><i className="fas fa-comment icon"></i><br/>message</Link></li>
-        <li><Link to='/myPool'><i className="fas fa-shopping-cart icon"></i><br/>cart</Link></li>
+        <li><Link to='/poolChat'><i className="fas fa-shopping-cart icon"></i><br/>cart</Link></li>
       </ul>
     </nav>
   </header>

@@ -13,7 +13,7 @@ class SearchFilter extends Component {
             search: '',
             restaurantSearches: [],
             restaurantSearchesSorted: [],
-            value: 'totalorder',
+            value: 'filter',
             loading: false
         }
     }
@@ -33,8 +33,6 @@ class SearchFilter extends Component {
     // }
 
     filterClickHandler(e) {
-        console.log('this is in the filter click handling for loading Statuwafwafs', this.props)
-        console.log('clicked on different filters and showing restaurants sorted', this.state.value);
         let sorted = this.state.restaurantSearchesSorted;
         if (e.target.value === 'totalorder') {
             sorted.sort((a,b) => {
@@ -119,21 +117,21 @@ class SearchFilter extends Component {
     render() {
         return(
             <div className='searchFeedContainer'>
-                
-                <div>
-                    <input className='feedSearch' onChange={this.onTextHandler.bind(this)} name='search' placeholder='search' onKeyPress={this.handleKeyPress.bind(this)}></input>
-                </div>
+              
+              <div>
+                  <input className='feedSearch' onChange={this.onTextHandler.bind(this)} name='search' placeholder='search' onKeyPress={this.handleKeyPress.bind(this)}></input>
+              </div>
 
-                <div>
-                    <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
-                    <option default value=''>filter</option>
-                    <option className='hairline-down-arrow' value='totalorder'>totalorder</option>
-                    <option value='rating'>rating</option>
-                    <option value='price'>$$$</option>
-                    </select>
-                    <div className="hairline-down-arrow"></div>
-                </div>
-            </div>
+              <div>
+                  <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
+                  <option selected disable hidden value=''>filter</option>
+                  <option className='hairline-down-arrow' value='totalorder'>total order</option>
+                  <option value='rating'>rating</option>
+                  <option value='price'>$$$</option>
+                  </select>
+                  <div className="hairline-down-arrow"></div>
+              </div>
+          </div>
         )
     }
 }
