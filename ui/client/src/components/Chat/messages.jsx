@@ -8,7 +8,7 @@ class Messages extends Component {
     }
   }
   render() {
-    console.log('this.props.singlemessage', this.props.singleMessage)
+    // console.log('this.props.singlemessage', this.props.singleMessage)
     return(
       <div>
         {/* {this.props.previousMessage && this.props.previousMessage.map ( (message) => {

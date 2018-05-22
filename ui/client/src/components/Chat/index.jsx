@@ -26,16 +26,13 @@ class Chat extends Component {
     try {
       const userid =  JSON.parse(localStorage.storage).id;
       const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${userid}`)
-      console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data))
-      console.log('getting messages on client side', Object.entries(getMessages.data).sort().map( (messages) => {
-        return JSON.parse(messages[1])
-      } ))
+        //${userid}/${POOLID} <---- use this for grabbing the userID and poolID data.
+      // console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data))
       this.setState({
         messagesFromRedis: Object.entries(getMessages.data).sort().map( (messages) => {
           return [JSON.parse(messages[1]).text, JSON.parse(messages[1]).username]
         } )
       })
-      console.log('this is the setstate for messages from redis', this.state.messagesFromRedis)
     }
     catch (error) {
       console.log(error)
@@ -55,18 +52,13 @@ class Chat extends Component {
 }
 
   onTextChange(e) {
-    console.log('this is the state', this.state.text)
     this.setState({
       [e.target.name] : e.target.value
     })
   };
 
   handleKeyPress = async (e) => {
-    // console.log('this is businesses data from reducer', this.props.businessesData)
     if(e.key === 'Enter') {
-      console.log('enter button has been clicked')
-      //do an axios call to get the text to redis.
-        //after let redis
       e.preventDefault();
       this.state.messages.push(this.state.text)
       const storage =  JSON.parse(localStorage.storage);
@@ -85,18 +77,14 @@ class Chat extends Component {
         username: username
       }
       e.currentTarget.value = '';
-      console.log('this is the payload: ', payload)
-      // socket.emit('messages', {
-      //   message: payload.messages[payload.messages.length-1]
-      // })
       try {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
-        console.log('this is parsed data', [returnedData.text, returnedData.username]);
+        // console.log('this is parsed data', [returnedData.text, returnedData.username]);
         // this.state.listofmessages.push(returnedData.text);
         // this.state.messagesFromRedis.push(returnedData.text)
-        console.log('this state for messages from redis', this.state.messagesFromRedis)
+        // console.log('this state for messages from redis', this.state.messagesFromRedis)
         this.setState({
           username: username
         })
@@ -111,7 +99,7 @@ class Chat extends Component {
   };
 
   render() {
-    console.log('this state username', this.state.messagesFromRedis)
+    // console.log('this state username', this.state.messagesFromRedis)
     return(
       <div>
         WELCOME TO THE CHAT PAGE

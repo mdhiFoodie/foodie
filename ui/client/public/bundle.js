@@ -13629,13 +13629,10 @@ var Chat = function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(e.key === 'Enter')) {
-                  _context.next = 29;
+                  _context.next = 25;
                   break;
                 }
 
-                console.log('enter button has been clicked');
-                //do an axios call to get the text to redis.
-                //after let redis
                 e.preventDefault();
                 _this.state.messages.push(_this.state.text);
                 storage = JSON.parse(localStorage.storage);
@@ -13655,48 +13652,44 @@ var Chat = function (_Component) {
                 };
 
                 e.currentTarget.value = '';
-                console.log('this is the payload: ', payload);
-                // socket.emit('messages', {
-                //   message: payload.messages[payload.messages.length-1]
-                // })
-                _context.prev = 13;
-                _context.next = 16;
+                _context.prev = 11;
+                _context.next = 14;
                 return _axios2.default.post('http://localhost:3000/api/chat/messages', payload);
 
-              case 16:
+              case 14:
                 userMessages = _context.sent;
 
                 console.log('this is user messages', JSON.parse(userMessages.config.data));
                 returnedData = JSON.parse(userMessages.config.data);
-
-                console.log('this is parsed data', [returnedData.text, returnedData.username]);
+                // console.log('this is parsed data', [returnedData.text, returnedData.username]);
                 // this.state.listofmessages.push(returnedData.text);
                 // this.state.messagesFromRedis.push(returnedData.text)
-                console.log('this state for messages from redis', _this.state.messagesFromRedis);
+                // console.log('this state for messages from redis', this.state.messagesFromRedis)
+
                 _this.setState({
                   username: username
                 });
-                _context.next = 27;
+                _context.next = 23;
                 break;
 
-              case 24:
-                _context.prev = 24;
-                _context.t0 = _context['catch'](13);
+              case 20:
+                _context.prev = 20;
+                _context.t0 = _context['catch'](11);
 
                 console.log(_context.t0);
 
-              case 27:
+              case 23:
                 ;
                 socket.emit('messages', {
                   message: [payload.text, payload.username]
                 });
 
-              case 29:
+              case 25:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, _this2, [[13, 24]]);
+        }, _callee, _this2, [[11, 20]]);
       }));
 
       return function (_x) {
@@ -13731,31 +13724,28 @@ var Chat = function (_Component) {
               case 4:
                 getMessages = _context2.sent;
 
-                console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data));
-                console.log('getting messages on client side', Object.entries(getMessages.data).sort().map(function (messages) {
-                  return JSON.parse(messages[1]);
-                }));
+                //${userid}/${POOLID} <---- use this for grabbing the userID and poolID data.
+                // console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data))
                 this.setState({
                   messagesFromRedis: Object.entries(getMessages.data).sort().map(function (messages) {
                     return [JSON.parse(messages[1]).text, JSON.parse(messages[1]).username];
                   })
                 });
-                console.log('this is the setstate for messages from redis', this.state.messagesFromRedis);
-                _context2.next = 14;
+                _context2.next = 11;
                 break;
 
-              case 11:
-                _context2.prev = 11;
+              case 8:
+                _context2.prev = 8;
                 _context2.t0 = _context2['catch'](0);
 
                 console.log(_context2.t0);
 
-              case 14:
+              case 11:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 11]]);
+        }, _callee2, this, [[0, 8]]);
       }));
 
       function componentWillMount() {
@@ -13782,13 +13772,12 @@ var Chat = function (_Component) {
   }, {
     key: 'onTextChange',
     value: function onTextChange(e) {
-      console.log('this is the state', this.state.text);
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log('this state username', this.state.messagesFromRedis);
+      // console.log('this state username', this.state.messagesFromRedis)
       return _react2.default.createElement(
         'div',
         null,
@@ -61783,7 +61772,7 @@ var Messages = function (_Component) {
   _createClass(Messages, [{
     key: 'render',
     value: function render() {
-      console.log('this.props.singlemessage', this.props.singleMessage);
+      // console.log('this.props.singlemessage', this.props.singleMessage)
       return _react2.default.createElement(
         'div',
         null,
