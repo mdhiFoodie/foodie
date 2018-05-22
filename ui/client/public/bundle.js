@@ -13669,12 +13669,10 @@ var Chat = function (_Component) {
                 console.log('this is user messages', JSON.parse(userMessages.config.data));
                 returnedData = JSON.parse(userMessages.config.data);
 
-                console.log('this is parsed data', returnedData.text);
+                console.log('this is parsed data', [returnedData.text, returnedData.username]);
                 // this.state.listofmessages.push(returnedData.text);
                 // this.state.messagesFromRedis.push(returnedData.text)
                 console.log('this state for messages from redis', _this.state.messagesFromRedis);
-                // console.log('this is the state for list of messages', this.state.listofmessages)
-                //send this listofmessages up to redux
                 _this.setState({
                   username: username
                 });
@@ -13690,7 +13688,7 @@ var Chat = function (_Component) {
               case 27:
                 ;
                 socket.emit('messages', {
-                  message: payload.text
+                  message: [payload.text, payload.username]
                 });
 
               case 29:
@@ -13733,31 +13731,31 @@ var Chat = function (_Component) {
               case 4:
                 getMessages = _context2.sent;
 
-
+                console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data));
                 console.log('getting messages on client side', Object.entries(getMessages.data).sort().map(function (messages) {
-                  return JSON.parse(messages[1]).text;
+                  return JSON.parse(messages[1]);
                 }));
                 this.setState({
                   messagesFromRedis: Object.entries(getMessages.data).sort().map(function (messages) {
-                    return JSON.parse(messages[1]).text;
+                    return [JSON.parse(messages[1]).text, JSON.parse(messages[1]).username];
                   })
                 });
-
-                _context2.next = 12;
+                console.log('this is the setstate for messages from redis', this.state.messagesFromRedis);
+                _context2.next = 14;
                 break;
 
-              case 9:
-                _context2.prev = 9;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2['catch'](0);
 
                 console.log(_context2.t0);
 
-              case 12:
+              case 14:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 9]]);
+        }, _callee2, this, [[0, 11]]);
       }));
 
       function componentWillMount() {
@@ -13790,9 +13788,7 @@ var Chat = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
-
-      console.log('this state username', this.state.username);
+      console.log('this state username', this.state.messagesFromRedis);
       return _react2.default.createElement(
         'div',
         null,
@@ -13806,7 +13802,7 @@ var Chat = function (_Component) {
           'div',
           null,
           this.state.messagesFromRedis && this.state.messagesFromRedis.map(function (message, key) {
-            return _react2.default.createElement(_messages2.default, { key: key, singleMessage: message, username: _this4.state.username });
+            return _react2.default.createElement(_messages2.default, { key: key, singleMessage: message });
           })
         ),
         _react2.default.createElement(
@@ -61787,12 +61783,11 @@ var Messages = function (_Component) {
   _createClass(Messages, [{
     key: 'render',
     value: function render() {
+      console.log('this.props.singlemessage', this.props.singleMessage);
       return _react2.default.createElement(
         'div',
         null,
-        this.props.username,
-        ': ',
-        this.props.singleMessage
+        this.props.singleMessage && this.props.singleMessage.length ? this.props.singleMessage[1] + ' : ' + this.props.singleMessage[0] + ' ' : null
       );
     }
   }]);

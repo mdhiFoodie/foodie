@@ -26,16 +26,16 @@ class Chat extends Component {
     try {
       const userid =  JSON.parse(localStorage.storage).id;
       const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${userid}`)
-      
+      console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data))
       console.log('getting messages on client side', Object.entries(getMessages.data).sort().map( (messages) => {
-        return JSON.parse(messages[1]).text
+        return JSON.parse(messages[1])
       } ))
       this.setState({
         messagesFromRedis: Object.entries(getMessages.data).sort().map( (messages) => {
-          return JSON.parse(messages[1]).text
+          return [JSON.parse(messages[1]).text, JSON.parse(messages[1]).username]
         } )
       })
-
+      console.log('this is the setstate for messages from redis', this.state.messagesFromRedis)
     }
     catch (error) {
       console.log(error)
@@ -93,12 +93,10 @@ class Chat extends Component {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
-        console.log('this is parsed data', returnedData.text);
+        console.log('this is parsed data', [returnedData.text, returnedData.username]);
         // this.state.listofmessages.push(returnedData.text);
         // this.state.messagesFromRedis.push(returnedData.text)
         console.log('this state for messages from redis', this.state.messagesFromRedis)
-        // console.log('this is the state for list of messages', this.state.listofmessages)
-        //send this listofmessages up to redux
         this.setState({
           username: username
         })
@@ -107,13 +105,13 @@ class Chat extends Component {
         console.log(err)
       };
       socket.emit('messages', {
-        message: payload.text
+        message: [payload.text, payload.username]
       })
     }
   };
 
   render() {
-    console.log('this state username', this.state.username)
+    console.log('this state username', this.state.messagesFromRedis)
     return(
       <div>
         WELCOME TO THE CHAT PAGE
@@ -123,7 +121,7 @@ class Chat extends Component {
 
         <div>
           {this.state.messagesFromRedis && this.state.messagesFromRedis.map ( (message, key) => {
-            return <Messages key={key} singleMessage={message} username={this.state.username}/>
+            return <Messages key={key} singleMessage={message}/>
           })}
         </div>
 
