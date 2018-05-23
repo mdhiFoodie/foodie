@@ -11,7 +11,7 @@ import {
 export const poolController = {
   addPool: async (req, res) => {
     try {
-      console.log('this is req.body', req.body);
+
       const poolId = 'poolId' + req.body.poolId;
       const bizId = req.body.bizId;
       const bizName = req.body.bizName;
@@ -28,7 +28,6 @@ export const poolController = {
       const eta = closesAt;
       delivery.setHours(12,0,0);
       const timer = delivery;
-      console.log('this is closes at and delivery', closesAt, delivery);
       const count = 1;
 
       await client.hmset( poolId,
@@ -45,7 +44,7 @@ export const poolController = {
       await client.expireat(userId, ttl)
 
       success('poolController - successfully added pool to redis pool');
-      return res.status(200).send(false);
+      return res.status(200).send({'addedPool': false, 'poolId': poolId});
 
     } catch (err) {
       error('poolController - error= ', err);
@@ -96,14 +95,12 @@ export const poolController = {
           await client.expireat(userId, ttl);
           // const poolData = await client.hgetall(joinablePools);
           success('poolController - successfully found pool and added user');
-          return res.status(200).send(true);        
+          return res.status(200).send({'addedPool':true, 'poolId': pools[0]});        
         } else {
           success('poolController - no local pool creating new pool ');
-          //if no pool exists then send a flag that will prompt user to add new pool
-          poolController.addPool(req, res); //no idea if this will work...
+          poolController.addPool(req, res);
         }
       });
-      //should look into this data sturcture and if it needs to be mutated, what about if theres multiples??
 
     } catch (err) {
       error('add user poolController - error= ', err);

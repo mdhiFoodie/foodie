@@ -15,7 +15,7 @@ import './Menu.scss';
 const GOOGLE = process.env.GOOGLE
 
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css 
-//biz ids cannot be formatted similarly or they will overwrite each other in redis
+//biz ids cannot be formatted similarly to user ids or they will overwrite each other in redis
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +43,7 @@ class Menu extends Component {
     this.checkout = this.checkout.bind(this);
     this.handleForm = this.handleForm.bind(this);
     this.submitDeliveryAddress = this.submitDeliveryAddress.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount () {
@@ -62,7 +63,6 @@ class Menu extends Component {
   };
   
     async handleClick(bizId) {
-      //need to grab specific biz id on click
       //biz id should be attached to image on sql query for restaurants
       try {
         const response = await axios.get(`http://localhost:3000/api/menu/menuGet/${bizId}`)
@@ -78,7 +78,7 @@ class Menu extends Component {
   renderFoodTypes() {
     const foodType = [];
     for (var key in this.state.currentMenu) {
-      foodType.push(<div className='foodType'><div key={key} className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div></div>);
+      foodType.push(<div className='foodType' key={key}><div  className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div></div>);
     }
     this.setState({
       food: foodType
@@ -90,8 +90,8 @@ class Menu extends Component {
     let aFG= this.state.currentMenu[foodThing]
     for (var i = 0; i < aFG.length; i++) {
       foodItems.push(
-      <div className='foodItem'>
-        <div key={aFG[i].name} className={aFG[i].name} onClick={this.itemClick}>
+      <div className='foodItem' key={aFG[i].name}>
+        <div className={aFG[i].name} onClick={this.itemClick}>
           <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].name}</li>
           <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].price}</li>
         </div>
@@ -129,6 +129,7 @@ class Menu extends Component {
       item: this.state.currentItem,
       quantity: JSON.stringify(thing)
       });
+      await this.viewCart();
     } catch (error) {
       console.error(error);
     } 
@@ -137,6 +138,22 @@ class Menu extends Component {
       currentItem: null,
       currentItemQuantity: null
     })
+  }
+
+  async deleteItem(food) {
+    try{
+
+      const item = await axios.delete(`http://localhost:3000/api/cart/deleteItem`, {
+        data: {
+          userId: this.state.userId,
+          item: food
+        }
+      });
+      
+      await this.viewCart();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async viewCart() {
@@ -149,8 +166,10 @@ class Menu extends Component {
         let quantity = JSON.parse(response.data[key])[1];
         let price = JSON.parse(response.data[key])[0];
         subtotal += price * quantity;
-        
-        cart.push(<div key={key} className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>);
+        cart.push(<div key={key}>
+                    <div className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>
+                    <div onClick={() => {this.deleteItem(key)}}>XX</div>
+                  </div>);
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
       cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
@@ -200,7 +219,7 @@ class Menu extends Component {
       poolId: this.state.currentBizId + this.state.userId
     });
     
-    createPool.data === true ?  alert('You joined an existing pool') : alert('You just created a pool');
+    createPool.data.addedPool === true ?  alert('You joined an existing pool') : alert('You just created a pool');
   
     const { history } = this.props; 
     const { email } = this.state;
@@ -208,12 +227,14 @@ class Menu extends Component {
       email 
     };
     const { data } = await axios.post('http://localhost:3000/api/stripe/verifyStripeToken', body);
+
     if (data === 'CreateAccount') {
       try {
         const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
           bizId: this.state.currentBizId,
           order: JSON.stringify(this.state.checkoutCartData),
-          userId: JSON.parse(localStorage.storage).id
+          userId: JSON.parse(localStorage.storage).id,
+          poolId: createPool.data.poolId
         });
       } catch (error) {
         console.error('Error from Menu, checkout function -', error);
@@ -228,8 +249,10 @@ class Menu extends Component {
           const item = await axios.post(`http://localhost:3000/api/cart/sendOrder`, {
             bizId: this.state.currentBizId,
             order: JSON.stringify(this.state.checkoutCartData),
-            userId: JSON.parse(localStorage.storage).id
+            userId: JSON.parse(localStorage.storage).id,
+            poolId: createPool.data.poolId
           });
+
         } catch (error) {
           console.error('Error from Menu, checkout function -', error);
         } 
@@ -246,8 +269,6 @@ class Menu extends Component {
 
 
   render() {
-    const { usersCart, subTotal, checkoutCartData } = this.state; 
-    console.log('SUBTOTAL', usersCart, subTotal, checkoutCartData);
     return (
       <div>
         {!this.state.checkedOut ?

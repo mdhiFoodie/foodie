@@ -54,7 +54,6 @@ class BusinessDashboard extends Component {
   async currentOrders() {
     try {
       const response = await axios.get(`http://localhost:3000/api/cart/grabBizOrders/${this.state.bizId}`);
-      console.log('Hellooooooo', response)
       //gonna need specific pool order to group them
       for (var key in response.data) {
         const orderToRender = [];
