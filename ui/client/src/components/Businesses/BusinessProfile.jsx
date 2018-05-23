@@ -51,8 +51,6 @@ class BusinessProfile extends Component {
     })
     console.log('this is the state: ', data)
     this.props.businessesData(data);
-    // console.log('this.props.businessesData: ', this.props.businessesData)
-
   }
 
   render() {

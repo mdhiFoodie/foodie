@@ -49,15 +49,22 @@ class AddDelivery extends Component {
     //Information from the business 
     const { usersInfo } = this.props.getUsersInformation;
     return(
-      <div>
-      <h4>Add a delivery person</h4>
+      <div className='addDriverContainer'>
+
+      <div className='profileHeader'>
+      <h1>Add a delivery person</h1>
+      </div>
+
+      <div className='addDriverInfo'>
       <form onSubmit={this.handleSignupForDriver}>
         <input name='name' placeholder='name' onChange={this.onChange.bind(this)}/>
         <input name='email' placeholder='email' onChange={this.onChange.bind(this)} />
         <input name='password' type='password' placeholder='password' onChange={this.onChange.bind(this)}/>
         <input name='phone' placeholder='phone' onChange={this.onChange.bind(this)} />
-        <input type='submit' />
+        <input className='addDBtn' type='submit' />
       </form>
+      </div>
+
       </div>
     )
   }

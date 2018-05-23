@@ -80,3 +80,34 @@ ul {
   background-color: white;
   margin-right: 4%;
 }
+
+// .profileHeader {
+//   color: white; 
+// }
+
+.SubmitAddressButton {
+  background-color: white;
+  color: #E46F63;
+  max-width: 120px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px!important;
+  text-align: center;
+  font-size: 1em!important;
+  
+}
+
+.deliveryAddContainer {
+  height: 200px; 
+  width: 50%; 
+  input {
+    clear: both;
+    padding: 7px;
+    width: 600px;
+    margin-left: 30px;
+    margin-top: 10px;
+  }
+  input::-webkit-input-placeholder {
+    font-family: 'Poiret One', cursive;
+  }
+}

@@ -48,7 +48,6 @@ class OpenPools extends Component {
 
   render() {
     const { openPools } = this.state; 
-    console.log('openPools',this.state.openPools);
     return(
       <div onClick={this.goToBusiness}>
       {

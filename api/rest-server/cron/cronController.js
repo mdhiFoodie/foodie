@@ -32,7 +32,7 @@ const chargeUser = new cron.CronJob({
 
           let allOrder = await client.hgetallAsync(poolData.bizId); 
           for (var key in allOrder) {
-            userId = key; //Will be in the format poolId:userId 
+            userId = key.split(':')[1]; //Will be in the format poolId:userId 
             let subtotal = 0;
             let order = JSON.parse(allOrder[key]);
               for (var item in order) {
@@ -108,7 +108,6 @@ const userOrderHistory = new cron.CronJob({
           for (var key in poolData) {
             userId = key.split('d')[1]; 
           let allOrder = await client.hgetallAsync(poolData.bizId); 
-          console.log('ALL ORDER', allOrder);
           for (var key in allOrder) {
             userId = key; //Will be in the format poolId:userId 
             let subtotal = 0;
@@ -157,8 +156,6 @@ const userOrderHistory = new cron.CronJob({
   timeZone: 'America/Los_Angeles'
 });
 
-
-//Save them to the db 
 
 module.exports = {
   chargeUser, 

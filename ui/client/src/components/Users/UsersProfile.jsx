@@ -25,7 +25,6 @@ class userProfile extends Component {
     return (
       <div className='userProfile'>
         <div className='userPicture'></div>
-        <div className='friends'></div>
         <div className='ordersHistory'>
           <div className='profileHeader'>
             History

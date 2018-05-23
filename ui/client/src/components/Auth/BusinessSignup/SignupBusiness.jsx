@@ -7,6 +7,7 @@ import { getUserInfo } from '../../../actions/usersInformationAction.js';
 import './BusinessSignup.scss';
 
 const GOOGLE = process.env.GOOGLE
+console.log('Google', process.env.GOOGLE);
 
 class SignupBusiness extends Component {
   constructor() {

@@ -477,7 +477,7 @@ export const dummyData = async () => {
       VALUES ('Test', 'test@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', 'https://source.unsplash.com/225x225/?guatemala', 'https://source.unsplash.com/900x200/?guatemala', 'Isabella Beltran', '327 S Western Los Angeles CA', 34.068154, -118.309459, 'hispanic', '2139894852', 4.7, 4, 1000, 40, 10000, '1');
       
       INSERT INTO users (name, profilepicture, email, password, type, phone)
-      VALUES ('tilly duck', 'https://source.unsplash.com/225x225/?duck', 'tilly@duck.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '3103103103');
+      VALUES ('Patrick', 'https://source.unsplash.com/225x225/?people', 'patrick@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '3103103103');
       INSERT INTO users (name, profilepicture, email, password, type, phone)
       VALUES ('test user', 'https://source.unsplash.com/225x225/?test', 'test@test.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '2102102102');
       VALUES ('Michael', '', 'michael@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', 'cus_4x9tlO3czkPwWt');

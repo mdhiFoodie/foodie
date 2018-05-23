@@ -313,7 +313,7 @@ input {
 }
 
 .statscontainer {
-  background-color: lightgray;
+  background-color: #E6E6E6;
   float: left;
   width: 100%;
   padding-bottom: 16px;
@@ -390,6 +390,7 @@ input {
 .starIcon {
   color: #E46F63;
 }
+
 .profileOrders {
   text-align: left;
   margin-left: 4%;
@@ -397,4 +398,56 @@ input {
   clear: both;
 }
 
+.profileHeader {
+  text-align: left;
+  margin-left: 4%;
+  margin-bottom: -17px;
+  float: left;
+  clear: both;
+  width: 100%;
+}
 
+.addDriverContainer {
+  height: 200px;
+  width: 100%;
+  font-family: 'Poiret One', cursive; 
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  // background-color: #BA9BC9;
+}
+
+.addDriverInfo {
+  height: 100px;
+  float: left;
+  width: 100%;
+  display: block;
+}
+
+.addDriverInfo input {
+  width: 80%;
+  margin: 0 10%;
+  margin-top: 10px; 
+  display: block;
+  border: none;
+  border-bottom: thin solid #a4a4a4;
+  border-left: thin solid #a4a4a4;
+  padding: 10px 0px 3px 10px;
+  margin-bottom: 15px;
+  font-family: Helvetica;
+  font-weight: 100;
+  font-size: 1em;
+  float: right;
+  font-size: 'Poiret One', cursive; 
+}
+
+.addDBtn {
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px 0px 8px 0px!important;
+  text-align: center;
+  font-size: 1.25em!important;
+}
