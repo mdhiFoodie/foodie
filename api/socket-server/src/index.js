@@ -21,7 +21,11 @@ io.on('connection', socket => {
     io.emit('addUser', (username) => {
       socket.username = username;
       console.log(username + ' has logged in');
-
+      
+  // socket.on('joinPool', poolJoined => {
+  //   io.emit('joinPool')
+  //   poolJoined.on
+  // });
       socket.room = rooms.push(counter)
       counter++;
 
@@ -57,6 +61,7 @@ io.on('connection', socket => {
     })
   })
 });
+
 
 const updatesocket = (socket, username, newRoom) => {
   socket.emit('updateChat', 'SERVER', 'You\'ve connected ' + newRoom);
