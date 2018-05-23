@@ -39,10 +39,6 @@ class OpenPools extends Component {
     }
   }
 
-  goToBusiness = async() => {
-
-  }
-
   async grabPools () {
     const { data } = await axios.get(`http://localhost:3000/api/pool/grabAllPools`);
     this.setState({

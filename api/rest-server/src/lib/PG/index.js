@@ -487,9 +487,9 @@ export const dummyData = async () => {
       VALUES ('Isabella', '', 'isa@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
 
       INSERT INTO reviews (rating, comment, createdAt, id_businesses)
-      VALUES (5, 'I love this place', 1526678767742, 1);
+      VALUES (5, 'I love this place', 20180220, 1);
       INSERT INTO reviews (rating, comment, createdAt, id_businesses)
-      VALUES (4, 'I love this place less than the last guy', 1526678767742, 1);
+      VALUES (4, 'I love this place less than the last guy', 20111031, 1);
       
       INSERT INTO reviews_users (id_users, id_reviews)
       VALUES (2, 1);
