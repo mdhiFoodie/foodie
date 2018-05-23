@@ -30,13 +30,15 @@ export const poolController = {
       const timer = delivery;
       const count = 1;
 
+      console.log('!!!!!fuck yuhhh', closesAt, eta, );
+
       await client.hmset( poolId,
         'bizId', bizId, 'bizName', bizName, 'longitude', longitude,'latitude', latitude, 'timer', timer,
         'eta', eta, 'count', count, ('userId' + userId), userId );
 
       await client.geoadd('bizId' + bizId, longitude, latitude, poolId);
 
-      await client.sadd('allPools', poolId);
+      await client.sadd('allPools' + closesAt.getDate().toString(), poolId);
       
       await client.set(userId, poolId);
       delivery.setHours(13,0,0);
@@ -82,7 +84,6 @@ export const poolController = {
           error('error checking georadius', err);
         }
         if (pools.length > 0 ) {
-          console.log(pools);
           await client.hset(pools[0], ('userId' + userId), userId );
           await client.hincrby(pools[0], 'count', 1);    
           await client.set(userId, 'poolId' + pools[0]);
@@ -108,7 +109,11 @@ export const poolController = {
     }
   },
   grabAllPools: (req, res) => {
-    client.smembers('allPools', async (err, poolIds) => {
+    let closesAt = new Date();
+    if (closesAt.getHours() > 10) {
+      closesAt.setDate(closesAt.getDate() + 1);
+    }
+    client.smembers('allPools' + closesAt.getDate().toString(), async (err, poolIds) => {
       if (err) {
         error('error grabbing poolIds')
       }

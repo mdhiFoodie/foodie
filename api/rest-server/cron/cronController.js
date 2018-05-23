@@ -23,8 +23,8 @@ const chargeUser = new cron.CronJob({
       let discount;  
       let userId; 
       let total; 
-
-      const poolIds = await client.smembersAsync('allPools')
+      let closesAt = new Date();
+      const poolIds = await client.smembersAsync('allPools' + closesAt.getDate().toString());
         const pools = [];
         for (let i = 0; i < poolIds.length; i++) {
           let poolData = await client.hgetallAsync(poolIds[i]);
@@ -98,8 +98,8 @@ const userOrderHistory = new cron.CronJob({
       let cart = [];  
       let total; 
       let location;  
-
-      const poolIds = await client.smembersAsync('allPools')
+      let closesAt = new Date();
+      const poolIds = await client.smembersAsync('allPools' + closesAt.getDate().toString());
         const pools = [];
         for (let i = 0; i < poolIds.length; i++) {
           let poolData = await client.hgetallAsync(poolIds[i]);

@@ -220,7 +220,7 @@ class Menu extends Component {
     });
     
     createPool.data.addedPool === true ?  alert('You joined an existing pool') : alert('You just created a pool');
-  
+     console.log(createPool.data.poolId);
     const { history } = this.props; 
     const { email } = this.state;
     const body = {
