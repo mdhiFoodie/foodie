@@ -57,7 +57,7 @@ class OpenPools extends Component {
       <div onClick={this.goToBusiness}>
       {
         openPools && openPools.length ? openPools.map(pool => 
-          <div className='usersPool' >
+          <div className='usersPool' key={pool.bizName} >
           <div>{`${pool.bizName}`}</div>
           <label>pool closes at</label><br/>
           <div>{`${moment(pool.eta).countdown().toString().split('and')[0]}`}</div>

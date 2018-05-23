@@ -98,11 +98,9 @@ export const poolController = {
           return res.status(200).send({'addedPool':true, 'poolId': pools[0]});        
         } else {
           success('poolController - no local pool creating new pool ');
-          //if no pool exists then send a flag that will prompt user to add new pool
-          poolController.addPool(req, res); //no idea if this will work...
+          poolController.addPool(req, res);
         }
       });
-      //should look into this data sturcture and if it needs to be mutated, what about if theres multiples??
 
     } catch (err) {
       error('add user poolController - error= ', err);

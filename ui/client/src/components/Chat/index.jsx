@@ -40,7 +40,6 @@ class Chat extends Component {
   }
 
   componentDidMount () {
-    console.log('hello this is the component will mount')
     socket.on('connection', () => {
         console.log('connected to serverSETIOSEHTOI#%%#%#%')
     })
