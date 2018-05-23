@@ -48,6 +48,7 @@ class OpenPools extends Component {
 
   render() {
     const { openPools } = this.state; 
+
     return(
       <div onClick={this.goToBusiness}>
       {
@@ -62,7 +63,7 @@ class OpenPools extends Component {
           <div>{`${moment(pool.timer).countdown().toString().split('and')[0]}`}</div>
           <br/>
           <div className='poolCount'>
-            <i className="fas fa-circle fa-2x circleIcon"></i>
+            <div className="circleIcon">{pool.count}</div>
           </div>
           </div>
         )

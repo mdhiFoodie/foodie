@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ArchivedOrders from './ArchivedOrders.jsx';
 
 import './userProfile.scss';
 
 class userProfile extends Component {
   constructor() {
     super();
-
+    this.state = {}; 
   }
 
-  getUsersOrderHistory = async () => {
+  componentWillMount = async () => {
     try {
     const payload = {
       userId: JSON.parse(localStorage.storage).id 
     }
     const getHistory = await axios.post('http://localhost:3000/api/orders/getUserHistory', payload)
+    this.setState({
+      history: getHistory
+    }); 
     console.log('Get order history -', getHistory);
     } catch (err) {
       console.log('Error getting users order history - ', err)
@@ -24,12 +28,16 @@ class userProfile extends Component {
   render() {
     return (
       <div className='userProfile'>
-        <div className='userPicture'></div>
+        <div className='userPicture'>
+        
+        </div>
         <div className='ordersHistory'>
           <div className='profileHeader'>
-            History
+            <h1>History</h1>
           </div>
-          <button onClick={this.getUsersOrderHistory}>Get history</button>
+          <div className='archivedOrders'>
+            <ArchivedOrders orders={this.state.history} />
+          </div>
         </div>
       </div>
     );
