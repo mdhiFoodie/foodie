@@ -18,14 +18,14 @@ class Reviews extends Component {
 
   async componentWillMount() {
     try {
-    let created;
-    const { data } = await axios.get(`http://localhost:3000/api/reviews/getReviews/${location.pathname.split('/businessProfile/').join('').split('~')[1]}`); 
-      this.setState({
-        data: data,
-        created: data.createdat
-      })
-    } catch (err) {
-      console.log(err)
+    const { data } = await axios.get(`http://localhost:3000/api/reviews/getReviews/${location.pathname.split('/businessProfile/').join('').split('~')[1]}`)
+    this.setState({
+      data:data,
+      moment: moment(data.createdat).fromNow()
+    });
+    console.log('this is the axios to get the reviews: ', data);
+    }
+    finally {
     }
   }
 
@@ -53,9 +53,7 @@ class Reviews extends Component {
                   }) 
                 }
                 <div className='reviewTime'>
-                  {
-                    moment(review.createdat, "YYYYMMDD").fromNow()
-                  }
+                  {this.state.moment}
                 </div> 
                 </div>
                 <div className='reviewText'>
