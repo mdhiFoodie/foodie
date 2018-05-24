@@ -16,6 +16,7 @@ class MyPool extends Component {
       this.setState({
         poolIdOfUser: response.data
       });
+      console.log('this is the state poool id of user', this.state.poolIdOfUser)
     } catch (error) {
       console.error(error);
     }

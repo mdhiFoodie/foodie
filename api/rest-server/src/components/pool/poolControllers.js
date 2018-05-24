@@ -86,7 +86,7 @@ export const poolController = {
         if (pools.length > 0 ) {
           await client.hset(pools[0], ('userId' + userId), userId );
           await client.hincrby(pools[0], 'count', 1);    
-          await client.set(userId, 'poolId' + pools[0]);
+          await client.set(userId, pools[0]);
           let rightNow = new Date();
           if (rightNow.getHours() > 10) {
             rightNow.setDate(rightNow.getDate() + 1);
