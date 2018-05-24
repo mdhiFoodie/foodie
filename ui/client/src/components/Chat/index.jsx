@@ -18,11 +18,18 @@ class Chat extends Component {
       text : '',
       listofmessages: [],
       username: '',
-      messagesFromRedis: []
+      messagesFromRedis: [],
+      allUsers: []
     }
   }
   
   async componentWillMount() {
+    const {name} = JSON.parse(localStorage.storage);
+    this.state.allUsers.push(name);
+    this.setState({
+  
+    })
+    console.log('this is all users', this.state.allUsers)
     try {
       const poolId = this.props.poolId;
       const userid =  JSON.parse(localStorage.storage).id;
@@ -98,7 +105,6 @@ class Chat extends Component {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
-
         this.setState({
           username: username
         })
@@ -114,10 +120,14 @@ class Chat extends Component {
   };
 
   render() {
-    // console.log('this state username', this.state.messagesFromRedis)
+    // USE REDUX PERSIST TO GET REDUX DATA TO PERSIST.
     return(
       <div>
-        WELCOME TO THE CHAT PAGE
+
+        <div>
+        {localStorage.businessname}'s CHAT PAGE
+        </div>
+
         <div>
         <Messages/>
         </div>
@@ -126,6 +136,12 @@ class Chat extends Component {
           {this.state.messagesFromRedis && this.state.messagesFromRedis.map ( (message, key) => {
             return <Messages key={key} singleMessage={message}/>
           })}
+        </div>
+
+        <div>
+          {/* {this.state.allUsers.map ( (user) => {
+            return user
+          })} */}
         </div>
 
         <form>
@@ -140,8 +156,8 @@ class Chat extends Component {
 
 const mapStateToProps = state => ({
   // usersData is the key coming from our root reducers with the value of our reducer file
-  businessesData: state.businessesData
-  
+  businessesData: state.businessesData,
+  searchBusinesses: state.searchBusinesses  
 })
 
 export default connect(mapStateToProps, null)(Chat);
