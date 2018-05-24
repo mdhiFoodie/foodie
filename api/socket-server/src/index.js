@@ -18,7 +18,7 @@ io.on('connection', socket => {
   // });
   socket.on('join', (room) => {
     console.log('joining room', room);
-    socket.join(room);
+    socket.join(room.poolid);
   });
   socket.on('leave', (room) => {
     console.log('leaving room', room);

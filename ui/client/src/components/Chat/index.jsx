@@ -56,7 +56,7 @@ class Chat extends Component {
     //   this.setState({})
     // })
     socket.on('sendChat', (data) => {
-      console.log('this be the messag from socket message', data)
+      console.log('this be the message from socket message', data)
       this.state.messagesFromRedis.push(data);
       this.setState({});
   })
