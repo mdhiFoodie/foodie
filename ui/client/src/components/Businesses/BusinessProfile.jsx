@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Menu from '../Menu/Menu.jsx';
 import Logout from '../Auth/Logout.jsx';
-import Reviews from '../Review/Review.jsx';
+import Reviews from '../Review/Reviews.jsx';
 import Chat from '../Chat/index.jsx';
 import Payment from './Stripe/Payment.jsx'; 
 
