@@ -24,10 +24,10 @@ class Chat extends Component {
   
   async componentWillMount() {
     try {
+      const poolId = this.props.poolId;
       const userid =  JSON.parse(localStorage.storage).id;
-      const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${userid}`)
-        //${userid}/${POOLID} <---- use this for grabbing the userID and poolID data.
-      // console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data))
+      const getMessages = await axios.get(`http://localhost:3000/api/chat/retrievemessages/${poolId}`)
+      console.log('this is the messages that i receive back from getmessages', Object.entries(getMessages.data))
       this.setState({
         messagesFromRedis: Object.entries(getMessages.data).sort().map( (messages) => {
           return [JSON.parse(messages[1]).text, JSON.parse(messages[1]).username]
@@ -40,13 +40,28 @@ class Chat extends Component {
   }
 
   componentDidMount () {
+    const userid =  JSON.parse(localStorage.storage).id;
+    const poolid = this.props.poolId;
+    console.log('hello this is the component will mount')
     socket.on('connection', () => {
         console.log('connected to serverSETIOSEHTOI#%%#%#%')
     })
-    socket.on('messages', (data) => {
-        console.log('this be the messag from socket message', data)
-        this.state.messagesFromRedis.push(data);
-        this.setState({});
+    // socket.on('messages', (data) => {
+    //     console.log('this be the messag from socket message', data)
+    //     this.state.messagesFromRedis.push(data);
+    //     this.setState({});
+    // })
+    // socket.on('join', (poolid) => {
+    //   console.log('this is user joining a room', poolid);
+    //   this.setState({})
+    // })
+    socket.on('sendChat', (data) => {
+      console.log('this be the messag from socket message', data)
+      this.state.messagesFromRedis.push(data);
+      this.setState({});
+  })
+    socket.emit('join', {
+      poolid: poolid
     })
 }
 
@@ -58,6 +73,7 @@ class Chat extends Component {
 
   handleKeyPress = async (e) => {
     if(e.key === 'Enter') {
+      console.log('this is props in chat', this.props)
       e.preventDefault();
       this.state.messages.push(this.state.text)
       const storage =  JSON.parse(localStorage.storage);
@@ -66,6 +82,7 @@ class Chat extends Component {
       const email = storage.email;
       const type = storage.type;
       const createdAt = new Date();
+      const poolId = this.props.poolId;
       const payload = {
         messages: this.state.messages,
         text: this.state.text,
@@ -73,17 +90,15 @@ class Chat extends Component {
         email: email,
         type: type,
         createdAt: createdAt,
-        username: username
+        username: username,
+        poolid: poolId
       }
       e.currentTarget.value = '';
       try {
         const userMessages = await axios.post('http://localhost:3000/api/chat/messages', payload)
         console.log('this is user messages', JSON.parse(userMessages.config.data))
         const returnedData = JSON.parse(userMessages.config.data);
-        // console.log('this is parsed data', [returnedData.text, returnedData.username]);
-        // this.state.listofmessages.push(returnedData.text);
-        // this.state.messagesFromRedis.push(returnedData.text)
-        // console.log('this state for messages from redis', this.state.messagesFromRedis)
+
         this.setState({
           username: username
         })
@@ -91,8 +106,9 @@ class Chat extends Component {
       catch (err) {
         console.log(err)
       };
-      socket.emit('messages', {
-        message: [payload.text, payload.username]
+      socket.emit('sendChat', {
+        message: [payload.text, payload.username],
+        poolid: poolId
       })
     }
   };
