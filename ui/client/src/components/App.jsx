@@ -60,7 +60,7 @@ class App extends Component {
             </StripeProvider>
             )}/> 
             <Route exact path='/userProfile' component={userProfile}/>
-            <Route exact path='/poolChat' component={Chat}/>
+            <Route exact path='/poolChat' component={MyPool}/>
             <Route exact path='/businessProfile' component={BusinessProfile}/>
             <Route exact path='/businessProfile/:nameid' component={BusinessProfile}/>
             <Route exact path='/signupUser' component={SignupUser}/>
