@@ -124,7 +124,7 @@ class SearchFilter extends Component {
 
               <div>
                   <select value={this.state.value} onChange={this.filterClickHandler.bind(this)}>
-                  <option selected disable hidden value=''>filter</option>
+                  <option defaultValue disable='true' hidden value=''>filter</option>
                   <option className='hairline-down-arrow' value='totalorder'>total order</option>
                   <option value='rating'>rating</option>
                   <option value='price'>$$$</option>

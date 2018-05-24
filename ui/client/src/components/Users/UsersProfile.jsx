@@ -15,29 +15,33 @@ class userProfile extends Component {
     const payload = {
       userId: JSON.parse(localStorage.storage).id 
     }
-    const getHistory = await axios.post('http://localhost:3000/api/orders/getUserHistory', payload)
+    const {data} = await axios.post('http://localhost:3000/api/orders/getUserHistory', payload)
     this.setState({
-      history: getHistory
+      history: data
     }); 
-    console.log('Get order history -', getHistory);
+    console.log('Get order history -', data);
     } catch (err) {
       console.log('Error getting users order history - ', err)
     }
   }
 
   render() {
+
     return (
       <div className='userProfile'>
         <div className='userPicture'>
-        
+          <img src='https://i.imgur.com/puf5KEL.jpg' />
+          <div className='userProfileName'></div>
+          <div className='plusPicture'>
+            +
+          </div>
+          <button className='settingDropBtn'>settings</button>
         </div>
-        <div className='ordersHistory'>
           <div className='profileHeader'>
             <h1>History</h1>
           </div>
-          <div className='archivedOrders'>
-            <ArchivedOrders orders={this.state.history} />
-          </div>
+        <div className='ordersHistory'>
+          <ArchivedOrders orders={this.state.history} />
         </div>
       </div>
     );

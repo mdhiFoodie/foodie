@@ -260,7 +260,7 @@ class Menu extends Component {
             usersCart: null,
           });
           
-        history.push('/poolChat'); 
+        history.push('/messages'); 
         }
       } catch (err) {
         console.log('Error from Menu, checkout function -', err);
@@ -300,10 +300,15 @@ class Menu extends Component {
         </div>
         </div>
           :
-          <div>
-          <input name='address' placeholder='address' onChange={this.handleForm}/>
-          <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
+          <div className='deliveryAddContainer'>
+          <div className='profileHeader'>
+          <h3>Delivery address:</h3> 
           </div>
+            <form onSubmit={this.submitDeliveryAddress}> 
+                <input name='address' placeholder='address' onChange={this.handleForm} />
+              <input className='SubmitAddressButton' type="submit" value="Submit" />
+            </form>
+          </div> 
         }
       </div>
     );

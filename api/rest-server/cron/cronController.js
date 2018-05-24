@@ -15,6 +15,33 @@ import {
 } from './cronQueries.js'; 
 
 
+const seedRedis = new cron.CronJob({
+  cronTime: '* * * * * *', 
+  onTick: async () => {
+    try {
+      await client.hmset('poolId13',
+        'bizId', 1, 'bizName', 'Michael Cheese', 'longitude', 33.9759755, 'latitude', -118.3908877, ('userId' + 3), 3);
+      // await client.geoadd('bizId' + 1, 33.9759755, -118.3908877, 'poolId13');      
+      await client.set(3, 'poolId13');
+
+      await client.hmset('poolId23',
+      'bizId', 2, 'bizName', 'Wine Cheese Bakery', 'longitude', 33.9759755, 'latitude', -118.3908877, ('userId' + 3), 3);
+      // await client.geoadd('bizId' + 1, 33.9759755, -118.3908877, 'poolId13');      
+      await client.set(3, 'poolId23');
+
+      await client.hmset('poolId33',
+      'bizId', 3, 'bizName', 'Daniels Korean BBQ', 'longitude', 33.9759755, 'latitude', -118.3908877, ('userId' + 3), 3);
+      // await client.geoadd('bizId' + 1, 33.9759755, -118.3908877, 'poolId13');      
+      await client.set(3, 'poolId33');
+      success('cronController - successfully added pool to redis pool');
+    } catch(err) {
+      error('Not able to seed Redis', err); 
+    }
+  }, 
+  start: false, 
+  timeZone: 'America/Los_Angeles'
+}); 
+
 const chargeUser = new cron.CronJob({
   cronTime: '* * * * * *',
   onTick: async () => {
@@ -103,6 +130,7 @@ const userOrderHistory = new cron.CronJob({
         const pools = [];
         for (let i = 0; i < poolIds.length; i++) {
           let poolData = await client.hgetallAsync(poolIds[i]);
+          console.log('Pool data', poolData)
           count = poolData.count;
           businessId = poolData.bizId; 
           for (var key in poolData) {
@@ -137,16 +165,52 @@ const userOrderHistory = new cron.CronJob({
             }
           }
         }
-
       const order = new Order({
         userId: userId,
         businessId: businessId,
+        businessName: '',
         createdAt: new Date(), //todays date 
         cart: JSON.stringify(cart),
         total: total, 
-        location: '6060 Center Dr Culver City CA'
+        location: '',
+        count: count //We dont have their location? 
       });
-      const saveOrders = await order.save(); 
+
+      // const order = new Order({
+      //   userId: 3,
+      //   businessId: 1,
+      //   businessName: 'Michael Cheese',
+      //   createdAt: new Date(), //todays date 
+      //   cart: "[{\"quantity\":1,\"item\":\"Cheese a La Mexicana\",\"price\":\"14\"}]",
+      //   total: 1400, 
+      //   location: '6060 Center Dr Culver City CA',
+      //   count: 5 //We dont have their location? 
+      // });
+
+      // const order1 = new Order({
+      //   userId: 3,
+      //   businessId: 2,
+      //   businessName: 'Wine Cheese Bakery',
+      //   createdAt: new Date(), //todays date 
+      //   cart: "[{\"quantity\":1,\"item\":\"Cheese a La Mexicana\",\"price\":\"14\"}]",
+      //   total: 1400, 
+      //   location: '6060 Center Dr Culver City CA',
+      //   count: 11 //We dont have their location? 
+      // });
+
+      // const order2 = new Order({
+      //   userId: 3,
+      //   businessId: 3,
+      //   businessName: 'Daniels Korean BBQ',
+      //   createdAt: new Date(), //todays date 
+      //   cart: "[{\"quantity\":1,\"item\":\"Cheese a La Mexicana\",\"price\":\"14\"}]",
+      //   total: 1400, 
+      //   location: '6060 Center Dr Culver City CA',
+      //   count: 1 //We dont have their location? 
+      // });
+      // const saveOrders = await order.save(); 
+      // const saveOrders1 = await order1.save(); 
+      // const saveOrders2 = await order2.save(); 
       success('Successfully save each order '); 
     } catch(err) {
       error('Failed saving order history from cronController error= ', err); 
@@ -157,7 +221,9 @@ const userOrderHistory = new cron.CronJob({
 });
 
 
+
 module.exports = {
   chargeUser, 
-  userOrderHistory
+  userOrderHistory, 
+  seedRedis
 }

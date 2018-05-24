@@ -30,8 +30,6 @@ export const poolController = {
       const timer = delivery;
       const count = 1;
 
-      console.log('!!!!!fuck yuhhh', closesAt, eta, );
-
       await client.hmset( poolId,
         'bizId', bizId, 'bizName', bizName, 'longitude', longitude,'latitude', latitude, 'timer', timer,
         'eta', eta, 'count', count, ('userId' + userId), userId );

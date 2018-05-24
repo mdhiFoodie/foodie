@@ -22,9 +22,6 @@ class NearByRestaurants extends Component {
 
         return(
             <div className='NearByRestaurantsContainer'>
-                <div className ='heading'>
-                <h2>nearby restaurants</h2>
-                </div>
                 
                 {this.props.loadingStatus.type === 'SEARCH_LOADING_FULFILLED' ? 
                 <div className='searchResultContainer'>

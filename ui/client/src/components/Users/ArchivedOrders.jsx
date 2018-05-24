@@ -8,25 +8,48 @@ class ArchivedOrders extends Component {
     super();
   }
 
+
   render() {
+    const { orders } = this.props;
     return (
-      <div className='archivedContainers'>
-        <div className='orderHistPic'>
-          <img src='#' />
-        </div>
-        <div className='orderHistName'>
-          
-        </div>
-        <div className='orderHistRating'>
-        </div>
-        <div className='orderInformation'>
+      <div>
+          {
+            orders && orders.length ? orders.map(order =>
+              <div key={`${order.id}`} className='archivedContainers'>
+              {/* <div className='orderHistPic'>
+                <img src='#' alt='businessPic' />
+              </div> */}
+              
+              <div className='orderBusinessName'>
+              <h3>{order.businessName}</h3>
+              </div>
 
-        </div>
-        <div className='orderHistPrice'>
+              <div className='itemsName'>Food items:</div>
+              <div className='orderItems'>
+              {
+                JSON.parse(order.cart).map(item => {
 
-        </div>
+                  return (
+                    <div className='eachOrderItem'>{`${item.quantity}   ${item.item}  $ ${item.price}`}</div>
+                  )
+                })
+              }
+              </div>
+
+              <div className='orderHistPrice'>
+                {`Total: $ ${order.total/100}`}
+              </div>
+
+              {/* <div className='circleIconOrders'>
+              <div className='countText'>{order.count}</div> 
+              </div> */}
+              </div>
+            )
+            :
+            <div>You haven't order anything yet</div>
+          }
       </div>
-    );
+    )
   }
 }
 

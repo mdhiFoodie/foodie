@@ -76,7 +76,6 @@ class Transactions extends Component {
 
   createCardToken = async (e) => {
     e.preventDefault(); 
-    console.log('FIRE');
     const { history } = this.props; 
     const { first_name, last_name, email} = this.state; 
     try {
@@ -92,7 +91,7 @@ class Transactions extends Component {
       const data = await axios.post('http://localhost:3000/api/stripe/createCustomerId', body);
       if (data) {
         alert('We have successfully created your account');
-        history.push('/poolChat');
+        history.push('/messages');
       }
     } catch (err) {
       console.log('Error from create card token on Transactions component -', err); 
