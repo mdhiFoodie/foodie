@@ -34,7 +34,8 @@ class Menu extends Component {
       address: null,
       subTotal: null,
       email: JSON.parse(localStorage.storage).email,
-      stripeAccount: false
+      stripeAccount: false,
+      classIsActive: true
     }
     this.handleClick = this.handleClick.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -78,36 +79,46 @@ class Menu extends Component {
   renderFoodTypes() {
     const foodType = [];
     for (var key in this.state.currentMenu) {
-      foodType.push(<div className='foodType' key={key}><div  className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div></div>);
+      foodType.push(<div className={this.state.classIsActive ? 'active foodType': 'foodType'} key={key}><div  className={key} onClick={(e) => this.renderFoodItems(e.target.className)}>{key}</div></div>);
     }
     this.setState({
-      food: foodType
+      food: foodType,
     });
   }
-
+  
   renderFoodItems(foodThing) {
     const foodItems = [];
     let aFG= this.state.currentMenu[foodThing]
+      if(aFG === undefined) {
+        aFG = [];
+      } else {
+          foodItems.push(<div className={ (!this.state.classIsActive ? 'x' : 'x active' )} 
+          onClick={() => {console.log('fuckkkkk'); this.renderFoodItems(); this.renderFoodTypes();}}>X</div>)
+      }
     for (var i = 0; i < aFG.length; i++) {
       foodItems.push(
-      <div className='foodItem' key={aFG[i].name}>
+        <div className={ (!this.state.classIsActive ? 'foodItem' : 'foodItem active' )}key={aFG[i].name}>
         <div className={aFG[i].name} onClick={this.itemClick}>
           <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].name}</li>
           <li className={aFG[i].name} id={aFG[i].price}>{aFG[i].price}</li>
         </div>
       </div>
       );
-      }
-      this.setState({
-        foods: foodItems
-      });
+    }
+    this.setState({
+      foods: foodItems,
+      classIsActive: !this.state.classIsActive
+    }, () => this.renderFoodTypes());
+    
+    console.log('this is state', this.state);
   }
   
   itemClick(e) {
     this.setState({
       currentItem: e.target.className/*the item clicked,*/,
       currentItemQuantity: 1,  /*quantity incremented*/
-      currentItemPrice: e.target.id
+      currentItemPrice: e.target.id,
+
 
     })
   }
@@ -273,32 +284,32 @@ class Menu extends Component {
       <div>
         {!this.state.checkedOut ?
         <div>
-        <ul>
-          {this.state.food}
-          {this.state.foods}
-          {this.state.usersCart}
-          {this.state.usersCart !== null ? 
-            <button onClick={() => this.setState({
-              usersCart: null
-            })}>Close Cart</button>
-            :
-            <div></div>
-          }
-        </ul>
+          <ul>
+            {this.state.food}
+            {this.state.foods}
+            {this.state.usersCart}
+            {this.state.usersCart !== null ? 
+              <button onClick={() => this.setState({
+                usersCart: null
+              })}>Close Cart</button>
+              :
+              <div></div>
+            }
+          </ul>
         {this.state.currentItem === null ? 
           <div></div> 
         : 
-        <div>
-        <button onClick={this.addToCart}>Add To Cart</button>
-          {this.state.currentItem}
-        <button onClick={() => this.adjustQuantity(-1)}>-</button>
-        <span>Quantity: {this.state.currentItemQuantity}</span>
-        <button onClick={() => this.adjustQuantity(1)}>+</button>
-        </div>}
-        <div className='cartButton'>
-          <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
-        </div>
-        </div>
+          <div>
+            <button className='addToCart' onClick={this.addToCart}>Add To Cart</button>
+              {this.state.currentItem}
+            <button onClick={() => this.adjustQuantity(-1)}>-</button>
+            <span>Quantity: {this.state.currentItemQuantity}</span>
+            <button onClick={() => this.adjustQuantity(1)}>+</button>
+          </div>}
+          <div className='cartButton'>
+            <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
+          </div>
+      </div>
           :
           <div>
           <input name='address' placeholder='address' onChange={this.handleForm}/>
