@@ -25,6 +25,7 @@ ul {
   padding: 3px;
   color: white;
   margin-right: -1px;
+  display: none;
 }
 
 .foodType:hover {
@@ -46,7 +47,6 @@ ul {
   color: inherit;
   font-family: Helvetica, sans-serif;
   font-weight: 100;
-
 }
 
 .foodItem {
@@ -79,4 +79,8 @@ ul {
   color: #E46F63;
   background-color: white;
   margin-right: 4%;
+}
+
+.active {
+  display: block;
 }

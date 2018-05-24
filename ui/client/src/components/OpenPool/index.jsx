@@ -12,9 +12,11 @@ class OpenPools extends Component {
     super();
 
     this.state = {
-      discount: ['no discount yet', 'free delivery', .05, .1, .15]
+      discount: ['no discount yet', 'free delivery', .05, .1, .15],
     }
     this.calcDiscount = this.calcDiscount.bind(this);
+    this.nextDiscount = this.nextDiscount.bind(this);
+    this.peopleNeededForNextDiscount = this.peopleNeededForNextDiscount.bind(this);
   }
 
   componentDidMount () {
@@ -25,17 +27,51 @@ class OpenPools extends Component {
     if(count < 5) {
       return this.state.discount[0];
     }
-    if(count < 10) {
+    if(count < 10 && count > 5) {
       return this.state.discount[1];
     }
-    if(count < 15) {
+    if(count < 15 && count > 10) {
       return this.state.discount[2];
     }
-    if(count < 20) {
+    if(count < 20  && count > 15) {
       return this.state.discount[3];
     }
     if(count > 20) {
       return this.state.discount[4];
+    }
+  }
+  nextDiscount(count) {
+    if(count < 5) {
+      return this.state.discount[1];
+    }
+    if(count < 10 && count > 5) {
+      return this.state.discount[2];
+    }
+    if(count < 15 && count > 10) {
+      return this.state.discount[3];
+    }
+    if(count < 20  && count > 15) {
+      return this.state.discount[4];
+    }
+    if(count > 20) {
+      return 'Maxed out bruh';
+    }
+  }
+  peopleNeededForNextDiscount(count) {
+    if(count < 5) {
+      return 5 - count;
+    }
+    if(count < 10 && count > 5) {
+      return 10 - count;
+    }
+    if(count < 15 && count > 10) {
+      return 15 - count;
+    }
+    if(count < 20  && count > 15) {
+      return 20 - count;
+    }
+    if(count > 20) {
+      return 'gangs all here';
     }
   }
 
@@ -51,7 +87,7 @@ class OpenPools extends Component {
   }
 
   render() {
-    const { openPools } = this.state; 
+    const { openPools, peopleNeededForNextDiscount, nextDiscount } = this.state; 
     console.log('openPools',this.state.openPools);
     return(
       <div onClick={this.goToBusiness}>
@@ -66,6 +102,10 @@ class OpenPools extends Component {
           <label>food will be deliver at</label><br/>
           <div>{`${moment(pool.timer).countdown().toString().split('and')[0]}`}</div>
           <br/>
+          <label>next discount</label><br/>
+          <div>{this.nextDiscount(pool.count)}</div>
+          <label>orders needed for next discount</label><br/>
+          <div>{this.peopleNeededForNextDiscount(pool.count)}</div>
           <div className='poolCount'>
             <i className="fas fa-circle fa-2x circleIcon"></i>
           </div>
