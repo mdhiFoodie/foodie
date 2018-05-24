@@ -284,32 +284,32 @@ class Menu extends Component {
       <div>
         {!this.state.checkedOut ?
         <div>
-        <ul>
-          {this.state.food}
-          {this.state.foods}
-          {this.state.usersCart}
-          {this.state.usersCart !== null ? 
-            <button onClick={() => this.setState({
-              usersCart: null
-            })}>Close Cart</button>
-            :
-            <div></div>
-          }
-        </ul>
+          <ul>
+            {this.state.food}
+            {this.state.foods}
+            {this.state.usersCart}
+            {this.state.usersCart !== null ? 
+              <button onClick={() => this.setState({
+                usersCart: null
+              })}>Close Cart</button>
+              :
+              <div></div>
+            }
+          </ul>
         {this.state.currentItem === null ? 
           <div></div> 
         : 
-        <div>
-        <button onClick={this.addToCart}>Add To Cart</button>
-          {this.state.currentItem}
-        <button onClick={() => this.adjustQuantity(-1)}>-</button>
-        <span>Quantity: {this.state.currentItemQuantity}</span>
-        <button onClick={() => this.adjustQuantity(1)}>+</button>
-        </div>}
-        <div className='cartButton'>
-          <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
-        </div>
-        </div>
+          <div>
+            <button className='addToCart' onClick={this.addToCart}>Add To Cart</button>
+              {this.state.currentItem}
+            <button onClick={() => this.adjustQuantity(-1)}>-</button>
+            <span>Quantity: {this.state.currentItemQuantity}</span>
+            <button onClick={() => this.adjustQuantity(1)}>+</button>
+          </div>}
+          <div className='cartButton'>
+            <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
+          </div>
+      </div>
           :
           <div>
           <input name='address' placeholder='address' onChange={this.handleForm}/>
