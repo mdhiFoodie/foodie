@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Messages from './messages.jsx';
-
+import './Chat.scss';
 import axios from 'axios';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -122,17 +122,17 @@ class Chat extends Component {
   render() {
     // USE REDUX PERSIST TO GET REDUX DATA TO PERSIST.
     return(
-      <div>
+      <div className='chatContainer'>
 
-        <div>
+        <div className='chatTitle'>
         {localStorage.businessname}'s CHAT PAGE
         </div>
 
-        <div>
+        {/* <div>
         <Messages/>
-        </div>
+        </div> */}
 
-        <div>
+        <div className='messages'>
           {this.state.messagesFromRedis && this.state.messagesFromRedis.map ( (message, key) => {
             return <Messages key={key} singleMessage={message}/>
           })}
@@ -144,7 +144,7 @@ class Chat extends Component {
           })} */}
         </div>
 
-        <form>
+        <form className='chatTextBox'>
           <input type='text' name='text' onChange={this.onTextChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} placeholder='send message..'/>
         </form>
       </div>
