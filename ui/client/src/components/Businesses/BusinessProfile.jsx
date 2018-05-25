@@ -44,13 +44,13 @@ class BusinessProfile extends Component {
       phone: data[0].phone, 
       latitude: data[0].latitude, 
       longitude: data[0].longitude, 
-      price: data[0].price, 
+      price: data[0].price,
       businessname: data[0].businessname, 
       contactname: data[0].contactname
-
     })
     console.log('this is the state: ', data)
     this.props.businessesData(data);
+    localStorage.setItem('businessname', data[0].businessname)
     // console.log('this.props.businessesData: ', this.props.businessesData)
 
   }
