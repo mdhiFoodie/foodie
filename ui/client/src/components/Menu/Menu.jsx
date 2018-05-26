@@ -7,8 +7,10 @@ const socket = io('http://localhost:4000')
 
 import fontawesome from '@fortawesome/fontawesome'
 import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart'
+import faAngleDoubleLeft from '@fortawesome/fontawesome-free-solid/faAngleDoubleLeft'
 
 fontawesome.library.add(faShoppingCart);
+fontawesome.library.add(faAngleDoubleLeft);
 
 import './Menu.scss';
 
@@ -93,7 +95,7 @@ class Menu extends Component {
         aFG = [];
       } else {
           foodItems.push(<div className={ (!this.state.classIsActive ? 'x' : 'x active' )} 
-          onClick={() => {console.log('fuckkkkk'); this.renderFoodItems(); this.renderFoodTypes();}}>X</div>)
+          onClick={() => {console.log('fuckkkkk'); this.renderFoodItems(); this.renderFoodTypes();}}><i className='fas fa-angle-double-left'></i></div>)
       }
     for (var i = 0; i < aFG.length; i++) {
       foodItems.push(
@@ -178,12 +180,12 @@ class Menu extends Component {
         let price = JSON.parse(response.data[key])[0];
         subtotal += price * quantity;
         cart.push(<div key={key}>
-                    <div className={key}>{key} Quantity:  {quantity} Price: ${price * quantity}</div>
+                    <div className={key}>{key} quantity:  {quantity} price: ${price * quantity}</div>
                     <div onClick={() => {this.deleteItem(key)}}>XX</div>
                   </div>);
       }
       cart.push(<div key={subtotal}>Subtotal: {subtotal}</div>);
-      cart.push(<button key={'checkout'}onClick={this.checkout}>Checkout</button>);
+      cart.push(<button className='checkoutButton' key={'checkout'}onClick={this.checkout}>checkout</button>);
       this.setState({
         usersCart: cart,
         subTotal: subtotal,
@@ -271,13 +273,12 @@ class Menu extends Component {
             usersCart: null,
           });
           
-        history.push('/poolChat'); 
+        history.push('/messages'); 
         }
       } catch (err) {
         console.log('Error from Menu, checkout function -', err);
       }
   }
-
 
   render() {
     return (
@@ -287,38 +288,85 @@ class Menu extends Component {
           <ul>
             {this.state.food}
             {this.state.foods}
-            {this.state.usersCart}
-            {this.state.usersCart !== null ? 
-              <button onClick={() => this.setState({
-                usersCart: null
-              })}>Close Cart</button>
-              :
-              <div></div>
-            }
+            <div className='defaultCart'>
+              {this.state.usersCart}
+              {this.state.usersCart !== null ? <button className='closeCartButton' onClick={() => this.setState({usersCart: null})}><i className='fas fa-angle-double-left'></i></button> : <div></div> }
+            </div>
           </ul>
         {this.state.currentItem === null ? 
           <div></div> 
         : 
-          <div>
-            <button className='addToCart' onClick={this.addToCart}>Add To Cart</button>
-              {this.state.currentItem}
-            <button onClick={() => this.adjustQuantity(-1)}>-</button>
-            <span>Quantity: {this.state.currentItemQuantity}</span>
-            <button onClick={() => this.adjustQuantity(1)}>+</button>
+          <div className='menuCart'>
+              <div className='cartFoodItem'>{this.state.currentItem}</div>
+            <br/><button className='sub' onClick={() => this.adjustQuantity(-1)}>-</button>
+            <span>quantity: {this.state.currentItemQuantity}</span>
+            <button className='add' onClick={() => this.adjustQuantity(1)}>+</button><br/>
+            <button className='addToCart' onClick={this.addToCart}>add</button>
           </div>}
           <div className='cartButton'>
             <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
           </div>
       </div>
           :
-          <div>
-          <input name='address' placeholder='address' onChange={this.handleForm}/>
-          <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
+          <div className='deliveryAddContainer'>
+          <div className='profileHeader'>
+          <h3>delivery address:</h3> 
           </div>
+            <form onSubmit={this.submitDeliveryAddress}> 
+                <input name='address' placeholder='address' onChange={this.handleForm} />
+              <input className='SubmitAddressButton' type="submit" value="submit" />
+            </form>
+          </div> 
         }
       </div>
     );
   }
 }
+
+
+
+
+
+//   render() {
+//     return (
+//       <div>
+//         {!this.state.checkedOut ?
+//         <div>
+//           <ul>
+//             {this.state.food}
+//             {this.state.foods}
+//             {this.state.usersCart}
+//             {this.state.usersCart !== null ? 
+//               <button onClick={() => this.setState({
+//                 usersCart: null
+//               })}>Close Cart</button>
+//               :
+//               <div></div>
+//             }
+//           </ul>
+//         {this.state.currentItem === null ? 
+//           <div></div> 
+//         : 
+//           <div>
+//             <button className='addToCart' onClick={this.addToCart}>Add To Cart</button>
+//               {this.state.currentItem}
+//             <button onClick={() => this.adjustQuantity(-1)}>-</button>
+//             <span>Quantity: {this.state.currentItemQuantity}</span>
+//             <button onClick={() => this.adjustQuantity(1)}>+</button>
+//           </div>}
+//           <div className='cartButton'>
+//             <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
+//           </div>
+//       </div>
+//           :
+//           <div>
+//           <input name='address' placeholder='address' onChange={this.handleForm}/>
+//           <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
+//           </div>
+//         }
+//       </div>
+//     );
+//   }
+// }
 
 export default Menu;

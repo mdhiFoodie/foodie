@@ -3,7 +3,6 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  color: #282828
 }
 * {
   box-sizing: border-box;
@@ -163,7 +162,7 @@ select {
 }
 
 .openPoolsContainer {
-  background-color: #a4a4a4; 
+  background-color: #E6E6E6; 
   float: left;
   width: 100%;
   padding: 15px;
@@ -174,28 +173,71 @@ select {
 
 .usersPool {
   border: thin solid #7BB7C5;
-  padding: 10px; 
-  background-color: #7BB7C5; 
-  height: 200px;
+  padding: 10px;
+  background-color: #7BB7C5;
+  height: 290px;
   float: left;
   display: block;
-  margin-right: 2px; 
+  margin-right: 2px;
+  width: 300px;
+  height: fit-content;
+  label {
+    float: left;
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
 }
 
-.circleIcon {
-  color:#E46F63; 
+.circleIcon { 
+  background-color: #E46F63;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: white;
+  padding-top: 10px;
 }
 
 .poolCount {
   float: right; 
+  clear:both;
+  margin-top: 5px;
 }
 
-.addToCart {
-  background-color: white; 
-  color: #E46F63;
-  max-width: 120px;
-  font-family: 'Poiret One', cursive;
-  padding: 7px; 
+.poolBizName {
   text-align: center;
-  font-size: 1em; 
+  margin: 0 auto;
+  color: white;
+  border: thin solid white;
+  padding: 2%;
+  margin-bottom: 10px;
+  
+
+  
+}
+
+.poolEnds, .poolDiscount, .poolNextDiscount, .poolDeliveryTime, .poolPeopleNeeded {
+  float: right;
+  border-bottom: thin solid white;
+  color: white;
+  padding: 5px;
+  clear: right;
+  margin-top: 5px;
+}
+
+.loadingGif {
+  margin: 30px auto;
+  width: 100%;
+  text-align: center;
+  height: auto;
+  img {
+    width: 30%;
+    height: 30%;
+    margin: 0 auto;
+    margin-left: 80%;
+    text-align: center;
+    display: block;
+
+  }
 }

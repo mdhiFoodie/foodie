@@ -79,8 +79,143 @@ ul {
   color: #E46F63;
   background-color: white;
   margin-right: 4%;
+  position: absolute;
+  right: 100px;
 }
 
 .active {
   display: block;
+}
+
+.SubmitAddressButton {
+  background-color: white;
+  color: #E46F63;
+  max-width: 120px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  padding: 10px!important;
+  text-align: center;
+  font-size: 1em!important;
+  
+}
+.deliveryAddContainer {
+  height: 200px; 
+  width: 50%; 
+  input {
+    clear: both;
+    padding: 7px;
+    width: 600px;
+    margin-left: 30px;
+    margin-top: 10px;
+  }
+  input::-webkit-input-placeholder {
+    font-family: 'Poiret One', cursive;
+  }
+  h3 {
+    color: white;
+  }
+}
+
+.x {
+  float: left;
+  clear: both;
+  color: #E46F63;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  padding-top: 5px;
+  top: 0;
+}
+
+div.foodItem.active:first-child {
+  clear: left;
+  background-color: pink!important;
+}
+
+.menu > div > div > ul {
+  width: 93%;
+}
+
+.menu {
+  background-color: #E46F63;
+  float: left;
+  width: 100%;
+  height: 167px;
+  padding-bottom: 16px;
+}
+
+.menuCart {
+  margin: 0 25%;
+  float: left;
+  
+  display: block;
+  background-color: white;
+  border: thin solid #E46F63;
+  text-align: center;
+  padding: 30px;
+  margin-top: -21px;
+}
+
+// .addToCart {
+//   background-color: white; 
+//   color: #E46F63;
+//   max-width: 120px;
+//   font-family: 'Poiret One', cursive;
+//   padding: 7px; 
+//   text-align: center;
+//   font-size: 1em; 
+//   clear: left;
+//   margin: 0 auto;
+//   z-index: 10;
+//   margin-top: 10px;
+// }
+
+.sub {
+  margin-right: 5px;
+}
+
+.add {
+  margin-left: 5px;
+}
+
+.cartFoodItem {
+  margin-bottom: -10px;
+}
+
+.defaultCart {
+  width: 50%;
+  margin: 0 auto;
+  display: inline-block;
+  position: relative;
+  display: block;
+  background-color: white;
+  text-align: center;
+  button {
+    background-color: white;
+    padding: 5%;
+    margin-right: 5px;
+    font-family: 'Helvetica';
+    font-size: 1.15em;
+    font-weight: 100;
+    margin-top: 10px;
+  }
+}
+
+// .checkoutButton {
+//   margin-bottom: 20px;
+// }
+
+.closeCartButton {
+  margin-bottom: 30px;
+}
+
+.cardElement {
+  float: left;
+  width:100%;
+  text-align: left;
+  input {
+    border-bottom: thin solid black;
+    border-left: thin solid black;
+  }
+
 }

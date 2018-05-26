@@ -15,7 +15,7 @@ class Messages extends Component {
           return message
         })} */}
         {
-          this.props.singleMessage && this.props.singleMessage.length ? `${this.props.singleMessage[1]} : ${this.props.singleMessage[0]} ` 
+          this.props.singleMessage && this.props.singleMessage.length ? <div className='entireMessage'><div className='chatUser'>{this.props.singleMessage[1]}:</div> <div className='chatMessage'>{this.props.singleMessage[0]}</div></div> 
           : 
           null 
         }

@@ -51,6 +51,7 @@ class BusinessProfile extends Component {
     })
     console.log('this is the state: ', data)
     this.props.businessesData(data);
+    localStorage.setItem('businessname', data[0].businessname);
     // console.log('this.props.businessesData: ', this.props.businessesData)
 
   }
@@ -103,12 +104,12 @@ class BusinessProfile extends Component {
         <div className='menu'>
           <Menu history={this.props.history}/>
         </div>
-        <div className='profileHeader'>
+        {/* <div className='profileHeader'>
         <h1>open pools</h1>
-        </div>
-        <div className='openPools'>
+        </div> */}
+        {/* <div className='openPools'>
           These are the open pools.
-        </div>
+        </div> */}
         <div className='profileHeader'>
         <h1>reviews</h1>
         </div>

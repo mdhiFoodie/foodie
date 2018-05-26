@@ -9,10 +9,12 @@ import {
 const ordersSchema = new Schema({
   userId: Number,
   businessId: Number,
+  businessName: String, 
   createdAt: String,
   cart: String,
   total: Number, 
-  location: String
+  location: String, 
+  count: Number
 });
 
 const Orders = mongoose.model('Orders', ordersSchema); 
@@ -20,10 +22,12 @@ const Orders = mongoose.model('Orders', ordersSchema);
 const orderSample = new Orders({
   userId: 0,
   businessId: 0,
+  businessName: '', 
   createdAt: '',
   cart: '',
   total: 0, 
-  location: ''
+  location: '',
+  count: 0
 });
 
 orderSample.save() 
@@ -37,3 +41,4 @@ orderSample.save()
 
 
 module.exports = Orders;
+
