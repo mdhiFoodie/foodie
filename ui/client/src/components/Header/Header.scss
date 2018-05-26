@@ -25,6 +25,8 @@ nav {
   ul {
     margin-top: 9px;
     margin-bottom: 7px;
+    position: sticky;
+    z-index: 1;
   }
   li {
     display: inline-block;

@@ -22,9 +22,9 @@ class NearByRestaurants extends Component {
 
         return(
             <div className='NearByRestaurantsContainer'>
-                <div className ='heading'>
+                {/* <div className ='heading'>
                 <h2>nearby restaurants</h2>
-                </div>
+                </div> */}
                 
                 {this.props.loadingStatus.type === 'SEARCH_LOADING_FULFILLED' ? 
                 <div className='searchResultContainer'>
@@ -33,7 +33,7 @@ class NearByRestaurants extends Component {
                         <div className='restaurantsList'> <NearByRestaurantsEntries history={this.props.history} key={key} restaurant={restaurant}/> </div> 
                     ))
                     :
-                    <div> <img src='./loading.gif'/></div>
+                    <div className='loadingGif'> <img src='./loading.gif'/></div>
                     }
                 </div>
                 :

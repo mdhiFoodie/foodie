@@ -113,10 +113,12 @@ export const poolController = {
     if (closesAt.getHours() > 10) {
       closesAt.setDate(closesAt.getDate() + 1);
     }
+
     client.smembers('allPools' + closesAt.getDate().toString(), async (err, poolIds) => {
       if (err) {
         error('error grabbing poolIds')
       }
+
       const pools = [];
 
       for (let i = 0; i < poolIds.length; i++) {

@@ -22,6 +22,7 @@ io.on('connection', socket => {
   });
   socket.on('leave', (room) => {
     console.log('leaving room', room);
+    //socket.leave(room.poolid)
     socket.leave(room);
   });
   socket.on('sendChat', (data) => {

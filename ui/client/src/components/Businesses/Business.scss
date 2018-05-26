@@ -130,17 +130,13 @@ input {
   margin-top: 7px;
 }
 
-.menu {
-  background-color: #E46F63;
-  float: left;
-  width: 100%;
-  padding-bottom: 16px;
-}
+
 
 .openPools {
   height: 200px;
   width: 100%;
   background-color: #BA9BC9;
+  z-index: -1;
 
 }
 
@@ -251,27 +247,6 @@ input {
 
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-//PAYMENT 
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-.addressField {
-  margin: 50px;
-  padding: 50px;
-}
-
-.submitBtn button{
-  background-color: #E46F63;
-  color: white;
-  max-width: 100px;
-  border: none!important;
-  font-family: 'Poiret One', cursive!important;
-  text-align: center;
-  font-size: 1.25em!important;
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

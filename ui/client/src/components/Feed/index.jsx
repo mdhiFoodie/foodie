@@ -37,7 +37,7 @@ class Feed extends Component {
           <OpenPools />
         </div>
 
-        <Logout history={this.props.history}/>
+        {/* <Logout history={this.props.history}/> */}
       </div>
     )
   }

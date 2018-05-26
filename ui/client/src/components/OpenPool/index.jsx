@@ -21,7 +21,21 @@ class OpenPools extends Component {
 
   componentDidMount () {
     this.grabPools();
+    // this.intervalID = setInterval(
+    //   () => this.tick(),
+    //   1000
+    // ); 
   }
+
+  // componentDidMount() {
+  //   clearInterval(this.intervalID); 
+  // }
+
+  // tick() {
+  //   this.setState({
+      
+  //   })
+  // }
 
   calcDiscount(count) {
     if(count < 5) {
@@ -75,9 +89,12 @@ class OpenPools extends Component {
     }
   }
 
-  goToBusiness = async() => {
+  // goToBusiness = async() => {
+  //   const { history } = this.props; 
+  //   history.push(`{}`)
+  // }
 
-  }
+
 
   async grabPools () {
     const { data } = await axios.get(`http://localhost:3000/api/pool/grabAllPools`);
@@ -94,20 +111,19 @@ class OpenPools extends Component {
       {
         openPools && openPools.length ? openPools.map(pool => 
           <div className='usersPool' key={pool.bizName} >
-          <div>{`${pool.bizName}`}</div>
-          <label>pool closes at</label><br/>
-          <div>{`${moment(pool.eta).countdown().toString().split('and')[0]}`}</div>
-          <label>discount</label><br/>
-          <div>{`${this.calcDiscount(pool.count)}`}</div>
-          <label>food will be deliver at</label><br/>
-          <div>{`${moment(pool.timer).countdown().toString().split('and')[0]}`}</div>
-          <br/>
+          <div className='poolBizName'>{`${pool.bizName}`}</div>
+          <label>pool ends:</label>
+          <div className='poolEnds'>{`${moment(pool.eta).countdown().toString().split('and')[0]}`}</div>
+          <label>discount:</label><br/>
+          <div className='poolDiscount'>{`${this.calcDiscount(pool.count)}`}</div>
           <label>next discount</label><br/>
-          <div>{this.nextDiscount(pool.count)}</div>
-          <label>orders needed for next discount</label><br/>
-          <div>{this.peopleNeededForNextDiscount(pool.count)}</div>
+          <div className='poolNextDiscount'>{this.nextDiscount(pool.count)}</div>
+          <label>delivery time:</label><br/>
+          <div className='poolDeliveryTime'>{`${moment(pool.timer).countdown().toString().split('and')[0]}`}</div>
+          <label>next discount in:</label><br/>
+          <div className='poolPeopleNeeded'>{this.peopleNeededForNextDiscount(pool.count)} users</div>
           <div className='poolCount'>
-            <i className="fas fa-circle fa-2x circleIcon"></i>
+            <div className="circleIcon">{pool.count}</div>
           </div>
           </div>
         )

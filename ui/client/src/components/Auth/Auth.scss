@@ -1,46 +1,37 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One'); 
-
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
-
 * {
   box-sizing: border-box;
 }
-
 #root, .app {
   height: 100%;
 }
-
 body {
   background-color: white;
   font-family: 'Poiret One', cursive; 
 }
-
 input {
   clear: both;
 }
-
 .loginContainer {
   max-width: 900px;
   min-width: 350px;
   margin: 0 auto;
 }
-
 .logo {
   height: 282px;
   width: 282px;
   margin: 60px auto;
   margin-bottom: 40px;
   }
-
 .formContainer {
   width: 350px;
   margin: 0 auto;
 }
-
 .formStyle input {
   width: 80%;
   margin: 0 10%;
@@ -55,7 +46,6 @@ input {
   font-size: 1em;
   float: right;
 }
-
 .signupLink {
   float: right;
   clear: both;
@@ -63,12 +53,10 @@ input {
   display: block;
   text-decoration: underline;
 }
-
 .signupLink:hover {
   color: #E46F63;
   cursor: pointer;
 }
-
 .loginFooter {
   float: left;
   clear: both;
@@ -85,14 +73,12 @@ input {
     cursor: pointer;
   }
 }
-
 .loginText {
   margin-left: 30px;
   margin-bottom: 10px;
   text-align: center;
   font-size: 1.25em;
 }
-
 .loginButton {
   background-color: #E46F63;
   color: white;
@@ -103,7 +89,63 @@ input {
   text-align: center;
   font-size: 1.25em!important;
 }
-
+.my-form {
+  padding-top: 40px;
+}
+.my-form input {
+  border: none;
+  border-bottom: thin solid black;
+  border-left: thin solid black;
+  display: block;
+  margin: 5px auto;
+  padding: 10px 16px;
+  font-family: 'Helvetica';
+  width: 80%;
+}
+.addressField {
+}
+.submitBtn button{
+  background-color: #E46F63;
+  color: white;
+  max-width: 100px;
+  border: none!important;
+  font-family: 'Poiret One', cursive!important;
+  text-align: center;
+  font-size: 1.15em!important;
+  padding: 10px 20px;
+  float: left;
+  clear: both;
+}
+.submitBtn {
+  margin: 0 auto;
+  text-align: center;
+  width: fit-content;
+}
+.paymentContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  text-align: center;
+  clear: both;
+  margin-top: 20px;
+}
+.firstAndLastName, .addressField {
+  margin: 0 16%;
+  text-align: center;
+  width: 84%;
+  max-width: 800px;
+}
+.terms {
+  float: left;
+  clear: both;
+  text-align: center;
+  width: -webkit-fill-available;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
+}
 // .tileText {
 //   position: relative;
 //   margin-top: 86%;
@@ -119,7 +161,6 @@ input {
 //   // width: 350px; 
 //   // margin: 0 auto; 
 // }
-
 .formStyle input{
   width: 80%;
   margin: 0 10%;
@@ -135,7 +176,6 @@ input {
   font-size: 1em;
   
 }
-
 .signupLink {
   clear: both;
   float: right;
@@ -143,12 +183,10 @@ input {
   display: block; 
   text-decoration: underline; 
 }
-
 .signupLink:hover {
   color: #e46f63;
   cursor: pointer; 
 }
-
 .loginFooter { 
   clear: both;
   float: left;
@@ -165,7 +203,6 @@ input {
     cursor: pointer; 
   }
 }
-
 .loginButton {
   background-color: #e46f63;
   color: white; 
@@ -176,6 +213,15 @@ input {
   text-align: center;
   font-size: 1.25em!important; 
   float: right;
+  
 }
 
-
+.logoutBtn {
+  padding: 14px;
+  background-color: white;
+  font-family: "Poiret One", cursive !important;
+  font-size: 1.25em !important;
+  float: right;
+  margin-right: 25px;
+  margin-top: 20px;
+}

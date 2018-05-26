@@ -6,7 +6,8 @@ import { success } from '../../lib/log';
 
 import {
   chargeUser, 
-  userOrderHistory
+  userOrderHistory,
+  seedRedis
 } from '../cron/cronController.js'; 
 
 const app = App.express; 
@@ -25,6 +26,8 @@ server.listen(PORT, (err) => {
 //CRON JOBS
 // chargeUser.start(); 
 // userOrderHistory.start(); 
+
+// seedRedis.start();  
 
 server.on('error', () => {
   server.close(

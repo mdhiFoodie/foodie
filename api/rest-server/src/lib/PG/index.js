@@ -482,7 +482,7 @@ export const dummyData = async () => {
       VALUES ('test user', 'https://source.unsplash.com/225x225/?test', 'test@test.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '2102102102');
       VALUES ('Michael', '', 'michael@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', 'cus_4x9tlO3czkPwWt');
       INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
-      VALUES ('Jacob', '', 'jacob@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
+      VALUES ('Patrick', '', 'patrick@gmail.com', '$2b$10$3niVF5WXrwckMA6RpmhkSO9VK5HPfZFfaEanTrSd2XoelZlek/6hm', '0', '3157599526', '');
       INSERT INTO users (name, profilePicture, email, password, type, phone, stripeaccount)
       VALUES ('Isabella', '', 'isa@gmail.com', '$2b$10$KTJwIL0UKf.3SGMxY4fiLe5NLARfRfiqQX0aLyOllKV4U5P6rYsJ6', '0', '3157599526', '');
 
