@@ -2,8 +2,7 @@
 
 #Get Started
 
-#Setup environment 
-cd ui 
+#Setup environment (must be in ui directory)
 yarn
 yarn buildEnv 
 yarn setup:server

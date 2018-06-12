@@ -4,6 +4,7 @@
 #Get Started: 
 
 #Setup environment (must be in api directory)
+
 yarn 
 yarn buildEnv 
 yarn setup:rest-server
@@ -27,17 +28,14 @@ yarn db:setup:rest-server
 
 # Setup Mongo
 
-1. mongod
-2. mongo
-3. yarn db:setup:mongodb
-4. yarn db:seed:mongodb
+mongod
+mongo
+yarn db:setup:mongodb
+yarn db:seed:mongodb
 
 # Redis
 
 brew install redis
-
 redis-server
-
 node rest-server/redis/index.js
-
 redis-cli
