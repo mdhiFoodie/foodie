@@ -1,5 +1,7 @@
 # foodie
 
+foodie is an application that allows users to group their food delivery into bigger orders enabling them to receive greater discounts as the geolocation based 'bulk' order grows
+
 ## dependencies
 
 * `brew install postgresql`
