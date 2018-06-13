@@ -1,64 +1,53 @@
 # foodie
 
-# Get rid of Bundle 
+## API SETUP
 
-git rm -r --cached . 
-git rm -r YOUR_FILE_NAME -f 
+## Setup environment (must be in api directory)
 
+* yarn
+* yarn buildEnv
+* yarn setup:rest-server
+* yarn setup:socket-server
 
-# API SETUP 
+### Start the api servers
 
+* yarn start:rest-server
+* yarn start:socket-server
 
-#Get Started: 
+### Install & Setup postgresql
 
-#Setup environment (must be in api directory)
+* brew install postgresql
+* brew services start postgresql
+* createuser root
 
-yarn 
-yarn buildEnv 
-yarn setup:rest-server
-yarn setup:socket-server
+* createdb foodie
+* psql foodie
+* yarn db:setup:rest-server
 
+### Setup Mongo
 
-#Start the Servers
+* mongod
+* mongo
+* yarn db:setup:mongodb
+* yarn db:seed:mongodb
 
-yarn start:rest-server 
-yarn start:socket-server
+### Redis
 
-# Install && Setup postgresql
+* brew install redis
+* redis-server
+* node rest-server/redis/index.js
+* redis-cli
 
-brew install postgresql
-brew services start postgresql
-createuser root
+## UI SETUP
 
-createdb foodie
-psql foodie
-yarn db:setup:rest-server
+### Setup environment (must be in ui directory)
 
-# Setup Mongo
+* yarn
+* yarn buildEnv
+* yarn setup:server
+* yarn setup:client
 
-mongod
-mongo
-yarn db:setup:mongodb
-yarn db:seed:mongodb
+### Start the ui servers
 
-# Redis
-
-brew install redis
-redis-server
-node rest-server/redis/index.js
-redis-cli
-
-# UI SETUP
-
-#Get Started
-
-#Setup environment (must be in ui directory)
-yarn
-yarn buildEnv 
-yarn setup:server
-yarn setup:client
-
-#Start the Servers
-
-yarn build
-yarn start:server
+* yarn build
+* yarn start:server

@@ -1,41 +1,39 @@
-# foodie api 
+# foodie
 
+## API SETUP
 
-#Get Started: 
+## Setup environment (must be in api directory)
 
-#Setup environment (must be in api directory)
+* yarn
+* yarn buildEnv
+* yarn setup:rest-server
+* yarn setup:socket-server
 
-yarn 
-yarn buildEnv 
-yarn setup:rest-server
-yarn setup:socket-server
+### Start the api servers
 
+* yarn start:rest-server
+* yarn start:socket-server
 
-#Start the Servers
+### Install & Setup postgresql
 
-yarn start:rest-server 
-yarn start:socket-server
+* brew install postgresql
+* brew services start postgresql
+* createuser root
 
-# Install && Setup postgresql
+* createdb foodie
+* psql foodie
+* yarn db:setup:rest-server
 
-brew install postgresql
-brew services start postgresql
-createuser root
+### Setup Mongo
 
-createdb foodie
-psql foodie
-yarn db:setup:rest-server
+* mongod
+* mongo
+* yarn db:setup:mongodb
+* yarn db:seed:mongodb
 
-# Setup Mongo
+### Redis
 
-mongod
-mongo
-yarn db:setup:mongodb
-yarn db:seed:mongodb
-
-# Redis
-
-brew install redis
-redis-server
-node rest-server/redis/index.js
-redis-cli
+* brew install redis
+* redis-server
+* node rest-server/redis/index.js
+* redis-cli

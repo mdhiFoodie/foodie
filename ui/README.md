@@ -1,14 +1,13 @@
-# foodie ui
+# UI SETUP
 
-#Get Started
+## Setup environment (must be in ui directory)
 
-#Setup environment (must be in ui directory)
-yarn
-yarn buildEnv 
-yarn setup:server
-yarn setup:client
+* yarn
+* yarn buildEnv
+* yarn setup:server
+* yarn setup:client
 
-#Start the Servers
+## Start the ui servers
 
-yarn build
-yarn start:server
+* yarn build
+* yarn start:server
