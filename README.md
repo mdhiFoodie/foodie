@@ -19,7 +19,7 @@
 * `yarn start:rest-server`
 * `yarn start:socket-server`
 
-### Install & Setup postgresql
+### Setup postgresql
 
 * `brew services start postgresql`
 * `createuser root`
