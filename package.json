@@ -3,28 +3,24 @@
   "version": "1.0.0",
   "description": "bulk lunch delivery at a discount",
   "main": "index.js",
-	"url": "git+https://github.com/hunterMorgenstern/foodie.git",
+  "url": "git+https://github.com/hunterMorgenstern/foodie.git",
   "license": "MIT",
-  "directories": {
-    "test": "tests"
-  },
   "dependencies": {
-		"@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/react-fontawesome": "0.0.20",
-		"axios": "^0.18.0",
-		"babel-cli": "^6.26.0",
-		"babel-loader": "^7.1.2",
-		"babel-polyfill": "^6.26.0",
-		"babel-register": "^6.26.0",
-		"chalk": "^2.4.1",
-		"cron": "^1.3.0",
-		"env": "^0.0.2",
-		"i": "^0.3.6",
-		"pg": "^7.4.3",
-		"redis": "^2.8.0",
+    "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "chalk": "^2.4.1",
+    "cron": "^1.3.0",
+    "env": "^0.0.2",
+    "i": "^0.3.6",
+    "pg": "^7.4.3",
+    "redis": "^2.8.0",
     "autoprefixer": "^7.2.4",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -99,13 +95,12 @@
     "eslint-plugin-react": "^7.7.0",
     "jest": "^22.0.6"
   },
-	"scripts": {
-		"start:rest-server": "cd rest-server && yarn start",
-	  "build": "cd client && yarn build",
-	  "buildEnv": "node bin/buildEnv.js",
-	  "setup:client": "cd client && yarn",
-	  "setup:server": "cd server && yarn",
-	  "start:server": "cd server && yarn start",
+  "scripts": {
+    "start:rest-server": "cd rest-server && yarn start",
+    "build": "cd client && yarn build",
+    "setup:client": "cd client && yarn",
+    "setup:server": "cd server && yarn",
+    "start:server": "cd server && yarn start",
     "buildEnv": "node bin/buildEnv.js",
     "db:seed:mongodb": "node rest-server/src/config/databases/mongo/menuModel.js",
     "db:setup:mongodb": "node rest-server/src/config/databases/mongo/index.js",
@@ -117,9 +112,9 @@
     "start-rest-server": "nodemon rest-server/bin/entry.js",
     "start-socket-server": "nodemon socket-server/bin/entry.js",
     "start:socket-server": "cd socket-server && yarn start"
-	},
-	"bin": {
+  },
+  "bin": {
     "rest-server": "entry.js",
-	  "server": "buildEnv.js"
-	}
+    "server": "buildEnv.js"
+  }
 }
