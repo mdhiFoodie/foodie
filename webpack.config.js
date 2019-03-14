@@ -5,13 +5,13 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
 var extractPlugin = new ExtractTextPlugin({
-  filename: './public/bundle.css'
+  filename: './client/public/bundle.css',
 });
 
 const options = {
   devTool: 'source-map',
-  uglify: {}
-}
+  uglify: {},
+};
 
 // if (process.env.NODE_ENV === 'production') {
 //   options.devTool = '';
@@ -20,11 +20,10 @@ const options = {
 //   }))
 // }
 
-
 module.exports = {
-  entry: ['babel-polyfill', './src/index.jsx'],
+  entry: ['babel-polyfill', './client/src/index.jsx'],
   output: {
-    filename: './public/bundle.js'
+    filename: './client/public/bundle.js',
   },
   watch: true,
   devtool: options.devTool,
@@ -36,18 +35,24 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-0'],
-        }
+        },
       },
-      
-      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-        
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
-      
+
       {
-        test: /\.scss$/,                    // made scss
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+      },
+
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+      },
+
+      {
+        test: /\.scss$/, // made scss
         use: extractPlugin.extract({
-            use: ['css-loader', 'sass-loader']
-        })
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -58,7 +63,7 @@ module.exports = {
             options: {
               mozjpeg: {
                 progressive: true,
-                quality: 65
+                quality: 65,
               },
               optipng: {
                 optimizationLevel: 7,
@@ -68,17 +73,15 @@ module.exports = {
               },
               svggo: {},
               webp: {
-                quality: 65
-              }
-            }
+                quality: 65,
+              },
+            },
           },
         ],
-      }
-    ]
+      },
+    ],
   },
-  plugins: [
-    extractPlugin
-  ],
+  plugins: [extractPlugin],
   // plugins: [
   //   new ExtractTextPlugin('./client/styles/main.css', {
   //     allChunks: true
@@ -90,4 +93,4 @@ module.exports = {
   //     canPrint: true
   //   }),
   // ]
-}
+};
