@@ -96,22 +96,17 @@
     "jest": "^22.0.6"
   },
   "scripts": {
-    "start:rest-server": "cd rest-server && yarn start",
-    "build": "cd client && yarn build",
-    "setup:client": "cd client && yarn",
-    "setup:server": "cd server && yarn",
-    "start:server": "cd server && yarn start",
-    "buildEnv": "node bin/buildEnv.js",
-    "db:seed:mongodb": "node rest-server/src/config/databases/mongo/menuModel.js",
-    "db:setup:mongodb": "node rest-server/src/config/databases/mongo/index.js",
-    "db:setup:rest-server": "cd rest-server && babel-node src/config/databases/pg/setup.js",
+    "build": "webpack client",
+    "buildEnv": "node client/bin/buildEnv.js",
+    "start:server": "nodemon client/server/bin/entry.js",
+    "start:rest-server": "nodemon server/rest-server/bin/entry.js",
+    "start:socket-server": "nodemon server/socket-server/bin/entry.js",
+    "db:seed:mongodb": "node server/rest-server/src/config/databases/mongo/menuModel.js",
+    "db:setup:redis": "node server/rest-server/redis/index.js",
+    "db:setup:mongodb": "node server/rest-server/src/config/databases/mongo/index.js",
+    "db:setup:rest-server": "babel-node server/rest-server/src/config/databases/pg/setup.js",
     "runsql": "node db/sql/index.js",
-    "setup:rest-server": "cd rest-server && yarn",
-    "setup:socket-server": "cd socket-server && yarn",
-    "sql": "mysql -u root -p < db/sql/db.sql",
-    "start-rest-server": "nodemon rest-server/bin/entry.js",
-    "start-socket-server": "nodemon socket-server/bin/entry.js",
-    "start:socket-server": "cd socket-server && yarn start"
+    "sql": "mysql -u root -p < db/sql/db.sql"
   },
   "bin": {
     "rest-server": "entry.js",

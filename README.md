@@ -4,54 +4,44 @@ foodie is an application that allows users to group their food delivery into big
 
 ## dependencies
 
-* `brew install postgresql`
-* `brew install redis`
+- `brew install postgresql`
+- `brew install redis`
 
-## API SETUP
+## Setup environment
 
-## Setup environment (must be in api directory)
-
-* `yarn`
-* `yarn buildEnv`
-* `yarn setup:rest-server`
-* `yarn setup:socket-server`
+- `yarn`
+- `yarn buildEnv`
 
 ### Start the api servers
 
-* `yarn start:rest-server`
-* `yarn start:socket-server`
+- `yarn start:rest-server`
+- `yarn start:socket-server`
 
 ### Setup postgresql
 
-* `brew services start postgresql`
-* `createuser root`
-* `createdb foodie`
-* `psql foodie`
-* `yarn db:setup:rest-server`
+- `brew services start postgresql`
+- `createuser root`
+- `createdb foodie`
+- `yarn db:setup:rest-server`
+- `psql foodie`
 
 ### Setup Mongo
 
-* `mongod`
-* `mongo`
-* `yarn db:setup:mongodb`
-* `yarn db:seed:mongodb`
+- `mongod`
+- `yarn db:setup:mongodb`
+- `yarn db:seed:mongodb`
+- `mongo`
 
 ### Redis
 
-* `redis-server`
-* `node rest-server/redis/index.js`
-* `redis-cli`
-
-## UI SETUP
-
-### Setup environment (must be in ui directory)
-
-* `yarn`
-* `yarn buildEnv`
-* `yarn setup:server`
-* `yarn setup:client`
+- `redis-server`
+- `yarn db:setup:redis`
+- `redis-cli`
 
 ### Start the ui servers
 
-* `yarn build`
-* `yarn start:server`
+- `yarn start:server`
+
+### webpack bundle
+
+- `yarn build`
