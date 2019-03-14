@@ -7,3 +7,4 @@ bundle.css.map
 .DS_Store
 npm-debug.log
 dump.rdb
+yarn-error.log

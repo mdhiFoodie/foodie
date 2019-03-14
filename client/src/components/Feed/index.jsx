@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import SearchFilter from './SearchFilter.jsx';
 import NearByRestaurants from './NearByRestaurants.jsx';
 import Logout from '../Auth/Logout.jsx';
@@ -14,38 +14,39 @@ class Feed extends Component {
   }
 
   render() {
-    return(
-      <div className='FeedContainer'>
-      
+    return (
+      <div className="FeedContainer">
         <div>
-          <SearchFilter/>
+          <SearchFilter />
         </div>
 
-        <div className='profileHeader'>
-            <h1>nearby restaurants</h1>
+        <div className="profileHeader">
+          <h1>nearby restaurants</h1>
         </div>
 
         <div>
-          <NearByRestaurants history={this.props.history} />
+          <NearByRestaurants
+            key={this.props.history}
+            history={this.props.history}
+          />
         </div>
 
-        <div className='profileHeader'>
-            <h1>open pools</h1>
+        <div className="profileHeader">
+          <h1>open pools</h1>
         </div>
-        
-        <div className='openPoolsContainer'>
+
+        <div className="openPoolsContainer">
           <OpenPools />
         </div>
 
         {/* <Logout history={this.props.history}/> */}
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  //User information name, email, id, phone etc when they login or signup 
+  //User information name, email, id, phone etc when they login or signup
   getUsersInformation: state.getUsersInformation,
-
-})
+});
 export default connect(mapStateToProps)(Feed);

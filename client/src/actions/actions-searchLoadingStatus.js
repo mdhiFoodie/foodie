@@ -1,19 +1,10 @@
-// export const searchBusinessesInFeed = (businesses) => {
-//   console.log('this is my searchbusinessesaction', businesses)
-//   return {
-//       type: 'SEARCH_BUSINESSES',
-//       payload: businesses
-//   };
-// };
-
-export const loadingStatus = (loading) => {
-  console.log('this is my search loading', loading)
+export const loadingStatus = loading => {
   return {
     type: 'SEARCH_LOADING',
     payload: new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(loading)
+        resolve(loading);
       }, 2000);
-    })
-  }
-}
+    }),
+  };
+};

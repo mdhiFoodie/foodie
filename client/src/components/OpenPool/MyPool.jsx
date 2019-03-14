@@ -6,32 +6,38 @@ class MyPool extends Component {
   constructor() {
     super();
     this.state = {
-      poolIdOfUser: null
-    }
+      poolIdOfUser: null,
+    };
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     try {
-      const response = await axios.get(`http://localhost:3000/api/pool/grabUsersPool/${JSON.parse(localStorage.storage).id}`)
+      const response = await axios.get(
+        `http://localhost:3000/api/pool/grabUsersPool/${
+          JSON.parse(localStorage.storage).id
+        }`
+      );
       this.setState({
-        poolIdOfUser: response.data
+        poolIdOfUser: response.data,
       });
-      console.log('this is the state poool id of user', this.state.poolIdOfUser)
     } catch (error) {
       console.error(error);
     }
   }
-  
+
   render() {
-    console.log('this is in the component did mount', this.state);
     return (
-      <div>{this.state.poolIdOfUser !== null ?
-        <div>
-          <Chat poolId={this.state.poolIdOfUser}/>
-        </div>
-        :
-        <div> Hey you should join a pool cause youre not in one right now...</div>
-      }
+      <div>
+        {this.state.poolIdOfUser !== null ? (
+          <div>
+            <Chat poolId={this.state.poolIdOfUser} />
+          </div>
+        ) : (
+          <div>
+            {' '}
+            Hey you should join a pool cause youre not in one right now...
+          </div>
+        )}
       </div>
     );
   }
