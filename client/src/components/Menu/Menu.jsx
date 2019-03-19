@@ -15,6 +15,7 @@ fontawesome.library.add(faAngleDoubleLeft);
 import './Menu.scss';
 
 const GOOGLE = process.env.GOOGLE;
+// const PORT = process.env.PORT; needs to be 3000 is currently 1337
 
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css
 //biz ids cannot be formatted similarly to user ids or they will overwrite each other in redis
@@ -81,6 +82,7 @@ class Menu extends Component {
     //biz id should be attached to image on sql query for restaurants
     try {
       const response = await axios.get(
+        // `http://localhost:${PORT}/api/menu/menuGet/${bizId}`
         `http://localhost:3000/api/menu/menuGet/${bizId}`
       );
       this.setState({
@@ -94,10 +96,11 @@ class Menu extends Component {
 
   renderFoodTypes() {
     const foodType = [];
-    for (var key in this.state.currentMenu) {
+    const { currentMenu, classIsActive } = this.state;
+    for (var key in currentMenu) {
       foodType.push(
         <div
-          className={this.state.classIsActive ? 'active foodType' : 'foodType'}
+          className={classIsActive ? 'active foodType' : 'foodType'}
           key={key}
         >
           <div
@@ -116,15 +119,16 @@ class Menu extends Component {
 
   renderFoodItems(foodThing) {
     const foodItems = [];
-    let aFG = this.state.currentMenu[foodThing];
+    const { currentMenu, classIsActive } = this.state;
+    let aFG = currentMenu[foodThing];
     if (aFG === undefined) {
       aFG = [];
     } else {
       foodItems.push(
         <div
-          className={!this.state.classIsActive ? 'x' : 'x active'}
+          className={classIsActive ? 'x active' : 'x'}
+          key={aFG}
           onClick={() => {
-            console.log('fuckkkkk');
             this.renderFoodItems();
             this.renderFoodTypes();
           }}
@@ -136,7 +140,7 @@ class Menu extends Component {
     for (var i = 0; i < aFG.length; i++) {
       foodItems.push(
         <div
-          className={!this.state.classIsActive ? 'foodItem' : 'foodItem active'}
+          className={classIsActive ? 'foodItem active' : 'foodItem'}
           key={aFG[i].name}
         >
           <div className={aFG[i].name} onClick={this.itemClick}>
@@ -153,7 +157,7 @@ class Menu extends Component {
     this.setState(
       {
         foods: foodItems,
-        classIsActive: !this.state.classIsActive,
+        classIsActive: !classIsActive,
       },
       () => this.renderFoodTypes()
     );
@@ -168,20 +172,27 @@ class Menu extends Component {
   }
 
   adjustQuantity(amount) {
-    if (this.state.currentItemQuantity === 0 && amount === -1) {
+    const { currentItemQuantity } = this.state;
+    if (currentItemQuantity === 0 && amount === -1) {
       return;
     }
     this.setState({
-      currentItemQuantity: this.state.currentItemQuantity + amount,
+      currentItemQuantity: currentItemQuantity + amount,
     });
   }
 
   async addToCart() {
-    const thing = [this.state.currentItemPrice, this.state.currentItemQuantity];
+    const {
+      currentItemPrice,
+      currentItemQuantity,
+      userId,
+      currentItem,
+    } = this.state;
+    const thing = [currentItemPrice, currentItemQuantity];
     try {
       const item = await axios.post(`http://localhost:3000/api/cart/addItem`, {
-        userId: this.state.userId,
-        item: this.state.currentItem,
+        userId: userId,
+        item: currentItem,
         quantity: JSON.stringify(thing),
       });
       await this.viewCart();
@@ -196,12 +207,13 @@ class Menu extends Component {
   }
 
   async deleteItem(food) {
+    const { userId } = this.state;
     try {
       const item = await axios.delete(
         `http://localhost:3000/api/cart/deleteItem`,
         {
           data: {
-            userId: this.state.userId,
+            userId: userId,
             item: food,
           },
         }
@@ -215,9 +227,11 @@ class Menu extends Component {
 
   async viewCart() {
     // switch to mouseover event after changing to stylized css div
+
     try {
+      const { userId } = this.state;
       const response = await axios.get(
-        `http://localhost:3000/api/cart/getCart/${this.state.userId}`
+        `http://localhost:3000/api/cart/getCart/${userId}`
       );
       const cart = [];
       let subtotal = 0;
@@ -262,8 +276,9 @@ class Menu extends Component {
 
   async checkout() {
     //I need to send the cart also on the transactions components when they successfully create an account
+    const { checkedOut } = this.state;
     this.setState({
-      checkedOut: !this.state.checkedOut,
+      checkedOut: !checkedOut,
     });
   }
 
@@ -275,12 +290,19 @@ class Menu extends Component {
   submitDeliveryAddress = async e => {
     e.preventDefault();
     try {
-      const locations = this.state.address;
+      const {
+        address,
+        currentBizId,
+        currentBizName,
+        longitude,
+        latitude,
+        userId,
+      } = this.state;
       const geoCode = await axios.get(
         'https://maps.googleapis.com/maps/api/geocode/json',
         {
           params: {
-            address: locations,
+            address: address,
             key: GOOGLE,
           },
         }
@@ -292,12 +314,12 @@ class Menu extends Component {
       const createPool = await axios.post(
         `http://localhost:3000/api/pool/checkForExistingPoolThenAddUser`,
         {
-          bizId: this.state.currentBizId,
-          bizName: this.state.currentBizName,
-          longitude: this.state.longitude,
-          latitude: this.state.latitude,
-          userId: this.state.userId,
-          poolId: this.state.currentBizId + this.state.userId,
+          bizId: currentBizId,
+          bizName: currentBizName,
+          longitude: longitude,
+          latitude: latitude,
+          userId: userId,
+          poolId: currentBizId + userId,
         }
       );
 
@@ -316,12 +338,13 @@ class Menu extends Component {
       );
 
       if (data === 'CreateAccount') {
+        const { currentBizId, checkoutCartData } = this.state;
         try {
           const item = await axios.post(
             `http://localhost:3000/api/cart/sendOrder`,
             {
-              bizId: this.state.currentBizId,
-              order: JSON.stringify(this.state.checkoutCartData),
+              bizId: currentBizId,
+              order: JSON.stringify(checkoutCartData),
               userId: JSON.parse(localStorage.storage).id,
               poolId: createPool.data.poolId,
             }
@@ -338,8 +361,8 @@ class Menu extends Component {
           const item = await axios.post(
             `http://localhost:3000/api/cart/sendOrder`,
             {
-              bizId: this.state.currentBizId,
-              order: JSON.stringify(this.state.checkoutCartData),
+              bizId: currentBizId,
+              order: JSON.stringify(checkoutCartData),
               userId: JSON.parse(localStorage.storage).id,
               poolId: createPool.data.poolId,
             }
@@ -359,16 +382,25 @@ class Menu extends Component {
   };
 
   render() {
+    const {
+      checkedOut,
+      food,
+      foods,
+      usersCart,
+      currentItem,
+      currentItemQuantity,
+    } = this.state;
+
     return (
       <div>
-        {!this.state.checkedOut ? (
+        {!checkedOut ? (
           <div>
             <ul>
-              {this.state.food}
-              {this.state.foods}
+              {food}
+              {foods}
               <div className="defaultCart">
-                {this.state.usersCart}
-                {this.state.usersCart !== null ? (
+                {usersCart}
+                {usersCart !== null ? (
                   <button
                     className="closeCartButton"
                     onClick={() => this.setState({ usersCart: null })}
@@ -380,16 +412,16 @@ class Menu extends Component {
                 )}
               </div>
             </ul>
-            {this.state.currentItem === null ? (
+            {currentItem === null ? (
               <div />
             ) : (
               <div className="menuCart">
-                <div className="cartFoodItem">{this.state.currentItem}</div>
+                <div className="cartFoodItem">{currentItem}</div>
                 <br />
                 <button className="sub" onClick={() => this.adjustQuantity(-1)}>
                   -
                 </button>
-                <span>quantity: {this.state.currentItemQuantity}</span>
+                <span>quantity: {currentItemQuantity}</span>
                 <button className="add" onClick={() => this.adjustQuantity(1)}>
                   +
                 </button>
@@ -428,47 +460,5 @@ class Menu extends Component {
     );
   }
 }
-
-//   render() {
-//     return (
-//       <div>
-//         {!this.state.checkedOut ?
-//         <div>
-//           <ul>
-//             {this.state.food}
-//             {this.state.foods}
-//             {this.state.usersCart}
-//             {this.state.usersCart !== null ?
-//               <button onClick={() => this.setState({
-//                 usersCart: null
-//               })}>Close Cart</button>
-//               :
-//               <div></div>
-//             }
-//           </ul>
-//         {this.state.currentItem === null ?
-//           <div></div>
-//         :
-//           <div>
-//             <button className='addToCart' onClick={this.addToCart}>Add To Cart</button>
-//               {this.state.currentItem}
-//             <button onClick={() => this.adjustQuantity(-1)}>-</button>
-//             <span>Quantity: {this.state.currentItemQuantity}</span>
-//             <button onClick={() => this.adjustQuantity(1)}>+</button>
-//           </div>}
-//           <div className='cartButton'>
-//             <button onClick={this.viewCart}><i className="fas fa-shopping-cart icon"></i></button>
-//           </div>
-//       </div>
-//           :
-//           <div>
-//           <input name='address' placeholder='address' onChange={this.handleForm}/>
-//           <button onClick={this.submitDeliveryAddress}>Submit Delivery Address</button>
-//           </div>
-//         }
-//       </div>
-//     );
-//   }
-// }
 
 export default Menu;

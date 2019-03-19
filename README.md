@@ -45,3 +45,5 @@ foodie is an application that allows users to group their food delivery into big
 ### webpack bundle
 
 - `yarn build`
+
+### localhost:1337
