@@ -72,7 +72,6 @@ class BusinessProfile extends Component {
             {Array(Math.ceil(this.state.rating) || 1)
               .fill(1)
               .map((dollar, i) => {
-                console.log(dollar);
                 return (
                   <div key={`${i} star`}>
                     <i className="fas fa-star starIcon" />
@@ -147,7 +146,7 @@ const matchDispatchToProps = dispatch => {
     dispatch
   );
 };
-// export default connect(mapStateToProps, matchDispatchToProps)(Login);
+
 export default connect(
   mapStateToProps,
   matchDispatchToProps
