@@ -47,3 +47,8 @@ foodie is an application that allows users to group their food delivery into big
 - `yarn build`
 
 ### localhost:1337
+
+### links
+
+- `you will need a google api key https://developers.google.com/maps/documentation/geocoding/get-api-key`
+- `and can user sample data for the stripe process https://stripe.com/docs/testing#cards`
