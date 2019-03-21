@@ -40,14 +40,6 @@ class Menu extends Component {
       stripeAccount: false,
       classIsActive: true,
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.addToCart = this.addToCart.bind(this);
-    this.itemClick = this.itemClick.bind(this);
-    this.viewCart = this.viewCart.bind(this);
-    this.checkout = this.checkout.bind(this);
-    this.handleForm = this.handleForm.bind(this);
-    this.submitDeliveryAddress = this.submitDeliveryAddress.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +70,7 @@ class Menu extends Component {
     );
   }
 
-  async handleClick(bizId) {
+  handleClick = async bizId => {
     //biz id should be attached to image on sql query for restaurants
     try {
       const response = await axios.get(
@@ -92,9 +84,9 @@ class Menu extends Component {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  renderFoodTypes() {
+  renderFoodTypes = () => {
     const foodType = [];
     const { currentMenu, classIsActive } = this.state;
     for (var key in currentMenu) {
@@ -115,9 +107,9 @@ class Menu extends Component {
     this.setState({
       food: foodType,
     });
-  }
+  };
 
-  renderFoodItems(foodThing) {
+  renderFoodItems = foodThing => {
     const foodItems = [];
     const { currentMenu, classIsActive } = this.state;
     let aFG = currentMenu[foodThing];
@@ -161,17 +153,17 @@ class Menu extends Component {
       },
       () => this.renderFoodTypes()
     );
-  }
+  };
 
-  itemClick(e) {
+  itemClick = e => {
     this.setState({
       currentItem: e.target.className /*the item clicked,*/,
       currentItemQuantity: 1 /*quantity incremented*/,
       currentItemPrice: e.target.id,
     });
-  }
+  };
 
-  adjustQuantity(amount) {
+  adjustQuantity = amount => {
     const { currentItemQuantity } = this.state;
     if (currentItemQuantity === 0 && amount === -1) {
       return;
@@ -179,9 +171,9 @@ class Menu extends Component {
     this.setState({
       currentItemQuantity: currentItemQuantity + amount,
     });
-  }
+  };
 
-  async addToCart() {
+  addToCart = async () => {
     const {
       currentItemPrice,
       currentItemQuantity,
@@ -204,9 +196,9 @@ class Menu extends Component {
       currentItem: null,
       currentItemQuantity: null,
     });
-  }
+  };
 
-  async deleteItem(food) {
+  deleteItem = async food => {
     const { userId } = this.state;
     try {
       const item = await axios.delete(
@@ -223,9 +215,9 @@ class Menu extends Component {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  async viewCart() {
+  viewCart = async () => {
     // switch to mouseover event after changing to stylized css div
 
     try {
@@ -272,20 +264,20 @@ class Menu extends Component {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  async checkout() {
+  checkout = async () => {
     //I need to send the cart also on the transactions components when they successfully create an account
     const { checkedOut } = this.state;
     this.setState({
       checkedOut: !checkedOut,
     });
-  }
+  };
 
-  handleForm(e) {
+  handleForm = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-  }
+  };
 
   submitDeliveryAddress = async e => {
     e.preventDefault();

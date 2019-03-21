@@ -1,22 +1,17 @@
 import express from 'express';
 
-import {
-  poolController
-} from './poolControllers';
+import { poolController } from './poolControllers';
 
 const router = express.Router();
 
-router.route('/checkForExistingPoolThenAddUser')
+router
+  .route('/checkForExistingPoolThenAddUser')
   .post(poolController.checkForExistingPoolThenAddUser);
 
-router.route('/grabAllPools')
-  .get(poolController.grabAllPools);
+router.route('/grabAllPools').get(poolController.grabAllPools);
 
-router.route('/grabUsersPool/:userId')
-  .get(poolController.grabUsersPool);
+router.route('/grabUsersPool/:userId').get(poolController.grabUsersPool);
 
-// router.route('/addUserToPool')
-//   .post(poolController.addUserToPool);
-
+router.route('/addUserToPool').post(poolController.addUserToPool);
 
 export default router;
