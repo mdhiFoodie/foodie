@@ -46,9 +46,6 @@ class Menu extends Component {
     socket.on('connection', () => {
       console.log('connected to server');
     });
-    // socket.on('messages', (data) => {
-    //   console.log('this is the messages', data)
-    // })
     this.setState({
       currentBizId: location.pathname
         .split('/businessProfile/')
@@ -295,7 +292,7 @@ class Menu extends Component {
         {
           params: {
             address: address,
-            key: GOOGLE,
+            key: '',
           },
         }
       );
@@ -318,7 +315,6 @@ class Menu extends Component {
       createPool.data.addedPool === true
         ? alert('You joined an existing pool')
         : alert('You just created a pool');
-      console.log(createPool.data.poolId);
       const { history } = this.props;
       const { email } = this.state;
       const body = {

@@ -20,25 +20,17 @@ class Header extends Component {
       : 'loggedout';
     return (
       <div>
-        {/* <button onClick={()=> (console.log('this is the prop', this.props.getUsersInformation, ' this is type ', type))}>CLICK</button> */}
         {this.props.getUsersInformation.usersInfo.type === '0' ||
         type === '0' ? (
-          (console.log(
-            'we are users mothas',
-            localStorage.storage
-              ? JSON.parse(localStorage.storage).type
-              : 'pent'
-          ),
-          <UserHeader />)
+          <UserHeader />
         ) : this.props.getUsersInformation.usersInfo.type === '1' ||
           type === '1' ? (
-          (console.log('we are business mothas', type),
-          <BusinessHeader history={this.props.history} />)
+          <BusinessHeader history={this.props.history} />
         ) : this.props.getUsersInformation.usersInfo.type === '2' ||
           type === '2' ? (
-          (console.log('we are deilvery mothas', type), <DeliveryHeader />)
+          <DeliveryHeader />
         ) : type === 'loggedout' ? (
-          (console.log('we are logged out mothas', type), <LoggedOutHeader />)
+          <LoggedOutHeader />
         ) : (
           <div />
         )}

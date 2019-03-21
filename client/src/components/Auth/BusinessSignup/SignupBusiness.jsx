@@ -123,10 +123,7 @@ class SignupBusiness extends Component {
         agree: !this.state.agree,
       },
       () => {
-        console.log(
-          'I agree with the terms and conditions: ',
-          this.state.agree
-        );
+        alert('I agree with the terms and conditions: ', this.state.agree);
       }
     );
   }
