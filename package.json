@@ -98,7 +98,7 @@
     "buildEnv": "node client/bin/buildEnv.js",
     "start:server": "nodemon client/server/bin/entry.js",
     "start:rest-server": "nodemon server/rest-server/bin/entry.js",
-    "start:socket-server": "nodemon server/socket-server/bin/entry.js",
+    "start:socket-server": "nodemon server/socket-server/src/index.js",
     "db:seed:mongodb": "node server/rest-server/src/config/databases/mongo/menuModel.js",
     "db:setup:redis": "node server/rest-server/redis/index.js",
     "db:setup:mongodb": "node server/rest-server/src/config/databases/mongo/index.js",
