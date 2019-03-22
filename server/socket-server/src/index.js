@@ -2,11 +2,7 @@ const http = require('http');
 const SocketIo = require('socket.io');
 
 const server = http.createServer();
-export const io = SocketIo(server);
-
-const rooms = [];
-const usernames = {};
-let counter = 1;
+const io = SocketIo(server);
 
 io.on('connection', socket => {
   console.log(`Connected ${socket.id}`);
@@ -21,8 +17,8 @@ io.on('connection', socket => {
   });
 });
 
-const PORT = process.env.PORT;
-
-server.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+server.listen('4000', () => {
+  console.log(`Listening on port 4000`);
 });
+
+module.exports = io;

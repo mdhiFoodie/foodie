@@ -2,7 +2,7 @@ const chalk = require('chalk');
 
 /**
  * Simple logging functions
- * 
+ *
  * Used purely for development
  * In production, set environment variable DEBUG to FALSE
  */

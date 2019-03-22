@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 
 const server = express();
-const PORT = process.env.PORT;
 
 server.use(express.static(path.join(__dirname, '../public')));
 
@@ -10,4 +9,6 @@ server.get('*', (req, res) =>
   res.sendFile(path.resolve(__dirname, '../public/index.html'))
 );
 
-server.listen(PORT, () => console.log('serving static files on port ', PORT));
+server.listen('1337', () =>
+  console.log('serving static files on port ', '1337')
+);

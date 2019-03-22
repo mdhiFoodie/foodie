@@ -1,35 +1,30 @@
 const envBuild = {
   'server/rest-server': [
+    //configs server logs foodie/server/lib/log/index.js
     'DEBUG=TRUE',
-    'NODE_ENV=test',
-    'PORT=3000',
+    // bcrypt salt
     'SALT_ROUNDS=10',
+    // jwt token secret
     'TOKEN_SECRET=foodiepop',
+    //postgresdb info
     'LOCAL_USER=root',
     'LOCAL_HOST=localhost',
     'LOCAL_DATABASE=foodie',
     'LOCAL_PASSWORD=',
     'LOCAL_PORT=5432',
+    // stripe api keys
     'PUBLISHABLE_KEY=pk_test_z4MoEuHo0RIJC8oV0K6xhsO1',
     'SECRET_KEY=sk_test_kdtaI00u2u9E7TmyGpdUv7HK',
+    // if NODE_ENV === 'production' will switch to these for postgresdb
     'AWS_USER=',
     'AWS_HOST=',
     'AWS_DATABASE=',
     'AWS_PASSWORD=',
     'AWS_PORT=',
   ],
-  'server/socket-server': ['PORT=4000'],
-  'client/server': ['PORT=1337'],
   client: [
     'NODE_ENV=DEVELOPMENT',
     'GOOGLE=AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY',
-    'PUBLISHABLE_KEY=pk_test_z4MoEuHo0RIJC8oV0K6xhsO1',
-    'SECRET_KEY=sk_test_kdtaI00u2u9E7TmyGpdUv7HK',
-    'ENVPREFIX=REACT_APP_',
-    'REST_SERVER_URL=http://localhost:3000',
-    'SOCKET_SERVER_URL=http://localhost:4000',
-    'REACT_APP_SOCKET_SERVER_URL=http://localhost:4000',
-    'REACT_APP_REST_SERVER_URL=http://localhost:3000',
   ],
 };
 

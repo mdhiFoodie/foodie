@@ -14,9 +14,6 @@ fontawesome.library.add(faAngleDoubleLeft);
 
 import './Menu.scss';
 
-const GOOGLE = process.env.GOOGLE;
-// const PORT = process.env.PORT; needs to be 3000 is currently 1337
-
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css
 //biz ids cannot be formatted similarly to user ids or they will overwrite each other in redis
 class Menu extends Component {
@@ -71,7 +68,6 @@ class Menu extends Component {
     //biz id should be attached to image on sql query for restaurants
     try {
       const response = await axios.get(
-        // `http://localhost:${PORT}/api/menu/menuGet/${bizId}`
         `http://localhost:3000/api/menu/menuGet/${bizId}`
       );
       this.setState({
@@ -292,7 +288,7 @@ class Menu extends Component {
         {
           params: {
             address: address,
-            key: '',
+            key: 'google',
           },
         }
       );
@@ -321,7 +317,7 @@ class Menu extends Component {
         email,
       };
       const { data } = await axios.post(
-        'http://localhost:3000/api/stripe/verifyStripeToken',
+        `http://localhost:3000/api/stripe/verifyStripeToken`,
         body
       );
 

@@ -6,9 +6,6 @@ import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
 import './BusinessSignup.scss';
 
-const GOOGLE = process.env.GOOGLE;
-const PORT = process.env.PORT;
-
 class SignupBusiness extends Component {
   constructor() {
     super();
@@ -41,7 +38,7 @@ class SignupBusiness extends Component {
       {
         params: {
           address: locations,
-          key: GOOGLE,
+          key: 'google',
         },
       }
     );
@@ -76,7 +73,6 @@ class SignupBusiness extends Component {
     };
     try {
       const { data } = await axios.post(
-        // `http://localhost:${PORT}/api/auth/signup`,
         `http://localhost:3000/api/auth/signup`,
         body
       );
