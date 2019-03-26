@@ -16,4 +16,4 @@ env.config({
   path: path.resolve(__dirname, '../.env'),
 });
 
-require('../src');
+require('../client/server');

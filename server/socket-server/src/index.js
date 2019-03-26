@@ -1,7 +1,7 @@
-const http = require('http');
-const SocketIo = require('socket.io');
+import { createServer } from 'http';
+import SocketIo from 'socket.io';
 
-const server = http.createServer();
+const server = createServer();
 const io = SocketIo(server);
 
 io.on('connection', socket => {
@@ -21,4 +21,4 @@ server.listen('4000', () => {
   console.log(`Listening on port 4000`);
 });
 
-module.exports = io;
+export default io;
