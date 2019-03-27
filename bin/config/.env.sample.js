@@ -1,5 +1,5 @@
 const envBuild = {
-  'server/rest-server': [
+  '.': [
     //configs server logs foodie/server/lib/log/index.js
     'DEBUG=TRUE',
     // bcrypt salt
@@ -21,8 +21,7 @@ const envBuild = {
     'AWS_DATABASE=',
     'AWS_PASSWORD=',
     'AWS_PORT=',
-  ],
-  client: [
+    // or PRODUCTION for webpack change
     'NODE_ENV=DEVELOPMENT',
     'GOOGLE=AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY',
   ],

@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import router from '../../routes/index';
 
 const middleWare = [
-  helmet(),  
+  helmet(),
   parser.json(),
   parser.urlencoded({ extended: true }),
   cors({
@@ -32,4 +32,3 @@ class App {
 }
 
 export default new App();
-
