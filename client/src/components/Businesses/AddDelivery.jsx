@@ -3,6 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { usersInformation } from '../../actions/type';
 
+const API_SERVER = process.env.API_SERVER;
+
 class AddDelivery extends Component {
   constructor() {
     super();
@@ -37,7 +39,7 @@ class AddDelivery extends Component {
     };
     try {
       const { data } = await axios.post(
-        'http://localhost:3000/api/business/saveDeliveryUser',
+        `http://localhost:${API_SERVER}/api/business/saveDeliveryUser`,
         body
       );
       data

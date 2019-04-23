@@ -1,5 +1,3 @@
-// require('dotenv').config();
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
@@ -82,15 +80,4 @@ module.exports = {
     ],
   },
   plugins: [extractPlugin],
-  // plugins: [
-  //   new ExtractTextPlugin('./client/styles/main.css', {
-  //     allChunks: true
-  //   }),
-  //   new OptimizeCssAssetsPlugin({
-  //     assetNameRegExp: /\.optimize\.css$/g,
-  //     cssProcessor: require('cssnano'),
-  //     cssProcessorOptions: { discardComments: { removeAll: true } },
-  //     canPrint: true
-  //   }),
-  // ]
 };

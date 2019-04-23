@@ -46,5 +46,3 @@ db.on('error', err => {
 db.connect();
 
 export default db;
-
-// export default dbConnection;

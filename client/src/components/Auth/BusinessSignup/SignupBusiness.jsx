@@ -6,6 +6,8 @@ import { userSignup } from '../../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../../actions/usersInformationAction.js';
 import './BusinessSignup.scss';
 
+const API_SERVER = process.env.API_SERVER;
+
 class SignupBusiness extends Component {
   constructor() {
     super();
@@ -73,7 +75,7 @@ class SignupBusiness extends Component {
     };
     try {
       const { data } = await axios.post(
-        `http://localhost:3000/api/auth/signup`,
+        `http://localhost:${API_SERVER}/api/auth/signup`,
         body
       );
 

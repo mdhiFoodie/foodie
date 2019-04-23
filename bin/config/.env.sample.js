@@ -23,7 +23,11 @@ const envBuild = {
     'AWS_PORT=',
     // or PRODUCTION for webpack change
     'NODE_ENV=DEVELOPMENT',
-    'GOOGLE=AIzaSyDb8SbO5ODjgXx6YSNjwMeL7pCTAStfahY',
+    'GOOGLE=',
+    // ports
+    'STATIC_SERVER=1337',
+    'API_SERVER=3000',
+    'SOCKET_SERVER=4000',
   ],
 };
 
