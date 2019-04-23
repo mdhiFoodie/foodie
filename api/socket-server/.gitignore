@@ -1,7 +1,0 @@
-node_modules/
-bundle.js
-bundle.js.map
-.env
-.DS_Store
-.env.sample.js
-
