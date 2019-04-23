@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { userSignup } from '../../actions/signupUsersActions.js';
 import { getUserInfo } from '../../actions/usersInformationAction.js';
 
+const API_SERVER = process.env.API_SERVER; 
+
 class SignupUser extends Component {
   constructor() {
     super();
@@ -36,7 +38,7 @@ class SignupUser extends Component {
 
     try {
       const { data } = await axios.post(
-        'http://localhost:3000/api/auth/signup',
+        `http://localhost:${API_SERVER}/api/auth/signup`,
         body
       );
       localStorage.setItem(

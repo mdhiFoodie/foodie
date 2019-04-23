@@ -14,6 +14,7 @@ fontawesome.library.add(faAngleDoubleLeft);
 
 import './Menu.scss';
 
+const GOOGLE = process.env.GOOGLE;
 //click events that grab values using classname will likely have to be switched to firstchild.innerHTML to not conflict with css
 //biz ids cannot be formatted similarly to user ids or they will overwrite each other in redis
 class Menu extends Component {
@@ -288,7 +289,7 @@ class Menu extends Component {
         {
           params: {
             address: address,
-            key: 'google',
+            key: GOOGLE,
           },
         }
       );
