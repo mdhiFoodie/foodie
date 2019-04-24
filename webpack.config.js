@@ -1,6 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 var extractPlugin = new ExtractTextPlugin({
   filename: './client/public/bundle.css',
@@ -79,5 +80,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [extractPlugin],
+  plugins: [extractPlugin, new Dotenv()],
 };
