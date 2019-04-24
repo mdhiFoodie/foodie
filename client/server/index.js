@@ -1,8 +1,6 @@
 import express from 'express';
 import { join, resolve } from 'path';
 
-require('dotenv').config();
-
 const STATIC_SERVER = process.env.STATIC_SERVER;
 
 const server = express();

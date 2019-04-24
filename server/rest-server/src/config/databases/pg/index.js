@@ -1,8 +1,4 @@
-require('dotenv').config(); // for testing
-
 import { Pool } from 'pg';
-import Promise from 'bluebird';
-
 import { success, error } from '../../../../../lib/log';
 
 const config = {
