@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
 import { success, error } from '../../../../../lib/log';
+require('dotenv').config();
 
 const config = {
   user:

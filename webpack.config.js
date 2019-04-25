@@ -20,7 +20,7 @@ const options = {
 // }
 
 module.exports = {
-  entry: ['babel-polyfill', './client/src/index.jsx'],
+  entry: ['./client/src/index.jsx'],
   output: {
     filename: './client/public/bundle.js',
   },
